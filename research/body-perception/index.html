@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Agent Mind 终身知识教育：身体感知第一单元的递归展开版。由身体状态、信号处理、主观体验，到解释、验证与行动。">
+<title>身体感知 01｜从身体信号到自我认识 — Agent Mind</title>
+<link rel="stylesheet" href="../../assets/site.css">
+<style>
+:root{--bp-blue:#2267ad;--bp-deep:#101e30;--bp-muted:#5f7288}
+body{background:#f5f7f9}
+.bp-shell{max-width:1180px;margin:auto;padding:36px 24px 110px;display:grid;grid-template-columns:232px minmax(0,1fr);gap:35px}
+.bp-side{position:sticky;top:92px;align-self:start;max-height:calc(100vh - 112px);overflow:auto;border:1px solid #dfe7ee;background:white;border-radius:16px;padding:18px}
+.bp-side h2{margin:0 0 14px;font-size:13px;letter-spacing:.06em;color:#4c6079}
+.bp-side a{display:block;padding:8px 10px;margin:2px 0;border-radius:8px;font-size:13px;color:#506077}
+.bp-side a:hover{background:#edf4fb;color:#164b7a}
+.bp-main{min-width:0}.bp-hero{background:linear-gradient(135deg,#101f36,#1b4469);color:#fff;border-radius:20px;padding:42px 44px;margin-bottom:24px}
+.bp-hero .eyebrow{color:#9ad5f0}.bp-hero h1{font-size:clamp(32px,4vw,51px);line-height:1.15;letter-spacing:-.045em;margin:18px 0 18px}.bp-hero p{color:#d4e2f1;max-width:720px;font-size:17px;line-height:1.85}
+.bp-tags{display:flex;gap:9px;flex-wrap:wrap;margin-top:22px}.bp-tags span{font-size:11px;padding:6px 10px;background:#ffffff18;border:1px solid #ffffff35;border-radius:30px;color:#eaf4ff}
+.bp-panel{background:#fff;border:1px solid #dce5ee;border-radius:18px;padding:32px 36px;margin:20px 0;box-shadow:0 10px 40px #1c3d5b09}
+.bp-panel h2{font-size:26px;line-height:1.3;margin:0 0 14px;letter-spacing:-.025em}
+.bp-panel h3{font-size:19px;margin:25px 0 8px;line-height:1.4}.bp-panel p{line-height:1.95;margin:12px 0;color:#384b5c;font-size:15px}
+.bp-eyebrow{font-size:11px;font-weight:800;letter-spacing:.13em;color:#1c6eaa;margin-bottom:12px;text-transform:uppercase}
+.bp-lead{font-size:17px!important;color:#253e54!important}
+.bp-sequence{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin:22px 0}
+.bp-sequence div{border:1px solid #cad9e6;border-radius:10px;background:#f0f6fb;padding:12px 8px;text-align:center;font-size:12px;font-weight:700;color:#244e70}
+.bp-sequence span{display:block;font-size:10px;color:#647a8b;margin-top:4px;font-weight:400}
+.bp-columns{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0}
+.bp-note{background:#f2f7fb;border:1px solid #d4e5f1;border-radius:12px;padding:17px 19px}
+.bp-note.warm{background:#fff8ec;border-color:#f5dfbf}
+.bp-note.good{background:#f1f8f4;border-color:#d0e8d8}
+.bp-note b{display:block;font-size:14px;color:#243d50}.bp-note p{font-size:13px;margin:8px 0 0}
+.bp-quote{margin:17px 0;border-left:4px solid #2a82bd;background:#f3f8fd;border-radius:0 10px 10px 0;padding:16px 20px;font-size:17px;font-weight:700;color:#193d5b;line-height:1.75}
+.bp-simple-table{width:100%;border-collapse:collapse;font-size:13px;line-height:1.7;margin:20px 0}
+.bp-simple-table th,.bp-simple-table td{padding:12px 14px;border-bottom:1px solid #e3eaf1;text-align:left;vertical-align:top}
+.bp-simple-table th{background:#eff5f9;color:#37556d}.bp-simple-table td:first-child{font-weight:700;white-space:nowrap;color:#274d68}
+.bp-lesson{border:1px solid #e3eaf1;border-radius:13px;padding:16px 19px;margin:14px 0}
+.bp-lesson h4{margin:0 0 5px;font-size:16px}.bp-lesson p{margin:4px 0;font-size:14px}
+.bp-lesson small{color:#6b7e8e}.bp-lesson .bp-why{color:#0c6a8c;font-size:12px;margin-top:8px}
+.bp-branch{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin:17px 0}
+.bp-branch span{padding:9px 12px;border:1px solid #d4e3ed;background:#f6f9fc;border-radius:8px;font-size:13px;font-weight:700}
+.bp-branch i{font-style:normal;color:#6d91a9}
+.bp-expand{background:#fbfdff;border:1px solid #dbe6f0;border-radius:11px;margin:13px 0}
+.bp-expand summary{padding:13px 16px;cursor:pointer;color:#175b87;font-size:14px;font-weight:750}
+.bp-expand[open] summary{border-bottom:1px solid #dfe8f1}
+.bp-expand>div{padding:4px 18px 14px}.bp-expand p,.bp-expand li{font-size:14px;line-height:1.9}
+.bp-grid4{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:16px}
+.bp-grid4>div{background:#f8fafc;border:1px solid #e0e8f0;border-radius:11px;padding:17px}
+.bp-grid4 h3{margin:0 0 7px;font-size:16px}.bp-grid4 p{margin:0;font-size:13px}
+.bp-check{background:#111f33;color:#f0f6fc;border-radius:13px;padding:22px 24px;margin-top:20px}
+.bp-check b{font-size:17px}.bp-check p{color:#dae5f0;font-size:14px;margin:10px 0}.bp-check details{background:#253a54;border-radius:8px;padding:11px 15px;margin-top:10px}.bp-check summary{cursor:pointer;font-weight:700;font-size:13px}.bp-check details p{margin-bottom:0}
+.bp-sources{font-size:13px;line-height:1.85}.bp-sources li{margin-bottom:10px;overflow-wrap:anywhere}.bp-sources a{color:#135d91;text-decoration:underline}
+.bp-step{display:flex;gap:14px;margin:16px 0}.bp-step em{display:grid;place-items:center;flex:none;width:31px;height:31px;border-radius:100%;background:#d8eaf7;color:#14597d;font-style:normal;font-weight:800;font-size:12px}.bp-step div{padding-top:2px}.bp-step b{font-size:15px}.bp-step p{margin:5px 0!important;font-size:14px}
+.bp-foot{font-size:12px;color:#6a7888;line-height:1.8;margin:30px 0}
+.bp-roadmap{font-size:13px;color:#536477;background:#e9eff4;border-radius:10px;padding:14px 17px}
+@media(max-width:950px){.bp-shell{grid-template-columns:1fr;gap:10px}.bp-side{position:static;max-height:none;display:flex;flex-wrap:wrap;gap:5px;padding:12px}.bp-side h2{width:100%;margin-bottom:4px}.bp-side a{padding:7px 8px}.bp-panel{padding:26px 25px}}
+@media(max-width:610px){.bp-shell{padding:16px 12px 60px}.bp-hero{padding:28px 22px}.bp-panel{padding:23px 19px}.bp-columns,.bp-grid4{grid-template-columns:1fr}.bp-sequence{grid-template-columns:1fr 1fr}.bp-simple-table{display:block;overflow-x:auto;white-space:normal}.bp-simple-table td:first-child{white-space:normal}}
+@media print{.topbar,.bp-side,.bp-tags{display:none!important}.bp-shell{display:block;padding:0;max-width:none}.bp-panel,.bp-hero{break-inside:avoid;box-shadow:none}.bp-expand>div{display:block!important}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../index.html"><span class="brand-mark">A</span><span>AGENT MIND · HUMAN LEARNING</span></a>
+  <nav><a href="../../index.html">研究首页</a><a href="../../research-topics.html">研究地图</a><a class="active" href="./">身体感知 01</a></nav>
+</header>
+<div class="bp-shell">
+<aside class="bp-side" aria-label="单元导航"><h2>单元目录 · 从浅到深</h2>
+<a href="#guide">学习规则</a><a href="#case">01 从一个经历开始</a><a href="#levels">02 五层概念</a><a href="#channels">03 感知通道</a><a href="#process">04 信号如何处理</a><a href="#interpret">05 解释为何会偏差</a><a href="#accuracy">06 敏感与准确</a><a href="#pain">07 疼痛的反例</a><a href="#action">08 从感受走向行动</a><a href="#lifespan">09 贯穿一生</a><a href="#audit">展开审查与检测</a><a href="#sources">研究来源</a>
+</aside>
+<main class="bp-main">
+<section class="bp-hero">
+  <div class="eyebrow">终身知识体系 · 身体感知 · 单元 01 / 09</div>
+  <h1>从身体信号，到认识自己。</h1>
+  <p>我们不急着记术语。先把一件容易混淆的事讲清楚：身体实际发生了什么、神经系统处理了什么、你感觉到了什么、你认为它意味着什么，并不等于同一件事。</p>
+  <div class="bp-tags"><span>零前置知识</span><span>基于案例层层展开</span><span>难点可继续点击展开</span><span>附理解检查与研究边界</span></div>
+</section>
+
+<section class="bp-panel" id="guide">
+<div class="bp-eyebrow">LEARNING METHOD · 怎样决定是否继续展开</div>
+<h2>不是越详细越好，而是不能留下关键理解断点。</h2>
+<p class="bp-lead">对每一个概念都问三件事：你能否用自己的话解释？能否区分相近概念？能否把它应用到一个新案例？</p>
+<div class="bp-columns">
+  <div class="bp-note good"><b>可以停止展开</b><p>概念已用熟悉经验解释清楚；前提已经建立；换一个例子仍能判断；没有明显的误解风险。</p></div>
+  <div class="bp-note warm"><b>必须继续展开</b><p>突然引入陌生术语；跳过了因果步骤；同一现象对应不同解释；或者一句话容易使人得出错误的普遍结论。</p></div>
+</div>
+<p>因此，每个知识点以<strong>生活现象 → 必要概念 → 机制与反例 → 自检</strong>为顺序。只有遇到真正的理解障碍，才打开下一层；“深入”不等于无限追究细节。</p>
+<div class="bp-roadmap">本单元属于整个九单元系列的第一单元。神经元编码、脑区定位、发育实验和训练有效性的技术细节，将进入后续单元；但本单元理解必需的前提，不会以“以后再讲”为由跳过。</div>
+</section>
+
+<section class="bp-panel" id="case">
+<div class="bp-eyebrow">01 · THE ANCHOR CASE</div>
+<h2>先从心跳加快这件普通的小事开始。</h2>
+<p>假设你上楼以后心脏跳得很快。你可能没有注意到；也可能明显感觉胸口跳动；也可能认为自己紧张了。为什么同一个身体事件，会出现如此不同的结果？</p>
+<div class="bp-branch"><span>心率改变</span><i>≠</i><span>感觉到心跳</span><i>≠</i><span>认定自己紧张</span></div>
+<p><strong>心率改变</strong>属于身体状态；<strong>感觉到心跳</strong>属于身体体验；<strong>“我很紧张”</strong>则是对身体体验和情境作出的解释。后一种解释可能是对的，也可能忽略了上楼运动的原因。</p>
+<details class="bp-expand"><summary>继续展开：如果两个人心率完全一样，感受就一定一样吗？</summary><div><p>不一定。注意力、个体差异、其他身体感觉以及环境都会影响主观报告。同样，报告“心跳快”也不能直接推出测量上的心率数值。要区分<strong>客观指标、主观体验、对原因的判断</strong>。</p><p>“感受不一样”不代表有人假装；“解释可能有误”也不否定其真实感受。</p></div></details>
+<div class="bp-quote">本单元最重要的一句话：体验可以是真实的，但对体验原因的解释仍然可能错误。</div>
+</section>
+
+<section class="bp-panel" id="levels">
+<div class="bp-eyebrow">02 · FIVE NECESSARY LEVELS</div>
+<h2>身体感知不是一个动作，而是若干不同层面的过程。</h2>
+<p>这里先建立一张学习用的概念地图。它不是要求大脑严格按照下图顺序处理，而是帮助我们不要混淆不同层面的事实。</p>
+<div class="bp-sequence">
+<div>身体状态<span>发生了什么</span></div>
+<div>信号处理<span>神经系统如何处理</span></div>
+<div>主观体验<span>感觉到了什么</span></div>
+<div>解释评估<span>认为它意味着什么</span></div>
+<div>行动反馈<span>做什么、结果如何</span></div>
+</div>
+<table class="bp-simple-table">
+<thead><tr><th>层面</th><th>仍以心跳为例</th><th>不能据此直接推出</th></tr></thead>
+<tbody>
+<tr><td>身体状态</td><td>心脏收缩频率发生变化，可借助仪器测量。</td><td>本人一定意识到了变化。</td></tr>
+<tr><td>神经处理</td><td>心血管相关信号被神经系统感知并参与调节。</td><td>每一次处理都成为有意识的心跳感。</td></tr>
+<tr><td>主观体验</td><td>我觉得胸口跳得明显。</td><td>自己的心率数值一定判断准确。</td></tr>
+<tr><td>解释评估</td><td>“我可能是紧张了。”</td><td>这就是变化发生的唯一原因。</td></tr>
+<tr><td>行动反馈</td><td>休息、观察变化，必要时寻求医疗帮助。</td><td>每个身体信号都该采用同一种行动。</td></tr>
+</tbody>
+</table>
+<h3>为什么要多加“神经处理”这一层？</h3>
+<p>如果只讲“身体状态 → 感觉”，很容易误以为身体发生的变化都会被我们察觉。事实上，神经系统可以利用身体信息进行自动调节，而不需要产生清晰的主观体验。</p>
+<details class="bp-expand"><summary>继续展开：什么是“神经系统处理了，但我没感觉到”？</summary><div><p>例如，血压变化会触发压力感受器相关的反射调节，帮助调节心率和血管活动。你通常不会逐项意识到这一过程。这里的“没有感觉到”，是指没有形成可报告的、清晰的主观体验，不是说身体没有被监测。</p><p>反过来，有意识地注意心跳，也不意味着可以准确知道血压数值。检测、调节、主观感知，是不同问题。</p></div></details>
+</section>
+
+<section class="bp-panel" id="channels">
+<div class="bp-eyebrow">03 · TYPES OF BODILY INFORMATION</div>
+<h2>身体到底通过哪些渠道被认识？</h2>
+<p>把所有东西统称“第六感”会妨碍理解。我们先用四个常用类别，把它们放到生活经验中。</p>
+<div class="bp-grid4">
+<div><h3>外感受 · Exteroception</h3><p>主要处理外部刺激：看到自己的手、听见脚步、感觉皮肤受到接触。它帮助认识环境，也能帮助认识自身。</p></div>
+<div><h3>本体感觉 · Proprioception</h3><p>提供身体部位的位置、运动与受力相关信息。闭眼抬手仍知道手臂大致在哪，就是典型例子。</p></div>
+<div><h3>前庭感觉 · Vestibular sensation</h3><p>内耳前庭系统提供头部运动、方向与重力相关信息，参与姿势和平衡；这并不意味着平衡只靠前庭系统。</p></div>
+<div><h3>内感受 · Interoception</h3><p>涉及身体内部状态的检测、整合、解释和调节；饥饿、口渴、呼吸和心血管相关信号是常见研究对象。</p></div>
+</div>
+<div class="bp-note"><b>必要的边界</b><p>分类并非四个密封盒。比如保持平衡通常要整合视觉、本体感觉和前庭信息；内感受的严格定义与边界在学界也并不完全一致。当前先掌握“信息主要与什么有关”，不必把类别理解为绝对分离的器官清单。</p></div>
+<details class="bp-expand"><summary>继续展开：闭眼为什么还能知道手在哪里？</summary><div><p>肌肉、肌腱和关节等处的感觉信息，与中枢运动信号一起帮助估计肢体位置和动作。闭眼移除了视觉输入，却没有移除这些信息。这不是“靠记忆猜测”能够完整解释的现象。</p><p>这节先解释功能；肌梭、腱器官和运动控制机制将在第三单元细讲。</p></div></details>
+</section>
+
+<section class="bp-panel" id="process">
+<div class="bp-eyebrow">04 · FROM PHYSICAL CHANGE TO INFORMATION</div>
+<h2>身体信号不是自己跑进意识的：中间发生了什么？</h2>
+<p>这里最容易出现一个跳跃：把“身体发生变化”直接说成“大脑知道了变化”。实际至少要理解三个环节。</p>
+<div class="bp-step"><em>1</em><div><b>检测：感受器对特定变化作出反应。</b><p>例如，某些感受器对牵拉、压力、温度或化学变化敏感。它们不是小型“思想器官”，而是把物理化学变化转换为可被生物系统传递的信号。</p></div></div>
+<div class="bp-step"><em>2</em><div><b>传递与整合：多处信息在神经系统中被处理。</b><p>信号可能经由外周神经、脊髓和脑干等通路参与处理，并与其他信息相互作用。不同感知系统的具体通路并不相同。</p></div></div>
+<div class="bp-step"><em>3</em><div><b>结果分流：自动调节、运动控制与意识体验可能不同。</b><p>一个信号可以影响身体调节，但不形成明确意识；有些信号则可能被注意到，并与记忆、语言和情境结合。</p></div></div>
+<details class="bp-expand"><summary>继续展开：神经信号是不是把完整“感觉”原封不动送到大脑？</summary><div><p>不是。感受器对刺激的某些属性进行转换和编码，神经系统进一步加工。我们体验到的“口渴”或“疼痛”不是一条神经携带的现成中文字条。感觉与体验涉及多个层面的处理。把神经活动说成一条“带标签的数据线”，只能是有限的比喻。</p></div></details>
+<div class="bp-quote">“没有意识到身体变化”，不代表身体没有变化；“感觉很强烈”，也不等于已经知道了变化的全部原因。</div>
+</section>
+
+<section class="bp-panel" id="interpret">
+<div class="bp-eyebrow">05 · INTERPRETATION IS AN INFERENCE</div>
+<h2>为什么感受到心跳，仍然不能直接知道自己在紧张？</h2>
+<p>因为<strong>感受描述</strong>与<strong>原因解释</strong>是两种不同的判断。</p>
+<table class="bp-simple-table">
+<thead><tr><th>你可以较直接报告</th><th>你还需要判断</th></tr></thead>
+<tbody><tr><td>“我感觉心跳很明显。”</td><td>是运动、咖啡因、紧张、疾病，还是多个因素共同作用？</td></tr>
+<tr><td>“我有点头晕。”</td><td>是否与姿势改变、睡眠、药物或其他原因有关？</td></tr>
+<tr><td>“我感到疲倦。”</td><td>是睡眠不足、持续负荷，还是另有原因？</td></tr></tbody>
+</table>
+<p>这种区分与一般认识论很相似：<strong>观察到一个现象，不等于直接观察到了它的原因。</strong>大脑会结合过去经验、情境、注意和预期，对身体信息作出解释。</p>
+<details class="bp-expand"><summary>继续展开：所谓“预测加工”，是不是说一切感觉都是想象出来的？</summary><div><p>不是。预测加工是一组有影响力的理论框架，强调大脑利用既有模型与传入信息相互校正。它不是“身体输入不重要”的证明，更不能得出“你感觉不舒服一定是自己想出来的”。</p><p>我们当前只需要理解：感知并非简单复制刺激；既有预期可能影响体验。至于不同理论怎样建模，以及具体神经机制如何验证，应留到后续单元深入。</p></div></details>
+</section>
+
+<section class="bp-panel" id="accuracy">
+<div class="bp-eyebrow">06 · ACCURACY IS NOT INTENSITY</div>
+<h2>身体感觉越强、越经常注意身体，就一定越准确吗？</h2>
+<p><strong>不一定。</strong>“我经常注意心跳”“我觉得自己很会察觉心跳”“我在实验任务中准确判断了心跳”是不同的测量对象。</p>
+<div class="bp-columns">
+<div class="bp-lesson"><h4>注意 / 显著性</h4><p>身体信号是否容易进入注意、是否很突出。它不自动证明判断正确。</p><div class="bp-why">误解风险：把“注意得多”误当作“辨别得准”。</div></div>
+<div class="bp-lesson"><h4>主观自评</h4><p>个体相信自己对身体的感觉有多敏锐。自信程度不等于客观表现。</p><div class="bp-why">误解风险：把问卷分数当成统一的感觉能力。</div></div>
+<div class="bp-lesson"><h4>任务准确性</h4><p>在明确任务和测量条件下，报告是否与客观指标一致。</p><div class="bp-why">误解风险：把一项心跳任务推广到所有内感受能力。</div></div>
+<div class="bp-lesson"><h4>元认知校准</h4><p>对自己“判断得准不准”的信心，是否与实际表现相符。</p><div class="bp-why">误解风险：把感觉的确定感当作真正的确定性。</div></div>
+</div>
+<p>经典研究将内感受准确性、自评敏感性与元认知意识加以区分，但后续研究也指出术语和测量仍有争议。因此这张表是学习用的区分，不是一套普遍适用的个人能力排名。<a href="#sources">［参见来源 2、3］</a></p>
+<div class="bp-note warm"><b>重要纠偏</b><p>“每天专注数心跳，就能训练成准确理解身体的人”没有在这里得到证实。自我观察可以帮助学习区分感受，但不能代替科学测量，某些测验本身也有方法学局限。</p></div>
+</section>
+
+<section class="bp-panel" id="pain">
+<div class="bp-eyebrow">07 · COUNTEREXAMPLE</div>
+<h2>疼痛为什么是检验我们理解是否准确的好例子？</h2>
+<p>很多人会直觉地认为，疼痛就是组织损伤发到大脑的一条读数。但疼痛是包含感觉和情绪成分的主观体验；<strong>伤害感受（nociception）与疼痛并不等同</strong>。这是国际疼痛研究协会 2020 年修订定义中特别强调的区分。</p>
+<div class="bp-columns">
+<div class="bp-note"><b>不能推出 A</b><p>疼痛越强，就一定意味着组织损伤越严重。</p></div>
+<div class="bp-note"><b>也不能推出 B</b><p>没有明显组织损伤的证据，疼痛就是假的或不值得重视。</p></div>
+</div>
+<p>因此我们必须同时尊重两件事：<strong>疼痛体验对当事人是真实的</strong>；<strong>疼痛的原因和医学意义仍需要依据更多信息判断</strong>。两者不矛盾。<a href="#sources">［参见来源 4］</a></p>
+<details class="bp-expand"><summary>继续展开：什么叫“伤害感受”，它为什么不等于疼痛？</summary><div><p>伤害感受指神经系统对潜在组织损伤性刺激的编码与处理；疼痛指个体经历到的不愉快感觉与情绪体验。两者常有关联，却不是同一个对象。某些伤害感受过程未必伴随意识疼痛；疼痛也不一定与可见组织损伤程度一一对应。</p><p>这不是鼓励忽视症状。新出现、严重、持续或伴随危险信号的不适，应由专业人员评估；本课程不能用于诊断。</p></div></details>
+</section>
+
+<section class="bp-panel" id="action">
+<div class="bp-eyebrow">08 · FROM EXPERIENCE TO ACTION</div>
+<h2>知道身体正在发生什么，如何变成更好的行动？</h2>
+<p>不能把身体感受当作绝对命令，也不应系统性忽略它。较合理的做法，是把身体信息视为需要结合情境核验的证据。</p>
+<div class="bp-step"><em>1</em><div><b>描述：先报告体验，不急着判定原因。</b><p>“我感到疲劳、注意力下降。”比“我一定是意志力差”更接近直接观察。</p></div></div>
+<div class="bp-step"><em>2</em><div><b>核验：检查与之相关的情境和其他信息。</b><p>最近睡眠、连续工作时长、饮食、运动、药物以及症状持续时间，都可能相关。</p></div></div>
+<div class="bp-step"><em>3</em><div><b>行动：根据可能后果选择适当反应。</b><p>例如安排休息、调整负荷；对严重或异常症状寻求医学评估，而非自行下诊断。</p></div></div>
+<div class="bp-step"><em>4</em><div><b>反馈：观察后续变化，修正解释。</b><p>如果休息并未改善症状，就不能固守“只是累了”的原先解释。</p></div></div>
+<div class="bp-quote">身体是信息来源，不是不会出错的解释者；理性判断也不应把身体信息排除在外。</div>
+</section>
+
+<section class="bp-panel" id="lifespan">
+<div class="bp-eyebrow">09 · LIFESPAN REVISITING</div>
+<h2>为什么它从婴幼儿开始，却无法在童年“学完”？</h2>
+<p>因为同一种基础能力，在不同阶段面对的任务持续变化。这里给的是教育设计框架，不是所有人必然遵循的年龄规律。</p>
+<table class="bp-simple-table">
+<thead><tr><th>时期</th><th>核心任务</th><th>应避免的误解</th></tr></thead><tbody>
+<tr><td>婴幼儿</td><td>通过触摸、运动、照料和逐渐发展的语言连接身体体验与需要。</td><td>把婴儿的学习理解为课堂式讲理论。</td></tr>
+<tr><td>儿童期</td><td>学习身体结构、活动与休息的基本关系；描述具体感受。</td><td>认为能说出“疼、累”就能解释医学原因。</td></tr>
+<tr><td>青春期</td><td>理解生理变化，区分身体体验与对外貌的社会评价。</td><td>将身体状态与自我价值混为一谈。</td></tr>
+<tr><td>成年期</td><td>把疲劳、压力、需求等信息纳入生活、工作和健康决策。</td><td>把自律定义为持续无视身体反馈。</td></tr>
+<tr><td>老年期</td><td>适应身体功能变化，识别异常并调整活动方式。</td><td>把所有不适都视为不可避免的老化。</td></tr>
+</tbody></table>
+<p>因此，早期是<strong>开始形成能力</strong>，而不是<strong>完成课程</strong>。后续的情绪表达、自我调节、社会关系和决策学习，会不断重用这套基础。</p>
+</section>
+
+<section class="bp-panel" id="audit">
+<div class="bp-eyebrow">COMPREHENSION AUDIT · 递归展开是否足够</div>
+<h2>这次为什么展开到这里，而不继续无限细分？</h2>
+<p>我按“是否缺少必要前提”“是否可直接误解”“是否有帮助理解的对比例子”审查本单元，得到以下结果：</p>
+<table class="bp-simple-table">
+<thead><tr><th>知识断点</th><th>处理</th><th>理由</th></tr></thead><tbody>
+<tr><td>身体状态 vs 感觉</td><td>已展开到五层模型</td><td>否则容易把客观变化和主观报告等同。</td></tr>
+<tr><td>无意识处理</td><td>增加自动调节例子</td><td>否则易误以为所有身体变化都能被感到。</td></tr>
+<tr><td>感觉类别</td><td>四类与跨类例子</td><td>否则易将本体感觉、内感受混作一个概念。</td></tr>
+<tr><td>感觉 vs 解释</td><td>增加不同原因的对照</td><td>否则易由一个感受直接认定某个原因。</td></tr>
+<tr><td>敏感 vs 准确</td><td>拆为四个测量维度</td><td>否则会把注意多、自信强当作客观准确。</td></tr>
+<tr><td>疼痛与损伤</td><td>引入医学反例</td><td>否则容易否定真实疼痛或作出草率判断。</td></tr>
+<tr><td>感受器/神经编码</td><td>这里只解释必要前提</td><td>更深的电生理细节不是理解本单元的必要条件，留给第二单元。</td></tr>
+</tbody>
+</table>
+<div class="bp-check"><b>三个理解检查</b>
+<p>先自己回答，再展开检验。答错意味着需要回到对应小节，而不是继续增加术语。</p>
+<details><summary>问题一：我感觉心跳很快，是否足以证明我正在紧张？</summary><p>不够。可以报告心跳体验，但“紧张”是对原因的解释，需要其他情境信息；见第 01、05 节。</p></details>
+<details><summary>问题二：一个人不觉得口渴，是否可以推断身体没有水分调节需求？</summary><p>不能。主观口渴与机体水分调节密切相关，却不是对全部生理状态的直接完整测量；见第 02、04 节。</p></details>
+<details><summary>问题三：两个同样关注身体的人，是否一定具有同样的感知准确性？</summary><p>不能。注意强度、主观自评、任务准确性和元认知校准需要分开讨论；见第 06 节。</p></details>
+</div>
+<p><strong>本单元可暂时结束的标准：</strong>你能在陌生例子中区分状态、处理、体验、解释和行动；能说明为什么无意识处理存在；能识别“感觉真实 ≠ 原因必然正确”这类推理错误。达到了这些标准，再深入神经编码就有了稳定基础。</p>
+</section>
+
+<section class="bp-panel" id="sources">
+<div class="bp-eyebrow">EVIDENCE & BOUNDARIES</div>
+<h2>研究来源与证据边界</h2>
+<ol class="bp-sources">
+<li>Chen 等（2021），<a target="_blank" rel="noopener" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7780231/">The Emerging Science of Interoception</a>。关于内感受的定义、信号整合与调节的综述。</li>
+<li>Khalsa 等（2018），<a target="_blank" rel="noopener" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6054486/">Interoception and Mental Health: A Roadmap</a>。区分注意、辨别、准确性与自我报告等维度。</li>
+<li>Garfinkel 等（2015），<a target="_blank" rel="noopener" href="https://pubmed.ncbi.nlm.nih.gov/25451381/">Knowing Your Own Heart</a>；及后续<a target="_blank" rel="noopener" href="https://journals.sagepub.com/doi/full/10.1177/17456916231191537">定义与测量方法讨论</a>。测量术语存在演变及争议。</li>
+<li>国际疼痛研究协会（IASP，2020），<a target="_blank" rel="noopener" href="https://www.iasp-pain.org/publications/iasp-news/iasp-announces-revised-definition-of-pain/">Revised Definition of Pain</a>。疼痛是主观体验，不等同于伤害感受。</li>
+<li>NIH NCCIH，<a target="_blank" rel="noopener" href="https://www.nccih.nih.gov/grants/concepts/functional-neural-circuits-in-interoception-science">Functional Neural Circuits in Interoception Science</a>。身体内部信号与中枢处理途径的研究概览。</li>
+</ol>
+<div class="bp-note"><b>哪些是事实，哪些是教学框架？</b><p>感知系统、自动调节以及疼痛与伤害感受的区分有研究与专业共识支撑。“五层模型”“递归展开阈值”“生命周期课程安排”则是为了帮助理解而组织的教育框架，不应误称为某篇论文提出的标准模型。预测加工是有影响力的解释框架，并非已定论的唯一机制。</p></div>
+<p class="bp-foot">本材料为科学学习用途，不构成个人健康评估、症状诊断或治疗建议。最后修订：2026-11-23。下一单元：感受器、神经信号与信息编码。</p>
+<div class="actions"><a class="button primary" href="#case">回到起始案例</a><a class="button" href="../../index.html">返回 Agent Mind</a></div>
+</section>
+</main></div>
+</body></html>
