@@ -1,0 +1,224 @@
+[
+  {
+    "id": "siren",
+    "width": 298,
+    "height": 226,
+    "file": "siren.svg"
+  },
+  {
+    "id": "feedback-console",
+    "width": 520,
+    "height": 330,
+    "file": "feedback-console.svg"
+  },
+  {
+    "id": "deviation-panel",
+    "width": 434,
+    "height": 252,
+    "file": "deviation-panel.svg"
+  },
+  {
+    "id": "error-conveyor",
+    "width": 485,
+    "height": 186,
+    "file": "error-conveyor.svg"
+  },
+  {
+    "id": "correction-module",
+    "width": 416,
+    "height": 346,
+    "file": "correction-module.svg"
+  },
+  {
+    "id": "robot-arm",
+    "width": 432,
+    "height": 351,
+    "file": "robot-arm.svg"
+  },
+  {
+    "id": "success-conveyor",
+    "width": 412,
+    "height": 133,
+    "file": "success-conveyor.svg"
+  },
+  {
+    "id": "storage-shelf",
+    "width": 347,
+    "height": 342,
+    "file": "storage-shelf.svg"
+  },
+  {
+    "id": "maintenance-kit",
+    "width": 328,
+    "height": 297,
+    "file": "maintenance-kit.svg"
+  },
+  {
+    "id": "upgrade-module",
+    "width": 330,
+    "height": 297,
+    "file": "upgrade-module.svg"
+  },
+  {
+    "id": "recycle-bin",
+    "width": 341,
+    "height": 297,
+    "file": "recycle-bin.svg"
+  },
+  {
+    "id": "sorting-conveyor",
+    "width": 427,
+    "height": 263,
+    "file": "sorting-conveyor.svg"
+  },
+  {
+    "id": "component-good",
+    "width": 170,
+    "height": 170,
+    "file": "component-good.svg"
+  },
+  {
+    "id": "component-old",
+    "width": 208,
+    "height": 170,
+    "file": "component-old.svg"
+  },
+  {
+    "id": "component-scrap",
+    "width": 208,
+    "height": 169,
+    "file": "component-scrap.svg"
+  },
+  {
+    "id": "optimized-shelf",
+    "width": 418,
+    "height": 318,
+    "file": "optimized-shelf.svg"
+  },
+  {
+    "id": "tank-rising",
+    "width": 295,
+    "height": 284,
+    "file": "tank-rising.svg"
+  },
+  {
+    "id": "tank-stable",
+    "width": 294,
+    "height": 284,
+    "file": "tank-stable.svg"
+  },
+  {
+    "id": "tank-falling",
+    "width": 304,
+    "height": 284,
+    "file": "tank-falling.svg"
+  },
+  {
+    "id": "inlet-faucet-large",
+    "width": 196,
+    "height": 182,
+    "file": "inlet-faucet-large.svg"
+  },
+  {
+    "id": "inlet-faucet-medium",
+    "width": 159,
+    "height": 168,
+    "file": "inlet-faucet-medium.svg"
+  },
+  {
+    "id": "outlet-faucet-small",
+    "width": 183,
+    "height": 164,
+    "file": "outlet-faucet-small.svg"
+  },
+  {
+    "id": "outlet-faucet-medium",
+    "width": 157,
+    "height": 164,
+    "file": "outlet-faucet-medium.svg"
+  },
+  {
+    "id": "trend-arrows",
+    "width": 408,
+    "height": 93,
+    "file": "trend-arrows.svg"
+  },
+  {
+    "id": "gauges",
+    "width": 637,
+    "height": 115,
+    "file": "gauges.svg"
+  },
+  {
+    "id": "chart-frame",
+    "width": 670,
+    "height": 437,
+    "file": "chart-frame.svg"
+  },
+  {
+    "id": "telescope",
+    "width": 310,
+    "height": 165,
+    "file": "telescope.svg"
+  },
+  {
+    "id": "metric-cards",
+    "width": 977,
+    "height": 261,
+    "file": "metric-cards.svg"
+  },
+  {
+    "id": "chart-icons",
+    "width": 672,
+    "height": 251,
+    "file": "chart-icons.svg"
+  },
+  {
+    "id": "input-conveyor",
+    "width": 650,
+    "height": 276,
+    "file": "input-conveyor.svg"
+  },
+  {
+    "id": "output-machine",
+    "width": 715,
+    "height": 307,
+    "file": "output-machine.svg"
+  },
+  {
+    "id": "marginal-curve",
+    "width": 531,
+    "height": 306,
+    "file": "marginal-curve.svg"
+  },
+  {
+    "id": "bottleneck-pipe",
+    "width": 531,
+    "height": 310,
+    "file": "bottleneck-pipe.svg"
+  },
+  {
+    "id": "output-crate",
+    "width": 382,
+    "height": 308,
+    "file": "output-crate.svg"
+  },
+  {
+    "id": "queue-pile",
+    "width": 445,
+    "height": 191,
+    "file": "queue-pile.svg"
+  },
+  {
+    "id": "leak-drops",
+    "width": 262,
+    "height": 188,
+    "file": "leak-drops.svg"
+  },
+  {
+    "id": "capacity-icons",
+    "width": 513,
+    "height": 151,
+    "file": "capacity-icons.svg"
+  }
+]
