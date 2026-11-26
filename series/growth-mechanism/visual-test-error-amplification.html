@@ -42,16 +42,17 @@ svg{display:block;width:100%;height:auto}
 .stage[data-phase="3"] #beltMotion{animation-play-state:paused}
 .stage[data-phase="3"] #machineLight{fill:#ff685e}
 .stage.playing #beltMotion{animation:belts 1.15s linear infinite}
+.stage.playing[data-phase="3"] #beltMotion{animation-play-state:paused}
 .stage.playing #gear{animation:gear 2.8s linear infinite}
-.stage.playing #copyPulse{animation:pulse .65s ease-in-out infinite alternate}
+.stage.playing #copyPulse{animation:pulse .65s ease-in-out infinite alternate;transform-box:fill-box;transform-origin:center}
 .stage.playing #confetti rect{animation:confetti 1.5s ease-in-out infinite alternate}
 .stage.playing[data-phase="2"] #pile{animation:pileJiggle .22s ease-in-out infinite alternate}
 .stage.playing[data-phase="2"] #stopButton{animation:buttonWobble .55s ease-in-out infinite alternate}
 .stage.playing[data-phase="3"] #stopButton{animation:none}
 #copy1,#copy2,#copy3,#copy4,#copy5,#copy6,#copy7,#copy8,#pile,#stopButton,#stamp,#warning{opacity:0;transition:opacity .45s ease,transform .55s cubic-bezier(.2,.9,.2,1)}
 #pile{transform:translateY(30px)}
-#stopButton{transform:translateY(-180px) rotate(0)}
-#stamp{transform:rotate(-9deg) scale(.6);transform-box:fill-box;transform-origin:center}
+#stopButton{transform:translateY(-180px) rotate(0);transform-box:fill-box;transform-origin:center}
+#stamp{opacity:0;transition:opacity .45s ease}
 #confetti{opacity:0;transition:opacity .3s}
 #warning{opacity:0}
 @keyframes belts{to{stroke-dashoffset:-80}}
@@ -169,11 +170,11 @@ button{font:inherit;cursor:pointer}
       <text x="823" y="510" text-anchor="middle" font-size="13" font-weight="800" fill="#5c536b">模板一致率</text>
       <text x="823" y="548" text-anchor="middle" font-size="30" font-weight="950" fill="#5c4db3">100%</text>
 
-      <g id="gear" transform="translate(955 498)">
+      <g transform="translate(955 498)"><g id="gear">
        <circle r="37" fill="#e7ddff" stroke="#55469e" stroke-width="7"/>
        <circle r="11" fill="#6d5acb"/>
        <g stroke="#55469e" stroke-width="12" stroke-linecap="round"><path d="M0-48V-34"/><path d="M0 34V48"/><path d="M-48 0H-34"/><path d="M34 0H48"/><path d="M-34-34L-24-24"/><path d="M34-34L24-24"/><path d="M-34 34L-24 24"/><path d="M34 34L24 24"/></g>
-      </g>
+      </g></g>
       <rect x="691" y="576" width="273" height="28" rx="14" fill="#d9d1ff"/>
       <text x="827" y="595" text-anchor="middle" font-size="12" font-weight="900" fill="#51449b">只检查是否一致 · 不检查是否正确</text>
     </g>
@@ -201,10 +202,10 @@ button{font:inherit;cursor:pointer}
     </g>
 
     <!-- 成功印章与庆祝 -->
-    <g id="stamp" transform="translate(1055 330)">
+    <g transform="translate(1055 330)"><g id="stamp" transform="rotate(-9)">
       <rect x="-105" y="-39" width="210" height="78" rx="12" fill="#d6ff63" stroke="#263b1b" stroke-width="5"/>
       <text x="0" y="10" text-anchor="middle" font-size="31" font-weight="1000" fill="#263b1b">批量成功！</text>
-    </g>
+    </g></g>
     <g id="confetti">
       <rect x="1020" y="290" width="12" height="27" rx="3" fill="#ff685e"/>
       <rect x="1090" y="260" width="12" height="27" rx="3" fill="#7663d7"/>
