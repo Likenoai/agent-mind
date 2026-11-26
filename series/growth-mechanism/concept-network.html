@@ -19,8 +19,8 @@ aside{display:flex;flex-direction:column;gap:10px;min-height:0}.card{padding:14p
 <defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0L6 3L0 6" fill="#8291a3"/></marker><marker id="arrp" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0L6 3L0 6" fill="#7862a8"/></marker></defs><g id="vp">
 <rect x="22" y="25" width="270" height="170" rx="15" fill="#f0f4f8" stroke="#d9e1ea"/><text x="40" y="49" class="group">方向与前提｜上游</text>
 <rect x="315" y="25" width="480" height="880" rx="17" fill="#f0f7f4" stroke="#cfe4da"/><text x="335" y="49" class="group">增长过程｜本期核心研究对象</text>
-<rect x="815" y="25" width="280" height="430" rx="15" fill="#f5f1fa" stroke="#e0d8ef"/><text x="835" y="49" class="group">支撑与调节机制</text>
-<rect x="815" y="475" width="280" height="430" rx="15" fill="#f8f3e9" stroke="#eadfc8"/><text x="835" y="499" class="group">增长动态与边界</text>
+<rect x="815" y="25" width="280" height="500" rx="15" fill="#f5f1fa" stroke="#e0d8ef"/><text x="835" y="49" class="group">支撑与调节机制</text>
+<rect x="815" y="545" width="280" height="360" rx="15" fill="#f8f3e9" stroke="#eadfc8"/><text x="835" y="499" class="group">增长动态与边界</text>
 <rect x="22" y="225" width="270" height="490" rx="15" fill="#f8f9fb" stroke="#e1e6ec"/><text x="40" y="249" class="group">资源与环境条件</text>
 <g id="edges"></g><g id="nodes"></g></g></svg></section>
 <aside>
@@ -61,16 +61,17 @@ const N=[
 ["feedback",850,232,210,52,"p","反馈机制","提供结果信息与偏差信号","信息反馈使行动者了解结果与预期之间的差异。它不等于系统动力学中的强化反馈回路；信息反馈需要经过解释和行动调整，才会改变后续过程。","调节机制|反馈"],
 ["correct",850,309,210,52,"p","修正机制","调整后续行动与方法","根据反馈调整行动，识别并纠正错误，避免无效方法持续被留存和调用。","调节机制|修正"],
 ["maintain",850,386,210,52,"p","维护 / 更新 / 淘汰","维持有效性并处理失效成果","维护降低存量损耗；更新使成果适应环境变化；淘汰停止对不再值得保留的成果继续投入。","调节机制|存量有效性"],
+["reinforcing",850,455,210,52,"p","强化反馈回路","变化返回并进一步放大","强化回路会放大原有变化，可能放大增长，也可能放大衰退。只有当存量影响流入、流入又继续增加该存量时，才形成典型的存量复利结构。","系统结构|自我增强"],
 ["resources",60,290,200,52,"x","资源与投入","时间、精力、资金、工具","增长过程需要资源投入。资源配置决定释放出来的资源如何重新投入，但投入本身不保证产生有效成果。","外部条件|投入"],
 ["allocation",60,385,200,52,"x","资源配置","决定释放资源的去向","效率提升可能释放时间和精力。资源配置决定这些资源用于休息、增加当前产出，还是建设未来能力。","支撑机制|资源再配置"],
 ["efficiency",60,485,200,52,"x","效率提升","同样产出需要更少投入","效率提升释放资源，但不会自动增加产出或扩大生产基础。还需要资源重新配置和后续成果留存。","增长条件|资源释放"],
-["dynamics",850,540,210,52,"a","增长动态","增长速度与变化形态","描述存量随时间的轨迹，如近似线性、指数、平台和衰减。边际收益递减属于投入—产出关系，不是同一类时间轨迹。","增长动态|变化形态"],
-["limits",850,630,210,52,"a","增长边界","瓶颈、损耗、饱和、过时","生产基础扩大不意味着增长会一直加速。资源瓶颈、环境变化、存量过时和损耗都可能限制增长。","增长边界|限制因素"],
-["marginal",850,700,210,52,"a","边际收益递减","投入—产出关系","在其他生产条件保持不变时，继续增加某种投入，每增加一个单位带来的额外产出逐渐减少。它不是存量随时间变化的轨迹，也不意味着总产出下降。","动态边界|边际关系"],
+["dynamics",850,600,210,52,"a","增长动态","增长速度与变化形态","描述存量随时间的轨迹，如近似线性、指数、平台和衰减。边际收益递减属于投入—产出关系，不是同一类时间轨迹。","增长动态|变化形态"],
+["limits",850,690,210,52,"a","增长边界","瓶颈、损耗、饱和、过时","生产基础扩大不意味着增长会一直加速。资源瓶颈、环境变化、存量过时和损耗都可能限制增长。","增长边界|限制因素"],
+["marginal",850,780,210,52,"a","边际收益递减","投入—产出关系","在其他生产条件保持不变时，继续增加某种投入，每增加一个单位带来的额外产出逐渐减少。它不是存量随时间变化的轨迹，也不意味着总产出下降。","动态边界|边际关系"],
 ["premise",60,595,200,52,"x","方向前提","对象与发展空间已合理确定","本期视频的研究假设：增长对象、方向与发展空间已经合理确定。因此不展开选择机制和价值判断。","研究边界|前提假设"]
 ];
 const E=[
-["value","choice","评价目标","s"],["choice","action","确定投入方向","d"],["resources","action","提供投入","d"],["action","produce","产生","s"],["learning","produce","形成知识与能力","d"],["produce","screen","进入筛选","s"],["screen","retain","筛选后留存","s"],["memory","retain","支持内部留存","d"],["retain","stock","流入：新增留存","s"],["stock","call","从存量中提取","s"],["memory","call","支持内部提取","d"],["call","fit","判断情境适用","s"],["fit","apply","适配后实际应用","s"],["stock","base","其中一部分在应用中体现生产性","d"],["base","apply","参与后续生产","g"],["apply","new","影响新一轮产出","s"],["new","screen","新成果再次筛选","s"],["produce","feedback","产生结果信息","f"],["feedback","correct","提供修正依据","f"],["correct","action","调整后续行动","f"],["maintain","stock","维护降低流出","d"],["maintain","base","维持有效性","d"],["efficiency","allocation","释放资源","s"],["allocation","action","重新投入","d"],["allocation","base","投入能力建设","d"],["base","dynamics","影响增长轨迹","d"],["limits","dynamics","限制增长形态","f"],["limits","stock","流出：损耗与过时","f"],["premise","choice","本期固定为前提","d"]
+["value","choice","评价目标","s"],["choice","action","确定投入方向","d"],["resources","action","提供投入","d"],["action","produce","产生","s"],["learning","produce","形成知识与能力","d"],["produce","screen","进入筛选","s"],["screen","retain","筛选后留存","s"],["memory","retain","支持内部留存","d"],["retain","stock","流入：新增留存","s"],["stock","call","从存量中提取","s"],["memory","call","支持内部提取","d"],["call","fit","判断情境适用","s"],["fit","apply","适配后实际应用","s"],["stock","base","其中一部分在应用中体现生产性","d"],["base","apply","参与后续生产","g"],["apply","new","影响新一轮产出","s"],["new","screen","新成果再次筛选","s"],["produce","feedback","产生结果信息","f"],["feedback","correct","提供修正依据","f"],["correct","action","调整后续行动","f"],["maintain","stock","维护降低流出","d"],["maintain","base","维持有效性","d"],["efficiency","allocation","释放资源","s"],["allocation","action","重新投入","d"],["allocation","base","投入能力建设","d"],["base","reinforcing","形成条件性强化循环","g"],["reinforcing","dynamics","影响增长轨迹","d"],["limits","dynamics","限制增长形态","f"],["limits","stock","流出：损耗与过时","f"],["premise","choice","本期固定为前提","d"]
 ];
 const C={b:["#eaf1f8","#4776a8"],g:["#e8f4ef","#23856d"],p:["#f0ecf8","#7862a8"],a:["#fbf2df","#b47b25"],x:["#eef1f4","#98a2b3"]};
 const ns=Object.fromEntries(N.map(n=>[n[0],{id:n[0],x:n[1],y:n[2],w:n[3],h:n[4],g:n[5],title:n[6],sub:n[7],desc:n[8],tags:n[9].split("|")}]));
@@ -84,7 +85,7 @@ Object.values(ns).forEach(n=>{let g=el("g",{class:"node","data-id":n.id,transfor
 g.addEventListener("pointerdown",e=>{e.stopPropagation();drag=n;g.setPointerCapture(e.pointerId);select(n.id)});g.addEventListener("pointermove",e=>{if(drag!==n)return;let r=document.getElementById("svg").getBoundingClientRect();n.x=(e.clientX-r.left)/r.width*1120;n.y=(e.clientY-r.top)/r.height*950;draw()});g.addEventListener("pointerup",()=>drag=null)});
 applyFilter()}
 function select(id){selected=id;let n=ns[id];document.getElementById("title").textContent=n.title;document.getElementById("tags").innerHTML=n.tags.map(t=>`<span class="tag">${t}</span>`).join("");document.getElementById("desc").textContent=n.desc;let rel=E.filter(e=>e[0]===id||e[1]===id).map(e=>`<p><b>${e[0]===id?"指向":"来自"}：${ns[e[0]===id?e[1]:e[0]].title}</b> · ${e[2]}</p>`).join("");document.getElementById("links").innerHTML="<p><b>直接关系</b></p>"+rel;document.querySelectorAll(".node").forEach(g=>g.classList.toggle("selected",g.dataset.id===id));applyFilter()}
-function applyFilter(){let focus=filter==="growth"?new Set(["action","produce","screen","retain","stock","call","fit","apply","new","base","learning","memory","feedback","correct","maintain"]):filter==="support"?new Set(["learning","memory","feedback","correct","maintain","resources","allocation","efficiency","stock","call","fit","apply","action","produce","retain","base"]):null;document.querySelectorAll(".node").forEach(g=>g.classList.toggle("dim",focus&&!focus.has(g.dataset.id)&&g.dataset.id!==selected));document.querySelectorAll(".edge").forEach(e=>e.classList.toggle("dim",focus&&!focus.has(e.dataset.a)&&!focus.has(e.dataset.b)))}
+function applyFilter(){let focus=filter==="growth"?new Set(["action","produce","screen","retain","stock","call","fit","apply","new","base","learning","memory","feedback","correct","maintain","reinforcing"]):filter==="support"?new Set(["learning","memory","feedback","correct","maintain","reinforcing","resources","allocation","efficiency","stock","call","fit","apply","action","produce","retain","base"]):null;document.querySelectorAll(".node").forEach(g=>g.classList.toggle("dim",focus&&!focus.has(g.dataset.id)&&g.dataset.id!==selected));document.querySelectorAll(".edge").forEach(e=>e.classList.toggle("dim",focus&&!focus.has(e.dataset.a)&&!focus.has(e.dataset.b)))}
 function setFilter(f){filter=f;document.querySelectorAll("button").forEach(b=>b.classList.remove("active"));document.getElementById(f).classList.add("active");applyFilter()}
 document.getElementById("all").onclick=()=>setFilter("all");document.getElementById("growth").onclick=()=>setFilter("growth");document.getElementById("support").onclick=()=>setFilter("support");
 const initial=Object.fromEntries(Object.values(ns).map(n=>[n.id,[n.x,n.y]]));
