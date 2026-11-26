@@ -31,9 +31,9 @@
 
 ## 当前第一期：增长机制
 
-[第一期定位与内容边界](01-growth-mechanism.md) · [交互专题：从知识地图到观众认知路径](growth-mechanism/) · [知识结构审查报告](growth-mechanism/RESEARCH-AUDIT.md)
+[第一期定位与内容边界](01-growth-mechanism.md) · [知识地图与观众认知路径](growth-mechanism/) · [观众认知路径文档](growth-mechanism/AUDIENCE-PATH.md) · [知识结构审查报告](growth-mechanism/RESEARCH-AUDIT.md) · [知识结构审查报告](growth-mechanism/RESEARCH-AUDIT.md)
 
-它不是单纯讲金融复利，而是回答：行动成果如何被留存、调用，并进一步改变未来行动的能力？
+它不是单纯讲金融复利，而是回答：行动成果如何被留存、提取、适用于新情境并改变未来生产条件？当新成果继续留存或再投入时，如何形成复利式积累？
 
 第一期的系列作用：
 - 建立行动、成果、存量和未来行动之间的基本联系；
