@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>人生机制与增长机制｜概念关系网络</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f4f6f8;color:#1d2939;font-family:Arial,"Microsoft YaHei",sans-serif}
+header{padding:20px 24px 12px;display:flex;justify-content:space-between;gap:16px;align-items:start}h1{font-size:21px;margin:0 0 7px}.sub{font-size:12px;color:#667085;line-height:1.6;max-width:850px}
+button{background:white;border:1px solid #d0d5dd;border-radius:8px;padding:8px 11px;cursor:pointer;margin:2px;font-size:12px}button.active{background:#eaf1f8;border-color:#7894b2}
+main{height:calc(100vh - 100px);min-height:620px;padding:0 16px 16px;display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:12px}
+#stage,.card{background:#fff;border:1px solid #e1e6ec;border-radius:13px;box-shadow:0 5px 20px #1822300c}#stage{position:relative;overflow:hidden}svg{width:100%;height:100%;touch-action:none}
+aside{display:flex;flex-direction:column;gap:10px;min-height:0}.card{padding:14px}.detail{flex:1;overflow:auto}.card h2{font-size:14px;margin:0 0 9px}p{font-size:12px;line-height:1.7;color:#475467;margin:7px 0}.tag{display:inline-block;background:#eef2f6;color:#475467;border-radius:20px;padding:4px 7px;font-size:10px;margin:2px}
+.node{cursor:grab}.node rect{stroke-width:1.4;rx:10}.node .t{font-size:12px;font-weight:bold;fill:#1d2939;pointer-events:none}.node .s{font-size:9px;fill:#667085;pointer-events:none}.node.selected rect{stroke:#182230;stroke-width:2.5}.node.dim{opacity:.18}
+.edge{fill:none;stroke:#8291a3;stroke-width:1.5;opacity:.7;marker-end:url(#arr)}.edge.dash{stroke-dasharray:5 4}.edge.fb{stroke:#7862a8;stroke-dasharray:5 4;marker-end:url(#arrp)}.edge.dim{opacity:.06}.elabel{font-size:9px;fill:#667085;paint-order:stroke;stroke:#fff;stroke-width:4px}
+.group{font-size:11px;letter-spacing:.05em;font-weight:bold;fill:#667085}.legend{display:grid;grid-template-columns:1fr 1fr;gap:7px;font-size:11px;color:#475467}.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px}
+@media(max-width:850px){header{display:block}main{height:auto;display:flex;flex-direction:column}.stage{height:65vh}#stage{height:65vh;min-height:520px}aside{display:grid;grid-template-columns:1fr 1fr}.detail{grid-column:1/-1;min-height:200px}}
+</style></head><body>
+<header><div><h1>人生机制与增长机制｜概念关系网络</h1><div class="sub">以增长机制为中心，区分方向与前提、增长过程、支撑与调节、增长动态。节点表示概念，连线表示关系。它不是单一层级树，也不是严格时间流程。</div></div>
+<div><button id="all" class="active">显示全部</button><button id="growth">聚焦增长过程</button><button id="support">聚焦支撑机制</button><button id="reset">重置</button></div></header>
+<main><section id="stage"><svg id="svg" viewBox="0 0 1120 790" aria-label="概念关系网络">
+<defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0L6 3L0 6" fill="#8291a3"/></marker><marker id="arrp" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0L6 3L0 6" fill="#7862a8"/></marker></defs><g id="vp">
+<rect x="22" y="25" width="270" height="170" rx="15" fill="#f0f4f8" stroke="#d9e1ea"/><text x="40" y="49" class="group">方向与前提｜上游</text>
+<rect x="315" y="25" width="480" height="690" rx="17" fill="#f0f7f4" stroke="#cfe4da"/><text x="335" y="49" class="group">增长过程｜本期核心研究对象</text>
+<rect x="815" y="25" width="280" height="430" rx="15" fill="#f5f1fa" stroke="#e0d8ef"/><text x="835" y="49" class="group">支撑与调节机制</text>
+<rect x="815" y="475" width="280" height="240" rx="15" fill="#f8f3e9" stroke="#eadfc8"/><text x="835" y="499" class="group">增长动态与边界</text>
+<rect x="22" y="225" width="270" height="490" rx="15" fill="#f8f9fb" stroke="#e1e6ec"/><text x="40" y="249" class="group">资源与环境条件</text>
+<g id="edges"></g><g id="nodes"></g></g></svg></section>
+<aside>
+<section class="card detail"><div style="font-size:10px;color:#667085;letter-spacing:.08em">CONCEPT DETAIL</div><h2 id="title" style="font-size:18px;margin-top:8px">选择一个节点</h2><div id="tags"></div><p id="desc">点击任意概念，查看定义及直接关系。可拖动节点调整布局，滚轮缩放，拖动画布平移。</p><div id="links"></div></section>
+<section class="card"><h2>关系类型</h2><p>━━→ 作用、影响或流程关系</p><p>┄┄→ 支持、提供条件</p><p style="color:#7862a8">┄┄→ 反馈、调节或修正</p><p>箭头表示关系方向，不代表概念的高低层级。</p></section>
+<section class="card"><h2>概念分组</h2><div class="legend"><div><i class="dot" style="background:#4776a8"></i>方向与前提</div><div><i class="dot" style="background:#23856d"></i>增长过程</div><div><i class="dot" style="background:#7862a8"></i>支撑与调节</div><div><i class="dot" style="background:#b47b25"></i>增长动态</div><div><i class="dot" style="background:#98a2b3"></i>资源与环境</div></div></section>
+<section class="card"><h2>术语说明</h2><p>本图属于概念关系网络图（Conceptual Network Map），结合层级分组、带标签的关系边和反馈连接。连线表示我们当前采用的分析关系，不意味着每条边都是已证实的因果关系。</p></section>
+</aside></main>
+<script>
+const N=[
+["value",65,78,190,48,"b","价值判断","评价什么值得发展","评价目标、方向和结果是否值得。影响增长方向，但不属于本期狭义增长过程。","上游机制|方向与评价"],
+["choice",65,138,190,48,"b","选择机制","确定投入对象与方向","在多个可能方向之间作出选择。本期将其作为前提：假设增长对象与方向已经合理确定。","上游机制|研究前提"],
+["action",350,82,190,54,"g","行动与执行","投入时间、精力与资源","增长过程的起点。没有实际行动，就没有新的行动成果可供提取、留存和积累。","增长过程|行动起点"],
+["produce",575,82,190,54,"g","成果产生","知识、技能、经验、工具等","行动带来新的结果。成果可以是内部能力，也可以是外部资源、工具、文档或流程。","增长过程|成果产生"],
+["screen",350,180,190,54,"g","成果留存筛选","判断哪些成果值得留下","不是所有行动成果都值得长期保存。可考虑未来使用可能性、重新获得成本，以及遗失后的影响。","增长过程|成果筛选"],
+["retain",575,180,190,54,"g","成果留存","内部 / 外部 / 环境留存","成果通过记忆、技能掌握、文档、工具或流程等形式留下来。留存不等于已经能够有效调用。","增长过程|留存"],
+["stock",455,280,205,58,"g","存量形成","当前已经留存的成果基础","存量是某个时点已经拥有的成果。积累则是存量随时间形成和变化的过程。","增长过程|存量"],
+["call",455,390,205,58,"g","调用与应用","在新情境中提取并使用","已有存量被提取并应用于新的行动。可调用不等于一定适用，还涉及理解、迁移和情境判断。","增长过程|调用"],
+["new",455,500,205,58,"g","新一轮成果","后续行动产生新的成果","已有生产性存量参与后续行动，可能降低成本、提高质量、扩大任务范围，或与其他成果组合。","增长过程|再生产"],
+["base",455,610,205,58,"g","生产基础扩大","新的有效生产性存量","新成果被留存并能够参与未来生产时，生产基础才可能扩大。它是复利式增长的重要条件，但不保证增长率永远上升。","增长结果|生产基础"],
+["learning",850,78,210,52,"p","学习机制","从经验中形成知识与能力","学习帮助个体从信息、练习和经验中形成或改变知识与能力，为增长过程提供新的成果。学习不等于增长本身。","支撑机制|成果形成"],
+["memory",850,155,210,52,"p","记忆机制","支持内部留存与提取","记忆支持知识和经验的保存与提取。它是内部留存的重要方式，但增长存量还包括外部工具、文档、流程和资源。","支撑机制|留存与调用"],
+["feedback",850,232,210,52,"p","反馈机制","提供结果信息与偏差信号","反馈使行动者了解行动结果。反馈不等于修正；还需要解释信息并采取行动，才能改变后续过程。","调节机制|反馈"],
+["correct",850,309,210,52,"p","修正机制","调整后续行动与方法","根据反馈调整行动，识别并纠正错误，避免无效方法持续被留存和调用。","调节机制|修正"],
+["maintain",850,386,210,52,"p","维护 / 更新 / 淘汰","维持有效性并处理失效成果","维护降低存量损耗；更新使成果适应环境变化；淘汰停止对不再值得保留的成果继续投入。","调节机制|存量有效性"],
+["resources",60,290,200,52,"x","资源与投入","时间、精力、资金、工具","增长过程需要资源投入。资源配置决定释放出来的资源如何重新投入，但投入本身不保证产生有效成果。","外部条件|投入"],
+["allocation",60,385,200,52,"x","资源配置","决定释放资源的去向","效率提升可能释放时间和精力。资源配置决定这些资源用于休息、增加当前产出，还是建设未来能力。","支撑机制|资源再配置"],
+["efficiency",60,485,200,52,"x","效率提升","同样产出需要更少投入","效率提升释放资源，但不会自动增加产出或扩大生产基础。还需要资源重新配置和后续成果留存。","增长条件|资源释放"],
+["dynamics",850,540,210,52,"a","增长动态","增长速度与变化形态","描述存量和产出的变化，如线性增长、复利式增长、边际递减、饱和与衰减。增长率、绝对增量和存量规模需要区分。","增长动态|变化形态"],
+["limits",850,630,210,52,"a","增长边界","瓶颈、损耗、饱和、过时","生产基础扩大不意味着增长会一直加速。边际收益递减、瓶颈转移、环境变化和存量损耗都可能限制增长。","增长边界|限制因素"],
+["premise",60,595,200,52,"x","方向前提","对象与发展空间已合理确定","本期视频的研究假设：增长对象、方向与发展空间已经合理确定。因此不展开选择机制和价值判断。","研究边界|前提假设"]
+];
+const E=[
+["value","choice","评价目标","s"],["choice","action","确定投入方向","d"],["resources","action","提供投入","d"],["action","produce","产生","s"],["learning","produce","形成知识与能力","d"],["produce","screen","进入筛选","s"],["screen","retain","筛选后留存","s"],["memory","retain","支持内部留存","d"],["retain","stock","形成存量","s"],["stock","call","被提取调用","s"],["memory","call","支持提取","d"],["call","new","参与后续生产","s"],["new","screen","新成果再次筛选","s"],["new","base","有效成果留存","s"],["base","call","扩大未来生产基础","g"],["produce","feedback","产生结果信息","f"],["feedback","correct","提供修正依据","f"],["correct","action","调整后续行动","f"],["maintain","stock","减少存量损耗","d"],["maintain","base","维持有效性","d"],["efficiency","allocation","释放资源","s"],["allocation","action","重新投入","d"],["allocation","base","投入能力建设","d"],["base","dynamics","表现为增长动态","d"],["limits","dynamics","限制增长形态","f"],["limits","stock","造成有效性损耗","f"],["premise","choice","本期固定为前提","d"]
+];
+const C={b:["#eaf1f8","#4776a8"],g:["#e8f4ef","#23856d"],p:["#f0ecf8","#7862a8"],a:["#fbf2df","#b47b25"],x:["#eef1f4","#98a2b3"]};
+const ns=Object.fromEntries(N.map(n=>[n[0],{id:n[0],x:n[1],y:n[2],w:n[3],h:n[4],g:n[5],title:n[6],sub:n[7],desc:n[8],tags:n[9].split("|")}]));
+const svgNS="http://www.w3.org/2000/svg",el=(tag,attrs,parent)=>{let e=document.createElementNS(svgNS,tag);Object.entries(attrs||{}).forEach(([k,v])=>e.setAttribute(k,v));parent.appendChild(e);return e};
+const eg=document.getElementById("edges"),ng=document.getElementById("nodes"),vp=document.getElementById("vp");
+function path(a,b){let sx=a.x+a.w/2,sy=a.y+a.h/2,tx=b.x+b.w/2,ty=b.y+b.h/2,dx=tx-sx,dy=ty-sy;if(Math.abs(dx)>Math.abs(dy))return `M${sx},${sy} C${sx+dx*.4},${sy} ${tx-dx*.4},${ty} ${tx},${ty}`;return `M${sx},${sy} C${sx},${sy+dy*.4} ${tx},${ty-dy*.4} ${tx},${ty}`}
+let selected=null,filter="all",zoom=1,panX=0,panY=0,drag=null,panning=null;
+function draw(){eg.innerHTML="";ng.innerHTML="";
+E.forEach(([a,b,label,type])=>{let A=ns[a],B=ns[b],cl=type==="d"?"edge dash":type==="f"?"edge fb":"edge";let p=el("path",{d:path(A,B),class:cl,"data-a":a,"data-b":b},eg);let mx=(A.x+A.w/2+B.x+B.w/2)/2,my=(A.y+A.h/2+B.y+B.h/2)/2,t=el("text",{x:mx,y:my-5,class:"elabel","text-anchor":"middle"},eg);t.textContent=label});
+Object.values(ns).forEach(n=>{let g=el("g",{class:"node","data-id":n.id,transform:`translate(${n.x},${n.y})`},ng);el("rect",{width:n.w,height:n.h,fill:C[n.g][0],stroke:C[n.g][1]},g);let t=el("text",{x:n.w/2,y:n.h/2-2,"text-anchor":"middle",class:"t"},g);t.textContent=n.title;let s=el("text",{x:n.w/2,y:n.h/2+14,"text-anchor":"middle",class:"s"},g);s.textContent=n.sub;
+g.addEventListener("pointerdown",e=>{e.stopPropagation();drag=n;g.setPointerCapture(e.pointerId);select(n.id)});g.addEventListener("pointermove",e=>{if(drag!==n)return;let r=document.getElementById("svg").getBoundingClientRect();n.x=(e.clientX-r.left)/r.width*1120;n.y=(e.clientY-r.top)/r.height*790;draw()});g.addEventListener("pointerup",()=>drag=null)});
+applyFilter()}
+function select(id){selected=id;let n=ns[id];document.getElementById("title").textContent=n.title;document.getElementById("tags").innerHTML=n.tags.map(t=>`<span class="tag">${t}</span>`).join("");document.getElementById("desc").textContent=n.desc;let rel=E.filter(e=>e[0]===id||e[1]===id).map(e=>`<p><b>${e[0]===id?"指向":"来自"}：${ns[e[0]===id?e[1]:e[0]].title}</b> · ${e[2]}</p>`).join("");document.getElementById("links").innerHTML="<p><b>直接关系</b></p>"+rel;document.querySelectorAll(".node").forEach(g=>g.classList.toggle("selected",g.dataset.id===id));applyFilter()}
+function applyFilter(){let focus=filter==="growth"?new Set(["action","produce","screen","retain","stock","call","new","base","learning","memory","feedback","correct","maintain"]):filter==="support"?new Set(["learning","memory","feedback","correct","maintain","resources","allocation","efficiency","stock","call","action","produce","retain","base"]):null;document.querySelectorAll(".node").forEach(g=>g.classList.toggle("dim",focus&&!focus.has(g.dataset.id)&&g.dataset.id!==selected));document.querySelectorAll(".edge").forEach(e=>e.classList.toggle("dim",focus&&!focus.has(e.dataset.a)&&!focus.has(e.dataset.b)))}
+function setFilter(f){filter=f;document.querySelectorAll("button").forEach(b=>b.classList.remove("active"));document.getElementById(f).classList.add("active");applyFilter()}
+document.getElementById("all").onclick=()=>setFilter("all");document.getElementById("growth").onclick=()=>setFilter("growth");document.getElementById("support").onclick=()=>setFilter("support");
+const initial=Object.fromEntries(Object.values(ns).map(n=>[n.id,[n.x,n.y]]));
+document.getElementById("reset").onclick=()=>{Object.values(ns).forEach(n=>{[n.x,n.y]=initial[n.id]});zoom=1;panX=panY=0;vp.setAttribute("transform","translate(0 0) scale(1)");setFilter("all");draw()};
+const svg=document.getElementById("svg");svg.addEventListener("wheel",e=>{e.preventDefault();zoom=Math.max(.65,Math.min(1.7,zoom*(e.deltaY<0?1.08:.92)));vp.setAttribute("transform",`translate(${panX} ${panY}) scale(${zoom})`)},{passive:false});
+svg.addEventListener("pointerdown",e=>{if(e.target.closest(".node"))return;panning={x:e.clientX-panX,y:e.clientY-panY};svg.setPointerCapture(e.pointerId)});
+svg.addEventListener("pointermove",e=>{if(!panning)return;panX=e.clientX-panning.x;panY=e.clientY-panning.y;vp.setAttribute("transform",`translate(${panX} ${panY}) scale(${zoom})`)});
+svg.addEventListener("pointerup",()=>panning=null);
+draw();
+</script></body></html>
