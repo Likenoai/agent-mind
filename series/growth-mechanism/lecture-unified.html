@@ -206,6 +206,7 @@ function drawMarginal(){let p=modelBase();sectionLabel(p,58,48,'不同问题，�
 
 function drawHybrid(c){
  graphInit();
+ camera=targetFor([],true);
  graphFocus(c,false);
  $('mini').classList.remove('visible');
  const svg=$('viz'),defs=S('defs',{},svg);
