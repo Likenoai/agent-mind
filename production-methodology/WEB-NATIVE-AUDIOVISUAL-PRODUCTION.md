@@ -4,7 +4,8 @@
 > 简称：网页原生视听  
 > 方法状态：**单项目已验证，跨项目待验证**  
 > 首个完整实践：《人生机制与增长机制》动态视听讲解  
-> 实践页面：https://likenoai.github.io/agent-mind/series/growth-mechanism/lecture.html
+> 当前主版本：https://likenoai.github.io/agent-mind/series/growth-mechanism/lecture-unified.html  
+> 旧版对照：https://likenoai.github.io/agent-mind/series/growth-mechanism/lecture.html
 
 ## 1. 方法定义
 
