@@ -18,6 +18,7 @@ Agent Mind 是一个持续研究与内容传播项目。它不是人生成功学
 - [人生系列入口（Pages）](https://likenoai.github.io/agent-mind/series/)\n- [增长机制交互专题（Pages）](https://likenoai.github.io/agent-mind/series/growth-mechanism/)\n- [人生系列规划](series/README.md)
 - [研究项目目录](research/index.html)
 - [视频创作思维方法论](production-methodology/VIDEO-CREATION-THINKING.md)
+- [网页原生视听制作法](production-methodology/WEB-NATIVE-AUDIOVISUAL-PRODUCTION.md)
 - [GitHub Pages 首页](https://likenoai.github.io/agent-mind/)
 
 ## 当前项目结构
