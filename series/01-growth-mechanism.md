@@ -5,7 +5,7 @@
 > 主题定位：人生发展中的增长机制  
 > 不是：单纯介绍金融复利公式
 
-## 研究与传播工作台\n\n[知识地图与观众认知路径（GitHub Pages）](growth-mechanism/) · [观众认知路径文档](growth-mechanism/AUDIENCE-PATH.md) · [交互式概念关系网络](growth-mechanism/concept-network.html) · [知识结构审查报告](growth-mechanism/RESEARCH-AUDIT.md)\n\n工作台分别呈现研究结构、观众理解顺序和两者之间的映射。\n\n## 1. 本期要回答的人生问题
+## 研究与传播工作台\n\n[知识地图与观众认知路径（GitHub Pages）](growth-mechanism/) · [观众认知路径文档](growth-mechanism/AUDIENCE-PATH.md) · [交互式概念关系网络](growth-mechanism/concept-network.html) · [知识结构审查报告](growth-mechanism/RESEARCH-AUDIT.md) · [事实核验与案例压力测试](growth-mechanism/EVIDENCE-AND-CASE-REVIEW.md)\n\n工作台分别呈现研究结构、观众理解顺序和两者之间的映射。\n\n## 1. 本期要回答的人生问题
 
 **一个人的行动成果，如何被留存、调用，并进一步改变未来行动的能力？**
 
