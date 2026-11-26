@@ -15,12 +15,12 @@ aside{display:flex;flex-direction:column;gap:10px;min-height:0}.card{padding:14p
 </style></head><body>
 <header><div><h1>人生机制与增长机制｜概念关系网络</h1><div class="sub">以增长机制为中心，区分方向与前提、增长过程、支撑与调节、增长动态。节点表示概念，连线表示关系。它不是单一层级树，也不是严格时间流程。</div></div>
 <div><button id="all" class="active">显示全部</button><button id="growth">聚焦增长过程</button><button id="support">聚焦支撑机制</button><button id="reset">重置</button></div></header>
-<main><section id="stage"><svg id="svg" viewBox="0 0 1120 850" aria-label="概念关系网络">
+<main><section id="stage"><svg id="svg" viewBox="0 0 1120 950" aria-label="概念关系网络">
 <defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0L6 3L0 6" fill="#8291a3"/></marker><marker id="arrp" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0L6 3L0 6" fill="#7862a8"/></marker></defs><g id="vp">
 <rect x="22" y="25" width="270" height="170" rx="15" fill="#f0f4f8" stroke="#d9e1ea"/><text x="40" y="49" class="group">方向与前提｜上游</text>
-<rect x="315" y="25" width="480" height="690" rx="17" fill="#f0f7f4" stroke="#cfe4da"/><text x="335" y="49" class="group">增长过程｜本期核心研究对象</text>
+<rect x="315" y="25" width="480" height="880" rx="17" fill="#f0f7f4" stroke="#cfe4da"/><text x="335" y="49" class="group">增长过程｜本期核心研究对象</text>
 <rect x="815" y="25" width="280" height="430" rx="15" fill="#f5f1fa" stroke="#e0d8ef"/><text x="835" y="49" class="group">支撑与调节机制</text>
-<rect x="815" y="475" width="280" height="300" rx="15" fill="#f8f3e9" stroke="#eadfc8"/><text x="835" y="499" class="group">增长动态与边界</text>
+<rect x="815" y="475" width="280" height="430" rx="15" fill="#f8f3e9" stroke="#eadfc8"/><text x="835" y="499" class="group">增长动态与边界</text>
 <rect x="22" y="225" width="270" height="490" rx="15" fill="#f8f9fb" stroke="#e1e6ec"/><text x="40" y="249" class="group">资源与环境条件</text>
 <g id="edges"></g><g id="nodes"></g></g></svg></section>
 <aside>
@@ -50,10 +50,12 @@ const N=[
 ["produce",575,82,190,54,"g","成果产生","知识、技能、经验、工具等","行动带来新的结果。成果可以是内部能力，也可以是外部资源、工具、文档或流程。","增长过程|成果产生"],
 ["screen",350,180,190,54,"g","成果留存筛选","判断哪些成果值得留下","不是所有行动成果都值得长期保存。可考虑未来使用可能性、重新获得成本，以及遗失后的影响。","增长过程|成果筛选"],
 ["retain",575,180,190,54,"g","成果留存","内部 / 外部 / 环境留存","成果通过记忆、技能掌握、文档、工具或流程等形式留下来。留存不等于已经能够有效调用。","增长过程|留存"],
-["stock",455,280,205,58,"g","存量","某一时点累积的状态","存量是某一时点累积下来的状态或资源，不等于当前可调用的成果。需要进一步区分可提取、情境适用和生产性。","增长过程|存量状态"],
-["call",455,390,205,58,"g","调用与应用","在新情境中提取并使用","已有存量先被提取，再判断是否适用于当前情境。可调用不等于适用；适用也不保证应用成功。只有实际应用改变后续生产条件，才体现生产性。","增长过程|调用"],
-["new",455,500,205,58,"g","后续生产与产出","已有存量改变行动条件","已有生产性存量参与后续行动，可能降低成本、提高质量、扩大任务范围或提高可靠性，从而影响新一轮产出。","增长过程|后续生产"],
-["base",455,610,205,58,"g","生产性存量扩大","新成果进入未来生产基础","新成果的一部分被留存或再投入，增加未来可参与生产的基础时，才形成复利式积累循环。它不保证增长率永远上升，也不必然产生指数轨迹。","增长结果|生产基础"],
+["stock",455,280,205,58,"g","存量","某一时点累积的状态","存量是某一时点累积下来的状态或资源。新增留存构成流入；遗忘、失效、过时和淘汰构成流出。存量不等于当前可调用的成果。","增长过程|存量状态"],
+["call",455,390,205,58,"g","提取与调用","找到并恢复留存成果","提取是从存量中找到并恢复成果。可调用不等于适用；提取只是后续判断和应用的前提。","增长过程|提取"],
+["fit",455,485,205,58,"g","情境适用","判断成果是否适合当前任务","被提取的成果还需要与当前任务、环境和约束相匹配；旧方法可能需要调整，甚至不应继续使用。","增长过程|适用"],
+["apply",455,580,205,58,"g","实际应用","在行动中检验其生产作用","只有实际应用改变了后续行动的成本、质量、效率、可靠性或能力范围，才体现出生产性作用。","增长过程|应用"],
+["new",455,680,205,58,"g","后续生产与产出","已有存量改变行动条件","生产性存量参与后续行动，可能降低成本、提高质量、扩大任务范围或提高可靠性，从而影响新一轮产出。","增长过程|后续生产"],
+["base",455,790,205,58,"g","生产性存量","能够改变未来生产条件的存量","生产性是存量在适当情境中应用时表现出的作用。新成果的一部分被留存或再投入，可能扩大未来生产基础。","增长结果|生产基础"],
 ["learning",850,78,210,52,"p","学习机制","从经验中形成知识与能力","学习帮助个体从信息、练习和经验中形成或改变知识与能力，为增长过程提供新的成果。学习不等于增长本身。","支撑机制|成果形成"],
 ["memory",850,155,210,52,"p","记忆机制","支持内部留存与提取","记忆支持知识和经验的保存与提取。它是内部留存的重要方式，但增长存量还包括外部工具、文档、流程和资源。","支撑机制|留存与调用"],
 ["feedback",850,232,210,52,"p","反馈机制","提供结果信息与偏差信号","信息反馈使行动者了解结果与预期之间的差异。它不等于系统动力学中的强化反馈回路；信息反馈需要经过解释和行动调整，才会改变后续过程。","调节机制|反馈"],
@@ -68,7 +70,7 @@ const N=[
 ["premise",60,595,200,52,"x","方向前提","对象与发展空间已合理确定","本期视频的研究假设：增长对象、方向与发展空间已经合理确定。因此不展开选择机制和价值判断。","研究边界|前提假设"]
 ];
 const E=[
-["value","choice","评价目标","s"],["choice","action","确定投入方向","d"],["resources","action","提供投入","d"],["action","produce","产生","s"],["learning","produce","形成知识与能力","d"],["produce","screen","进入筛选","s"],["screen","retain","筛选后留存","s"],["memory","retain","支持内部留存","d"],["retain","stock","形成留存存量","s"],["retain","base","其中一部分成为生产性存量","d"],["stock","call","被提取调用","s"],["memory","call","支持提取","d"],["call","new","参与后续生产","s"],["new","screen","新成果再次筛选","s"],["base","call","扩大未来生产基础","g"],["produce","feedback","产生结果信息","f"],["feedback","correct","提供修正依据","f"],["correct","action","调整后续行动","f"],["maintain","stock","减少存量损耗","d"],["maintain","base","维持有效性","d"],["efficiency","allocation","释放资源","s"],["allocation","action","重新投入","d"],["allocation","base","投入能力建设","d"],["base","dynamics","表现为增长动态","d"],["limits","dynamics","限制增长形态","f"],["limits","stock","造成有效性损耗","f"],["premise","choice","本期固定为前提","d"]
+["value","choice","评价目标","s"],["choice","action","确定投入方向","d"],["resources","action","提供投入","d"],["action","produce","产生","s"],["learning","produce","形成知识与能力","d"],["produce","screen","进入筛选","s"],["screen","retain","筛选后留存","s"],["memory","retain","支持内部留存","d"],["retain","stock","流入：新增留存","s"],["stock","call","从存量中提取","s"],["memory","call","支持内部提取","d"],["call","fit","判断情境适用","s"],["fit","apply","适配后实际应用","s"],["stock","base","其中一部分在应用中体现生产性","d"],["base","apply","参与后续生产","g"],["apply","new","影响新一轮产出","s"],["new","screen","新成果再次筛选","s"],["produce","feedback","产生结果信息","f"],["feedback","correct","提供修正依据","f"],["correct","action","调整后续行动","f"],["maintain","stock","维护降低流出","d"],["maintain","base","维持有效性","d"],["efficiency","allocation","释放资源","s"],["allocation","action","重新投入","d"],["allocation","base","投入能力建设","d"],["base","dynamics","影响增长轨迹","d"],["limits","dynamics","限制增长形态","f"],["limits","stock","流出：损耗与过时","f"],["premise","choice","本期固定为前提","d"]
 ];
 const C={b:["#eaf1f8","#4776a8"],g:["#e8f4ef","#23856d"],p:["#f0ecf8","#7862a8"],a:["#fbf2df","#b47b25"],x:["#eef1f4","#98a2b3"]};
 const ns=Object.fromEntries(N.map(n=>[n[0],{id:n[0],x:n[1],y:n[2],w:n[3],h:n[4],g:n[5],title:n[6],sub:n[7],desc:n[8],tags:n[9].split("|")}]));
@@ -82,7 +84,7 @@ Object.values(ns).forEach(n=>{let g=el("g",{class:"node","data-id":n.id,transfor
 g.addEventListener("pointerdown",e=>{e.stopPropagation();drag=n;g.setPointerCapture(e.pointerId);select(n.id)});g.addEventListener("pointermove",e=>{if(drag!==n)return;let r=document.getElementById("svg").getBoundingClientRect();n.x=(e.clientX-r.left)/r.width*1120;n.y=(e.clientY-r.top)/r.height*790;draw()});g.addEventListener("pointerup",()=>drag=null)});
 applyFilter()}
 function select(id){selected=id;let n=ns[id];document.getElementById("title").textContent=n.title;document.getElementById("tags").innerHTML=n.tags.map(t=>`<span class="tag">${t}</span>`).join("");document.getElementById("desc").textContent=n.desc;let rel=E.filter(e=>e[0]===id||e[1]===id).map(e=>`<p><b>${e[0]===id?"指向":"来自"}：${ns[e[0]===id?e[1]:e[0]].title}</b> · ${e[2]}</p>`).join("");document.getElementById("links").innerHTML="<p><b>直接关系</b></p>"+rel;document.querySelectorAll(".node").forEach(g=>g.classList.toggle("selected",g.dataset.id===id));applyFilter()}
-function applyFilter(){let focus=filter==="growth"?new Set(["action","produce","screen","retain","stock","call","new","base","learning","memory","feedback","correct","maintain"]):filter==="support"?new Set(["learning","memory","feedback","correct","maintain","resources","allocation","efficiency","stock","call","action","produce","retain","base"]):null;document.querySelectorAll(".node").forEach(g=>g.classList.toggle("dim",focus&&!focus.has(g.dataset.id)&&g.dataset.id!==selected));document.querySelectorAll(".edge").forEach(e=>e.classList.toggle("dim",focus&&!focus.has(e.dataset.a)&&!focus.has(e.dataset.b)))}
+function applyFilter(){let focus=filter==="growth"?new Set(["action","produce","screen","retain","stock","call","fit","apply","new","base","learning","memory","feedback","correct","maintain"]):filter==="support"?new Set(["learning","memory","feedback","correct","maintain","resources","allocation","efficiency","stock","call","fit","apply","action","produce","retain","base"]):null;document.querySelectorAll(".node").forEach(g=>g.classList.toggle("dim",focus&&!focus.has(g.dataset.id)&&g.dataset.id!==selected));document.querySelectorAll(".edge").forEach(e=>e.classList.toggle("dim",focus&&!focus.has(e.dataset.a)&&!focus.has(e.dataset.b)))}
 function setFilter(f){filter=f;document.querySelectorAll("button").forEach(b=>b.classList.remove("active"));document.getElementById(f).classList.add("active");applyFilter()}
 document.getElementById("all").onclick=()=>setFilter("all");document.getElementById("growth").onclick=()=>setFilter("growth");document.getElementById("support").onclick=()=>setFilter("support");
 const initial=Object.fromEntries(Object.values(ns).map(n=>[n.id,[n.x,n.y]]));
