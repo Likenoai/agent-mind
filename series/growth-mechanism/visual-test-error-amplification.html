@@ -267,8 +267,8 @@ button{font:inherit;cursor:pointer}
 <audio id="audio" preload="none"></audio>
 <script>
 (function(){
- const PARTS=["audio/chunk-01.bin","audio/chunk-02.bin","audio/chunk-03.bin","audio/chunk-04.bin","audio/chunk-05.bin","audio/chunk-06.bin","audio/chunk-07.bin","audio/chunk-08.bin","audio/chunk-09.bin","audio/chunk-10.bin","audio/chunk-11.bin","audio/chunk-12.bin","audio/chunk-13.bin"];
- const START=466.181224,END=485.825306,DURATION=END-START;
+ const PARTS=["audio-trimmed/narration.mp3"];
+ const START=449.735714,END=469.379796,DURATION=END-START;
  const audio=document.getElementById("audio"),stage=document.getElementById("stage");
  const play=document.getElementById("play"),restart=document.getElementById("restart");
  const fill=document.getElementById("fill"),clock=document.getElementById("clock"),caption=document.getElementById("caption"),status=document.getElementById("status");
@@ -282,14 +282,14 @@ button{font:inherit;cursor:pointer}
  async function loadAudio(){
   if(ready)return;
   if(loading)return new Promise((resolve,reject)=>{const timer=setInterval(()=>{if(ready){clearInterval(timer);resolve()}else if(!loading){clearInterval(timer);reject(new Error("音频加载失败"))}},120)});
-  loading=true;play.disabled=true;play.textContent="正在加载…";status.textContent="正在加载原版配音资源，请稍候。";
+  loading=true;play.disabled=true;play.textContent="正在加载…";status.textContent="正在加载修订版配音资源，请稍候。";
   try{
    const buffers=await Promise.all(PARTS.map(async function(path){const r=await fetch(path,{cache:"force-cache"});if(!r.ok)throw new Error("音频资源加载失败："+path);return await r.arrayBuffer()}));
    const size=buffers.reduce((sum,b)=>sum+b.byteLength,0),joined=new Uint8Array(size);let offset=0;
    buffers.forEach(function(b){joined.set(new Uint8Array(b),offset);offset+=b.byteLength});
    objectUrl=URL.createObjectURL(new Blob([joined],{type:"audio/mpeg"}));audio.src=objectUrl;audio.load();
    await new Promise((resolve,reject)=>{audio.addEventListener("loadedmetadata",resolve,{once:true});audio.addEventListener("error",reject,{once:true})});
-   ready=true;status.textContent="原版配音已就绪。动画、字幕与音频使用同一时间轴。";
+   ready=true;status.textContent="修订版配音已就绪。动画、字幕与音频使用同一时间轴。";
   }catch(e){status.textContent="音频加载失败。可刷新页面后重试。";throw e}
   finally{loading=false;play.disabled=false;play.textContent="▶ 播放片段"}
  }
