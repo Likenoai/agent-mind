@@ -30,7 +30,7 @@ svg{display:block;width:100%;height:auto}
 .stage[data-phase="0"] #template{animation:templateNudge .9s ease-in-out infinite alternate}
 .stage[data-phase="0"] #scanBeam{opacity:.85;animation:scan 1.2s ease-in-out infinite}
 .stage[data-phase="1"] #copy1,.stage[data-phase="1"] #copy2,.stage[data-phase="1"] #copy3{opacity:1}
-.stage[data-phase="1"] #stamp{opacity:1;transform:rotate(-9deg) scale(1)}
+.stage[data-phase="1"] #stamp{opacity:1}
 .stage[data-phase="1"] #confetti{opacity:1}
 .stage[data-phase="2"] #copy1,.stage[data-phase="2"] #copy2,.stage[data-phase="2"] #copy3,.stage[data-phase="2"] #copy4,.stage[data-phase="2"] #copy5,.stage[data-phase="2"] #copy6,.stage[data-phase="2"] #copy7,.stage[data-phase="2"] #copy8{opacity:1}
 .stage[data-phase="2"] #pile{opacity:1;transform:translateY(0)}
@@ -53,6 +53,7 @@ svg{display:block;width:100%;height:auto}
 #pile{transform:translateY(30px)}
 #stopButton{transform:translateY(-180px) rotate(0);transform-box:fill-box;transform-origin:center}
 #stamp{opacity:0;transition:opacity .45s ease}
+#gear{transform-box:fill-box;transform-origin:center}
 #confetti{opacity:0;transition:opacity .3s}
 #warning{opacity:0}
 @keyframes belts{to{stroke-dashoffset:-80}}
