@@ -2,105 +2,177 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="增长机制：从知识地图到观众认知路径。理解行动成果如何留存、复用并改变未来行动能力。">
-<title>增长机制｜从知识地图到观众认知路径 · Agent Mind</title>
+<meta name="description" content="增长机制研究工作台：知识结构、观众认知路径与两者之间的映射。">
+<title>增长机制｜知识地图与观众认知路径 · Agent Mind</title>
 <style>
-:root{--ink:#172638;--muted:#617286;--line:#dce4ec;--blue:#2867c7;--teal:#16836b;--gold:#a87520;--bg:#f3f6f9}
+:root{--ink:#18283a;--muted:#657589;--line:#dce4ec;--blue:#2867c7;--teal:#16836b;--gold:#a87520;--bg:#f3f6f9;--panel:#fff}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.65 system-ui,-apple-system,"Microsoft YaHei",sans-serif}
-a{color:inherit;text-decoration:none}header{background:#142235;color:#fff;padding:16px max(20px,calc((100vw - 1360px)/2));}
-.topnav{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.brand{font-size:12px;font-weight:850;letter-spacing:.13em}.crumbs{display:flex;gap:8px;flex-wrap:wrap;color:#b9c9d8;font-size:12px}.crumbs a:hover{color:#fff}
-.hero{max-width:1360px;margin:auto;padding:27px 0 24px}.eyebrow{font-size:10px;letter-spacing:.16em;color:#9fc0e3;font-weight:800}.hero h1{font-size:clamp(28px,4vw,46px);line-height:1.18;margin:9px 0}.hero p{color:#d2deea;max-width:920px;margin:0;font-size:15px}.coord{margin-top:15px;color:#bdcddd;font-size:12px}
-main{max-width:1360px;margin:auto;padding:22px 20px 60px}.purpose{background:#fff;border:1px solid var(--line);border-left:4px solid var(--blue);border-radius:12px;padding:15px 18px;margin-bottom:17px}.purpose b{display:block;margin-bottom:4px}.purpose p{margin:0;color:#506174;font-size:13px}
-.toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:14px 0}.switches{display:flex;gap:7px;flex-wrap:wrap}.switches button,.action{font:inherit;font-size:12px;padding:9px 12px;border:1px solid var(--line);border-radius:9px;background:#fff;color:var(--ink);cursor:pointer}.switches button.active,.action.primary{background:#172b43;color:#fff;border-color:#172b43}.hint{font-size:12px;color:var(--muted)}
-.workspace{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:14px;align-items:start}
-.panel{background:#fff;border:1px solid var(--line);border-radius:15px;overflow:hidden;min-width:0;box-shadow:0 7px 24px #20364a0a}.panelhead{padding:14px 17px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:10px;align-items:center}.panelhead h2{font-size:17px;margin:0}.panelhead span{font-size:11px;color:var(--muted)}
-.mapbody{padding:15px}.mapintro{font-size:12px;color:var(--muted);margin:0 0 13px}.layers{display:grid;gap:9px}.layer{border:1px solid var(--line);border-radius:11px;padding:10px 11px}.layerhead{font-size:10px;letter-spacing:.08em;font-weight:850;color:var(--muted);margin-bottom:8px}.nodes{display:flex;gap:7px;flex-wrap:wrap}.node{border:1px solid #d7e0e9;background:#f8fafc;color:#26384b;border-radius:8px;padding:7px 9px;font:inherit;font-size:12px;cursor:pointer;text-align:left}.node:hover{border-color:#8eadd6}.node.active{border:2px solid var(--blue);background:#eff5ff;padding:6px 8px;color:#174b8d}.node.related{border-color:#7ebba9;background:#eff8f4}.layer.purpose-layer{background:#fffaf0}.layer.process-layer{background:#f5f8ff}.layer.dynamic-layer{background:#f8f5fc}.layer.cooperate-layer{background:#f1f8f5}
-.nodeinfo{margin-top:12px;border-radius:11px;background:#f2f6fa;border:1px solid var(--line);padding:13px;min-height:118px}.nodeinfo h3{margin:0 0 5px;font-size:15px}.nodeinfo p{margin:4px 0;color:#536476;font-size:12px}.nodeinfo .tag{display:inline-block;background:#e7edf4;color:#536477;border-radius:20px;padding:2px 7px;font-size:10px;margin-bottom:5px}
-.pathbody{padding:15px}.progress{display:flex;gap:4px;margin-bottom:13px}.progress span{height:4px;background:#e6ebf1;border-radius:5px;flex:1}.progress span.done{background:var(--blue)}
-.pathlist{display:grid;gap:7px}.step{display:grid;grid-template-columns:30px 1fr;gap:9px;align-items:start;border:1px solid var(--line);border-radius:10px;padding:9px;background:#fff;cursor:pointer;text-align:left;color:inherit;width:100%}.step:hover{border-color:#9db7d8}.step.active{border:2px solid var(--blue);background:#f3f7ff;padding:8px}.num{width:27px;height:27px;border-radius:50%;display:grid;place-items:center;background:#eaf1ff;color:#245ca8;font-size:11px;font-weight:800}.step h3{font-size:13px;margin:1px 0 3px}.step p{font-size:11px;color:#596a7c;margin:0}.task{display:inline-block;margin-top:5px;font-size:10px;border-radius:20px;background:#eef2f6;padding:2px 7px;color:#506173}
-.detail{margin-top:11px;padding:13px;border:1px solid var(--line);border-radius:11px;background:#f5f8fb;min-height:155px}.detail h3{font-size:15px;margin:0 0 8px}.detail p{font-size:12px;color:#526274;margin:5px 0}.detail b{color:#24384d}
-.pathactions{display:flex;justify-content:space-between;gap:8px;margin-top:10px}.action:disabled{opacity:.4;cursor:not-allowed}
-.mapping{margin-top:16px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:17px}.mapping h2{font-size:17px;margin:0 0 5px}.mapping>p{font-size:12px;color:var(--muted);margin:0 0 12px}.maprows{display:grid;grid-template-columns:1fr 1fr;gap:7px}.maprow{display:grid;grid-template-columns:1fr 20px 1fr;gap:6px;align-items:center;padding:9px;border:1px solid var(--line);border-radius:9px;font-size:11px}.maprow strong{font-weight:650}.arrow{text-align:center;color:var(--blue)}
-.takeaway{margin-top:16px;background:#142235;color:#fff;border-radius:14px;padding:18px}.takeaway small{color:#9fc0e3;letter-spacing:.12em;font-size:10px}.takeaway p{font-size:19px;line-height:1.6;margin:6px 0 0;font-weight:700}
-.entryfoot{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:18px;font-size:12px;color:var(--muted)}.entryfoot a{color:#245ca8}
-.hide-map .map-panel{display:none}.hide-path .path-panel{display:none}.hide-map .workspace,.hide-path .workspace{grid-template-columns:1fr}
-@media(max-width:900px){.workspace{grid-template-columns:1fr}.path-panel{order:1}.map-panel{order:2}.maprows{grid-template-columns:1fr}}
-@media(max-width:560px){main{padding:15px 12px 40px}.hero{padding-top:22px}.panelhead{align-items:flex-start;flex-direction:column;gap:3px}.maprow{grid-template-columns:1fr 18px 1fr;font-size:10px}.switches{width:100%}.switches button{flex:1}}
-</style></head>
+a{color:inherit;text-decoration:none}header{background:#142235;color:#fff;padding:16px max(18px,calc((100vw - 1240px)/2)) 24px}
+.nav{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:12px;color:#b9c9d8}.brand{font-weight:850;letter-spacing:.13em;color:#fff}
+.hero{max-width:1240px;margin:24px auto 0}.eyebrow{font-size:10px;letter-spacing:.16em;color:#9fc0e3;font-weight:800}.hero h1{font-size:clamp(28px,4vw,44px);line-height:1.18;margin:8px 0}.hero p{color:#d2deea;max-width:900px;margin:0}
+main{max-width:1240px;margin:auto;padding:20px 18px 55px}
+.thesis{background:#fff;border:1px solid var(--line);border-left:4px solid var(--blue);border-radius:12px;padding:15px 18px;margin-bottom:16px}.thesis b{display:block;margin-bottom:4px}.thesis p{margin:0;color:#506174;font-size:13px}
+.tabs{display:flex;gap:7px;flex-wrap:wrap;margin:16px 0}.tabs button,.action{font:inherit;font-size:12px;padding:9px 13px;border:1px solid var(--line);border-radius:9px;background:#fff;color:var(--ink);cursor:pointer}.tabs button.active,.action.primary{background:#172b43;color:#fff;border-color:#172b43}
+.view{display:none}.view.active{display:block}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:12px;flex-wrap:wrap;margin:8px 0 12px}.section-head h2{font-size:20px;margin:0}.section-head p{font-size:12px;color:var(--muted);margin:0}
+.map-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+.layer{background:#fff;border:1px solid var(--line);border-radius:13px;padding:14px;min-width:0}.layer h3{font-size:14px;margin:0 0 4px}.layer .desc{font-size:12px;color:var(--muted);margin:0 0 10px}
+.layer-tag{display:inline-block;font-size:10px;letter-spacing:.06em;color:#64748b;margin-bottom:5px}
+.nodes{display:flex;gap:7px;flex-wrap:wrap}.node{border:1px solid #d7e0e9;background:#f8fafc;color:#26384b;border-radius:8px;padding:7px 9px;font:inherit;font-size:12px;cursor:pointer;text-align:left}.node:hover{border-color:#8eadd6}.node.active{border:2px solid var(--blue);background:#eff5ff;padding:6px 8px;color:#174b8d}
+.detail{margin-top:12px;background:#f1f5f9;border:1px solid var(--line);border-radius:12px;padding:15px;min-height:130px}.detail h3{font-size:16px;margin:0 0 6px}.detail p{font-size:13px;color:#526274;margin:5px 0}.detail b{color:#24384d}
+.path-layout{display:grid;grid-template-columns:minmax(250px,.82fr) minmax(0,1.18fr);gap:13px;align-items:start}
+.steps{display:grid;gap:7px}.step{width:100%;display:grid;grid-template-columns:30px 1fr;gap:9px;align-items:start;text-align:left;border:1px solid var(--line);border-radius:10px;padding:10px;background:#fff;color:inherit;cursor:pointer}.step:hover{border-color:#9db7d8}.step.active{border:2px solid var(--blue);background:#f3f7ff;padding:9px}.num{width:27px;height:27px;border-radius:50%;display:grid;place-items:center;background:#eaf1ff;color:#245ca8;font-size:11px;font-weight:800}.step strong{display:block;font-size:13px;margin:1px 0 2px}.step small{display:block;font-size:11px;color:#596a7c;line-height:1.45}
+.step-detail{background:#fff;border:1px solid var(--line);border-radius:13px;padding:17px;min-height:360px}.step-detail h3{font-size:19px;margin:0 0 12px}.field{margin:11px 0}.field b{display:block;font-size:11px;color:#536477;letter-spacing:.04em;margin-bottom:3px}.field p{font-size:13px;margin:0;color:#26384b}.caution{border-left:3px solid #bd8b39;padding:8px 11px;background:#fbf7ef;border-radius:0 8px 8px 0;margin-top:13px;font-size:12px;color:#6e552b}
+.step-actions{display:flex;justify-content:space-between;gap:8px;margin-top:14px}.action:disabled{opacity:.4;cursor:not-allowed}
+.progress{display:flex;gap:4px;margin-bottom:13px}.progress span{height:4px;background:#e6ebf1;border-radius:5px;flex:1}.progress span.done{background:var(--blue)}
+.compare{background:#fff;border:1px solid var(--line);border-radius:13px;padding:15px;overflow:auto}.compare table{border-collapse:collapse;width:100%;font-size:12px}.compare th,.compare td{padding:10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}.compare th{color:#526274;background:#f7f9fb;font-weight:700}
+.case{margin-top:14px;background:#142235;color:#fff;border-radius:13px;padding:17px}.case h3{margin:0 0 6px;font-size:15px}.case p{margin:0;color:#d2deea;font-size:13px}.takeaway{margin-top:14px;background:#fff;border:1px solid var(--line);border-radius:13px;padding:17px}.takeaway small{font-size:10px;color:#657589;letter-spacing:.1em}.takeaway p{font-size:17px;font-weight:750;line-height:1.55;margin:5px 0 0}
+.footer{margin-top:18px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;color:var(--muted);font-size:12px}.footer a{color:#245ca8}
+@media(max-width:800px){.path-layout{grid-template-columns:1fr}.step-detail{min-height:0}.map-grid{grid-template-columns:1fr}}
+@media(max-width:560px){main{padding:15px 12px 40px}.hero{margin-top:20px}.tabs button{flex:1}.section-head{align-items:start;flex-direction:column}.compare{padding:8px}.compare th,.compare td{padding:8px}}
+</style>
+</head>
 <body>
-<header><div class="topnav"><a class="brand" href="../../index.html">AGENT MIND</a><nav class="crumbs"><a href="../../index.html">首页</a><span>›</span><a href="../../foundation/series-architecture.html">人生母题</a><span>›</span><a href="../">人生系列</a><span>›</span><span>增长机制</span></nav></div>
-<div class="hero"><div class="eyebrow">SERIES 01 · CREATE & DEVELOP</div><h1>增长机制｜从知识地图到观众认知路径</h1><p>同一个主题，两种组织方式：知识地图保留理论关系；观众认知路径安排理解的先后顺序。视频不是把知识地图从上到下念一遍，而是带观众经历一段认知变化。</p><div class="coord">母题坐标：自主地塑造值得过的人生 → 现实能动性 → 创造发展 → 增长机制</div></div></header>
-
-<div style="max-width:1360px;margin:12px auto 0;padding:0 20px">
-  <a href="concept-network.html" style="display:inline-flex;align-items:center;gap:8px;background:#eaf4ef;border:1px solid #c9e3d7;color:#17664f;padding:10px 14px;border-radius:9px;font-size:12px;font-weight:700">
-    概念关系网络：查看增长机制与其他人生机制的层级、作用和反馈关系 →
-  </a>
-</div>
-
+<header>
+ <div class="nav"><a class="brand" href="../../index.html">AGENT MIND</a><span>人生系列　›　第一期　›　增长机制</span></div>
+ <div class="hero"><div class="eyebrow">SERIES 01 · CREATE & DEVELOP</div><h1>增长机制｜知识地图与观众认知路径</h1><p>研究结构回答“增长由哪些机制构成”；观众路径回答“理解这些机制需要经历哪些认知变化”。两者相互映射，但不能互相替代。</p></div>
+</header>
 <main>
-<div class="purpose"><b>本页要解决的问题</b><p>知识地图回答“增长机制由哪些概念构成、它们之间是什么关系”；传播路径回答“观众从原有认识出发，需要经历哪些理解变化，才能真正明白增长机制为什么重要”。两者相关，但不能直接互换。</p></div>
-<div class="toolbar"><div class="switches" role="group" aria-label="视图切换"><button class="active" data-view="both">并排比较</button><button data-view="audience">先看观众路径</button><button data-view="research">只看知识地图</button></div><span class="hint">建议首次阅读：先看右侧八步，再回看左侧概念关系。</span></div>
-<div class="workspace">
-<section class="panel path-panel"><div class="panelhead"><h2>观众认知路径</h2><span>理解顺序优先 · 点击步骤查看细节</span></div><div class="pathbody"><div class="progress" id="progress"></div><div class="pathlist" id="pathlist"></div><div class="detail" id="stepDetail" aria-live="polite"></div><div class="pathactions"><button class="action" id="prev">上一步</button><button class="action primary" id="next">下一步</button></div></div></section>
-<section class="panel map-panel"><div class="panelhead"><h2>知识体系结构</h2><span>理论关系优先 · 点击概念查看定义</span></div><div class="mapbody"><p class="mapintro">概念按解释层级组织，不代表一条线性的因果链。点击节点可以查看它的定义、作用，以及它在观众路径中的位置。</p><div class="layers">
-<div class="layer purpose-layer"><div class="layerhead">01 · 主题与现象</div><div class="nodes"><button class="node active" data-node="growth">增长机制</button><button class="node" data-node="time">时间投入与成长结果</button><button class="node" data-node="repeat">重复</button></div></div>
-<div class="layer process-layer"><div class="layerhead">02 · 行动与存量过程</div><div class="nodes"><button class="node" data-node="action">行动</button><button class="node" data-node="result">成果产生</button><button class="node" data-node="retain">留存</button><button class="node" data-node="stock">存量</button><button class="node" data-node="reuse">调用与复用</button><button class="node" data-node="reinvest">再投入 / 再生产</button></div></div>
-<div class="layer dynamic-layer"><div class="layerhead">03 · 增长动态</div><div class="nodes"><button class="node" data-node="linear">线性增长</button><button class="node" data-node="compound">复利式增长</button><button class="node" data-node="diminish">边际递减</button><button class="node" data-node="saturate">饱和</button><button class="node" data-node="decay">衰减 / 损耗</button></div></div>
-<div class="layer cooperate-layer"><div class="layerhead">04 · 协作机制与评价边界</div><div class="nodes"><button class="node" data-node="choice">方向选择</button><button class="node" data-node="learning">学习</button><button class="node" data-node="memory">记忆与保存</button><button class="node" data-node="feedback">反馈与调节</button><button class="node" data-node="maintenance">维护</button><button class="node" data-node="value">价值判断与风险</button></div></div>
-</div><div class="nodeinfo" id="nodeInfo" aria-live="polite"><span class="tag">主题与现象</span><h3>增长机制</h3><p>关注已有成果如何改变后续行动条件，并在某些条件下形成持续或加速增长。</p><p><b>关联认知步骤：</b>第 1–8 步</p></div></div></section>
-</div>
-<section class="mapping"><h2>两种结构如何对应，而不是互相替代</h2><p>左侧是研究中需要保留的概念；右侧是视频中让观众逐步理解的顺序。传播路径会选择、重排和压缩知识，但不能改变理论关系。</p><div class="maprows">
-<div class="maprow"><strong>成长结果差异 / 时间投入</strong><span class="arrow">→</span><span>第 1 步：建立问题</span></div>
-<div class="maprow"><strong>行动、成果产生、留存、存量</strong><span class="arrow">→</span><span>第 2 步：成果有没有留下</span></div>
-<div class="maprow"><strong>独立存量 / 生产性存量 / 调用</strong><span class="arrow">→</span><span>第 3 步：成果能否继续发挥作用</span></div>
-<div class="maprow"><strong>再投入 / 再生产 / 存量变化</strong><span class="arrow">→</span><span>第 4 步：解释增长循环</span></div>
-<div class="maprow"><strong>重复 / 积累 / 复利式增长</strong><span class="arrow">→</span><span>第 5 步：概念命名与区分</span></div>
-<div class="maprow"><strong>线性、加速、递减、饱和、衰减</strong><span class="arrow">→</span><span>第 6 步：呈现不同动态</span></div>
-<div class="maprow"><strong>选择、学习、记忆、反馈、调节、维护</strong><span class="arrow">→</span><span>第 7 步：交代协作机制</span></div>
-<div class="maprow"><strong>价值判断、方向、代价与风险</strong><span class="arrow">→</span><span>第 7–8 步：边界与人生应用</span></div>
-</div></section>
-<div class="takeaway"><small>本期真正希望观众带走的认识</small><p>不要只问自己投入了多少时间，还要看每次行动留下了什么；更要看这些成果，能不能改变下一次行动的能力。</p></div>
-<div class="entryfoot"><span>所在位置：人生系列 · 第 01 期 · 增长机制</span><span><a href="../">返回人生系列</a>　·　<a href="../../foundation/series-architecture.html">查看完整母题</a></span></div>
+ <div class="thesis"><b>本期核心问题</b><p>一个人的过去，究竟是怎样参与并改变他的未来的？在增长方向已经确定的前提下，行动成果如何留存、提取、适用于新情境、改变后续生产，并在新成果继续留存或再投入时扩大未来生产基础？</p></div>
+ <div class="tabs" role="tablist"><button class="active" data-tab="map">知识地图</button><button data-tab="path">观众认知路径</button><button data-tab="compare">结构映射</button></div>
+
+ <section class="view active" id="map">
+  <div class="section-head"><h2>知识地图｜研究结构</h2><p>按解释层级组织，不代表严格线性因果顺序。点击概念查看定义和边界。</p></div>
+  <div class="map-grid" id="mapGrid"></div>
+  <div class="detail" id="mapDetail" aria-live="polite"><h3>增长机制</h3><p>行动成果能够留存，并在适当情境中改变后续行动条件；部分新成果继续留存或再投入时，可能形成复利式积累。</p></div>
+ </section>
+
+ <section class="view" id="path">
+  <div class="section-head"><h2>观众认知路径｜八个阶段</h2><p>从观众熟悉的时间投入出发，逐步建立过去与未来之间的因果联系。</p></div>
+  <div class="path-layout">
+   <div><div class="progress" id="progress"></div><div class="steps" id="steps"></div></div>
+   <div class="step-detail" id="stepDetail" aria-live="polite"></div>
+  </div>
+  <div class="case"><h3>贯穿案例：一个人持续制作短视频</h3><p>从每次重新剪辑，到逐渐留下模板、素材库、制作流程和经验；再到提取、修改、应用，并把节约出来的资源投入研究与表达。新作品又可能产生新的可复用成果。这个案例展示的是一种可能的强化循环，不是所有成长都必然遵循的规律。</p></div>
+ </section>
+
+ <section class="view" id="compare">
+  <div class="section-head"><h2>结构映射｜研究需要什么，视频何时讲</h2><p>传播顺序可以重排和压缩，但不能改变概念之间的理论关系。</p></div>
+  <div class="compare">
+   <table><thead><tr><th>研究结构</th><th>核心概念</th><th>观众认知阶段</th><th>传播任务</th></tr></thead><tbody>
+    <tr><td>行动与成果</td><td>投入、行动、即时结果、成果筛选</td><td>1–2</td><td>从“做了多少”转向“产生了什么”</td></tr>
+    <tr><td>留存与存量</td><td>内部/外部留存、存量、流入与损耗</td><td>2–3</td><td>解释行动结束后，什么仍然存在</td></tr>
+    <tr><td>提取与应用</td><td>可调用性、情境适用、实际应用</td><td>3–4</td><td>区分保存、找到、适用和使用</td></tr>
+    <tr><td>生产关系</td><td>生产性存量、后续生产条件、产出</td><td>4–5</td><td>解释过去如何改变未来行动</td></tr>
+    <tr><td>再生产与复利</td><td>新成果留存、再投入、强化反馈回路</td><td>5</td><td>解释生产基础如何进入下一轮并扩大</td></tr>
+    <tr><td>动态与边界</td><td>线性/指数/平台/衰减、边际收益递减、瓶颈</td><td>6</td><td>避免把复利误解成无限加速</td></tr>
+    <tr><td>协作机制</td><td>学习、记忆、信息反馈、调节、维护、资源配置</td><td>7</td><td>交代增长需要的支持条件</td></tr>
+    <tr><td>评价与应用</td><td>成果检查、损耗、成本、方向价值</td><td>8</td><td>将认识转化为现实检查问题</td></tr>
+   </tbody></table>
+  </div>
+  <div class="takeaway"><small>视频最终要建立的认识</small><p>时间只是投入。真正影响未来的，是行动成果能否被留存、提取、适用并投入后续生产；当新成果又继续扩大未来的生产基础时，才可能形成复利式积累。</p></div>
+ </section>
+
+ <div class="footer"><span>研究文件：AUDIENCE-PATH.md · RESEARCH-AUDIT.md</span><span><a href="concept-network.html">打开交互式概念关系网络</a>　·　<a href="../">返回人生系列</a></span></div>
 </main>
 <script>
-const steps=[
-["从熟悉的时间投入切入","工作年限、学习时间和努力程度，通常被当作成长的依据。","开始意识到“时间投入”与“能力增长”之间还缺少解释环节。","成长结果差异、行动模式、增长机制。此时不必先讲完整定义。","time growth"],
-["把注意力从“做了多少”转向“留下了什么”","完成任务就意味着经历了一次工作或练习。","意识到行动结束后，是否留下可保留的成果，是一个独立问题。","行动、成果产生、留存、存量形成。","action result retain stock"],
-["区分“留下来”与“能继续发挥作用”","积累得越多，似乎自然就越有成长。","理解存量不一定自动提高未来生产能力，必须看它能否被调用并改变下一次行动。","独立存量、生产性存量、调用与复用。","stock reuse"],
-["解释增长循环如何形成","每次行动大致独立，成果完成后就结束。","看见成果如何进入下一轮，影响后续产出，并可能扩大生产基础。","复用、再投入、再生产、存量变化。","reuse reinvest action result"],
-["再回头区分重复、积累与复利","重复、积累和复利容易被混作同一件事。","知道重复是行动模式，积累是存量形成，复利式增长是生产性存量参与后续生产的一种机制。","行动模式、积累、生产性存量、复利式增长。","repeat retain stock compound"],
-["说明增长并非只有一种曲线","只要开始积累，增长就会持续加速。","知道增长可能线性、加速、递减、饱和或衰减，不能把某一条曲线当成普遍规律。","动态表现、边际递减、饱和、损耗。","linear compound diminish saturate decay"],
-["指出增长需要其他机制协作","只要理解增长循环，就知道如何获得人生增长。","知道增长还依赖方向选择、学习、记忆、反馈、调节和维护；增长本身不保证有益。","协作机制、价值判断、风险与代价。","choice learning memory feedback maintenance value"],
-["把认识带回人生行动","衡量成长时，容易只看投入时长和完成数量。","用“留下什么、如何调用、是否改变下一次行动”检查自己的行动。","整个增长过程及其评价边界。","growth action retain reuse value"]
+const mapData=[
+{title:"01 · 前提与投入",desc:"本期固定增长对象与方向，研究行动如何转化为未来生产能力。",nodes:[
+["方向前提","假设增长对象与方向已经合理确定；本期不回答目标为何值得选择。","研究边界","不是增长过程中的因果环节，而是本期分析的前提。"],
+["资源投入","时间、精力、资金和工具，为行动提供条件。","投入条件","投入增加不保证有效成果增加。"],
+["行动模式","重复、练习、探索等行动方式。","行动模式","重复可能伴随学习，也可能只是机械再做。"]]},
+{title:"02 · 行动与成果",desc:"行动产生结果，但即时结果不一定成为可长期保留的成果。",nodes:[
+["行动","主体实际进行的活动，是成果产生的过程起点。","过程起点","行动不等于已经形成可留存成果。"],
+["即时结果","一次行动直接产生的结果，可能是完成任务或一次性产出。","短期结果","结果可能随任务结束而消失。"],
+["成果筛选","判断哪些结果值得保存，哪些无需长期保留。","筛选环节","筛选标准涉及未来使用可能、重新获得成本和损失后果。"]]},
+{title:"03 · 留存与存量",desc:"存量是某一时点的累积状态；流入和流出共同决定存量如何变化。",nodes:[
+["内部留存","知识、技能、经验和身体能力等，不一定能变成文档。","留存形式","不能把留存等同于文件归档。"],
+["外部留存","文档、模板、工具、流程、资产和外部记录。","留存形式","保存了不等于能找到，也不等于适用。"],
+["存量","某一时点累积下来的状态或资源。","状态变量","不同类型存量需要各自定义单位，不能未经论证合并。"],
+["流入与流出","新增留存增加存量；遗忘、失效、过时和淘汰造成流出。","变化机制","积累取决于净变化，不是只看新增。"]]},
+{title:"04 · 提取、适用与应用",desc:"从保存的成果到改变后续生产，需要经过不同环节。",nodes:[
+["提取与调用","找到并恢复已经留存的成果。","可调用性","能找到不等于适合当前问题。"],
+["情境适用","判断已有成果是否适合当前任务、环境和约束。","迁移判断","旧方法可能需要调整，甚至不应该使用。"],
+["实际应用","把提取且适用的成果真正用于行动。","作用检验","应用结果才能显示它是否改变后续行动条件。"],
+["生产性存量","在适当情境中被应用时，能够改变后续生产条件的存量。","生产属性","可降低成本、提高质量、可靠性或扩大任务范围。"]]},
+{title:"05 · 再生产与复利",desc:"复利式积累需要新成果继续进入未来生产基础。",nodes:[
+["后续生产","生产性存量参与后续行动，影响新一轮产出。","生产过程","过去的成果改变未来行动条件。"],
+["新成果留存","新产出中一部分被筛选并继续保留。","存量流入","不是所有产出都值得或能够保留。"],
+["再投入","把部分新成果重新投入未来生产。","循环条件","再投入可能扩大未来生产基础，但有机会成本。"],
+["强化反馈回路","存量扩大促进生产，新增产出又继续扩大存量。","系统循环","这是系统层面的自我增强，不等同于收到正面评价或信息反馈。"]]},
+{title:"06 · 动态与增长边界",desc:"增长轨迹、投入产出关系和系统约束是不同分析维度。",nodes:[
+["时间轨迹","近似线性、指数、平台和衰减等存量或产出随时间的变化。","动态表现","复利机制不自动意味着指数增长。"],
+["边际收益递减","其他生产条件不变时，继续增加某种投入，其额外产出逐渐减少。","投入—产出关系","总产出仍可能继续增加；不能把它当成衰减曲线。"],
+["损耗与过时","遗忘、失效、环境变化和技术更新使存量失去作用。","流出与有效性","维护、更新和淘汰会影响净积累。"],
+["资源瓶颈与饱和","时间、资金、注意力、需求和容量上限约束增长。","系统约束","生产基础扩大不代表可以无限加速。"]]},
+{title:"07 · 协作机制",desc:"这些机制支持增长过程，但不等于增长本身。",nodes:[
+["学习","形成或改变知识、技能和能力，影响新成果质量。","成果形成","学习理论不在本期完整展开。"],
+["记忆与外部记录","支持内部留存、提取，以及外部成果保存。","留存与提取","记忆不等于所有成果都能可靠保存。"],
+["信息反馈与调节","结果信息帮助识别偏差；调节据此改变后续行动。","修正过程","信息反馈不等于系统动力学强化反馈回路。"],
+["维护与更新","减少存量损耗，使成果适应环境变化；淘汰失效成果。","有效性管理","维护也需要成本。"],
+["资源配置","决定效率提升释放出的资源用于何处。","再投入决策","节省时间不自动等于扩大未来能力。"]]},
+{title:"08 · 评价边界",desc:"增长机制解释如何积累，不替代价值判断决定什么值得增长。",nodes:[
+["数量变化","描述存量或产出增加、减少、稳定。","事实判断","数量变化本身不包含好坏评价。"],
+["方向与代价","判断增长方向、风险、机会成本和外部影响。","价值判断","存量增加不自动等于人生改善。"],
+["停止与淘汰","在损耗、风险或方向变化时，决定停止投入或淘汰旧存量。","行动边界","不值得的增长也可能形成强化循环。"]]}
 ];
-const info={
-growth:["主题与现象","增长机制","关注已有成果如何改变后续行动条件，并在某些条件下形成持续或加速增长。","1–8"],
-time:["主题与现象","时间投入与成长结果","时间投入是行动发生的条件，不是能力增长的充分解释。需要追问投入后留下了什么。","1"],
-repeat:["主题与现象","重复","同类行动再次发生，是行动模式；重复可能带来学习，也可能只是机械再做。重复本身不等于积累或复利。","5"],
-action:["行动与存量过程","行动","行动是产生结果的过程起点。行动是否留下可保存成果，需要单独判断。","2、4、8"],
-result:["行动与存量过程","成果产生","行动可能产生知识、技能、经验、工具或资源等成果；成果性质决定其能否留存和复用。","2、4"],
-retain:["行动与存量过程","留存","成果被保存并能在未来被找到或恢复。留存不保证它一定有用，也不保证它会被正确调用。","2、5"],
-stock:["行动与存量过程","存量","某一时点保留下来的成果总量。存量可以是生产性的，也可以闲置、过时或贬值。","2、3、5"],
-reuse:["行动与存量过程","调用与复用","把已有成果用于新的行动，使过去的成果改变下一次行动的条件。复用是可能的连接机制，不必然产生复利。","3、4"],
-reinvest:["行动与存量过程","再投入 / 再生产","新增成果被继续投入后续生产过程，扩大未来可参与生产的基础，是复利式增长的一种关键条件。","4、5"],
-linear:["增长动态","线性增长","新增量在一定区间内相对稳定，存量随时间或轮次近似匀速增加。","6"],
-compound:["增长动态","复利式增长","生产性存量参与后续生产，且新增成果继续留存或再投入，使生产基础可能扩大并推动后续新增增加。","4、5、6"],
-diminish:["增长动态","边际递减","投入继续增加，但每单位新增投入带来的额外产出逐渐减少。","6"],
-saturate:["增长动态","饱和","系统接近容量、需求或资源上限，增长速度下降，最终可能趋于平台。","6"],
-decay:["增长动态","衰减 / 损耗","成果可能遗忘、过时、失效或被环境变化抵消，存量不是永久保存。","6、7"],
-choice:["协作机制与评价边界","方向选择","决定把有限资源投入哪里，也决定什么成果值得形成和留存。","7"],
-learning:["协作机制与评价边界","学习","通过经验、练习和反馈形成新知识或能力；它影响行动成果的质量。","7"],
-memory:["协作机制与评价边界","记忆与保存","帮助经验和知识被保留、提取；记忆并不等于所有成果都能可靠保存。","7"],
-feedback:["协作机制与评价边界","反馈与调节","比较预期与实际结果，识别偏差并调整策略，避免把低效重复误当成积累。","7"],
-maintenance:["协作机制与评价边界","维护","通过复习、更新、保养和关系维护减少成果损耗。","7"],
-value:["协作机制与评价边界","价值判断与风险","增长不是天然有益。需要判断增长方向、代价、风险、外部影响，以及何时停止或退出。","7、8"]
-};
-let current=0;
-const pathlist=document.getElementById('pathlist'),progress=document.getElementById('progress');
-steps.forEach((s,i)=>{const b=document.createElement('button');b.className='step';b.type='button';b.innerHTML='<span class="num">'+(i+1)+'</span><span><h3>'+s[0]+'</h3><p>'+s[2]+'</p><span class="task">认知任务：'+["建立问题","引入成果留存","建立关键区分","解释核心因果机制","概念命名与区分","避免过度概括","交代协作条件","迁移到行动"][i]+'</span></span>';b.onclick=()=>showStep(i);pathlist.appendChild(b);const p=document.createElement('span');progress.appendChild(p)});
-function showStep(i){current=i;document.querySelectorAll('.step').forEach((x,j)=>x.classList.toggle('active',j===i));[...progress.children].forEach((x,j)=>x.classList.toggle('done',j<=i));const s=steps[i];document.getElementById('stepDetail').innerHTML='<h3>第 '+(i+1)+' 步｜'+s[0]+'</h3><p><b>观众原有认识：</b>'+s[1]+'</p><p><b>需要发生的变化：</b>'+s[2]+'</p><p><b>知识地图对应：</b>'+s[3]+'</p>';document.getElementById('prev').disabled=i===0;document.getElementById('next').disabled=i===7;const related=s[4].split(' ');document.querySelectorAll('.node').forEach(n=>{n.classList.toggle('related',related.includes(n.dataset.node));});}
-document.getElementById('prev').onclick=()=>showStep(Math.max(0,current-1));document.getElementById('next').onclick=()=>showStep(Math.min(7,current+1));
-document.querySelectorAll('.node').forEach(n=>n.onclick=()=>{const d=info[n.dataset.node];document.querySelectorAll('.node').forEach(x=>x.classList.toggle('active',x===n));document.getElementById('nodeInfo').innerHTML='<span class="tag">'+d[0]+'</span><h3>'+d[1]+'</h3><p>'+d[2]+'</p><p><b>关联认知步骤：</b>第 '+d[3]+' 步</p>';});
-document.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-view]').forEach(x=>x.classList.toggle('active',x===b));document.body.classList.remove('hide-map','hide-path');if(b.dataset.view==='research')document.body.classList.add('hide-path');if(b.dataset.view==='audience')document.body.classList.add('hide-map');});
+const pathData=[
+{title:"时间投入为什么不一定带来成长？",from:"工作年限、学习时长和努力程度经常被当作成长的代理指标。",shift:"时间投入只是行动发生的条件，不是成长的充分解释。相同时间可能产生不同成果，关键还要看行动成果如何转化。",task:"提出“投入如何转化为未来能力”的问题。不要暗示努力或时间没有意义。",example:"两个人都花两小时制作视频，一个每次从头开始，另一个逐渐形成模板、素材管理和工作流程。",avoid:"不要把结论讲成“时间不重要”或“努力没有用”。"},
+{title:"行动结束之后，究竟留下了什么？",from:"完成一次任务，就意味着获得了一次经验。",shift:"行动结果不等于长期成果。知识、技能、经验、工具、文档和流程可能被保留下来，也可能随任务结束而消失。",task:"区分行动、即时结果和可留存成果；说明内部留存与外部留存。",example:"一条视频发布后会结束，但字幕模板、素材分类方法、剪辑流程和经验可能留下来。",avoid:"不要把留存限定为保存文档；身体技能和默会经验也能留存。"},
+{title:"留下来的东西，为什么不一定能用？",from:"保存下来，就等于以后可以使用。",shift:"留存不等于可调用。成果可能遗忘、难以检索、缺少上下文，或者只剩下无法理解的文件。",task:"区分留存存量与可调用存量；提取是独立环节。",example:"电脑里保存了大量模板，却找不到正确版本；旧项目文件没有记录使用条件，重新打开也不知道如何修改。",avoid:"不要把“存量”说成随时可用的成果总和。"},
+{title:"过去的成果，如何改变下一次行动？",from:"找到并调用旧成果，就自然会产生帮助。",shift:"提取之后还要判断情境适用性，并在实际应用中检验它是否改变后续行动条件。",task:"区分提取、情境适配、应用和生产性。生产性表现为对后续生产条件的实际改变。",example:"旧字幕模板被找到后，仍需按新视频比例、内容节奏和风格修改；应用后才可能真正节省时间或提高一致性。",avoid:"不要把“知道”“找到”“会用”混成同一件事。"},
+{title:"什么情况下，过去的成果能够创造更多成果？",from:"重复使用旧成果，就是复利。",shift:"复利式积累还要求部分新成果继续留存或再投入，扩大未来可参与生产的基础。",task:"解释生产性存量参与后续生产，新成果筛选、留存/再投入，生产基础扩大的循环。区分重复、积累、复用和复利。",example:"模板和流程节省时间后，制作者把一部分时间投入研究与表达；新视频又产生更成熟的脚本结构、素材库和制作经验。",avoid:"不要把复用直接等同于复利，也不要暗示每轮产出必然更好。"},
+{title:"为什么这种增长不会永远加速？",from:"一旦形成积累，增长就会持续加速。",shift:"增长有不同时间轨迹，也受到损耗、瓶颈、环境变化和投入—产出关系的限制。",task:"分开说明线性/指数/平台/衰减等时间轨迹，以及边际收益递减这种投入—产出关系。",example:"模板过时、平台比例变化、风格同质化、创意瓶颈和维护成本都会削弱已有积累。",avoid:"不要把边际收益递减说成总产出下降；不要把复利直接等同于指数增长。"},
+{title:"持续增长需要哪些协作机制？",from:"理解了复利循环，就知道如何让自己持续成长。",shift:"增长依赖多个协作机制：学习、记忆、信息反馈、调节、维护和资源配置。",task:"说明这些机制分别支持成果形成、留存、提取、修正和再投入；不展开完整理论。",example:"根据作品反馈调整内容，更新模板，复盘失败环节，把节约的时间投入更重要的工作。",avoid:"不要把信息反馈与系统动力学强化反馈回路混为一谈。"},
+{title:"如何重新观察自己的行动？",from:"主要用投入时长、任务数量和即时结果评价成长。",shift:"用行动成果与未来生产条件之间的关系检查积累质量。",task:"让观众带走四个问题：产生了什么？留下了什么？能否提取并适用？应用后是否改变未来行动？",example:"复盘一次工作或学习：留下的成果是什么，是否能在新任务中找到、理解、调整和使用？",avoid:"不要把增长本身当作价值目标；是否值得增长仍需独立判断。"}
+];
+const mapGrid=document.getElementById("mapGrid"),mapDetail=document.getElementById("mapDetail");
+mapData.forEach(function(layer,i){
+ const box=document.createElement("article");box.className="layer";
+ const tag=document.createElement("span");tag.className="layer-tag";tag.textContent="研究层级";
+ const h=document.createElement("h3");h.textContent=layer.title;
+ const p=document.createElement("p");p.className="desc";p.textContent=layer.desc;
+ const nodes=document.createElement("div");nodes.className="nodes";
+ layer.nodes.forEach(function(n,j){
+  const b=document.createElement("button");b.className="node";b.textContent=n[0];b.type="button";
+  b.onclick=function(){
+   document.querySelectorAll(".node").forEach(function(x){x.classList.remove("active")});b.classList.add("active");
+   mapDetail.innerHTML="<h3></h3><p></p><p><b>所属层级：</b></p><p><b>认知位置：</b></p>";
+   mapDetail.querySelector("h3").textContent=n[0];
+   mapDetail.querySelectorAll("p")[0].textContent=n[1];
+   mapDetail.querySelectorAll("p")[1].innerHTML="<b>所属层级：</b>"+layer.title;
+   mapDetail.querySelectorAll("p")[2].innerHTML="<b>认知位置：</b>"+n[2]+" · "+n[3];
+  };
+  nodes.appendChild(b);
+ });
+ box.appendChild(tag);box.appendChild(h);box.appendChild(p);box.appendChild(nodes);mapGrid.appendChild(box);
+});
+const steps=document.getElementById("steps"),progress=document.getElementById("progress"),detail=document.getElementById("stepDetail");let current=0;
+pathData.forEach(function(s,i){
+ const b=document.createElement("button");b.type="button";b.className="step";
+ b.innerHTML='<span class="num">'+(i+1)+'</span><span><strong></strong><small></small></span>';
+ b.querySelector("strong").textContent=s.title;b.querySelector("small").textContent=s.shift;
+ b.onclick=function(){showStep(i)};steps.appendChild(b);
+ const pr=document.createElement("span");progress.appendChild(pr);
+});
+function showStep(i){
+ current=i;const s=pathData[i];
+ document.querySelectorAll(".step").forEach(function(b,j){b.classList.toggle("active",j===i)});
+ Array.prototype.forEach.call(progress.children,function(p,j){p.classList.toggle("done",j<=i)});
+ detail.innerHTML='<h3></h3><div class="field"><b>观众原有认识</b><p></p></div><div class="field"><b>需要发生的认知变化</b><p></p></div><div class="field"><b>这一阶段的解释任务</b><p></p></div><div class="field"><b>贯穿案例</b><p></p></div><div class="caution"></div><div class="step-actions"><button class="action" id="prev">上一步</button><button class="action primary" id="next">下一步</button></div>';
+ detail.querySelector("h3").textContent="第 "+(i+1)+" 步｜"+s.title;
+ const ps=detail.querySelectorAll(".field p");ps[0].textContent=s.from;ps[1].textContent=s.shift;ps[2].textContent=s.task;ps[3].textContent=s.example;
+ detail.querySelector(".caution").textContent="表达边界："+s.avoid;
+ document.getElementById("prev").disabled=i===0;document.getElementById("next").disabled=i===7;
+ document.getElementById("prev").onclick=function(){showStep(Math.max(0,current-1))};
+ document.getElementById("next").onclick=function(){showStep(Math.min(7,current+1))};
+}
+document.querySelectorAll("[data-tab]").forEach(function(b){
+ b.onclick=function(){
+  document.querySelectorAll("[data-tab]").forEach(function(x){x.classList.toggle("active",x===b)});
+  document.querySelectorAll(".view").forEach(function(x){x.classList.toggle("active",x.id===b.dataset.tab)});
+ };
+});
 showStep(0);
-</script></body></html>
+</script>
+</body></html>
