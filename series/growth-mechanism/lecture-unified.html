@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>人生机制与增长机制｜统一视觉视听版</title>
+<style>
+:root{color-scheme:dark;--bg:#100f14;--panel:#1b1a20;--panel2:#222127;--border:#ffffff16;--text:#f1f0ed;--muted:#aaa9a7;--green:#70dfad;--blue:#81b2ed;--purple:#c7a3ef;--gold:#eabd75;--gray:#a9afb8}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:"Noto Sans CJK SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;font-size:14px;line-height:1.6}button,input{font:inherit}button{background:#28272d;border:1px solid #ffffff1b;color:var(--text);border-radius:9px;padding:9px 13px;cursor:pointer;white-space:nowrap}button:hover{background:#39383d}button:focus-visible,input:focus-visible{outline:2px solid var(--green);outline-offset:3px}button:disabled{opacity:.4;cursor:default}button.primary{background:var(--green);color:#13251d;border-color:transparent;font-weight:700}button.active{border-color:#70dfad99;background:#70dfad19;color:var(--green)}header{max-width:1800px;margin:auto;padding:24px 28px 17px;display:flex;align-items:center;justify-content:space-between;gap:20px;border-bottom:1px solid var(--border)}h1{margin:3px 0;font-size:clamp(20px,2.4vw,29px);letter-spacing:-.04em;font-weight:750}.eyebrow{font-size:10px;letter-spacing:.18em;color:var(--green);font-weight:700}.lead{font-size:12px;color:var(--muted);margin:6px 0 0}header .headerBtns{display:flex;gap:8px;flex-wrap:wrap}.grid{max-width:1800px;margin:0 auto;padding:20px 28px 28px;display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:18px;align-items:start}.main{min-width:0}.stageWrap{border:1px solid #ffffff20;border-radius:16px;overflow:hidden;background:#121416;box-shadow:0 16px 55px #0004}.stage{aspect-ratio:16/9;position:relative;overflow:hidden;background:radial-gradient(ellipse at 50% 55%,#1c2323 0%,#111517 66%,#101213 100%);display:flex;flex-direction:column;isolation:isolate;container-type:inline-size}.stage:before{content:"";position:absolute;inset:0;background-image:radial-gradient(#ffffff11 1px,transparent 1px);background-size:24px 24px;opacity:.3;pointer-events:none;z-index:-1}.stage-top{position:absolute;left:4%;right:4%;top:3.8%;display:flex;align-items:flex-start;justify-content:space-between;gap:10px;z-index:2}.stage-overline{color:#70dfad;font-size:clamp(8px,1.15cqw,14px);font-weight:bold;letter-spacing:.12em}.stage-title{font-size:clamp(15px,2.65cqw,35px);font-weight:bold;margin-top:.2em;line-height:1.3}.stage-index{color:#b1b7b4;font-size:clamp(9px,1.2cqw,15px);text-align:right;font-variant-numeric:tabular-nums;letter-spacing:.09em;flex-shrink:0}.viz{position:absolute;left:2%;right:2%;top:15%;bottom:21%;overflow:hidden}.viz svg{display:block;width:100%;height:100%;overflow:visible}.stage-foot{position:absolute;bottom:3%;left:4%;right:4%;z-index:3;border-top:1px solid #ffffff21;padding-top:1.3%;background:linear-gradient(180deg,#11151700,#111517 33%);}.keyline{color:#a8efca;font-size:clamp(11px,1.67cqw,23px);font-weight:650;line-height:1.3;min-height:1.3em;letter-spacing:.02em}.caption{font-size:clamp(10px,1.47cqw,20px);color:#e6e8e4;line-height:1.5;margin-top:1%;min-height:2.9em;max-width:100%;text-wrap:pretty}.stage .mapmini{position:absolute;right:3.2%;top:16%;background:#111517dd;border:1px solid #ffffff20;z-index:2;border-radius:7px;display:none;width:12%;padding:4px}.stage .mapmini svg{width:100%;height:auto;display:block}.stage .mapmini.visible{display:block}.maplegend{position:absolute;top:13%;right:4%;display:flex;gap:8px;z-index:2;color:#aeb9b3;font-size:clamp(7px,.83cqw,11px)}.maplegend span{white-space:nowrap}.maplegend i{display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:3px}.stage.portrait{aspect-ratio:9/16;width:min(100%,calc((100dvh - 180px)*.5625));margin:auto;container-type:inline-size}.stage.portrait .stage-top{top:3%;left:5%;right:5%}.stage.portrait .stage-title{font-size:4.6cqw}.stage.portrait .stage-overline,.stage.portrait .stage-index{font-size:2.4cqw}.stage.portrait .viz{top:14%;bottom:27%;left:2%;right:2%}.stage.portrait .stage-foot{bottom:5%;left:5%;right:5%}.stage.portrait .keyline{font-size:4cqw}.stage.portrait .caption{font-size:3.45cqw;min-height:6em;margin-top:3%}.stage.portrait .maplegend{top:12%;right:5%;font-size:2cqw;flex-wrap:wrap}.stage.portrait .mapmini{display:none}
+.controls{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin:15px 0 8px}.controls .primary{min-width:106px}.controls .time{margin-left:auto;color:#b5b3b6;font-variant-numeric:tabular-nums;font-size:12px}
+#narrationAudio{display:none}
+.seek{width:100%;accent-color:var(--green);height:5px;margin:11px 0 5px;cursor:pointer}.ticks{display:flex;width:100%;gap:3px;margin:9px 0 16px}.tick{height:5px;padding:0;border:0;border-radius:3px;background:#535156;min-width:0}.tick.past{background:#70dfad77}.tick.on{background:var(--green)}.status{display:flex;gap:8px;align-items:center;flex-wrap:wrap;color:var(--muted);font-size:11px}.status .dot{width:6px;height:6px;border-radius:100%;background:var(--green)}
+.panel{background:var(--panel);border:1px solid var(--border);border-radius:13px;overflow:hidden}.panelhead{padding:14px 16px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;gap:6px}.panelhead strong{font-size:13px;letter-spacing:.04em}.panelhead span{font-size:11px;color:var(--muted)}.chaplist{padding:7px 8px;max-height:405px;overflow:auto}.chapterbtn{white-space:normal;display:flex;align-items:center;gap:10px;text-align:left;width:100%;border:0;background:transparent;padding:10px 9px;margin:0 0 2px;color:inherit;border-radius:8px}.chapterbtn .num{font-size:11px;color:#969498;font-family:monospace}.chapterbtn.on{background:#70dfad16;color:var(--green)}.chapterbtn:hover{background:#ffffff0c}.chapterbtn .chmain{flex:1;font-size:13px;font-weight:570}.chapterbtn .chdur{font-size:10px;color:var(--muted);font-variant-numeric:tabular-nums}.chapterbtn .chmain small{display:block;font-size:10px;font-weight:400;color:#a3a5a2;line-height:1.4;margin-top:3px}.subcues{display:flex;flex-wrap:wrap;gap:4px;padding:0 8px 8px 35px}.subcue{border-radius:5px;padding:4px 7px;border:1px solid #ffffff13;font-size:10px;white-space:normal;color:#b6b6b6;background:#24232a}.subcue.on{border-color:#70dfad77;color:var(--green)}.detail{margin-top:14px}.detailbody{padding:14px 16px}.detailbody h2{margin:4px 0 5px;font-size:18px;letter-spacing:-.025em}.detailbody .label{font-size:10px;letter-spacing:.07em;color:var(--green);font-weight:700;margin-top:16px}.narration{font-size:13px;color:#e2e1df;line-height:1.9;margin:7px 0 10px}.motion{font-size:12px;color:#b4b4b6;line-height:1.7;margin:5px 0}.concepts{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}.concept{font-size:10px;border:1px solid #ffffff19;border-radius:6px;color:#cececb;padding:3px 7px}.notes{color:#a09fa5;font-size:12px;margin-top:18px;padding:14px 16px;background:#19181d;border-radius:12px;border:1px solid var(--border)}.notes summary{cursor:pointer;color:#c5c4c8;font-weight:600}.notes p,.notes ul{margin:8px 0;line-height:1.9}.notes ul{padding-left:20px}
+dialog{background:#1b1a20;color:var(--text);border:1px solid #ffffff2c;max-width:min(1100px,94vw);width:100%;max-height:88vh;border-radius:16px;padding:0}dialog::backdrop{background:#0009}.modalhead{position:sticky;top:0;background:#1b1a20;display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--border);z-index:2}.modalhead h2{font-size:18px;margin:0}.modalbody{padding:16px 18px}.scriptrow{display:grid;grid-template-columns:105px 175px 1fr 1fr;gap:12px;border-bottom:1px solid var(--border);padding:13px 0;font-size:12px}.scriptrow b{color:var(--green)}.scriptrow p{margin:0}.scriptrow .scriptmotion{color:#bcbcc3}.scriptrow .scriptkey{color:var(--green);margin-top:7px;font-weight:600}.scriptrow small{color:var(--muted)}.modalhead .actions{display:flex;gap:6px}
+
+/* 统一视觉系统：地图与局部实验共享同一舞台、色彩和转场语法 */
+.viz{isolation:isolate}
+.viz #viz{position:relative;z-index:1;transform-origin:50% 50%}
+.viz #vizGhost{position:absolute;inset:0;width:100%;height:100%;z-index:3;pointer-events:none;transform-origin:50% 50%;animation:vizGhostOut .46s cubic-bezier(.22,.61,.36,1) forwards}
+#viz.scene-enter{animation:vizSceneIn .46s cubic-bezier(.22,.61,.36,1) both}
+@keyframes vizGhostOut{to{opacity:0;transform:scale(1.025);filter:blur(2px)}}
+@keyframes vizSceneIn{from{opacity:.18;transform:scale(.982);filter:blur(1px)}to{opacity:1;transform:scale(1);filter:blur(0)}}
+.maplegend span{background:#17201fbd;border:1px solid #ffffff18;border-radius:999px;padding:3px 7px}
+.maplegend i{width:7px;height:7px}
+.stage .mapmini{backdrop-filter:blur(10px);box-shadow:0 8px 28px #0005}
+.stage{background:radial-gradient(ellipse at 52% 52%,#202b2b 0%,#151b1d 58%,#101416 100%)}
+.stage:after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 50%,transparent 45%,#080b0d55 100%);z-index:0}
+.viz{z-index:1}
+.stage-top,.stage-foot,.maplegend,.mapmini{z-index:4}
+
+@media(max-width:1120px){.grid{grid-template-columns:minmax(0,1fr) 290px;padding:15px;gap:12px}header{padding:17px 15px}.caption{font-size:1.7cqw}.keyline{font-size:1.9cqw}}
+@media(max-width:780px){header{display:block;padding:17px 14px}.headerBtns{margin-top:12px}.grid{display:flex;flex-direction:column;padding:10px;gap:15px}.main,.sidebar{width:100%}.stage.portrait{width:100%;max-height:none}.stage .caption{font-size:2cqw}.stage .keyline{font-size:2.2cqw}.controls{gap:5px}.controls button{padding:7px 9px;font-size:12px}.controls .primary{min-width:80px}.controls .time{font-size:10px}.chaplist{max-height:none}.scriptrow{grid-template-columns:65px 1fr}.scriptrow .scriptmotion,.scriptrow .scriptvoice{grid-column:2}.maplegend{display:none}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+</style></head><body>
+<header>
+<div><div class="eyebrow">VISUAL LECTURE / CONCEPT NETWORK</div><h1>人生机制与增长机制</h1><p class="lead">概念地图作为主舞台 · 局部实验从关系节点中展开</p></div>
+<div class="headerBtns"><button id="overview">全览关系网络</button><button id="format">切换 9:16</button><button id="script">完整视听脚本</button></div>
+</header>
+<audio id="narrationAudio" hidden preload="none" playsinline aria-hidden="true"></audio>
+<main class="grid"><section class="main">
+<div class="stageWrap"><div class="stage" id="stage">
+<div class="stage-top"><div><div class="stage-overline" id="overline">01 / 定位增长机制</div><div class="stage-title" id="stagetitle">一张图，一个核心问题</div></div><div class="stage-index" id="stageindex">01 / 26</div></div>
+<div class="viz"><svg id="viz" viewBox="0 0 1200 600" role="img" aria-label="概念关系网络及动态模型"></svg></div>
+<div class="maplegend" id="legend"><span><i style="background:#81b2ed"></i>方向</span><span><i style="background:#70dfad"></i>过程</span><span><i style="background:#c7a3ef"></i>调节</span><span><i style="background:#eabd75"></i>动态</span><span><i style="background:#a9afb8"></i>资源</span></div>
+<div class="mapmini" id="mini"></div>
+<div class="stage-foot"><div class="keyline" id="keyline"></div><div class="caption" id="caption"></div></div>
+</div></div>
+<div class="controls"><button class="primary" id="play">▶ 播放</button><button id="prev" aria-label="上一个讲解单元">← 上一段</button><button id="next" aria-label="下一个讲解单元">下一段 →</button><button id="speed">1×</button><div class="time" id="time"></div></div>
+<input type="range" id="seek" class="seek" value="0" min="0" aria-label="进度"><div class="ticks" id="ticks"></div>
+<div class="status"><span class="dot"></span><span id="status">讲解音频准备中，准备完成后即可播放。播放、字幕、动画和章节跳转由同一套界面统一控制。</span></div>
+<details class="notes"><summary>制作说明 · 与原研究的关系</summary>
+<p>本原型依据《人生机制与增长机制｜概念关系网络》《增长机制｜概念层级与关系网络（修订版）》《增长机制的重要性》及既有口播稿，保持概念定义和关系语义，扩展原图中压缩的“调用与应用”环节，并补入独立/非生产性存量、筛选再投入与明确的强化回路。</p>
+<ul><li>实线：过程/作用；虚线：条件/协作；紫色：反馈或修正；金色：约束；绿色加粗：强化反馈；蓝色：评价。</li><li>所有对照数值、曲线与创作者案例均为解释模型或假设示例，不是实证结果；雪球只是隐喻。</li><li>主画面是同一张网络，镜头顺序不改变概念的逻辑层级。聚焦时其他节点不删除，只降低视觉权重。</li><li>正式配音：James Gao – Calm, Friendly and Warm（ElevenLabs 语音生成）；动画时间轴使用每个讲解单元的实际音频时长。字幕在单元内部按文本长度近似分配，章节切换时间与音频精确对应。16:9 为图解主版本，9:16 是重新取景预览。</li><li>完整视听脚本包含每个镜头时间、画面动作、同期讲解和关键结论，可下载 Markdown。此文件不是最终渲染视频。</li></ul>
+</details>
+</section><aside class="sidebar">
+<section class="panel"><div class="panelhead"><strong>讲解结构</strong><span id="duration"></span></div><div class="chaplist" id="chapters"></div></section>
+<section class="panel detail"><div class="panelhead"><strong>当前画面与同期讲解</strong><span id="cuetime"></span></div><div class="detailbody"><div class="eyebrow" id="cuekicker"></div><h2 id="cuetitle"></h2><div class="label">画面 / 动作</div><p class="motion" id="motion"></p><div class="label">同期讲解</div><p class="narration" id="narration"></p><div class="label">概念 / 关系</div><div class="concepts" id="concepts"></div></div></section>
+</aside></main>
+<dialog id="dialog"><div class="modalhead"><h2>完整视听同步脚本</h2><div class="actions"><button id="download">下载 Markdown</button><button id="close">关闭</button></div></div><div class="modalbody" id="scriptbody"></div></dialog>
+<script>
+const DATA={"nodes":[{"id":"value","x":58,"y":92,"w":244,"h":68,"group":"b","title":"价值判断","sub":"评价什么值得发展","desc":"评价目标、方向和结果是否值得。影响增长方向，但不属于本期狭义增长过程。"},{"id":"choice","x":58,"y":200,"w":244,"h":68,"group":"b","title":"选择机制","sub":"确定投入对象与方向","desc":"在多个可能方向之间作出选择。本期将其作为前提：假设增长对象与方向已经合理确定。"},{"id":"premise","x":58,"y":308,"w":244,"h":68,"group":"b","title":"方向前提","sub":"对象、方向与发展空间","desc":"本期视频的研究假设：增长对象、方向与发展空间已经合理确定。因此不展开选择机制和价值判断。"},{"id":"resources","x":58,"y":484,"w":244,"h":68,"group":"x","title":"资源与投入","sub":"时间、精力、资金、工具","desc":"增长过程需要资源投入。资源配置决定释放出来的资源如何重新投入，但投入本身不保证产生有效成果。"},{"id":"allocation","x":58,"y":616,"w":244,"h":68,"group":"x","title":"资源配置","sub":"决定释放资源的去向","desc":"效率提升可能释放时间和精力。资源配置决定这些资源用于休息、增加当前产出，还是建设未来能力。"},{"id":"efficiency","x":58,"y":748,"w":244,"h":68,"group":"x","title":"效率提升","sub":"同样产出需要更少投入","desc":"效率提升释放资源，但不会自动增加产出或扩大生产基础。还需要资源重新配置和后续成果留存。"},{"id":"action","x":397,"y":92,"w":250,"h":68,"group":"g","title":"行动与执行","sub":"投入时间、精力与资源","desc":"增长过程的起点。没有实际行动，就没有新的行动成果可供提取、留存和积累。"},{"id":"produce","x":772,"y":92,"w":250,"h":68,"group":"g","title":"成果产生","sub":"知识、技能、经验、工具等","desc":"行动带来新的结果。成果可以是内部能力，也可以是外部资源、工具、文档或流程。"},{"id":"screen","x":397,"y":210,"w":250,"h":68,"group":"g","title":"成果留存筛选","sub":"判断哪些成果值得留下","desc":"不是所有行动成果都值得长期保存。可考虑未来使用可能性、重新获得成本，以及遗失后的影响。"},{"id":"retain","x":772,"y":210,"w":250,"h":68,"group":"g","title":"成果留存","sub":"内部 / 外部 / 环境留存","desc":"成果通过记忆、技能掌握、文档、工具或流程等形式留下来。留存不等于已经能够有效调用。"},{"id":"stock","x":584,"y":328,"w":250,"h":68,"group":"g","title":"存量","sub":"时点状态 ≠ 积累过程","desc":"存量是某个时点已经拥有的成果。积累则是存量随时间形成和变化的过程。"},{"id":"independent","x":365,"y":446,"w":250,"h":68,"group":"g","title":"独立 / 非生产性存量","sub":"当前不参与后续生产","desc":"留存的成果未必能改善特定任务的后续生产。生产性是相对于任务、目标和情境的关系，不是成果永久的固有标签。"},{"id":"call","x":772,"y":446,"w":250,"h":68,"group":"g","title":"提取与调用","sub":"想得起、找得到、调得出","desc":"把已保存的成果从存量中提取出来。能提取不等于适用于当前任务。"},{"id":"fit","x":772,"y":564,"w":250,"h":68,"group":"g","title":"情境适用","sub":"迁移、判断、必要时调整","desc":"判断已调用成果是否适合当前的对象、目标、约束和条件。"},{"id":"apply","x":772,"y":682,"w":250,"h":68,"group":"g","title":"实际应用","sub":"真正参与后续行动","desc":"把适用的成果应用于实际行动；效果需要检验，也可能无效或有害。"},{"id":"new","x":772,"y":800,"w":250,"h":68,"group":"g","title":"后续生产与产出","sub":"效率 / 质量 / 数量 / 范围","desc":"应用已有存量后，后续行动可能耗费更少资源、提高质量或数量、扩大任务范围，但并非必然。"},{"id":"reinvest","x":397,"y":800,"w":250,"h":68,"group":"g","title":"筛选与再投入","sub":"新成果再次有效留存","desc":"筛选新成果，必要时投入资源整理、更新、保留，使其可能成为下一轮生产基础。"},{"id":"base","x":397,"y":682,"w":250,"h":68,"group":"g","title":"生产性存量扩大","sub":"有效成果参与未来生产","desc":"能改善后续生产的存量扩展，才可能形成强化回路。它既不保证复利，也不保证持续增长。"},{"id":"learning","x":1120,"y":92,"w":306,"h":68,"group":"p","title":"学习机制","sub":"从经验中形成知识与能力","desc":"学习帮助个体从信息、练习和经验中形成或改变知识与能力，为增长过程提供新的成果。学习不等于增长本身。"},{"id":"memory","x":1120,"y":210,"w":306,"h":68,"group":"p","title":"记忆机制","sub":"支持内部留存与提取","desc":"记忆支持知识和经验的保存与提取。它是内部留存的重要方式，但增长存量还包括外部工具、文档、流程和资源。"},{"id":"feedback","x":1120,"y":328,"w":306,"h":68,"group":"p","title":"反馈机制","sub":"提供结果信息与偏差信号","desc":"反馈使行动者了解行动结果。反馈不等于修正；还需要解释信息并采取行动，才能改变后续过程。"},{"id":"correct","x":1120,"y":446,"w":306,"h":68,"group":"p","title":"修正机制","sub":"调整后续行动与方法","desc":"根据反馈调整行动，识别并纠正错误，避免无效方法持续被留存和调用。"},{"id":"maintain","x":1120,"y":564,"w":306,"h":68,"group":"p","title":"维护 / 更新 / 淘汰","sub":"维持有效性并处理失效成果","desc":"维护降低存量损耗；更新使成果适应环境变化；淘汰停止对不再值得保留的成果继续投入。"},{"id":"dynamics","x":1120,"y":762,"w":306,"h":68,"group":"a","title":"增长动态","sub":"线性、加速、平台与下降","desc":"描述存量和产出的变化，如线性增长、复利式增长、边际递减、饱和与衰减。增长率、绝对增量和存量规模需要区分。"},{"id":"limits","x":1120,"y":880,"w":306,"h":68,"group":"a","title":"增长边界","sub":"损耗、瓶颈、边际收益递减","desc":"生产基础扩大不意味着增长会一直加速。边际收益递减、瓶颈转移、环境变化和存量损耗都可能限制增长。"}],"edges":[{"id":"value>choice","a":"value","b":"choice","label":"评价方向","kind":"v","via":null,"anchor":null},{"id":"choice>action","a":"choice","b":"action","label":"确定投入方向","kind":"d","via":null,"anchor":null},{"id":"premise>choice","a":"premise","b":"choice","label":"本期固定","kind":"d","via":[[31,342],[31,234]],"anchor":[31,287]},{"id":"resources>action","a":"resources","b":"action","label":"提供投入","kind":"d","via":[[326,518],[326,126]],"anchor":[326,405]},{"id":"action>produce","a":"action","b":"produce","label":"产生","kind":"s","via":null,"anchor":null},{"id":"produce>screen","a":"produce","b":"screen","label":"进入筛选","kind":"s","via":[[704,126],[704,244]],"anchor":[704,181]},{"id":"screen>retain","a":"screen","b":"retain","label":"筛选后留存","kind":"s","via":null,"anchor":null},{"id":"retain>stock","a":"retain","b":"stock","label":"形成存量","kind":"s","via":null,"anchor":null},{"id":"stock>independent","a":"stock","b":"independent","label":"当前未参与","kind":"d","via":null,"anchor":null},{"id":"stock>call","a":"stock","b":"call","label":"被提取","kind":"s","via":null,"anchor":null},{"id":"call>fit","a":"call","b":"fit","label":"判断适用","kind":"s","via":null,"anchor":null},{"id":"fit>apply","a":"fit","b":"apply","label":"适用才进入","kind":"s","via":null,"anchor":null},{"id":"apply>new","a":"apply","b":"new","label":"参与后续生产","kind":"s","via":null,"anchor":null},{"id":"new>reinvest","a":"new","b":"reinvest","label":"检验、筛选","kind":"s","via":null,"anchor":null},{"id":"reinvest>base","a":"reinvest","b":"base","label":"有效留存","kind":"s","via":null,"anchor":null},{"id":"base>call","a":"base","b":"call","label":"扩大可用基础","kind":"r","via":[[682,716],[682,480]],"anchor":[682,610]},{"id":"reinvest>screen","a":"reinvest","b":"screen","label":"再次筛选","kind":"r","via":[[352,834],[352,244]],"anchor":[352,566]},{"id":"learning>produce","a":"learning","b":"produce","label":"形成知识与能力","kind":"d","via":null,"anchor":null},{"id":"memory>retain","a":"memory","b":"retain","label":"支持内部留存","kind":"d","via":null,"anchor":null},{"id":"memory>call","a":"memory","b":"call","label":"支持提取","kind":"d","via":[[1072,244],[1072,480]],"anchor":[1072,416]},{"id":"produce>feedback","a":"produce","b":"feedback","label":"结果信息","kind":"f","via":[[1058,126],[1058,362]],"anchor":[1058,280]},{"id":"new>feedback","a":"new","b":"feedback","label":"检验应用效果","kind":"f","via":[[1094,834],[1094,362]],"anchor":[1094,702]},{"id":"feedback>correct","a":"feedback","b":"correct","label":"提供修正依据","kind":"f","via":null,"anchor":null},{"id":"correct>action","a":"correct","b":"action","label":"调整后续行动","kind":"f","via":[[1470,480],[1470,47],[522,47]],"anchor":[1020,47]},{"id":"maintain>stock","a":"maintain","b":"stock","label":"减少存量损耗","kind":"d","via":[[1091,598],[1091,362]],"anchor":[1091,546]},{"id":"maintain>base","a":"maintain","b":"base","label":"维持有效性","kind":"d","via":[[1068,598],[1068,725],[730,725]],"anchor":[914,725]},{"id":"new>efficiency","a":"new","b":"efficiency","label":"可能释放资源","kind":"d","via":[[897,910],[180,910]],"anchor":[480,910]},{"id":"efficiency>allocation","a":"efficiency","b":"allocation","label":"释放资源","kind":"s","via":null,"anchor":null},{"id":"allocation>resources","a":"allocation","b":"resources","label":"重新配置","kind":"d","via":null,"anchor":null},{"id":"allocation>action","a":"allocation","b":"action","label":"重新投入","kind":"d","via":[[310,650],[310,126]],"anchor":[310,563]},{"id":"allocation>base","a":"allocation","b":"base","label":"投入能力建设","kind":"d","via":null,"anchor":null},{"id":"base>dynamics","a":"base","b":"dynamics","label":"表现为动态","kind":"d","via":[[522,945],[1273,945]],"anchor":[895,945]},{"id":"limits>dynamics","a":"limits","b":"dynamics","label":"约束增长","kind":"f","via":null,"anchor":null},{"id":"limits>stock","a":"limits","b":"stock","label":"可能造成损耗","kind":"f","via":[[1466,914],[1466,1001],[709,1001]],"anchor":[1120,1001]}],"chapters":[["01","定位增长机制","先看完整网络，明确它回答的问题和其他机制的关系"],["02","行动不等于存量","重复、成果、筛选、留存、积累的不同概念位置"],["03","存量如何参与生产","提取、适用、应用、生产性与非生产性的条件关系"],["04","从复用到复利","检验结果、再次留存、强化反馈与增长形态的区分"],["05","效率与资源再配置","节省资源、当前产出与生产基础并非必然递进"],["06","案例：同一个创作者","在同一任务系列中检验机制的实际含义"],["07","支撑与调节机制","学习、记忆、反馈、修正、维护的具体接口"],["08","增长动态与边界","流入流出、速度、边际收益、瓶颈与衰减"],["09","回到人生","增长与价值判断、选择空间、代价的关系"]],"cues":[{"ch":0,"title":"一张图，一个核心问题","focus":[],"links":[],"voice":"我们如何让过去的行动，改变未来的行动条件？这张图把与增长有关的机制放在同一个系统中。绿色是增长过程，蓝色是方向选择，紫色是支撑与调节，金色是增长动态，灰色是资源条件。","key":"过去如何参与创造未来？","visual":"graph","motion":"全局地图出现；五区依次亮起；箭头为关系而非层级。","seconds":21.237551},{"ch":0,"title":"方向不是增长过程","focus":["value","choice","premise","action"],"links":["value>choice","choice>action","premise>choice"],"voice":"价值判断回答什么值得发展，选择机制决定把资源投向哪里。增长机制则解释，在方向与对象相对明确之后，行动成果怎样改变未来的行动条件。方向正确不是增长机制自己能够保证的。","key":"方向选择 ≠ 增长过程","visual":"graph","motion":"镜头推入蓝色上游；实线显示评价，虚线显示条件作用。","seconds":18.912653},{"ch":1,"title":"行动和成果不是同一件事","focus":["action","produce"],"links":["action>produce"],"voice":"每一次行动都可能产生结果。完成视频、解决问题、学习知识，都可以产生眼前的成果。但同类行动再次发生，叫重复；重复描述的是行动模式，不是存量或增长速度。","key":"重复：行动再次发生","visual":"graph","motion":"行动节点出现三次脉冲；本次成果从行动沿边流出。","seconds":17.005714},{"ch":1,"title":"哪些结果值得留下？","focus":["produce","screen","retain","learning"],"links":["produce>screen","screen>retain","learning>produce"],"voice":"成果并不都会进入未来。先判断使用可能性、重新获得的成本和遗失的影响，再决定保留哪些成果。内部的知识技能、外部的文档工具、流程或环境条件，都可能成为留存的形式。","key":"成果产生 → 筛选 → 留存","visual":"graph","motion":"结果沿筛选边移动，保留部分继续流入留存；不保留不是失败。","seconds":18.442449},{"ch":1,"title":"积累是变化，存量是状态","focus":["retain","stock"],"links":["retain>stock"],"voice":"留存的成果进入某一时点的存量。积累描述存量形成和变化的过程，而存量是一种状态。行动反复发生，不表示存量必然增加；只有看留下来的成果和失去的成果，才能判断净变化。","key":"存量：时点状态｜积累：变化过程","visual":"stock","motion":"容器中每期流入和流出以同一单位示意，净变化单独显示。","seconds":19.330612},{"ch":1,"title":"重复与积累：不同分类轴","focus":["action","produce","retain","stock"],"links":["action>produce","retain>stock"],"voice":"比较两种假设：每次行动都得到即时成果，却没有在所考察维度留下存量；或者每次留下同样数量的成果。两者都可以重复行动，后者才在这个维度形成积累。没有积累不等于行动没有价值。","key":"行动次数不能代表净存量","visual":"compare","motion":"并列展示三次行动的流向与存量；同一时间轴，无真实数据。","seconds":19.40898},{"ch":2,"title":"存量不等于生产性存量","focus":["stock","independent","call"],"links":["stock>independent","stock>call"],"voice":"即使成果已经留下，也不能直接断言它会参与后续生产。有些存量在当前任务里只是独立存在。是否具有生产性，要看它能不能在特定目标和情境中改善后续行动，而不是看它是不是被保存。","key":"生产性是存量与后续任务的关系","visual":"graph","motion":"存量向独立存量与调用分支；不把独立存量标为无价值。","seconds":18.834286},{"ch":2,"title":"留存与提取","focus":["retain","stock","call","memory"],"links":["retain>stock","stock>call","memory>retain","memory>call"],"voice":"留存解决成果是否还存在；提取与调用解决在需要时能不能获得它。记住但想不起来，文件保存了却找不到，都是可能的断点。记忆机制支持内部留存和提取，外部存储也需要检索与组织。","key":"留得住 ≠ 调得出","visual":"graph","motion":"聚焦留存、存量、调用；调用边亮起后停在提取节点。","seconds":20.349388},{"ch":2,"title":"调用不等于适用","focus":["call","fit","apply"],"links":["call>fit","fit>apply"],"voice":"调出一个方法后，还要判断当前任务的目标、对象、环境和限制条件。方法适用才有条件进入实际应用，必要时先调整；不适用就不该直接套用。知道一个方法和能用它解决眼前问题，是两件事。","key":"调得出 ≠ 适用 ≠ 实际应用","visual":"graph","motion":"沿三节点逐级点亮，适用条件以虚线和停顿强调。","seconds":19.722449},{"ch":2,"title":"应用效果必须检验","focus":["apply","new","feedback"],"links":["apply>new","new>feedback"],"voice":"实际应用使既有成果进入新的行动，但结果可能改善，也可能不变甚至变差。要观察投入、数量、质量、可以处理的问题范围等，再判断存量是否真的发挥了生产作用。","key":"使用过 ≠ 发挥了生产性","visual":"graph","motion":"应用到新产出；紫色反馈线由结果反向返回，强调条件。","seconds":16.770612},{"ch":3,"title":"把新成果重新放进循环","focus":["new","reinvest","base","call","fit","apply","screen","retain","stock"],"links":["new>reinvest","reinvest>base","base>call","call>fit","fit>apply","apply>new","reinvest>screen","screen>retain","retain>stock"],"voice":"如果后续行动创造了新的有效成果，并经过筛选、留存或再投入，新的生产性存量才有机会扩大。它又能参与下一轮行动。注意，生产基础扩大不是一次应用直接产生的，而是新成果持续有效进入生产基础。","key":"后续产出 → 再投入 → 生产基础 → 后续生产","visual":"graph","motion":"以绿色箭头闭合强化反馈回路；流动光点沿回路走一圈。","seconds":20.845714},{"ch":3,"title":"复用、线性增长与复利式增长","focus":["base","call","new","reinvest"],"links":["base>call","apply>new","new>reinvest","reinvest>base"],"voice":"复用本身不是复利。假设每期净新增固定，存量会线性增加。若扩大后的生产性存量能提高后续净新增成果，并把有效新增继续纳入生产基础，才具备复利式反馈的条件；它仍可能受到限制。","key":"有复用 ≠ 有复利；强化需要新增重新进入基础","visual":"compound","motion":"并列模拟固定净增与固定比例理想模型；显示各期新增和存量。","seconds":19.147755},{"ch":3,"title":"雪球是隐喻，不是证明","focus":[],"links":[],"voice":"雪球滚动可以帮助想象已有存量扩大后，影响下一轮新增的可能性。但真实的经验、技能、工具、关系有不同的获取、调用和损耗方式。雪球不能证明它们都按同一个速度增长。","key":"雪球只说明强化关系，不是普遍增长公式","visual":"snowball","motion":"雪团每次滚动后变化；右侧说明映射与失效边界。","seconds":17.475918},{"ch":4,"title":"效率只是释放资源的可能","focus":["apply","new","efficiency","allocation"],"links":["apply>new","new>efficiency","efficiency>allocation"],"voice":"当已有工具或技能让同样的任务需要更少投入时，效率提高可能释放时间和精力。但节省下来的时间既可能被用于休息，也可能用于完成更多当前任务，或投入未来能力建设。效率提升不是生产基础扩大的同义词。","key":"效率提升 → 资源释放 → 去向由配置决定","visual":"branch","motion":"从效率释放的同一批资源向三种去处分流，不画成阶梯。","seconds":20.192653},{"ch":4,"title":"再配置决定后续结果","focus":["allocation","resources","action","base"],"links":["allocation>resources","allocation>action","allocation>base"],"voice":"投入更多当前任务可能增加当期产出，却不必然扩大未来生产基础。投入学习、整理工具或建立更好的流程，也要真正形成可持续的有效成果才可能扩大基础。休息和生活本身也可以是合理的资源去向。","key":"当期产出、生产基础、生活价值是不同结果","visual":"graph","motion":"资源配置向行动和生产基础分叉，两边依条件成立。","seconds":20.349388},{"ch":5,"title":"案例：一次视频完成之后","focus":[],"links":[],"voice":"以同一个创作者连续制作同类视频为例。第一次视频完成，产生一次性作品，也产生选题资料、剪辑经验、字幕处理方式和可能复用的代码。作品被发布，不代表这些成果都被留下来了。","key":"案例是机制演示，不是对某人的实证判断","visual":"case1","motion":"以同一位创作者制作第1期为假设；作品与潜在成果分开。","seconds":17.319184},{"ch":5,"title":"把经验变成可调用的工具","focus":[],"links":[],"voice":"他筛选其中未来还有用途的成果，把字幕模板和动画组件保存起来，并记录适用条件。下次遇到类似任务，他能找到组件，却发现新画幅需要调整。调用、适用、实际应用在这个例子中分别发生。","key":"保存组件 → 调用 → 适配新任务 → 使用","visual":"case2","motion":"组件入库，检索后经适配关卡进入第二期；非适用的组件回退。","seconds":19.226122},{"ch":5,"title":"节省时间是否扩大生产基础？","focus":[],"links":[],"voice":"第二期的制作时间减少，释放资源。他可以休息、做下一条视频，或者改进组件的参数和错误处理。只有新能力或新工具有效留存，又改变后续生产条件，强化反馈才可能发生。","key":"同一案例同时区分复用、效率、再投入与复利条件","visual":"case3","motion":"第2期结果分流，改进组件回到工具库；两种其他去向同样保留。","seconds":17.240816},{"ch":6,"title":"学习与记忆在不同位置","focus":["learning","memory","produce","retain","stock","call"],"links":["learning>produce","memory>retain","retain>stock","stock>call","memory>call"],"voice":"学习帮助形成或改变知识与能力，为成果产生提供来源；记忆支持内部成果的留存和提取。它们与增长过程协作，但并不是增长过程的同层步骤。外部文档、代码、工具还依赖其他留存与调用方式。","key":"学习：成果来源｜记忆：留存与提取","visual":"graph","motion":"紫色学习连向成果，记忆一分为二连向留存和提取。","seconds":20.192653},{"ch":6,"title":"反馈不同于修正","focus":["produce","new","feedback","correct","action"],"links":["produce>feedback","new>feedback","feedback>correct","correct>action"],"voice":"反馈提供实际结果与预期之间的信息。得到反馈，不等于行动已经变好。解释反馈、判断原因、调整方法或停止错误行动，是修正机制承担的工作。反馈与修正可以阻止错误经验和无效方法继续被放大。","key":"反馈提供信息；修正改变行动","visual":"graph","motion":"反馈线逐段闭合回行动；第二段先暂停再修改。","seconds":21.472653},{"ch":6,"title":"维护、更新与淘汰","focus":["maintain","stock","base","limits"],"links":["maintain>stock","maintain>base","limits>stock"],"voice":"存量不是无损保存的。遗忘、技能退化、工具过时和环境变化会削弱它的有效性。维护减少损耗，更新改善适用性，淘汰停止维持不值得留下的部分。必要时，少保留反而能减轻未来负担。","key":"不是留下越多越好，而是维护有效存量","visual":"graph","motion":"维护连接存量和生产基础；橙色损耗线反向约束。","seconds":20.427755},{"ch":7,"title":"增长的流入与流出","focus":["stock","retain","maintain","limits"],"links":["retain>stock","maintain>stock","limits>stock"],"voice":"观察某一类可比较的存量时，可以用期末存量等于期初存量加流入减流出的关系。若流入大于损耗，净存量增加；相等则稳定；流出较大则下降。技能等复杂存量不一定能用单一数量测量，这里只是结构模型。","key":"净变化＝有效流入－流出（在同一可比较维度）","visual":"stock","motion":"对比三种流入、流出组合；容器高度对应示意数值。","seconds":22.752653},{"ch":7,"title":"增长动态不是过程节点","focus":["dynamics","limits","base"],"links":["base>dynamics","limits>dynamics"],"voice":"同一个增长过程可能表现为线性增加、净增量变大、趋于平台甚至衰减。曲线刻画的是被观察对象随时间的变化，并不说明唯一原因。还要区分存量规模、绝对增量和相对增长率。","key":"存量规模、净增量、增长率不能混用","visual":"curves","motion":"五条理想示意曲线依次出现；标明横纵轴，无实测或预测含义。","seconds":19.40898},{"ch":7,"title":"边际收益递减与瓶颈","focus":["limits","dynamics"],"links":["limits>dynamics"],"voice":"边际收益递减讨论的是额外一单位投入所带来的额外收益变小，它不必然意味着总存量下降，也不等于增长率下降。瓶颈、容量与损耗会限制强化回路。扩大存量，不保证永远能以相同速度增长。","key":"边际收益是额外投入的效果；增长速度是时间变化","visual":"marginal","motion":"相同投入增量对应不同产出增量；与时间轨迹分开画轴。","seconds":20.114286},{"ch":8,"title":"增长没有替你作价值判断","focus":["value","choice","premise","limits","correct"],"links":["value>choice","premise>choice","correct>action","limits>dynamics"],"voice":"如果错误方向上的方法越来越熟练，增长机制也可能放大不希望出现的结果。正向和负向是对后果、方向与代价的评价，不是速度分类。停止一条不值得延续的路径，有时比加速增长更合理。","key":"增长速度不能回答增长是否值得","visual":"hybrid","motion":"从价值判断与修正节点推进，展开错误复制工厂；机器不断复制缺陷，最终由停止按钮打断，再收回关系网络。","seconds":19.644082},{"ch":8,"title":"回到整张关系网络","focus":[],"links":[],"voice":"理解增长机制，不是要求每件事都产生收益或复利。它的价值在于，让值得发展的过去成果成为未来可以使用的资源，从而扩大能做什么、如何去做、怎样安排生活的可能性。人生的目标仍然由价值判断和选择来决定。","key":"让值得的过去，扩大未来的选择空间。","visual":"graph","motion":"镜头拉回完整地图；绿色强化回路亮起，其余区域保留，结尾定格。","seconds":21.55102}]};
+const {nodes,edges,chapters,cues}=DATA;
+const NS='http://www.w3.org/2000/svg', $=id=>document.getElementById(id);
+const narrationAudio=$('narrationAudio');
+const AUDIO_PARTS=["audio/chunk-01.bin","audio/chunk-02.bin","audio/chunk-03.bin","audio/chunk-04.bin","audio/chunk-05.bin","audio/chunk-06.bin","audio/chunk-07.bin","audio/chunk-08.bin","audio/chunk-09.bin","audio/chunk-10.bin","audio/chunk-11.bin","audio/chunk-12.bin","audio/chunk-13.bin"];
+let audioReady=false;
+async function loadNarrationAudio(){
+  $('play').disabled=true;
+  narrationAudio.controls=false;
+  try{
+    const buffers=await Promise.all(AUDIO_PARTS.map(async path=>{
+      const response=await fetch(path,{cache:'force-cache'});
+      if(!response.ok)throw new Error('音频分段加载失败：'+path);
+      return await response.arrayBuffer();
+    }));
+    const byteLength=buffers.reduce((sum,b)=>sum+b.byteLength,0);
+    const joined=new Uint8Array(byteLength);
+    let offset=0;
+    for(const buffer of buffers){joined.set(new Uint8Array(buffer),offset);offset+=buffer.byteLength}
+    narrationAudio.src=URL.createObjectURL(new Blob([joined],{type:'audio/mpeg'}));
+    narrationAudio.load();
+    audioReady=true;
+    $('play').disabled=false;
+    $('status').textContent='讲解音频已就绪。点击播放开始；音频、字幕、动画和章节跳转由同一条时间轴同步控制。';
+  }catch(error){
+    $('status').textContent='讲解音频加载失败，请刷新页面重试。';
+  }
+}
+
+const C={b:'#81b2ed',g:'#70dfad',p:'#c7a3ef',a:'#eabd75',x:'#a9afb8'};
+const BG={b:'#1a293a',g:'#172f26',p:'#2c2337',a:'#30291c',x:'#292e33'};
+const nmap=Object.fromEntries(nodes.map(n=>[n.id,n]));const emap=Object.fromEntries(edges.map(e=>[e.id,e]));
+const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const total=cues.reduce((a,c)=>a+c.seconds,0);
+let acc=0;cues.forEach((c,i)=>{c.start=acc;c.end=acc+c.seconds;c.i=i;acc=c.end;c.sentences=c.voice.match(/[^。！？；]+[。！？；]?/g)||[c.voice]});const CAPTION_STARTS=[0,4,9,21,28,36,40,43,49,52,57,60,68,75,79,86,90,95,102,106,111,114,120,124,133,136,141,147,153,160,166,169,173,181,190,199,202,211,213,218,228,230,237,244,247,255,264,267,275,284,288,292,301,305,313,319,324,328,334,342,348,351,357,362,366,370,378,383,386,393,400,404,413,416,418,421,426,435,441,446,458,462,466,474,480,486,491,503];const CAPTION_TEXTS=cues.flatMap(c=>c.sentences);
+const fmt=t=>{t=Math.max(0,Math.floor(t));return String(Math.floor(t/60)).padStart(2,'0')+':'+String(t%60).padStart(2,'0')};
+function S(tag,attrs={},p=$('viz')){const el=document.createElementNS(NS,tag);for(const [k,v] of Object.entries(attrs)){if(v!==null&&v!==undefined)el.setAttribute(k,v)}p.appendChild(el);return el}
+function T(p,x,y,txt,size=23,color='#edf0ed',weight=500,anchor='middle',extra={}){const el=S('text',{x,y,'font-size':size,fill:color,'font-weight':weight,'text-anchor':anchor,...extra},p);el.textContent=txt;return el}
+function R(p,x,y,w,h,fill='#ffffff08',stroke='#ffffff20',rx=14,extra={}){return S('rect',{x,y,width:w,height:h,rx,fill,stroke,...extra},p)}
+function L(p,x1,y1,x2,y2,stroke='#8fac9d',width=2,extra={}){return S('line',{x1,y1,x2,y2,stroke,'stroke-width':width,...extra},p)}
+function P(p,d,stroke='#70dfad',width=3,extra={}){return S('path',{d,fill:'none',stroke,'stroke-width':width,'stroke-linejoin':'round','stroke-linecap':'round',...extra},p)}
+function box(p,x,y,w,h,title,sub,color=C.g,fill='#202c28'){const g=S('g',{},p);R(g,x,y,w,h,fill,color,15,{'stroke-opacity':.75,'stroke-width':1.5});T(g,x+w/2,y+h*.44,title,24,color,650);if(sub)T(g,x+w/2,y+h*.72,sub,15,'#c3cac5',400);return g}
+function arrow(p,x1,y1,x2,y2,color=C.g,w=3){L(p,x1,y1,x2,y2,color,w);const a=Math.atan2(y2-y1,x2-x1);S('polygon',{points:[ [x2,y2],[x2-12*Math.cos(a-.48),y2-12*Math.sin(a-.48)],[x2-12*Math.cos(a+.48),y2-12*Math.sin(a+.48)]].map(p=>p.join(',')).join(' '),fill:color},p)}
+function multi(p,x,y,lines,size=18,color='#b7c4bc',step=28,anchor='middle',weight=400){lines.forEach((s,i)=>T(p,x,y+i*step,s,size,color,weight,anchor))}
+function sectionLabel(p,x,y,t){T(p,x,y,t,15,'#94a49b',600,'start',{'letter-spacing':2})}
+function note(p,t,y=570){T(p,600,y,t,17,'#aeb8b2',400)}
+function endPt(n,toward){const cx=n.x+n.w/2,cy=n.y+n.h/2,dx=toward[0]-cx,dy=toward[1]-cy;if(!dx&&!dy)return[cx,cy];const k=Math.min(n.w/2/Math.max(Math.abs(dx),.001),n.h/2/Math.max(Math.abs(dy),.001));return[cx+dx*k,cy+dy*k]}
+const center=n=>[n.x+n.w/2,n.y+n.h/2];
+function epts(e){let a=nmap[e.a],b=nmap[e.b],vs=e.via||[];return[endPt(a,vs[0]||center(b)),...vs,endPt(b,vs.at(-1)||center(a))]}
+function polyPath(pts){return 'M'+pts.map(p=>p.join(',')).join('L')}
+const kindColor={s:'#86b69c',d:'#93a7b2',f:'#c7a3ef',r:'#70dfad',v:'#81b2ed'};
+let sceneGroup, graphWorld, graphElements, dots=[], loopDot=null, cueOverlay=null, camera, cameraTarget, cameraStart, cameraChange=0, w=1200,h=600, portrait=false, current=-1, time=0, playing=false, speed=1, voice=false, overview=false,lastFrame=0, voiceToken=0, progress=0, animatedItems=[], hybridLayer=null, hybridWorld=null, hybridParts={}, hybridCopies=[];
+function setView(){w=portrait?780:1200;h=portrait?900:600;$('viz').setAttribute('viewBox','0 0 '+w+' '+h)}
+function clear(){const svg=$('viz');svg.replaceChildren();dots=[];loopDot=null;cueOverlay=null;animatedItems=[];hybridLayer=null;hybridWorld=null;hybridParts={};hybridCopies=[];sceneGroup=S('g',{},svg);return sceneGroup}
+function graphRegion(p,x,y,ww,hh,label,color){
+ const g=S('g',{'data-region':label},p);
+ R(g,x,y,ww,hh,'#182126',color,18,{'fill-opacity':.22,'stroke-opacity':.34,'stroke-width':1.2});
+ R(g,x+12,y+10,ww-24,34,'#ffffff08',color,10,{'stroke-opacity':.2,'stroke-width':1});
+ S('circle',{cx:x+28,cy:y+27,r:4.5,fill:color,opacity:.9},g);
+ T(g,x+42,y+32,label,16,color,700,'start',{'letter-spacing':.6});
+ L(g,x+18,y+53,x+ww-18,y+53,color,1,{'opacity':.13});
+ return g;
+}
+function graphInit(){
+ clear();const svg=$('viz'),defs=S('defs',{},svg);
+ const shadow=S('filter',{id:'nodeShadow',x:'-25%',y:'-30%',width:'150%',height:'170%'},defs);
+ S('feDropShadow',{dx:0,dy:6,stdDeviation:5,'flood-color':'#000000','flood-opacity':.25},shadow);
+ const grid=S('pattern',{id:'mapGrid',width:36,height:36,patternUnits:'userSpaceOnUse'},defs);
+ S('circle',{cx:2,cy:2,r:1,fill:'#dce8df','fill-opacity':.12},grid);
+ for(const [k,col] of Object.entries(kindColor)){
+  const grad=S('linearGradient',{id:'node-'+k,x1:'0%',y1:'0%',x2:'100%',y2:'100%'},defs);
+  S('stop',{offset:'0%','stop-color':BG[k]},grad);
+  S('stop',{offset:'100%','stop-color':'#11191c'},grad);
+  let m=S('marker',{id:'m'+k,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+  S('path',{d:'M0 0 L10 5 L0 10 Z',fill:col},m);
+ }
+ let gold=S('marker',{id:'mGold',viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'},defs);
+ S('path',{d:'M0 0 L10 5 L0 10 Z',fill:C.a},gold);
+ S('rect',{x:0,y:0,width:1500,height:1030,fill:'url(#mapGrid)',opacity:.7},sceneGroup);
+ graphWorld=S('g',{},sceneGroup);let rg=S('g',{},graphWorld);
+ graphRegion(rg,26,35,298,374,'方向与前提',C.b);
+ graphRegion(rg,26,427,298,545,'资源与环境条件',C.x);
+ graphRegion(rg,342,35,711,873,'增长过程｜核心',C.g);
+ graphRegion(rg,1080,35,381,626,'支撑与调节机制',C.p);
+ graphRegion(rg,1080,704,381,268,'增长动态与边界',C.a);
+ let eg=S('g',{},graphWorld),ng=S('g',{},graphWorld),labels=S('g',{},graphWorld);
+ graphElements={edges:{},nodes:{},labels,rg};
+ for(const e of edges){
+  const pts=epts(e),color=e.a==='limits'?C.a:kindColor[e.kind],g=S('g',{},eg);
+  const dash=e.kind==='d'?'7 6':e.kind==='f'?'6 6':null;
+  let base=P(g,polyPath(pts),color,2.15,{'marker-end':'url(#'+(e.a==='limits'?'mGold':'m'+e.kind)+')','stroke-dasharray':dash,'opacity':.39});
+  let glow=P(g,polyPath(pts),color,e.kind==='r'?6:3.5,{'opacity':0,'stroke-dasharray':dash});
+  let at=e.anchor||[(pts[0][0]+pts.at(-1)[0])/2,(pts[0][1]+pts.at(-1)[1])/2];
+  let lbl=T(labels,at[0],at[1]-8,e.label,14,color,650,'middle',{'paint-order':'stroke',stroke:'#11191c','stroke-width':6,'stroke-linejoin':'round',opacity:0});
+  let dot=S('circle',{r:5,fill:color,opacity:0,stroke:'#11191c','stroke-width':2},g);
+  graphElements.edges[e.id]={g,base,glow,lbl,dot,pts};
+ }
+ for(const n of nodes){
+  const g=S('g',{'data-node':n.id},ng);
+  R(g,n.x,n.y,n.w,n.h,'url(#node-'+n.group+')',C[n.group],14,{'stroke-width':1.5,'stroke-opacity':.88,filter:'url(#nodeShadow)'});
+  R(g,n.x+1,n.y+10,5,n.h-20,C[n.group],'none',2,{'opacity':.92});
+  L(g,n.x+16,n.y+6,n.x+n.w-16,n.y+6,'#ffffff',1,{'opacity':.08});
+  S('circle',{cx:n.x+n.w-17,cy:n.y+16,r:3.5,fill:C[n.group],opacity:.9},g);
+  T(g,n.x+n.w/2,n.y+28,n.title,n.title.length>12?18:n.title.length>9?21:24,'#edf2ef',680,'middle',{'paint-order':'stroke',stroke:'#11191c','stroke-width':2,'stroke-linejoin':'round'});
+  T(g,n.x+n.w/2,n.y+51,n.sub,13,'#b8c4bf',420,'middle',{'paint-order':'stroke',stroke:'#11191c','stroke-width':2});
+  graphElements.nodes[n.id]=g;
+ }
+}
+function targetFor(ids,all=false){
+ const ns=all||!ids.length?nodes:ids.map(id=>nmap[id]).filter(Boolean);let minX=Math.min(...ns.map(n=>n.x)),minY=Math.min(...ns.map(n=>n.y)),maxX=Math.max(...ns.map(n=>n.x+n.w)),maxY=Math.max(...ns.map(n=>n.y+n.h));
+ if(all||!ids.length){minX=12;minY=12;maxX=1490;maxY=1024}
+ else{minX-=75;minY-=70;maxX+=75;maxY+=70}
+ let s=Math.min((w-35)/(maxX-minX),(h-20)/(maxY-minY),portrait?1.9:1.55);
+ return {x:w/2-(minX+maxX)/2*s,y:h/2-(minY+maxY)/2*s,s}
+}
+function graphFocus(c,all=false){
+ const isNew=!graphWorld||!graphWorld.isConnected;
+ if(isNew){graphInit();camera=null}
+ const isFull=all||!c.focus.length, fs=new Set(c.focus), es=new Set(c.links);loopDot?.remove();cueOverlay?.remove();loopDot=null;cueOverlay=null;
+ $('legend').style.display=isFull?'flex':'none';$('mini').classList.toggle('visible',!isFull&&!portrait);
+ for(const n of nodes){const g=graphElements.nodes[n.id];g.style.transition=reduced?'none':'opacity .6s';g.style.opacity=isFull||fs.has(n.id)?1:.11}
+ for(const e of edges){const o=graphElements.edges[e.id],on=es.has(e.id);o.g.style.transition=reduced?'none':'opacity .6s';o.g.style.opacity=isFull?.66:on?1:.075;o.base.setAttribute('opacity',on?.87:.55);o.glow.setAttribute('opacity',on?.96:0);o.lbl.setAttribute('opacity',on?1:0);o.dot.setAttribute('opacity',on?1:0);if(on)dots.push({el:o.dot,path:o.base,id:e.id,color:e.kind})}
+ if(c.i===3&&!all){cueOverlay=S('g',{},graphWorld);arrow(cueOverlay,522,278,522,306,C.x,2);R(cueOverlay,436,306,172,40,'#292e33',C.x,8,{'stroke-dasharray':'5 4'});T(cueOverlay,522,332,'不留存 / 即时价值',15,C.x,600)}
+ if(c.i===10&&!all){loopDot=S('circle',{r:8,fill:'#b3ffd3',stroke:'#172f26','stroke-width':2},graphWorld)}
+ graphElements.rg.style.opacity=isFull?1:.42;Array.from(graphElements.rg.children).forEach(g=>g.style.opacity=1);cameraStart=camera||targetFor(c.focus,isFull);cameraTarget=targetFor(c.focus,isFull);cameraChange=performance.now();camera=cameraStart;drawMini(c.focus,isFull);
+}
+function drawMini(fs,all){const host=$('mini');host.replaceChildren();if(all)return;const s=document.createElementNS(NS,'svg');s.setAttribute('viewBox','0 0 1500 1030');host.appendChild(s);const f=new Set(fs);nodes.forEach(n=>R(s,n.x,n.y,n.w,n.h,f.has(n.id)?C[n.group]:'#52605a','none',12));const ns=fs.map(i=>nmap[i]);if(ns.length){let x=Math.min(...ns.map(n=>n.x))-35,y=Math.min(...ns.map(n=>n.y))-35,xx=Math.max(...ns.map(n=>n.x+n.w))+35,yy=Math.max(...ns.map(n=>n.y+n.h))+35;R(s,x,y,xx-x,yy-y,'none','#f1f5e9',12,{'stroke-width':9})}}
+function animateGraph(p,now){if(!graphWorld?.isConnected||!cameraTarget)return;const ease=reduced?1:Math.min(1,(now-cameraChange)/1000),q=ease*ease*(3-2*ease);camera={x:cameraStart.x+(cameraTarget.x-cameraStart.x)*q,y:cameraStart.y+(cameraTarget.y-cameraStart.y)*q,s:cameraStart.s+(cameraTarget.s-cameraStart.s)*q};graphWorld.setAttribute('transform','translate('+camera.x+' '+camera.y+') scale('+camera.s+')');const c=cues[current];const live=!overview&&c?.visual==='graph';if(live&&c.i===0){Array.from(graphElements.rg.children).forEach((g,i)=>g.style.opacity=String(.2+.8*Math.min(1,Math.max(0,(p-i*.11)/.2))))}
+ if(live&&c.focus.length){
+    const pulse=c.i===2?Math.max(0,Math.sin(p*Math.PI*6))*.16:0;
+    c.focus.forEach((id,i)=>{const g=graphElements.nodes[id];if(!g)return;let start=Math.min(.55,i*.075),a=Math.max(0,Math.min(1,(p-start)/.12));g.style.opacity=String(.55+.45*a);if(c.i===2&&id==='action')g.firstElementChild?.setAttribute('stroke-width',1.6+pulse*25)});
+ }
+ if(cueOverlay)cueOverlay.setAttribute('opacity',Math.max(0,Math.min(1,(p-.28)/.2)));
+ dots.forEach((d,i)=>{let len=d.path.getTotalLength();let pos=d.path.getPointAtLength(((p*2.6+i*.17)%1)*len);d.el.setAttribute('cx',pos.x);d.el.setAttribute('cy',pos.y);d.el.setAttribute('opacity',loopDot?0:Math.min(1,.35+p*3))});
+ if(loopDot){const seq=['new>reinvest','reinvest>base','base>call','call>fit','fit>apply','apply>new'].map(id=>graphElements.edges[id].base),lens=seq.map(q=>q.getTotalLength()),sum=lens.reduce((a,b)=>a+b,0);let t=(Math.max(0,p-.12)*1.45%1)*sum,i=0;while(i<seq.length-1&&t>lens[i]){t-=lens[i];i++}const v=seq[i].getPointAtLength(t);loopDot.setAttribute('cx',v.x);loopDot.setAttribute('cy',v.y);loopDot.setAttribute('opacity',p<.12?0:1)}
+}
+function artist(p,el,from=0,to=1){animatedItems.push({el,from,to});return el}
+function modelBase(){const root=clear();graphWorld=null;cameraTarget=null;$('legend').style.display='none';$('mini').classList.remove('visible');let group=S('g',{},root);let scale=Math.min(w/1200,h/600);group.setAttribute('transform','translate('+((w-1200*scale)/2)+' '+((h-600*scale)/2)+') scale('+scale+')');return group}
+function stockTank(p,x,y,ww,hh,start,inc,out,label){const g=S('g',{},p),end=start+inc-out;R(g,x,y,ww,hh,'#151b1a','#6b897c',16,{'stroke-width':2});const unit=(hh-26)/20;let level=Math.max(0,end)*unit;let liquid=R(g,x+10,y+hh-10-level,ww-20,level,'#458c6a','#70dfad',8,{'fill-opacity':.85});animatedItems.push({el:liquid,from:.15,to:.65,attrs:{y:[y+hh-10-start*unit,y+hh-10-level],height:[start*unit,level]}});L(g,x+7,y+hh-10-start*unit,x+ww-7,y+hh-10-start*unit,'#ffffff88',2,{'stroke-dasharray':'7 6'});let levelText=T(g,x+ww/2,y+hh-16-level/2,String(end),32,'#ecfff3',600);animatedItems.push({el:levelText,from:.15,to:.65,attrs:{y:[y+hh-16-start*unit/2,y+hh-16-level/2]},text:[start,end]});T(g,x+ww/2,y-23,label,23,'#e6efe9',600);arrow(g,x-73,y+57,x-8,y+57,C.g);T(g,x-42,y+38,'+'+inc,22,C.g,650);arrow(g,x+ww+5,y+hh-45,x+ww+66,y+hh-45,C.a);T(g,x+ww+39,y+hh-60,'−'+out,22,C.a,650);T(g,x+ww/2,y+hh+31,'期初 '+start+' ｜ 期末 '+end,17,'#a9bcb1');T(g,x+ww/2,y+hh+65,'净变化 '+(end-start>0?'+':'')+(end-start),23,end>start?C.g:end<start?C.a:'#a9bcb1',650);return g}
+function drawStock(c){let p=modelBase();if(c.ch===1){sectionLabel(p,60,50,'时点与过程');stockTank(p,420,115,360,300,10,4,1,'一个可比较的存量');note(p,'虚线是期初状态，色块是期末状态；4 个流入 − 1 个流出 = +3。',550);}
+else{for(const [i,a] of [[0,[10,5,2,'净增加']],[1,[10,3,3,'稳定']],[2,[10,2,5,'净减少']]])artist(p,stockTank(p,110+i*390,120,190,280,...a),i*.22,.24+i*.22);note(p,'示意量采用统一维度；不能把所有能力、资源直接加成一个数字。',550)}}
+function drawCompare(){let p=modelBase();sectionLabel(p,62,43,'同样三次行动 · 同一个观察维度');const rows=[['重复：没有净留存',[0,0,0],C.x],['重复：每期净留存 2',[2,4,6],C.g]];rows.forEach((row,i)=>{let y=91+i*229;R(p,50,y,1100,198,'#ffffff06','#ffffff14',16);T(p,75,y+39,row[0],22,row[2],650,'start');for(let k=0;k<3;k++){let x=342+k*292, g=S('g',{},p);box(g,x,y+21,192,57,'行动 '+(k+1),'即时成果',row[2],'#1e2827');arrow(g,x+96,y+83,x+96,y+110,row[2]);R(g,x+35,y+119,122,55,'#151a19','#53685e',8);let bh=row[1][k]*7;if(bh>0)R(g,x+40,y+169-bh,112,bh,row[2],'none',5);T(g,x+96,y+154,'存量 '+row[1][k],16,'#f0f5f0',650);artist(p,g,k*.15+i*.07,.3+k*.15+i*.07)}});note(p,'重复可以伴随积累，也可以没有净积累；一次性收益仍可有价值。',580)}
+function drawCompound(){let p=modelBase();sectionLabel(p,52,40,'示意模型 · 相同起点与第一期新增');const rows=[{label:'固定净增 +2',col:'#a9afb8',vals:[10,12,14,16],inc:['—','+2','+2','+2']},{label:'固定净增率 20%',col:C.g,vals:[10,12,14.4,17.28],inc:['—','+2','+2.4','+2.88']}];for(let z=0;z<2;z++){let row=rows[z],y=84+z*228;R(p,51,y,1098,204,'#ffffff05','#ffffff18',18);T(p,76,y+40,row.label,22,row.col,650,'start');for(let i=0;i<4;i++){let x=345+i*210,g=S('g',{},p);R(g,x-62,y+155-row.vals[i]*5.8,124,row.vals[i]*5.8,row.col,'none',9,{'opacity':.75});T(g,x,y+42,'第 '+i+' 期',17,'#a9b2ae');T(g,x,y+131,String(row.vals[i]),25,'#ffffff',650);T(g,x,y+180,row.inc[i],19,row.col,600);if(i<3)arrow(g,x+75,y+111,x+132,y+111,'#637a6e',2);artist(p,g,.06+i*.12+z*.06,.22+i*.12+z*.06)}}note(p,'固定比例是用于说明复利的理想条件，不代表现实技能、经验或资源恒速增长。',575)}
+function drawSnowball(){let p=modelBase();sectionLabel(p,60,48,'隐喻：已有存量参与下一轮新增');const rs=[45,66,90,116];rs.forEach((r,i)=>{let x=150+i*280,g=S('g',{},p);S('circle',{cx:x,cy:315-r,r,fill:'#dceee9',stroke:'#ffffff','stroke-width':2},g);S('ellipse',{cx:x-r*.21,cy:315-r*1.22,rx:r*.38,ry:r*.23,fill:'#fff','fill-opacity':.75},g);for(let j=0;j<3;j++)S('circle',{cx:x+(j-1)*r*.38,cy:315-r+(j%2)*r*.3,r:r*.08,fill:'#9ebeb5'},g);T(g,x,354,'第 '+(i+1)+' 次滚动',17,'#d5dfd8');if(i<3)arrow(p,x+r+15,312,x+280-rs[i+1]-14,312,'#799c8a',2);artist(p,g,i*.17,.28+i*.17)});L(p,50,321,1150,321,'#a5c8b5',2);R(p,65,397,1070,124,'#ffffff08','#ffffff20',15);T(p,600,432,'对应关系：雪球 = 已有存量　滚动 = 后续生产　附着的雪 = 新增成果',21,C.g,650);multi(p,600,467,['现实中并非所有成果会附着、所有存量会发挥作用，也并非无限有雪。','它便于想象机制，但不能作为增长必然发生的依据。'],18);note(p,'隐喻 ≠ 理论证明 ≠ 现实预测',570)}
+function drawBranch(c){let p=modelBase();sectionLabel(p,55,43,c.visual==='case3'?'同一个创作者 · 第 2 期之后':'相同效率改善 · 不同资源去向');box(p,75,192,260,92,c.visual==='case3'?'制作时间减少':'效率提升',c.visual==='case3'?'同类视频所需时间变少':'同样产出，较少投入',C.g);arrow(p,335,238,410,238,C.g);box(p,410,192,285,92,'释放的资源','时间 / 精力 / 资金',C.x,'#29302e');const arr=[['休息与生活','生活本身的价值',C.b],['当前更多产出','增加当期任务数',C.a],['建设生产基础',c.visual==='case3'?'完善组件、建立参数规范':'学习、整理工具、改进流程',C.g]];arr.forEach((a,i)=>{const y=65+i*157;P(p,'M695 238 H739 V'+(y+46)+' H784',a[2],3);arrow(p,747,y+46,784,y+46,a[2]);const g=box(p,784,y,340,92,a[0],a[1],a[2],'#222d2a');artist(p,g,.13+i*.17,.34+i*.17);if(i===2){T(p,954,y+122,'条件：新成果有效形成并留存',17,C.g,600)}});note(p,'分支之间不是高低层级，也不存在无条件的递进。',575)}
+function drawCase1(){let p=modelBase();sectionLabel(p,60,50,'假设案例｜同一创作者 · 连续制作同类视频');box(p,66,178,245,110,'制作第 1 期','选题、剪辑、动画',C.g);arrow(p,311,233,385,233);box(p,385,178,245,110,'完成作品','即时产出',C.g);const arr=[['选题资料','外部文档'],['剪辑经验','内部技能'],['字幕处理方式','方法或流程'],['动画代码','工具组件']];T(p,887,83,'潜在可留存成果',24,C.g,650);arr.forEach((a,i)=>{let y=105+i*105;P(p,'M630 233 H676 V'+(y+43)+' H715',C.g,2);const g=box(p,715,y,365,86,a[0],a[1],C.g);artist(p,g,.1+i*.15,.31+i*.15)});note(p,'作品发布 ≠ 潜在成果已经筛选并留存。',550)}
+function drawCase2(){let p=modelBase();sectionLabel(p,55,49,'同一创作者 · 第 1 期成果进入第 2 期');const a=[['工具库','字幕模板 / 动画组件',C.g],['提取调用','找到原有组件',C.g],['判断适用','新画幅需要调整',C.a],['实际应用','组件完成适配',C.g]];a.forEach((o,i)=>{let x=58+i*290,g=box(p,x,215,246,119,o[0],o[1],o[2],'#202b28');if(i<3)arrow(p,x+246,274,x+285,274,'#8bb19c',2);artist(p,g,i*.18,.25+i*.18)});P(p,'M761 334 V440 H473 V334',C.a,3,{'stroke-dasharray':'7 5'});arrow(p,473,390,473,334,C.a);T(p,615,475,'不适用：调整 / 重新选择 / 不使用',20,C.a,650);T(p,600,565,'留存、提取、适用、应用，是可以分别失败的四个环节。',19,C.g,600)}
+function drawCurves(){let p=modelBase();sectionLabel(p,50,43,'概念示意 · 同一观察对象的不同时间轨迹');const x0=114,y0=477,W=810,H=380;arrow(p,x0,y0,x0+W+20,y0,'#9aaba2',2);arrow(p,x0,y0,x0,y0-H-12,'#9aaba2',2);T(p,x0+W+28,y0+30,'时间',17,'#b7c1ba','400','end');T(p,x0-18,y0-H-23,'存量 / 产出',17,'#b7c1ba','400','start');for(let i=1;i<=4;i++)L(p,x0,y0-i*H/4,x0+W,y0-i*H/4,'#ffffff15',1);let series=[['固定净增','#9cbaf0',[20,32,44,56,68]],['净增量扩大',C.g,[20,25,35,55,95]],['增长放缓','#d9bf87',[20,37,48,55,59]],['趋向平台','#b5a4df',[20,34,40,41,41]],['衰减','#df9f9c',[20,16,12,8,5]]];series.forEach((s,i)=>{let g=S('g',{},p),pts=s[2].map((v,k)=>[x0+k*W/4,y0-v*H/100]);P(g,polyPath(pts),s[1],4);for(let pt of pts)S('circle',{cx:pt[0],cy:pt[1],r:4.5,fill:s[1]},g);T(g,pts.at(-1)[0]+15,pts.at(-1)[1]+7,s[0],19,s[1],650,'start');artist(p,g,i*.11,.25+i*.11)});note(p,'曲线只描述变化，不识别唯一成因；增长放缓与边际收益递减不是同义词。',575)}
+function drawMarginal(){let p=modelBase();sectionLabel(p,58,48,'不同问题，必须使用不同坐标轴');const x=70,y=116;R(p,x,y,650,390,'#ffffff05','#ffffff18',14);T(p,x+325,y+43,'每增加一单位投入，额外产出是多少？',22,'#dfebe3',600);const gains=[8,5,2];gains.forEach((v,i)=>{let xx=x+106+i*181,g=S('g',{},p);R(g,xx,y+306-v*25,110,v*25,i===2?C.a:C.g,'none',8,{'opacity':.85});T(g,xx+55,y+289-v*25,'+'+v,28,i===2?C.a:C.g,650);T(g,xx+55,y+339,'第 '+(i+1)+' 单位',17,'#b4beb9');artist(p,g,i*.18,.3+i*.18)});L(p,x+75,y+306,x+576,y+306,'#a1b5a7',1.5);R(p,756,y,375,390,'#ffffff05','#ffffff18',14);T(p,943,y+44,'总产出仍可增加',24,C.g,650);T(p,943,y+130,'8 → 13 → 15',35,'#e6efe9',700);multi(p,943,y+203,['额外收益递减','≠ 总产出下降','≠ 时间增长率必然下降'],23,'#cad6cf',45);note(p,'示意：等量追加投入；其他条件在模型中固定。',560)}
+
+function drawHybrid(c){
+ graphInit();
+ graphFocus(c,false);
+ $('mini').classList.remove('visible');
+ const svg=$('viz'),defs=S('defs',{},svg);
+ const mg=S('linearGradient',{id:'hyMachineGrad',x1:'0%',y1:'0%',x2:'100%',y2:'100%'},defs);
+ S('stop',{offset:'0%','stop-color':'#55478f'},mg);S('stop',{offset:'55%','stop-color':'#302c55'},mg);S('stop',{offset:'100%','stop-color':'#1c2630'},mg);
+ const rg=S('linearGradient',{id:'hyRedGrad',x1:'0%',y1:'0%',x2:'100%',y2:'100%'},defs);
+ S('stop',{offset:'0%','stop-color':'#ff9b8c'},rg);S('stop',{offset:'100%','stop-color':'#e54f61'},rg);
+ const gg=S('linearGradient',{id:'hyGreenGrad',x1:'0%',y1:'0%',x2:'100%',y2:'100%'},defs);
+ S('stop',{offset:'0%','stop-color':'#d8ff82'},gg);S('stop',{offset:'100%','stop-color':'#70dfad'},gg);
+ const sh=S('filter',{id:'hyShadow',x:'-30%',y:'-30%',width:'160%',height:'170%'},defs);
+ S('feDropShadow',{dx:0,dy:10,stdDeviation:10,'flood-color':'#000000','flood-opacity':.32},sh);
+ hybridLayer=S('g',{'data-layer':'error-factory'},svg);
+ const sc=Math.min(w/1200,h/600),ox=(w-1200*sc)/2,oy=(h-600*sc)/2;
+ hybridWorld=S('g',{transform:'translate('+ox+' '+oy+') scale('+sc+')'},hybridLayer);
+ const p=hybridWorld;
+ R(p,18,18,1164,564,'#12191e','#53616a',24,{'stroke-width':1.5,'fill-opacity':.97,filter:'url(#hyShadow)'});
+ T(p,52,58,'SYSTEM TEST / 07',13,'#91a39d',800,'start',{'letter-spacing':2.2});
+ T(p,1146,58,'复制工厂 · 自动化生产中心',15,'#d8e0dc',650,'end');
+ L(p,48,76,1152,76,'#ffffff',1,{'opacity':.12});
+
+ // 输入：一个带缺陷的模板
+ R(p,62,130,230,250,'#1b2429','#53636a',18,{'stroke-width':1.3});
+ T(p,84,160,'INPUT / 输入模板',12,'#9baaa5',800,'start',{'letter-spacing':1.4});
+ const template=S('g',{'data-part':'template'},p);
+ R(template,105,194,144,126,'#222e33','#68777c',14,{'stroke-width':1.2});
+ S('path',{d:'M137 222 H224 V246 H201 V294 H137 Z',fill:'url(#hyRedGrad)',stroke:'#ffb3a5','stroke-width':3,'stroke-linejoin':'round',filter:'url(#hyShadow)'},template);
+ S('path',{d:'M224 222 L244 205 V229 L224 246 Z',fill:'#c94759'},template);
+ R(template,119,332,116,28,'#3c252d','#a94e58',8,{'stroke-width':1});
+ T(template,177,351,'缺了一角',13,'#ffb1a5',750);
+ T(p,177,397,'错误模板',16,'#ff8f82',750);
+ const inputArrow=P(p,'M294 254 C320 254 322 254 344 254','#ff8f82',3,{'stroke-dasharray':'5 7'});
+ S('polygon',{points:'344,254 331,246 331,262',fill:'#ff8f82'},p);
+
+ // 主机器
+ R(p,350,112,510,318,'url(#hyMachineGrad)','#8e80d0',24,{'stroke-width':2,filter:'url(#hyShadow)'});
+ R(p,370,128,470,48,'#282444','#8777cb',13,{'stroke-width':1});
+ T(p,392,158,'复制机 / MK—01',19,'#f0edff',800,'start');
+ S('circle',{cx:814,cy:152,r:8,fill:'#d6ff63',stroke:'#fff','stroke-width':2,'data-part':'machine-light'},p);
+ T(p,600,210,'模板一致性检测',14,'#d7d0ff',700);
+ R(p,392,228,270,128,'#151c24','#8578c8',14,{'stroke-width':1.4});
+ T(p,527,258,'一致性',13,'#aeb8c8',650);
+ T(p,527,309,'100%',48,'#d6ff63',900);
+ R(p,414,327,226,8,'#39434a','none',4);
+ R(p,414,327,226,8,'url(#hyGreenGrad)','none',4);
+ T(p,527,380,'模板完全一致',12,'#c6d1cc',650);
+ R(p,686,228,150,128,'#171f27','#6d648e',14,{'stroke-width':1.2});
+ T(p,761,258,'方向判断',13,'#b9c0ca',650);
+ T(p,761,294,'未接入',23,'#ff8f82',850);
+ T(p,761,326,'只验一致，不验对错',11,'#d0c5c6',600);
+ // 机械齿轮
+ const gear=S('g',{'data-part':'gear'},p);
+ S('circle',{cx:785,cy:394,r:23,fill:'#b8aaf3',stroke:'#40386c','stroke-width':5},gear);
+ S('circle',{cx:785,cy:394,r:7,fill:'#51488a'},gear);
+ for(let i=0;i<8;i++){const a=i*Math.PI/4,x1=785+Math.cos(a)*24,y1=394+Math.sin(a)*24,x2=785+Math.cos(a)*34,y2=394+Math.sin(a)*34;L(gear,x1,y1,x2,y2,'#b8aaf3',8,{'stroke-linecap':'round'})}
+
+ // 传送带与出口
+ R(p,260,444,880,68,'#20262d','#53616a',17,{'stroke-width':1.5});
+ R(p,274,455,852,42,'#10171c','#3e4a50',10,{'stroke-width':1});
+ const belt=P(p,'M286 476 H1112','#a9b7b2',4,{'stroke-dasharray':'12 20','data-part':'belt'});
+ for(let x=302;x<=1100;x+=88){S('circle',{cx:x,cy:516,r:12,fill:'#343c43',stroke:'#65727a','stroke-width':2},p);S('circle',{cx:x,cy:516,r:4,fill:'#8e9b9d'},p)}
+ P(p,'M840 395 C872 395 876 420 902 420','#ff8f82',3,{'stroke-dasharray':'5 6'});
+ T(p,1002,536,'缺陷件正在持续输出',12,'#aeb8b4',650,'middle');
+
+ // 堆积轮廓与输出件
+ const pile=S('path',{d:'M884 444 Q891 405 927 406 Q945 370 978 389 Q1005 346 1041 376 Q1080 350 1119 397 L1135 444 Z',fill:'#9f4652','fill-opacity':.42,stroke:'#dc7180','stroke-width':2,'data-part':'pile',opacity:0},p);
+ const targets=[[920,405],[970,405],[1020,405],[1070,405],[945,365],[995,365],[1045,365],[1095,365],[970,325],[1020,325],[1070,325],[1120,325]];
+ hybridCopies=[];
+ targets.forEach((xy,i)=>{
+  const g=S('g',{'data-copy':i,opacity:0},p);
+  S('path',{d:'M0 0 H42 V12 H30 V37 H0 Z',fill:'url(#hyRedGrad)',stroke:'#ffb5a9','stroke-width':2,'stroke-linejoin':'round'},g);
+  S('path',{d:'M42 0 L53 -9 V4 L42 12 Z',fill:'#bd4052'},g);
+  hybridCopies.push({el:g,target:xy,index:i});
+ });
+
+ // 运行状态与荒谬的成功认证
+ R(p,884,126,250,174,'#1a2428','#53636a',17,{'stroke-width':1.2});
+ T(p,908,157,'QUALITY CONTROL',11,'#9baaa5',800,'start',{'letter-spacing':1.3});
+ const status=T(p,1009,198,'系统运行正常',17,'#d6ff63',800);
+ const count=T(p,1009,237,'缺陷件：0',23,'#f0ece5',800);
+ T(p,1009,270,'方向检查：未配置',12,'#ff9b8c',700);
+ const stamp=S('g',{'data-part':'stamp',opacity:0},p);
+ R(stamp,-92,-30,184,60,'url(#hyGreenGrad)','#203a2e',10,{'stroke-width':3});
+ T(stamp,0,9,'验收通过！',25,'#173226',950);
+ // 彩纸
+ const confetti=S('g',{'data-part':'confetti',opacity:0},p);
+ const confettiColors=['#ff7e70','#d6ff63','#81b2ed','#c7a3ef','#eabd75'];
+ for(let i=0;i<18;i++){
+  const x=870+(i*47)%260,y=115+(i*31)%175;
+  S('rect',{x,y,width:7+(i%3)*2,height:15+(i%4)*3,rx:2,fill:confettiColors[i%confettiColors.length],transform:'rotate('+(i*37%80-40)+' '+x+' '+y+')'},confetti);
+ }
+ // 紧急停止
+ const stop=S('g',{'data-part':'stop',opacity:0},p);
+ R(stop,-67,-39,134,78,'#3b3039','#8c5158',14,{'stroke-width':2,filter:'url(#hyShadow)'});
+ R(stop,-51,-31,102,58,'url(#hyRedGrad)','#ffc0b3',12,{'stroke-width':2});
+ T(stop,0,7,'STOP',23,'#fff4ef',950);
+ T(stop,0,59,'紧急停止',11,'#ffaaa0',800);
+ const final=T(p,600,584,'一致，不代表正确。',22,'#f0e8e1',850);
+ hybridParts={template,gear,belt,pile,status,count,stamp,confetti,stop,final,machineLight:svg.querySelector('[data-part="machine-light"]')};
+}
+function animateHybrid(p,now){
+ if(!hybridLayer||!hybridParts.template)return;
+ animateGraph(p,now);
+ const duration=cues[current].seconds,t=p*duration;
+ const clamp=v=>Math.max(0,Math.min(1,v));
+ const ease=v=>{v=clamp(v);return v*v*(3-2*v)};
+ const intro=ease(t/2.1),outro=ease((t-17.15)/2.05);
+ const layerAlpha=intro*(1-outro),scale=.22+.78*intro-.78*outro;
+ const s=Math.max(.22,scale);
+ hybridLayer.style.opacity=String(layerAlpha);
+ hybridLayer.setAttribute('transform','translate('+(600*(1-s))+' '+(300*(1-s))+') scale('+s+')');
+ if(graphWorld)graphWorld.style.opacity=String(1-.86*intro+.86*outro);
+
+ const templateIn=ease((t-1.8)/1.8),templateOut=ease((t-3.65)/.45);
+ hybridParts.template.setAttribute('transform','translate('+(templateIn*155)+' 0)');
+ hybridParts.template.style.opacity=String(1-templateOut*.98);
+
+ const count=Math.max(0,Math.min(hybridCopies.length,Math.floor((t-4.15)/.53)+1));
+ hybridCopies.forEach((copy,i)=>{
+  const start=4.15+i*.53,u=clamp((t-start)/.64),q=ease(u),[tx,ty]=copy.target;
+  const x=835+(tx-835)*q,y=408+(ty-408)*q-Math.sin(u*Math.PI)*18;
+  copy.el.setAttribute('transform','translate('+x+' '+y+') scale('+(0.48+.52*q)+')');
+  copy.el.setAttribute('opacity',String(u>0?Math.min(1,u*4):0));
+ });
+ hybridParts.pile.setAttribute('opacity',String(ease((t-8.8)/2.4)*.88));
+ hybridParts.count.textContent='缺陷件：'+count;
+ hybridParts.status.textContent=t<8.2?'系统运行正常':t<14.2?'一致性：100%':'系统已停止';
+ hybridParts.status.setAttribute('fill',t<14.2?'#d6ff63':'#ff9b8c');
+ hybridParts.belt.setAttribute('stroke-dashoffset',String(t<14.25?-(t*42)%80:-((14.25*42)%80)));
+ const stopped=ease((t-14.2)/.62);
+ hybridParts.gear.setAttribute('transform','rotate('+(Math.min(t,14.2)*74)+' 785 394)');
+ hybridParts.machineLight.setAttribute('fill',t>=14.2?'#ff685e':'#d6ff63');
+ hybridParts.stamp.setAttribute('opacity',String(ease((t-10.6)/.5)));
+ hybridParts.stamp.setAttribute('transform','translate(1005 335) rotate(-9) scale('+(0.55+.45*ease((t-10.6)/.5))+')');
+ hybridParts.confetti.setAttribute('opacity',String(ease((t-10.8)/.45)*(1-stopped*.35)));
+ hybridParts.confetti.setAttribute('transform','translate(0 '+(Math.sin(now/170)*5)+') rotate('+(Math.sin(now/500)*2)+' 1000 220)');
+ hybridParts.stop.setAttribute('opacity',String(stopped));
+ hybridParts.stop.setAttribute('transform','translate(1050 '+(160-145*stopped)+') rotate('+(stopped*8)+')');
+ hybridParts.final.setAttribute('opacity',String(ease((t-15.1)/.5)));
+}
+
+function drawModel(c){({stock:drawStock,compare:drawCompare,compound:drawCompound,snowball:drawSnowball,branch:drawBranch,case1:drawCase1,case2:drawCase2,case3:drawBranch,curves:drawCurves,marginal:drawMarginal}[c.visual]||drawStock)(c)}
+function animateModel(p){for(const a of animatedItems){const q=reduced?1:Math.max(0,Math.min(1,(p-a.from)/(a.to-a.from)));if(a.attrs){for(const[k,ends]of Object.entries(a.attrs))a.el.setAttribute(k,ends[0]+(ends[1]-ends[0])*q);if(a.text)a.el.textContent=String(Math.round(a.text[0]+(a.text[1]-a.text[0])*q))}else a.el.setAttribute('opacity',.15+.85*q)}}
+function buildUI(){
+ $('seek').max=total;$('duration').textContent=fmt(total)+' · '+cues.length+' 段';
+ const chapHost=$('chapters');chapHost.replaceChildren();
+ chapters.forEach((ch,i)=>{const group=document.createElement('div');const cs=cues.filter(c=>c.ch===i);let b=document.createElement('button');b.className='chapterbtn';b.dataset.ch=i;b.innerHTML='<span class="num">'+ch[0]+'</span><span class="chmain">'+ch[1]+'<small>'+ch[2]+'</small></span><span class="chdur">'+fmt(cs[0].start)+'</span>';b.onclick=()=>jump(cs[0].i);group.append(b);const sc=document.createElement('div');sc.className='subcues';sc.id='sub'+i;for(const c of cs){let bb=document.createElement('button');bb.className='subcue';bb.textContent=c.title;bb.dataset.i=c.i;bb.onclick=()=>jump(c.i);sc.append(bb)}group.append(sc);chapHost.append(group)});
+ cues.forEach(c=>{let b=document.createElement('button');b.className='tick';b.dataset.i=c.i;b.style.flex=c.seconds;b.title=fmt(c.start)+' '+c.title;b.setAttribute('aria-label',b.title);b.onclick=()=>jump(c.i);$('ticks').append(b)});
+ $('scriptbody').innerHTML=cues.map(c=>'<div class="scriptrow"><div><b>'+fmt(c.start)+'</b><br><small>'+fmt(c.end)+' · '+c.seconds+'s</small></div><div><small>'+chapters[c.ch][1]+'</small><br><strong>'+c.title+'</strong></div><div class="scriptmotion"><small>画面 / 动作</small><p>'+c.motion+'</p><p class="scriptkey">'+c.key+'</p></div><div class="scriptvoice"><small>同期讲解</small><p>'+c.voice+'</p></div></div>').join('');
+}
+function transitionScene(){
+ const host=$('viz').parentElement;
+ host.querySelector('#vizGhost')?.remove();
+ const ghost=$('viz').cloneNode(true);
+ ghost.id='vizGhost';ghost.setAttribute('aria-hidden','true');
+ host.appendChild(ghost);
+ const svg=$('viz');svg.classList.remove('scene-enter');void svg.getBoundingClientRect();svg.classList.add('scene-enter');
+ ghost.addEventListener('animationend',()=>ghost.remove(),{once:true});
+ svg.addEventListener('animationend',()=>svg.classList.remove('scene-enter'),{once:true});
+}
+function selectScene(i,force=false){
+ if(i===current&&!force)return;
+ const previous=current;
+ if(previous>=0&&previous!==i&&cues[previous].visual!==cues[i].visual&&!reduced)transitionScene();
+ current=i;const c=cues[i];dots=[];animatedItems=[];
+ $('overline').textContent=chapters[c.ch][0]+' / '+chapters[c.ch][1];
+ $('stagetitle').textContent=c.title;
+ $('stageindex').textContent=String(i+1).padStart(2,'0')+' / '+cues.length;
+ $('keyline').textContent=c.key;
+ $('cuetitle').textContent=c.title;
+ $('cuekicker').textContent='SHOT '+String(c.i+1).padStart(2,'0')+' / '+(c.visual==='graph'?'关系网络':c.visual==='hybrid'?'概念地图 × 局部实验':'局部动态模型');
+ $('cuetime').textContent=fmt(c.start)+' – '+fmt(c.end);
+ $('motion').textContent=c.motion;$('narration').textContent=c.voice;
+ const conceptNames=c.focus.length?c.focus.map(id=>nmap[id].title):[c.visual==='graph'?'完整网络':'局部解释模型'];
+ $('concepts').replaceChildren(...conceptNames.map(n=>{const el=document.createElement('span');el.className='concept';el.textContent=n;return el}));
+ document.querySelectorAll('.chapterbtn').forEach(b=>b.classList.toggle('on',Number(b.dataset.ch)===c.ch));
+ document.querySelectorAll('.subcue').forEach(b=>b.classList.toggle('on',Number(b.dataset.i)===i));
+ document.querySelectorAll('.subcues').forEach((d,j)=>d.style.display=j===c.ch?'flex':'none');
+ document.querySelectorAll('.tick').forEach(b=>{const k=Number(b.dataset.i);b.classList.toggle('on',k===i);b.classList.toggle('past',k<i)});
+ if(c.visual!=='hybrid'&&hybridLayer){hybridLayer.remove();hybridLayer=null;hybridWorld=null;hybridParts={};hybridCopies=[];if(graphWorld)graphWorld.style.opacity=1}
+ if(c.visual==='graph'){graphFocus(c,overview)}
+ else if(c.visual==='hybrid'){drawHybrid(c)}
+ else drawModel(c);
+}
+function captionForTime(t){const c=cues[current];if(c?.i===0&&t>=c.start+4&&t<c.end)return '';let i=0;while(i+1<CAPTION_STARTS.length&&t>=CAPTION_STARTS[i+1])i++;return CAPTION_TEXTS[i]||''}
+function render(now){const actual=Math.min(total-.001,time),i=cues.findIndex(c=>actual<c.end);if(!overview)selectScene(Math.max(0,i));const c=cues[current];progress=Math.max(0,Math.min(1,(time-c.start)/c.seconds));$('seek').value=time;$('time').textContent=fmt(time)+' / '+fmt(total);if(overview){animateGraph(0,now)}else{$('caption').textContent=captionForTime(time);if(c.visual==='graph')animateGraph(progress,now);else if(c.visual==='hybrid')animateHybrid(progress,now);else animateModel(progress);}$('prev').disabled=current===0;$('next').disabled=current===cues.length-1;}
+function tick(now){if(playing){time=narrationAudio.currentTime;if(narrationAudio.ended||time>=total-.03){time=total;playing=false;narrationAudio.pause();setPlayLabel()}}render(now);requestAnimationFrame(tick)}
+function setPlayLabel(){$('play').textContent=playing?'Ⅱ 暂停':'▶ 播放';$('status').textContent=playing?'正在播放正式配音，字幕按音频识别时间点切换，动画按音频时间同步。':'已暂停 · 字幕已按音频时间校准；可使用进度条、章节或上一段 / 下一段跳转。'}
+function play(){if(!audioReady){$('status').textContent='讲解音频正在加载，请稍候。';return}if(overview){overview=false;selectScene(current,true)}if(time>=total-.05){time=0;narrationAudio.currentTime=0;selectScene(0,true)}if(playing){playing=false;narrationAudio.pause()}else{playing=true;narrationAudio.playbackRate=speed;narrationAudio.currentTime=time;narrationAudio.play().catch(()=>{playing=false;$('status').textContent='正式配音加载失败，请检查网络连接后重试。';setPlayLabel()})}setPlayLabel()}
+function jump(i){i=Math.max(0,Math.min(cues.length-1,i));overview=false;time=cues[i].start;if(audioReady)narrationAudio.currentTime=time;const was=current;selectScene(i,was===i);if(playing)narrationAudio.play().catch(()=>{});render(performance.now())}
+$('play').onclick=play;$('prev').onclick=()=>jump(current-1);$('next').onclick=()=>jump(current+1);
+$('seek').oninput=e=>{overview=false;time=Number(e.target.value);if(audioReady)narrationAudio.currentTime=time;let i=cues.findIndex(c=>c.end>time);if(i<0)i=cues.length-1;selectScene(i);render(performance.now())};
+$('speed').onclick=()=>{const speeds=[1,1.25,1.5,2,.75];speed=speeds[(speeds.indexOf(speed)+1)%speeds.length];$('speed').textContent=speed+'×';narrationAudio.playbackRate=speed};
+
+narrationAudio.addEventListener('play',()=>{
+  if(overview){overview=false;selectScene(current,true)}
+  playing=true;time=narrationAudio.currentTime||0;setPlayLabel();
+});
+narrationAudio.addEventListener('pause',()=>{
+  if(!narrationAudio.ended){
+    playing=false;time=narrationAudio.currentTime||0;render(performance.now());setPlayLabel();
+  }
+});
+narrationAudio.addEventListener('timeupdate',()=>{
+  if(!playing){time=narrationAudio.currentTime||0;render(performance.now())}
+});
+narrationAudio.addEventListener('seeking',()=>{
+  time=narrationAudio.currentTime||0;
+  const i=cues.findIndex(c=>c.end>time);
+  if(i>=0&&!overview){selectScene(i);render(performance.now())}
+});
+narrationAudio.addEventListener('loadedmetadata',()=>{
+  $('status').textContent='讲解音频已加载。播放、进度、字幕与动画均由本页面统一控制。';
+});
+
+narrationAudio.addEventListener('ended',()=>{playing=false;time=total;render(performance.now());setPlayLabel()});
+narrationAudio.addEventListener('error',()=>{$('status').textContent='讲解音频加载或解码失败，请刷新页面重试。'});
+$('format').onclick=()=>{portrait=!portrait;$('stage').classList.toggle('portrait',portrait);$('format').textContent=portrait?'切换 16:9':'切换 9:16';setView();if(overview){camera=null;graphFocus({focus:[],links:[]},true)}else{camera=null;selectScene(current,true)}};
+$('overview').onclick=()=>{playing=false;narrationAudio.pause();if(hybridLayer){hybridLayer.remove();hybridLayer=null;hybridWorld=null;hybridParts={};hybridCopies=[]}if(graphWorld)graphWorld.style.opacity=1;overview=true;$('overline').textContent='知识主画布 / 完整关系网络';$('stagetitle').textContent='人生机制与增长机制';$('stageindex').textContent='25 个节点';$('keyline').textContent='主画布是关系网络，不是层级树，也不是单一时间顺序。';$('caption').textContent='实线：作用/过程　 ·　虚线：条件/协作　 ·　紫：反馈修正　 ·　绿：强化　 ·　金：边界';dots=[];graphFocus({focus:[],links:[]},true);setPlayLabel();$('status').textContent='全览模式 · 播放可返回讲解，或选择任意章节。'};
+$('script').onclick=()=>$('dialog').showModal();$('close').onclick=()=>$('dialog').close();
+$('download').onclick=()=>{const text='# 人生机制与增长机制｜完整视听同步脚本\n\n总时长（估算）：'+fmt(total)+'。主画幅 16:9，9:16 为取景参考。\n\n'+cues.map(c=>'## '+String(c.i+1).padStart(2,'0')+' '+c.title+'（'+fmt(c.start)+'–'+fmt(c.end)+'）\n\n- 章节：'+chapters[c.ch][1]+'\n- 画面动作：'+c.motion+'\n- 关键画面文字：'+c.key+'\n- 同期讲解：'+c.voice+'\n- 对应节点：'+(c.focus.map(n=>nmap[n].title).join('、')||'局部模型 / 全览')+'\n- 对应关系：'+(c.links.map(e=>emap[e]?nmap[emap[e].a].title+' → '+nmap[emap[e].b].title+'（'+emap[e].label+'）':e).join('；')||'—')+'\n').join('\n');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type:'text/markdown;charset=utf-8'}));a.download='人生机制与增长机制-视听同步脚本.md';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};
+document.addEventListener('keydown',e=>{if($('dialog').open||['INPUT','BUTTON'].includes(document.activeElement?.tagName))return;if(e.code==='Space'){e.preventDefault();play()}else if(e.key==='ArrowRight')jump(current+1);else if(e.key==='ArrowLeft')jump(current-1)});
+setView();buildUI();selectScene(0,true);render(performance.now());requestAnimationFrame(tick);loadNarrationAudio();
+</script></body></html>
