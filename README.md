@@ -19,6 +19,7 @@ Agent Mind 是一个持续研究与内容传播项目。它不是人生成功学
 - [研究项目目录](research/index.html)
 - [视频创作思维方法论](production-methodology/VIDEO-CREATION-THINKING.md)
 - [网页原生视听制作法](production-methodology/WEB-NATIVE-AUDIOVISUAL-PRODUCTION.md)
+- [知识视频的荒诞趣味表达](production-methodology/KNOWLEDGE-VIDEO-ABSURD-HUMOR.md)
 - [GitHub Pages 首页](https://likenoai.github.io/agent-mind/)
 
 ## 当前项目结构
