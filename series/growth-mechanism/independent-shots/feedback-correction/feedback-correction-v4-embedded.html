@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>反馈与修正｜可编辑源文件 V4（21.472653s）</title>
+<style>
+:root{
+ --ink:#39234f;--purple:#7655a2;--green:#76b94e;--teal:#35b9c2;--coral:#ef7965;--paper:#fbf8f0;
+}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;background:#e9e4dc;font-family:system-ui,"Microsoft YaHei",sans-serif;color:var(--ink)}
+body{display:grid;place-items:center;overflow:hidden}
+body.embed-mode{background:transparent}
+body.embed-mode .frame{box-shadow:none}
+body.embed-mode .controls,body.embed-mode .grid-toggle,body.embed-mode #captions{display:none!important}
+.frame{width:min(100vw,177.777vh);height:min(100vh,56.25vw);aspect-ratio:16/9;position:relative;background:var(--paper);overflow:hidden;box-shadow:0 16px 50px rgba(40,25,58,.15)}
+svg{display:block;width:100%;height:100%}
+.small{font-weight:850;fill:#8c7b9a;font-size:14px;letter-spacing:2px}
+.title{font-size:38px;font-weight:950;fill:var(--ink)}
+.subtitle{font-size:19px;font-weight:800;fill:#887994}
+.pill{fill:#fffdf8;stroke-width:3}
+.pill-text{font-size:19px;font-weight:900}
+.route{fill:none;stroke-width:7;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:13 16}
+.route-muted{stroke:#b9adbf;opacity:.32}
+.route-red{stroke:var(--coral)}
+.route-teal{stroke:var(--teal)}
+.route-green{stroke:var(--green)}
+.controls{position:absolute;right:2.2%;bottom:2.1%;display:flex;align-items:center;gap:9px;z-index:5;padding:4px 8px;border-radius:28px;background:rgba(251,248,240,.94);box-shadow:0 3px 12px rgba(57,35,79,.08);backdrop-filter:blur(3px)}
+.controls button{border:1.5px solid rgba(57,35,79,.25);border-radius:999px;background:#fffdf8;color:var(--ink);padding:9px 17px;font-size:13px;font-weight:850;box-shadow:0 3px 0 rgba(57,35,79,.12);cursor:pointer}
+.controls button:hover{background:#f2ebdf}
+.time{font-size:12px;font-weight:850;color:#8b7a98;font-variant-numeric:tabular-nums;margin-right:5px}
+.grid-toggle{position:absolute;right:2.5%;top:2.5%;z-index:5;border:1px solid rgba(57,35,79,.18);border-radius:999px;background:#fffdf8;color:#7a678e;padding:6px 12px;font-size:11px;font-weight:800;cursor:pointer}
+#guides{opacity:0;transition:opacity .2s}
+.frame.guides #guides{opacity:.46}
+.caption{font-size:27px;font-weight:950;fill:var(--ink)}
+.label{font-size:18px;font-weight:900;fill:var(--ink)}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</head>
+<body>
+<div class="frame" id="frame">
+<button class="grid-toggle" id="gridToggle">显示对齐辅助线</button>
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" role="img" aria-label="反馈与修正：异常信号如何进入控制机制并改变后续输出">
+<defs>
+ <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+  <stop offset="0" stop-color="#fffdf7"/><stop offset=".58" stop-color="#fbf8ef"/><stop offset="1" stop-color="#f3eee4"/>
+ </linearGradient>
+ <radialGradient id="warm"><stop stop-color="#f5d77b" stop-opacity=".22"/><stop offset="1" stop-color="#f5d77b" stop-opacity="0"/></radialGradient>
+ <radialGradient id="cool"><stop stop-color="#83d4ce" stop-opacity=".18"/><stop offset="1" stop-color="#83d4ce" stop-opacity="0"/></radialGradient>
+ <marker id="arr-red" markerWidth="13" markerHeight="13" refX="10" refY="6.5" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0 L11 6.5 L0 13" fill="none" stroke="#ef7965" stroke-width="2.5"/></marker>
+ <marker id="arr-teal" markerWidth="13" markerHeight="13" refX="10" refY="6.5" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0 L11 6.5 L0 13" fill="none" stroke="#35b9c2" stroke-width="2.5"/></marker>
+ <marker id="arr-green" markerWidth="13" markerHeight="13" refX="10" refY="6.5" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0 L11 6.5 L0 13" fill="none" stroke="#76b94e" stroke-width="2.5"/></marker>
+</defs>
+<rect width="1600" height="900" fill="url(#bg)"/>
+<ellipse cx="260" cy="500" rx="450" ry="390" fill="url(#warm)"/>
+<ellipse cx="1240" cy="430" rx="430" ry="390" fill="url(#cool)"/>
+
+<!-- alignment guides -->
+<g id="guides" fill="none" stroke="#9b8aab" stroke-width="1.4" stroke-dasharray="5 8">
+ <path d="M70 180 V820 M380 180 V820 M850 180 V820 M1150 150 V820 M1510 150 V820"/>
+ <path d="M70 310 H1530 M70 520 H1530 M70 720 H1530"/>
+ <circle cx="680" cy="605" r="7" fill="#fff" stroke="#35b9c2"/>
+ <circle cx="1000" cy="270" r="7" fill="#fff" stroke="#ef7965"/>
+ <circle cx="1310" cy="270" r="7" fill="#fff" stroke="#35b9c2"/>
+ <circle cx="1310" cy="590" r="7" fill="#fff" stroke="#76b94e"/>
+</g>
+
+<!-- header -->
+<g transform="translate(72 60)">
+ <text class="small" x="0" y="0">FEEDBACK / CORRECTION</text>
+ <text class="title" x="0" y="48">反馈与修正</text>
+ <text class="subtitle" x="0" y="82">发现异常，只是改变行动的起点</text>
+</g>
+
+<!-- process labels -->
+<g>
+ <rect class="pill" x="105" y="278" width="190" height="44" rx="22" stroke="#7655a2"/>
+ <text class="pill-text" x="200" y="307" text-anchor="middle" fill="#7655a2">持续运行的系统</text>
+ <rect class="pill" x="550" y="278" width="190" height="44" rx="22" stroke="#35b9c2"/>
+ <text class="pill-text" x="645" y="307" text-anchor="middle" fill="#1599a2">检测异常</text>
+ <rect class="pill" x="900" y="120" width="210" height="44" rx="22" stroke="#ef7965"/>
+ <text class="pill-text" x="1005" y="149" text-anchor="middle" fill="#dc6855">反馈信号</text>
+ <rect class="pill" x="1210" y="120" width="210" height="44" rx="22" stroke="#35b9c2"/>
+ <text class="pill-text" x="1315" y="149" text-anchor="middle" fill="#1599a2">控制决策</text>
+ <rect class="pill" x="1210" y="430" width="210" height="44" rx="22" stroke="#76b94e"/>
+ <text class="pill-text" x="1315" y="459" text-anchor="middle" fill="#5d9b38">执行修正</text>
+</g>
+
+<!-- production line: continuous process, single straight flow -->
+<g id="production-line">
+ <g id="belt-extension">
+  <rect x="420" y="526" width="575" height="60" rx="29" fill="#51465f" stroke="#39234f" stroke-width="8"/>
+  <rect x="431" y="535" width="553" height="39" rx="18" fill="#655d69"/>
+  <path d="M445 553 H970" stroke="#fff1cf" stroke-width="4" stroke-linecap="round" stroke-dasharray="13 22" opacity=".88"/>
+  <rect x="438" y="572" width="540" height="8" rx="4" fill="#e9b62e"/>
+  <circle cx="972" cy="556" r="24" fill="#51465f" stroke="#39234f" stroke-width="7"/>
+  <circle cx="972" cy="556" r="10" fill="#e7d9b8" stroke="#39234f" stroke-width="4"/>
+ </g>
+ <image href="assets/production-system.png" x="-5" y="400" width="520" height="260" preserveAspectRatio="xMidYMid meet"/>
+ <g id="belt-motion" stroke="#fff7dc" stroke-width="4" stroke-linecap="round" opacity=".85">
+  <path d="M445 553 H960" stroke-dasharray="12 24"/>
+ </g>
+</g>
+
+<!-- inspection station -->
+<g id="inspection-station">
+ <image href="assets/inspection_scanner.png" x="515" y="340" width="245" height="220" preserveAspectRatio="xMidYMid meet"/>
+ <image id="alarm" href="assets/alarm_beacon.png" x="740" y="330" width="82" height="88" preserveAspectRatio="xMidYMid meet" opacity="0"/>
+ <path id="scan-beam" d="M655 470 L655 592" stroke="#35b9c2" stroke-width="5" stroke-dasharray="7 9" stroke-linecap="round" opacity="0"/>
+ <path d="M610 560 Q655 585 700 560" fill="none" stroke="#35b9c2" stroke-width="3" opacity=".45"/>
+</g>
+
+<!-- feedback and control equipment -->
+<g id="signal-station">
+ <image href="assets/signal_monitor.png" x="885" y="170" width="245" height="207" preserveAspectRatio="xMidYMid meet"/>
+ <path id="monitor-wave" d="M936 286 L957 286 L969 268 L985 305 L1001 250 L1017 300 L1034 286 L1082 286" stroke="#35b9c2" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0"/>
+</g>
+
+<g id="controller">
+ <image href="assets/control_console.png" x="1190" y="170" width="250" height="216" preserveAspectRatio="xMidYMid meet"/>
+ <circle cx="1288" cy="273" r="31" fill="none" stroke="#39234f" stroke-width="3" opacity=".35"/>
+ <path id="controller-pointer" d="M1288 273 L1288 246" stroke="#ef7965" stroke-width="6" stroke-linecap="round" transform-origin="1288px 273px" transform="rotate(-35 1288 273)"/>
+ <g id="controller-glow" opacity="0"><circle cx="1288" cy="273" r="49" fill="none" stroke="#35b9c2" stroke-width="7" stroke-dasharray="8 8"/></g>
+</g>
+
+<g id="actuator">
+ <image href="assets/correction_actuator.png" x="1190" y="490" width="250" height="177" preserveAspectRatio="xMidYMid meet"/>
+ <circle id="actuator-indicator" cx="1300" cy="570" r="31" fill="none" stroke="#76b94e" stroke-width="7" stroke-dasharray="7 7" opacity="0"/>
+</g>
+
+<!-- feedback/control routes -->
+<g id="routes">
+ <path class="route route-muted" d="M735 420 C810 320 830 270 900 270"/>
+ <path id="route-feedback" class="route route-red" marker-end="url(#arr-red)" d="M735 420 C810 320 830 270 900 270" opacity=".45"/>
+ <path id="route-control" class="route route-teal" marker-end="url(#arr-teal)" d="M1110 270 C1145 270 1165 270 1205 270" opacity=".12"/>
+ <path id="route-actuation" class="route route-teal" marker-end="url(#arr-teal)" d="M1395 365 C1470 385 1490 420 1475 462 C1462 498 1440 520 1418 540" opacity=".12"/>
+ <path id="route-return" class="route route-green" marker-end="url(#arr-green)" d="M1200 610 C1080 790 820 810 580 760 C350 720 150 710 75 660" opacity=".08"/>
+</g>
+
+<!-- moving signal particles -->
+<g id="signal-particles">
+ <circle id="particle-feedback" r="9" fill="#ef7965" visibility="hidden"/>
+ <circle id="particle-control" r="9" fill="#35b9c2" visibility="hidden"/>
+ <circle id="particle-return" r="9" fill="#76b94e" visibility="hidden"/>
+</g>
+
+<!-- moving products on the line -->
+<g id="moving-products">
+ <image id="bad-product-a" href="assets/faulty_module.png" x="-44" y="-38" width="88" height="76" visibility="hidden"/>
+ <image id="bad-product-b" href="assets/faulty_module.png" x="-44" y="-38" width="88" height="76" visibility="hidden"/>
+ <image id="good-product-a" href="assets/corrected_module.png" x="-44" y="-38" width="88" height="76" visibility="hidden"/>
+ <image id="good-product-b" href="assets/corrected_module.png" x="-44" y="-38" width="88" height="76" visibility="hidden"/>
+</g>
+
+<!-- persistent output evidence -->
+<g id="bad-output" opacity="0">
+ <rect x="920" y="400" width="178" height="112" rx="22" fill="#fff5f0" stroke="#ef7965" stroke-width="3" stroke-dasharray="8 7"/>
+ <text x="1009" y="430" text-anchor="middle" fill="#dc6855" font-size="16" font-weight="900">错误输出</text>
+ <image href="assets/faulty_module.png" x="932" y="430" width="72" height="62" preserveAspectRatio="xMidYMid meet"/>
+ <image href="assets/faulty_module.png" x="991" y="435" width="72" height="62" preserveAspectRatio="xMidYMid meet"/>
+</g>
+<g id="good-output" opacity="0">
+ <rect x="920" y="400" width="178" height="112" rx="22" fill="#f2f8ec" stroke="#76b94e" stroke-width="3" stroke-dasharray="8 7"/>
+ <text x="1009" y="430" text-anchor="middle" fill="#5d9b38" font-size="16" font-weight="900">后续输出</text>
+ <image href="assets/corrected_module.png" x="932" y="430" width="72" height="62" preserveAspectRatio="xMidYMid meet"/>
+ <image href="assets/corrected_module.png" x="991" y="435" width="72" height="62" preserveAspectRatio="xMidYMid meet"/>
+</g>
+
+<!-- state captions -->
+<g id="captions">
+ <text id="caption-main" class="caption" x="800" y="850" text-anchor="middle">异常被发现，信号开始传递</text>
+ <text id="caption-sub" x="800" y="880" text-anchor="middle" font-size="17" font-weight="800" fill="#8b7a98">检测到偏差，并不意味着系统已经改变</text>
+</g>
+
+</svg>
+<div class="controls">
+ <span class="time" id="time">00:00.0 / 00:22.0</span>
+ <button id="pause">暂停</button>
+ <button id="restart">重新播放</button>
+</div>
+</div>
+
+<script>
+const svg=document.getElementById('scene');
+const frame=document.getElementById('frame');
+const pauseBtn=document.getElementById('pause');
+const restartBtn=document.getElementById('restart');
+const timeLabel=document.getElementById('time');
+const gridBtn=document.getElementById('gridToggle');
+const EMBEDDED=window.parent!==window;
+let ready=false,pendingSync=0;
+if(EMBEDDED)document.body.classList.add('embed-mode');
+const duration=21472.653;
+const TIME_SCALE=22000/duration;
+let elapsed=0, start=performance.now(), paused=false, raf=0;
+
+const paths={
+ feedback:document.getElementById('route-feedback'),
+ control:document.getElementById('route-control'),
+ actuation:document.getElementById('route-actuation'),
+ back:document.getElementById('route-return'),
+ products:document.createElementNS('http://www.w3.org/2000/svg','path')
+};
+paths.products.setAttribute('d','M365 555 L930 555');
+const pathData={
+ feedback:paths.feedback,
+ control:paths.control,
+ actuation:paths.actuation,
+ back:paths.back,
+ products:paths.products
+};
+const particleNodes={
+ feedback:document.getElementById('particle-feedback'),
+ control:document.getElementById('particle-control'),
+ back:document.getElementById('particle-return')
+};
+const productNodes=[
+ {node:document.getElementById('bad-product-a'),kind:'bad',phase:0.2},
+ {node:document.getElementById('bad-product-b'),kind:'bad',phase:1.9},
+ {node:document.getElementById('good-product-a'),kind:'good',phase:0.3},
+ {node:document.getElementById('good-product-b'),kind:'good',phase:2.0}
+];
+
+function setOpacity(id,v){document.getElementById(id).setAttribute('opacity',String(Math.max(0,Math.min(1,v))));}
+function setPathParticle(node,path,t,visible=true){
+ if(!visible){node.setAttribute('visibility','hidden');return;}
+ const p=path.getPointAtLength(path.getTotalLength()*Math.max(0,Math.min(1,t)));
+ node.setAttribute('cx',p.x);node.setAttribute('cy',p.y);node.setAttribute('visibility','visible');
+}
+function moveProduct(item,sec,activeStart,activeEnd){
+ const local=sec-activeStart;
+ if(sec<activeStart || sec>activeEnd){item.node.setAttribute('visibility','hidden');return;}
+ const travel=3.1,gap=1.25,cycle=travel+gap;
+ const phase=(local+item.phase)%cycle;
+ if(phase>=travel){item.node.setAttribute('visibility','hidden');return;}
+ const p=pathData.products.getPointAtLength(pathData.products.getTotalLength()*(phase/travel));
+ item.node.setAttribute('transform',`translate(${p.x} ${p.y})`);
+ item.node.setAttribute('visibility','visible');
+}
+function update(ms){
+ const sec=ms*TIME_SCALE/1000;
+ const alarm=sec>=3.2&&sec<14.2;
+ setOpacity('alarm',alarm?(0.72+0.28*Math.sin(sec*9)):0);
+ setOpacity('scan-beam',sec>=1.2&&sec<14?(.28+.32*(.5+.5*Math.sin(sec*8))):0);
+ setOpacity('route-feedback',sec>=3.5&&sec<13?0.95:0.12);
+ setOpacity('monitor-wave',sec>=4&&sec<22?1:0);
+ setOpacity('route-control',sec>=11.5&&sec<18?0.95:0.12);
+ setOpacity('route-actuation',sec>=12.5&&sec<18?0.95:0.12);
+ setOpacity('route-return',sec>=13&&sec<22?0.95:0.08);
+ setOpacity('controller-glow',sec>=11.5&&sec<18?0.85:0);
+ document.getElementById('monitor-wave').setAttribute('stroke',sec<13?'#ef7965':'#35b9c2');
+ setOpacity('actuator-indicator',sec>=13&&sec<18?0.95:0);
+ setOpacity('bad-output',sec>=6&&sec<16?1:0);
+ setOpacity('good-output',sec>=17?1:0);
+
+ const knob=sec<11.5?0:Math.min(110,(sec-11.5)/2.4*110);
+ document.getElementById('controller-pointer').setAttribute('transform',`rotate(${-35+knob} 1288 273)`);
+
+ if(sec>=3.5&&sec<13){setPathParticle(particleNodes.feedback,pathData.feedback,Math.min(1,(sec-3.5)/2.2),true);}else particleNodes.feedback.setAttribute('visibility','hidden');
+ if(sec>=11.5&&sec<18){setPathParticle(particleNodes.control,pathData.control,((sec-11.5)/1.8)%1,true);}else particleNodes.control.setAttribute('visibility','hidden');
+ if(sec>=13&&sec<22){setPathParticle(particleNodes.back,pathData.back,((sec-13)/3.2)%1,true);}else particleNodes.back.setAttribute('visibility','hidden');
+
+ productNodes.forEach(item=>{
+  if(item.kind==='bad') moveProduct(item,sec,0,16.2);
+  else moveProduct(item,sec,15.8,22);
+ });
+
+ const main=document.getElementById('caption-main');
+ const sub=document.getElementById('caption-sub');
+ if(sec<4){
+  main.textContent='系统持续运行，异常开始出现';
+  sub.textContent='输出偏离预期，检测装置捕捉到异常';
+ }else if(sec<8){
+  main.textContent='反馈信号已经发出';
+  sub.textContent='异常被看见、被记录，但系统还没有改变';
+ }else if(sec<12){
+  main.textContent='反馈不等于修正';
+  sub.textContent='警报持续响起，错误输出仍在继续';
+ }else if(sec<16){
+  main.textContent='信号进入控制环，修正开始执行';
+  sub.textContent='控制器调整参数，执行机构改变系统状态';
+ }else{
+  main.textContent='后续输出发生改变';
+  sub.textContent='反馈只有进入决策与行动，才会改变下一次运行';
+ }
+ let displayS=Math.floor(ms/1000),displayT=Math.round((ms%1000)/100);
+ if(displayT===10){displayS++;displayT=0;}
+ timeLabel.textContent=`00:${String(displayS).padStart(2,'0')}.${displayT} / 00:21.5`;
+}
+function tick(now){
+ if(!paused){elapsed=Math.min(duration,now-start);update(elapsed);}
+ if(elapsed<duration&&!paused)raf=requestAnimationFrame(tick);
+}
+pauseBtn.addEventListener('click',()=>{
+ if(!paused){paused=true;pauseBtn.textContent='继续';cancelAnimationFrame(raf);}
+ else{paused=false;start=performance.now()-elapsed;pauseBtn.textContent='暂停';raf=requestAnimationFrame(tick);}
+});
+restartBtn.addEventListener('click',()=>{
+ paused=false;elapsed=0;start=performance.now();pauseBtn.textContent='暂停';update(0);cancelAnimationFrame(raf);raf=requestAnimationFrame(tick);
+});
+gridBtn.addEventListener('click',()=>{
+ frame.classList.toggle('guides');gridBtn.textContent=frame.classList.contains('guides')?'隐藏对齐辅助线':'显示对齐辅助线';
+});
+window.__feedbackCorrectionV4={
+ sync(ms){
+  const next=Math.max(0,Math.min(duration,Number(ms)||0));
+  if(!ready){pendingSync=next;return;}
+  paused=true;
+  if(raf){cancelAnimationFrame(raf);raf=0;}
+  elapsed=next;update(elapsed);
+ },
+ getState(){return {elapsed,duration,sourceDuration:22000,timeScale:TIME_SCALE,ready,embedded:EMBEDDED};}
+};
+window.addEventListener('load',()=>{
+ ready=true;elapsed=pendingSync;update(elapsed);start=performance.now()-elapsed;
+ if(!EMBEDDED)raf=requestAnimationFrame(tick);
+});
+</script>
+</body>
+</html>
