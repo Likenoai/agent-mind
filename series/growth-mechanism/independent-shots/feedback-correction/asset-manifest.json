@@ -1,0 +1,16 @@
+{
+  "shot": "反馈与修正",
+  "version": "V4",
+  "status": "用户已确认",
+  "asset_source": "从 V4 standalone HTML 的内嵌 PNG data URI 提取；editable HTML 使用 assets/ 相对路径",
+  "assets": [
+    "production-system.png",
+    "inspection_scanner.png",
+    "alarm_beacon.png",
+    "signal_monitor.png",
+    "control_console.png",
+    "correction_actuator.png",
+    "faulty_module.png",
+    "corrected_module.png"
+  ]
+}
