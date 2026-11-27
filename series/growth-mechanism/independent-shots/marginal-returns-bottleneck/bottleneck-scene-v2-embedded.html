@@ -436,7 +436,7 @@ svg{display:block;width:100%;height:100%}
     $('header').style.transition='opacity .45s ease, transform .45s ease';
     $('system').style.transition='opacity .55s ease, transform .55s ease';
     requestAnimationFrame(()=>{$('header').style.opacity='1';$('header').style.transform='translateY(0)';$('system').style.opacity='1';$('system').style.transform='translateY(0)';});
-    update(0);play();
+    update(0);if(!EMBEDDED)play();
   });
 })();
 </script>
