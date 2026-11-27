@@ -651,7 +651,7 @@ function syncMaintenanceFrame(){
   frame.src='./independent-shots/maintenance-update-retirement/maintenance-update-retirement-v6-embedded.html';
  }
  const api=frame.contentWindow&&frame.contentWindow.__maintenanceV6;
- if(api&&typeof api.sync==='function')api.sync(Math.max(0,Math.min(20427.755,(time-c.start)*1000)));
+ if(api&&typeof api.sync==='function')api.sync(Math.max(0,Math.min(c.seconds*1000,(time-c.start)*1000)));
 }
 function render(now){const actual=Math.min(total-.001,time),i=cues.findIndex(c=>actual<c.end);if(!overview)selectScene(Math.max(0,i));const c=cues[current];progress=Math.max(0,Math.min(1,(time-c.start)/c.seconds));$('seek').value=time;$('time').textContent=fmt(time)+' / '+fmt(total);if(overview){animateGraph(0,now)}else{$('caption').textContent=captionForTime(time);if(c.visual==='graph')animateGraph(progress,now);else if(c.visual==='hybrid')animateHybrid(progress,now);else if(c.visual==='maintenancev6')syncMaintenanceFrame();else animateModel(progress);}$('prev').disabled=current===0;$('next').disabled=current===cues.length-1;}
 function tick(now){if(playing){time=narrationAudio.currentTime;if(narrationAudio.ended||time>=total-.03){time=total;playing=false;narrationAudio.pause();setPlayLabel()}}render(now);requestAnimationFrame(tick)}
