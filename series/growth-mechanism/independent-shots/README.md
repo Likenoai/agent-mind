@@ -8,11 +8,11 @@
 
 | 镜头 | 版本 | 状态 | 独立预览 | 可编辑源文件 | 素材 |
 |---|---:|---|---|---|---|
-| 反馈与修正 | V4 | 已确认；待时长对齐与总片嵌入 | [预览 HTML](feedback-correction/feedback-correction-v4-standalone.html) | [可编辑 HTML](feedback-correction/feedback-correction-v4-editable.html) | [PNG 素材](feedback-correction/assets/) |
+| 反馈与修正 | V4 | 已确认、已对齐并嵌入总片 cue 20 | [V4 预览](feedback-correction/feedback-correction-v4-standalone.html) | [V4 可编辑源文件](feedback-correction/feedback-correction-v4-editable.html) | [V4 嵌入版](feedback-correction/feedback-correction-v4-embedded.html)；[PNG 素材](feedback-correction/assets/) |
 | 维护、更新与淘汰 | V6 | 已确认并嵌入总片 | [V6 预览](maintenance-update-retirement/maintenance-update-retirement-v6-standalone.html) | [V6 可编辑 HTML](maintenance-update-retirement/maintenance-update-retirement-v6-editable.html) | [V6 嵌入版](maintenance-update-retirement/maintenance-update-retirement-v6-embedded.html)；[V5 PNG 素材](maintenance-update-retirement/assets/) |
 | 增长的流入与流出 | V3 | 已确认并嵌入总片 | [V3 预览](inflow-outflow/flow-inflow-outflow-v3-standalone.html) | [V3 可编辑 HTML](inflow-outflow/flow-inflow-outflow-v3-editable.html) | [V3 嵌入版](inflow-outflow/flow-inflow-outflow-v3-embedded.html)；[PNG 素材](inflow-outflow/assets/) |
 | 增长动态不是过程节点 | V3 | 已确认并嵌入总片 | [V3 预览](growth-dynamics/growth-dynamics-v3-standalone.html) | [V3 可编辑 HTML](growth-dynamics/growth-dynamics-v3-editable.html) | [V3 嵌入版](growth-dynamics/growth-dynamics-v3-embedded.html)；[PNG 素材](growth-dynamics/assets/) |
-| 边际收益递减与瓶颈 | V5 | 主体已验收；三个收束标签上移 30px，待复核 | [V5 预览](marginal-returns-bottleneck/marginal-returns-v5-standalone.html) | [V5 可编辑 HTML](marginal-returns-bottleneck/marginal-returns-v5-editable.html) | [瓶颈连续动画 V3](marginal-returns-bottleneck/bottleneck-scene-v3-embedded.html)；[V4 历史版](marginal-returns-bottleneck/marginal-returns-v4-standalone.html) |
+| 边际收益递减与瓶颈 | V5 | 已嵌入总片 cue 24；标签位置待总片实际播放复核 | [V5 预览](marginal-returns-bottleneck/marginal-returns-v5-standalone.html) | [V5 可编辑 HTML](marginal-returns-bottleneck/marginal-returns-v5-editable.html) | [瓶颈连续动画 V3](marginal-returns-bottleneck/bottleneck-scene-v3-embedded.html)；[V4 历史版](marginal-returns-bottleneck/marginal-returns-v4-standalone.html) |
 
 ## 归档内容
 
