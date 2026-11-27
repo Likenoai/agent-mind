@@ -425,7 +425,7 @@ svg{display:block;width:100%;height:100%}
     if(t<plan.process[1]){place(node,plan.hold.x-50,plan.hold.y-32);return;}
     if(plan.exit && t<plan.exit[1]){moveOn(node,plan.exitPath,plan.exit[0],plan.exit[1],t);return;}
     if(plan.return && t<plan.return[1]){moveOn(node,plan.returnPath,plan.return[0],plan.return[1],t);return;}
-    if(plan.drop && t<plan.drop[1]){moveOn(node,plan.dropPath,plan.drop[0],plan.drop[1],t);node.setAttribute('opacity',String(1-smooth((t-plan.drop[0])/(plan.drop[1]-plan.drop[0]))));return;}
+    if(plan.drop && t<plan.drop[1]){const p=smooth((t-plan.drop[0])/(plan.drop[1]-plan.drop[0])),pt=pointOn(plan.dropPath,(t-plan.drop[0])/(plan.drop[1]-plan.drop[0]));node.setAttribute('transform','translate('+(pt.x-50)+' '+(pt.y-32)+') translate(50 32) scale('+(1-.58*p)+') translate(-50 -32)');node.setAttribute('opacity',String(1-p));node.setAttribute('visibility','visible');return;}
     place(node,0,0,0);
   }
 
@@ -554,7 +554,7 @@ svg{display:block;width:100%;height:100%}
   $('restart').addEventListener('click',()=>{elapsed=0;update(0);play();});
   $('seek').addEventListener('input',e=>{scrubbing=true;paused=true;cancelAnimationFrame(raf);update(Number(e.target.value));$('pause').textContent='继续';});
   $('seek').addEventListener('change',()=>{scrubbing=false;startAt=performance.now()-elapsed;});
-  window.__maintenanceV6={seek(ms){paused=true;scrubbing=false;cancelAnimationFrame(raf);update(ms);$('pause').textContent='继续';},play,pause(){paused=true;cancelAnimationFrame(raf);},getState(){return {elapsed,maintenanceReturned:elapsed>=9550,updateReturned:elapsed>=12600,retired:elapsed>=11900,remainingStock:elapsed>=12900?2:3,duration:DURATION};}};
+  window.__maintenanceV6={seek(ms){paused=true;scrubbing=false;cancelAnimationFrame(raf);update(ms);$('pause').textContent='继续';},play,pause(){paused=true;cancelAnimationFrame(raf);},getState(){return {elapsed,maintenanceReturned:elapsed>=10000,updateReturned:elapsed>=12900,retired:elapsed>=12200,remainingStock:elapsed>=12900?2:3,duration:DURATION};}};
   window.addEventListener('load',()=>{update(0);play();});
 })();
 </script>
