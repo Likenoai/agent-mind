@@ -17,6 +17,10 @@
 | 哪些结果值得留下 | V1 | 首轮浏览器播放通过；待用户视觉验收 | [Cue 04 预览](action-results-retention/cue04-screen-retain-v1-standalone.html) | [Cue 04 源文件](action-results-retention/cue04-screen-retain-v1-editable.html) | [验证记录](action-results-retention/cue04-validation.md) |
 | 积累是变化，存量是状态 | V1 | 首轮浏览器播放通过；待用户视觉验收 | [Cue 05 预览](repetition-accumulation/cue05-stock-accumulation-v1-standalone.html) | [Cue 05 源文件](repetition-accumulation/cue05-stock-accumulation-v1-editable.html) | [验证记录](repetition-accumulation/cue05-validation.md) |
 | 重复与积累：不同分类轴 | V1 | 首轮浏览器播放通过；待用户视觉验收 | [Cue 06 预览](repetition-accumulation/cue06-repetition-accumulation-v1-standalone.html) | [Cue 06 源文件](repetition-accumulation/cue06-repetition-accumulation-v1-editable.html) | [验证记录](repetition-accumulation/cue06-validation.md) |
+| 存量不等于生产性存量 | V1 | 首轮浏览器播放通过；待用户视觉验收 | [Cue 07 预览](stock-to-production/cue07-stock-productivity-v1-standalone.html) | [Cue 07 源文件](stock-to-production/cue07-stock-productivity-v1-editable.html) | [验证记录](stock-to-production/cue07-validation.md) |
+| 留存与提取 | V1 | 首轮浏览器播放通过；待用户视觉验收 | [Cue 08 预览](stock-to-production/cue08-retention-retrieval-v1-standalone.html) | [Cue 08 源文件](stock-to-production/cue08-retention-retrieval-v1-editable.html) | [验证记录](stock-to-production/cue08-validation.md) |
+| 调用不等于适用 | V1 | 首轮浏览器播放通过；待用户视觉验收 | [Cue 09 预览](stock-to-production/cue09-call-fit-apply-v1-standalone.html) | [Cue 09 源文件](stock-to-production/cue09-call-fit-apply-v1-editable.html) | [验证记录](stock-to-production/cue09-validation.md) |
+| 应用效果必须检验 | V1 | 首轮浏览器播放通过；待用户视觉验收 | [Cue 10 预览](stock-to-production/cue10-application-evaluation-v1-standalone.html) | [Cue 10 源文件](stock-to-production/cue10-application-evaluation-v1-editable.html) | [验证记录](stock-to-production/cue10-validation.md) |
 
 ## 归档内容
 
