@@ -555,10 +555,12 @@ svg{display:block;width:100%;height:100%}
       g.setAttribute('transform','translate('+x+' 608) rotate('+(elapsed*.045).toFixed(2)+')');
     });
 
-    const absolute=CUE_OFFSET+elapsed;
-    timeLabel.textContent=(absolute/1000).toFixed(2)+' / 13.75 s';
-    seek.value=String(elapsed);
-    debug.textContent='arrived='+arrived+'; started='+started+'; released='+released+'; waiting='+(arrived-started);
+    if(!EMBEDDED) {
+      const absolute=CUE_OFFSET+elapsed;
+      timeLabel.textContent=(absolute/1000).toFixed(2)+' / 13.75 s';
+      seek.value=String(elapsed);
+      debug.textContent='arrived='+arrived+'; started='+started+'; released='+released+'; waiting='+(arrived-started);
+    }
   }
 
   function tick(now) {
@@ -616,7 +618,7 @@ svg{display:block;width:100%;height:100%}
     sync(ms) {
       paused=true;
       scrubbing=false;
-      cancelAnimationFrame(raf);
+      if(raf) { cancelAnimationFrame(raf); raf=0; }
       update(ms);
     },
     getState() {
