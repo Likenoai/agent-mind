@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>增长的流入与流出｜独立镜头</title>
+<style>
+:root{--ink:#39234f;--muted:#8b7a98;--paper:#fbf8f0;--teal:#35b9c0;--coral:#ef7965;--green:#82b94e;--blue:#65a9d9;--purple:#9273b8}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;background:#e9e4dc;font-family:system-ui,"Microsoft YaHei",sans-serif;color:var(--ink)}
+body{display:grid;place-items:center;overflow:hidden}
+.frame{width:min(100vw,177.777vh);height:min(100vh,56.25vw);aspect-ratio:16/9;position:relative;background:var(--paper);overflow:hidden;box-shadow:0 16px 50px rgba(40,25,58,.15)}
+svg{display:block;width:100%;height:100%}
+.small{font-weight:850;fill:#8c7b9a;font-size:14px;letter-spacing:2px}
+.title{font-size:37px;font-weight:950;fill:var(--ink)}
+.subtitle{font-size:19px;font-weight:850;fill:#705b82}
+.state-pill{fill:#fffdf8;stroke-width:3}
+.state-text{font-size:20px;font-weight:950}
+.flow-legend{font-size:15px;font-weight:850;fill:#705f7f}
+.caption{font-size:25px;font-weight:950;fill:var(--ink)}
+.note{font-size:15px;font-weight:750;fill:#8b7a98}
+.controls{position:absolute;right:2.1%;bottom:2%;display:flex;align-items:center;gap:9px;z-index:5;padding:4px 8px;border-radius:28px;background:rgba(251,248,240,.95);box-shadow:0 3px 12px rgba(57,35,79,.08);backdrop-filter:blur(3px)}
+.controls button{border:1.5px solid rgba(57,35,79,.25);border-radius:999px;background:#fffdf8;color:var(--ink);padding:9px 17px;font-size:13px;font-weight:850;box-shadow:0 3px 0 rgba(57,35,79,.12);cursor:pointer}
+.controls button:hover{background:#f2ebdf}
+.time{font-size:12px;font-weight:850;color:#8b7a98;font-variant-numeric:tabular-nums;margin-right:5px}
+.grid-toggle{position:absolute;right:2.5%;top:2.5%;z-index:5;border:1px solid rgba(57,35,79,.18);border-radius:999px;background:#fffdf8;color:#7a678e;padding:6px 12px;font-size:11px;font-weight:800;cursor:pointer}
+#guides{opacity:0}
+.frame.guides #guides{opacity:.45}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</head>
+<body>
+<div class="frame" id="frame">
+<button class="grid-toggle" id="gridToggle">显示对齐辅助线</button>
+<svg id="scene" viewBox="0 0 1600 900" role="img" aria-label="三个透明水位舱对比流入大于流出、流入等于流出、流出大于流入时的存量变化">
+<defs>
+ <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fffdf7"/><stop offset=".58" stop-color="#fbf8ef"/><stop offset="1" stop-color="#f1eee5"/></linearGradient>
+ <radialGradient id="warm"><stop stop-color="#f5d77b" stop-opacity=".15"/><stop offset="1" stop-color="#f5d77b" stop-opacity="0"/></radialGradient>
+ <radialGradient id="cool"><stop stop-color="#83d4ce" stop-opacity=".16"/><stop offset="1" stop-color="#83d4ce" stop-opacity="0"/></radialGradient>
+ <linearGradient id="water" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7ce0df" stop-opacity=".88"/><stop offset=".48" stop-color="#48bec9" stop-opacity=".82"/><stop offset="1" stop-color="#2789ae" stop-opacity=".9"/></linearGradient>
+ <linearGradient id="waterGloss" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity=".04"/><stop offset=".45" stop-color="#fff" stop-opacity=".2"/><stop offset="1" stop-color="#fff" stop-opacity=".04"/></linearGradient>
+ <marker id="inArrow" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" viewBox="0 0 12 12" refX="10" refY="6" orient="auto"><path d="M0 0 L10 6 L0 12" fill="none" stroke="#35b9c0" stroke-width="2.1"/></marker>
+ <marker id="outArrow" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" viewBox="0 0 12 12" refX="10" refY="6" orient="auto"><path d="M0 0 L10 6 L0 12" fill="none" stroke="#ef7965" stroke-width="2.1"/></marker>
+ <clipPath id="clip0"><path d="M116 356 Q116 350 128 350 H372 Q385 350 385 365 V510 Q385 527 368 527 H133 Q116 527 116 510 Z"/></clipPath>
+ <clipPath id="clip1"><path d="M666 356 Q666 350 678 350 H922 Q935 350 935 365 V510 Q935 527 918 527 H683 Q666 527 666 510 Z"/></clipPath>
+ <clipPath id="clip2"><path d="M1216 356 Q1216 350 1228 350 H1472 Q1485 350 1485 365 V510 Q1485 527 1468 527 H1233 Q1216 527 1216 510 Z"/></clipPath>
+</defs>
+<rect width="1600" height="900" fill="url(#bg)"/>
+<ellipse cx="250" cy="490" rx="470" ry="380" fill="url(#warm)"/>
+<ellipse cx="1260" cy="460" rx="480" ry="390" fill="url(#cool)"/>
+
+<g id="guides" fill="none" stroke="#9b8aab" stroke-width="1.2" stroke-dasharray="5 8">
+ <path d="M30 190 V820 M570 190 V820 M1110 190 V820 M1570 190 V820"/>
+ <path d="M30 235 H1570 M30 600 H1570 M30 690 H1570"/>
+ <path d="M250 210 V600 M800 210 V600 M1350 210 V600"/>
+</g>
+
+<!-- header -->
+<g transform="translate(70 55)">
+ <text class="small" x="0" y="0">GROWTH / 增长的流入与流出</text>
+ <text class="title" x="0" y="46" font-size="34">存量变化，取决于流入与流出的差额</text>
+ <text class="subtitle" x="0" y="82">净变化＝有效流入－流出（在同一可比较维度）</text>
+</g>
+<g transform="translate(1130 78)">
+ <path d="M0 0 H62" stroke="#35b9c0" stroke-width="8" stroke-linecap="round"/>
+ <path d="M48 -8 L62 0 L48 8" fill="none" stroke="#35b9c0" stroke-width="3"/>
+ <text class="flow-legend" x="74" y="6">流入</text>
+ <path d="M170 0 H232" stroke="#ef7965" stroke-width="8" stroke-linecap="round"/>
+ <path d="M218 -8 L232 0 L218 8" fill="none" stroke="#ef7965" stroke-width="3"/>
+ <text class="flow-legend" x="244" y="6">流出</text>
+ <path d="M310 0 H354" stroke="#39234f" stroke-width="2.5" stroke-dasharray="7 7" opacity=".58"/>
+ <text class="flow-legend" x="365" y="6">期初水位</text>
+</g>
+
+<!-- lane labels -->
+<g>
+ <rect class="state-pill" x="105" y="185" width="290" height="48" rx="24" stroke="#82b94e"/>
+ <text class="state-text" x="250" y="217" text-anchor="middle" fill="#5e9c38">净流入为正</text>
+ <rect class="state-pill" x="655" y="185" width="290" height="48" rx="24" stroke="#65a9d9"/>
+ <text class="state-text" x="800" y="217" text-anchor="middle" fill="#4388bd">净流入为零</text>
+ <rect class="state-pill" x="1205" y="185" width="290" height="48" rx="24" stroke="#9273b8"/>
+ <text class="state-text" x="1350" y="217" text-anchor="middle" fill="#8061a8">净流入为负</text>
+</g>
+
+<!-- water fills, clipped to the transparent chambers -->
+<g clip-path="url(#clip0)">
+ <path id="water0" d="M116 527 L116 449 Q250 444 385 449 L385 527 Z" fill="url(#water)"/>
+ <path id="wave0" d="M116 449 Q182 441 244 449 T372 449" fill="none" stroke="#d8ffff" stroke-width="4" opacity=".8"/>
+ <rect x="116" y="350" width="256" height="166" fill="url(#waterGloss)" opacity=".35"/>
+</g>
+<g clip-path="url(#clip1)">
+ <path id="water1" d="M666 527 L666 449 Q800 444 935 449 L935 527 Z" fill="url(#water)"/>
+ <path id="wave1" d="M666 449 Q732 441 794 449 T922 449" fill="none" stroke="#d8ffff" stroke-width="4" opacity=".8"/>
+ <rect x="666" y="350" width="256" height="166" fill="url(#waterGloss)" opacity=".35"/>
+</g>
+<g clip-path="url(#clip2)">
+ <path id="water2" d="M1216 527 L1216 449 Q1282 441 1350 449 T1485 449 L1485 527 Z" fill="url(#water)"/>
+ <path id="wave2" d="M1216 449 Q1282 441 1344 449 T1472 449" fill="none" stroke="#d8ffff" stroke-width="4" opacity=".8"/>
+ <rect x="1216" y="350" width="256" height="166" fill="url(#waterGloss)" opacity=".35"/>
+</g>
+
+<!-- initial water level: same starting line in all three tanks -->
+<g id="initial-lines" stroke="#39234f" stroke-width="2.5" stroke-dasharray="7 8" opacity=".52">
+ <path d="M126 449 H362"/>
+ <path d="M676 449 H912"/>
+ <path d="M1226 449 H1462"/>
+</g>
+<!-- three identical tank frames -->
+<g id="tank-frames">
+ <image href="assets/reservoir-frame.png" x="30" y="260" width="440" height="333" preserveAspectRatio="none"/>
+ <image href="assets/reservoir-frame.png" x="580" y="260" width="440" height="333" preserveAspectRatio="none"/>
+ <image href="assets/reservoir-frame.png" x="1130" y="260" width="440" height="333" preserveAspectRatio="none"/>
+</g>
+
+<!-- flow paths: each stream is a continuous path; particle count expresses relative flow -->
+<g id="flow-paths" fill="none" stroke-linecap="round" stroke-linejoin="round">
+ <path id="inPath0" d="M12 360 H116 Q130 360 145 383" stroke="#35b9c0" stroke-width="9" marker-end="url(#inArrow)"/>
+ <path id="outPath0" d="M370 500 H510" stroke="#ef7965" stroke-width="5" marker-end="url(#outArrow)"/>
+ <path id="inPath1" d="M538 360 H666 Q680 360 695 383" stroke="#35b9c0" stroke-width="7" marker-end="url(#inArrow)"/>
+ <path id="outPath1" d="M920 500 H1060" stroke="#ef7965" stroke-width="7" marker-end="url(#outArrow)"/>
+ <path id="inPath2" d="M1088 360 H1216 Q1230 360 1245 383" stroke="#35b9c0" stroke-width="5" marker-end="url(#inArrow)"/>
+ <path id="outPath2" d="M1470 500 H1610" stroke="#ef7965" stroke-width="9" marker-end="url(#outArrow)"/>
+</g>
+<g id="particles"></g>
+
+<!-- relative flow indicators -->
+<g id="flow-amounts" font-size="15" font-weight="900">
+ <text x="250" y="618" text-anchor="middle" fill="#5e9c38">流入 &gt; 流出</text>
+ <text x="800" y="618" text-anchor="middle" fill="#4388bd">流入 = 流出</text>
+ <text x="1350" y="618" text-anchor="middle" fill="#8061a8">流出 &gt; 流入</text>
+</g>
+
+<!-- equation and original explanatory note -->
+<g>
+ <text x="800" y="675" text-anchor="middle" font-size="27" font-weight="950" fill="#39234f">期末存量 = 期初存量 + 流入 − 流出</text>
+ <text x="800" y="710" text-anchor="middle" class="note">这里只讨论同一可比较维度的存量；复杂能力未必能用单一数字衡量。</text>
+</g>
+
+<!-- original narration captions, using the exact cue-relative audio recognition times -->
+<g id="caption-group">
+ <rect x="190" y="746" width="1220" height="64" rx="20" fill="#fffdf8" stroke="#e6ded1" stroke-width="1.5" opacity=".96"/>
+ <text id="caption" x="800" y="786" text-anchor="middle" class="caption">观察某一类可比较的存量时，可以用期末存量等于期初存量加流入减流出的关系。</text>
+</g>
+</svg>
+
+<div class="controls">
+ <span class="time" id="time">00:00.0 / 00:22.8</span>
+ <button id="pause">暂停</button>
+ <button id="restart">重新播放</button>
+</div>
+</div>
+
+<script>
+const DURATION=22752.653;
+const GLOBAL_START=387.459795;
+const captions=[
+ {at:0.094695,text:"观察某一类可比较的存量时，可以用期末存量等于期初存量加流入减流出的关系。"},
+ {at:9.094695,text:"若流入大于损耗，净存量增加；"},
+ {at:12.094695,text:"相等则稳定；"},
+ {at:14.094695,text:"流出较大则下降。"},
+ {at:17.094695,text:"技能等复杂存量不一定能用单一数量测量，这里只是结构模型。"}
+];
+const lanes=[
+ {id:0,initial:.46,final:.72,inCount:4,outCount:2,inSpeed:112,outSpeed:92},
+ {id:1,initial:.46,final:.46,inCount:3,outCount:3,inSpeed:102,outSpeed:102},
+ {id:2,initial:.46,final:.22,inCount:2,outCount:4,inSpeed:92,outSpeed:112}
+];
+const $=id=>document.getElementById(id);
+const ns="http://www.w3.org/2000/svg";
+let elapsed=0,start=performance.now(),paused=false,raf=0,particles=[];
+const pathMap={};
+for(const lane of lanes){
+ pathMap["in"+lane.id]=$("inPath"+lane.id);
+ pathMap["out"+lane.id]=$("outPath"+lane.id);
+}
+function makeParticles(){
+ const host=$("particles");host.replaceChildren();particles=[];
+ for(const lane of lanes){
+  for(const [kind,count,color,speed] of [
+   ["in",lane.inCount,"#35b9c0",lane.inSpeed],
+   ["out",lane.outCount,"#ef7965",lane.outSpeed]
+  ]){
+   const path=pathMap[kind+lane.id];
+   for(let i=0;i<count;i++){
+    const c=document.createElementNS(ns,"circle");
+    c.setAttribute("r",i%2===0?"6":"4.5");
+    c.setAttribute("fill",color);
+    c.setAttribute("stroke","#fffdf7");
+    c.setAttribute("stroke-width","1.5");
+    c.setAttribute("opacity",".96");
+    host.appendChild(c);
+    particles.push({node:c,path,speed,phase:i/count,lane:lane.id,kind});
+   }
+  }
+ }
+}
+function ease(t){t=Math.max(0,Math.min(1,t));return t*t*(3-2*t)}
+function updateWater(lane,t){
+ const id=lane.id;
+ const left=[116,666,1216][id],right=left+269,bottom=527,top=350;
+ const p=ease(Math.min(1,t/9.0));
+ const fraction=lane.initial+(lane.final-lane.initial)*p;
+ const surface=bottom-(bottom-top)*fraction;
+ const wave=Math.sin(t*2.2+id*.8)*3.2;
+ const mid=(left+right)/2;
+ const d=`M${left} ${bottom} L${left} ${surface+wave*.25} Q${mid} ${surface-wave} ${right} ${surface+wave*.25} L${right} ${bottom} Z`;
+ const wd=`M${left} ${surface+wave*.25} Q${left+67} ${surface-wave} ${mid} ${surface+wave*.2} T${right} ${surface+wave*.25}`;
+ $("water"+id).setAttribute("d",d);
+ $("wave"+id).setAttribute("d",wd);
+}
+function update(ms){
+ const sec=ms/1000;
+ lanes.forEach(l=>updateWater(l,sec));
+ particles.forEach(p=>{
+  const len=p.path.getTotalLength();
+  const dist=((sec*p.speed/len+p.phase)%1)*len;
+  const pt=p.path.getPointAtLength(dist);
+  p.node.setAttribute("cx",pt.x);p.node.setAttribute("cy",pt.y);
+ });
+ const caption=captions.reduce((a,b)=>sec>=b.at?b:a,captions[0]);
+ $("caption").textContent=caption.text;
+ const s=Math.floor(sec),d=Math.floor((ms%1000)/100);
+ $("time").textContent=`00:${String(s).padStart(2,"0")}.${d} / 00:22.8`;
+}
+function tick(now){
+ if(!paused){elapsed=Math.min(DURATION,now-start);update(elapsed);}
+ if(elapsed<DURATION&&!paused)raf=requestAnimationFrame(tick);
+}
+$("pause").addEventListener("click",()=>{
+ if(!paused){paused=true;$("pause").textContent="继续";cancelAnimationFrame(raf);}
+ else{paused=false;start=performance.now()-elapsed;$("pause").textContent="暂停";raf=requestAnimationFrame(tick);}
+});
+$("restart").addEventListener("click",()=>{
+ paused=false;elapsed=0;start=performance.now();$("pause").textContent="暂停";update(0);cancelAnimationFrame(raf);raf=requestAnimationFrame(tick);
+});
+$("gridToggle").addEventListener("click",()=>{
+ $("frame").classList.toggle("guides");
+ $("gridToggle").textContent=$("frame").classList.contains("guides")?"隐藏对齐辅助线":"显示对齐辅助线";
+});
+window.addEventListener("load",()=>{makeParticles();elapsed=0;start=performance.now();update(0);raf=requestAnimationFrame(tick);});
+</script>
+</body>
+</html>
