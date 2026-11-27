@@ -21,7 +21,14 @@
 .stage.curves-embedded #legend,.stage.curves-embedded #mini{display:none!important}
 .stage.curves-embedded .stage-foot{background:linear-gradient(180deg,#fbf8f000,#fbf8f0 38%);border-top-color:#e8dfd2}
 .stage.curves-embedded .keyline{display:none}
-.stage.curves-embedded .caption{color:#39234f}.stage-foot{position:absolute;bottom:3%;left:4%;right:4%;z-index:3;border-top:1px solid #ffffff21;padding-top:1.3%;background:linear-gradient(180deg,#11151700,#111517 33%);}.keyline{color:#a8efca;font-size:clamp(11px,1.67cqw,23px);font-weight:650;line-height:1.3;min-height:1.3em;letter-spacing:.02em}.caption{font-size:clamp(10px,1.47cqw,20px);color:#e6e8e4;line-height:1.5;margin-top:1%;min-height:2.9em;max-width:100%;text-wrap:pretty}.stage .mapmini{position:absolute;right:3.2%;top:16%;background:#111517dd;border:1px solid #ffffff20;z-index:2;border-radius:7px;display:none;width:12%;padding:4px}.stage .mapmini svg{width:100%;height:auto;display:block}.stage .mapmini.visible{display:block}.maplegend{position:absolute;top:13%;right:4%;display:flex;gap:8px;z-index:2;color:#aeb9b3;font-size:clamp(7px,.83cqw,11px)}.maplegend span{white-space:nowrap}.maplegend i{display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:3px}.stage.portrait{aspect-ratio:9/16;width:min(100%,calc((100dvh - 180px)*.5625));margin:auto;container-type:inline-size}.stage.portrait .stage-top{top:3%;left:5%;right:5%}.stage.portrait .stage-title{font-size:4.6cqw}.stage.portrait .stage-overline,.stage.portrait .stage-index{font-size:2.4cqw}.stage.portrait .viz{top:14%;bottom:27%;left:2%;right:2%}.stage.portrait .stage-foot{bottom:5%;left:5%;right:5%}.stage.portrait .keyline{font-size:4cqw}.stage.portrait .caption{font-size:3.45cqw;min-height:6em;margin-top:3%}.stage.portrait .maplegend{top:12%;right:5%;font-size:2cqw;flex-wrap:wrap}.stage.portrait .mapmini{display:none}
+.stage.curves-embedded .caption{color:#39234f}
+#marginalFrame{position:absolute;inset:0;width:100%;height:100%;display:none;border:0;z-index:1;background:#fbf8f0}
+.stage.marginal-embedded .stage-top,.stage.marginal-embedded .viz{display:none}
+.stage.marginal-embedded #marginalFrame{display:block}
+.stage.marginal-embedded #legend,.stage.marginal-embedded #mini{display:none!important}
+.stage.marginal-embedded .stage-foot{background:linear-gradient(180deg,#fbf8f000,#fbf8f0 38%);border-top-color:#e8dfd2}
+.stage.marginal-embedded .keyline{display:none}
+.stage.marginal-embedded .caption{color:#39234f}.stage-foot{position:absolute;bottom:3%;left:4%;right:4%;z-index:3;border-top:1px solid #ffffff21;padding-top:1.3%;background:linear-gradient(180deg,#11151700,#111517 33%);}.keyline{color:#a8efca;font-size:clamp(11px,1.67cqw,23px);font-weight:650;line-height:1.3;min-height:1.3em;letter-spacing:.02em}.caption{font-size:clamp(10px,1.47cqw,20px);color:#e6e8e4;line-height:1.5;margin-top:1%;min-height:2.9em;max-width:100%;text-wrap:pretty}.stage .mapmini{position:absolute;right:3.2%;top:16%;background:#111517dd;border:1px solid #ffffff20;z-index:2;border-radius:7px;display:none;width:12%;padding:4px}.stage .mapmini svg{width:100%;height:auto;display:block}.stage .mapmini.visible{display:block}.maplegend{position:absolute;top:13%;right:4%;display:flex;gap:8px;z-index:2;color:#aeb9b3;font-size:clamp(7px,.83cqw,11px)}.maplegend span{white-space:nowrap}.maplegend i{display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:3px}.stage.portrait{aspect-ratio:9/16;width:min(100%,calc((100dvh - 180px)*.5625));margin:auto;container-type:inline-size}.stage.portrait .stage-top{top:3%;left:5%;right:5%}.stage.portrait .stage-title{font-size:4.6cqw}.stage.portrait .stage-overline,.stage.portrait .stage-index{font-size:2.4cqw}.stage.portrait .viz{top:14%;bottom:27%;left:2%;right:2%}.stage.portrait .stage-foot{bottom:5%;left:5%;right:5%}.stage.portrait .keyline{font-size:4cqw}.stage.portrait .caption{font-size:3.45cqw;min-height:6em;margin-top:3%}.stage.portrait .maplegend{top:12%;right:5%;font-size:2cqw;flex-wrap:wrap}.stage.portrait .mapmini{display:none}
 .controls{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin:15px 0 8px}.controls .primary{min-width:106px}.controls .time{margin-left:auto;color:#b5b3b6;font-variant-numeric:tabular-nums;font-size:12px}
 #narrationAudio{display:none}
 .seek{width:100%;accent-color:var(--green);height:5px;margin:11px 0 5px;cursor:pointer}.ticks{display:flex;width:100%;gap:3px;margin:9px 0 16px}.tick{height:5px;padding:0;border:0;border-radius:3px;background:#535156;min-width:0}.tick.past{background:#70dfad77}.tick.on{background:var(--green)}.status{display:flex;gap:8px;align-items:center;flex-wrap:wrap;color:var(--muted);font-size:11px}.status .dot{width:6px;height:6px;border-radius:100%;background:var(--green)}
@@ -59,6 +66,7 @@ dialog{background:#1b1a20;color:var(--text);border:1px solid #ffffff2c;max-width
 <iframe id="maintenanceFrame" title="维护、更新与淘汰 V6 动画" aria-label="维护、更新与淘汰独立动画" loading="lazy"></iframe>
 <iframe id="flowFrame" title="增长的流入与流出 V3 动画" aria-label="三个水位舱对比净流入为正、为零和为负" loading="lazy"></iframe>
 <iframe id="curvesFrame" title="增长动态不是过程节点 V3 动画" aria-label="四种增长曲线与三个观察指标" loading="lazy"></iframe>
+<iframe id="marginalFrame" title="边际收益递减与瓶颈 V5 动画" aria-label="等量投入、边际收益曲线、固定节拍处理站与资源损耗" loading="lazy"></iframe>
 <div class="maplegend" id="legend"><span><i style="background:#81b2ed"></i>方向</span><span><i style="background:#70dfad"></i>过程</span><span><i style="background:#c7a3ef"></i>调节</span><span><i style="background:#eabd75"></i>动态</span><span><i style="background:#a9afb8"></i>资源</span></div>
 <div class="mapmini" id="mini"></div>
 <div class="stage-foot"><div class="keyline" id="keyline"></div><div class="caption" id="caption"></div></div>
@@ -633,8 +641,8 @@ function transitionScene(){
 function selectScene(i,force=false){
  if(i===current&&!force)return;
  const previous=current;
- if(previous>=0&&previous!==i&&cues[previous].visual!==cues[i].visual&&!['maintenancev6','flowv3','curvesv3'].includes(cues[previous].visual)&&!['maintenancev6','flowv3','curvesv3'].includes(cues[i].visual)&&!reduced)transitionScene();
- current=i;const c=cues[i];dots=[];animatedItems=[];$('stage').classList.toggle('maintenance-embedded',c.visual==='maintenancev6');$('stage').classList.toggle('flow-embedded',c.visual==='flowv3');$('stage').classList.toggle('curves-embedded',c.visual==='curvesv3');
+ if(previous>=0&&previous!==i&&cues[previous].visual!==cues[i].visual&&!['maintenancev6','flowv3','curvesv3','marginalplus'].includes(cues[previous].visual)&&!['maintenancev6','flowv3','curvesv3','marginalplus'].includes(cues[i].visual)&&!reduced)transitionScene();
+ current=i;const c=cues[i];dots=[];animatedItems=[];$('stage').classList.toggle('maintenance-embedded',c.visual==='maintenancev6');$('stage').classList.toggle('flow-embedded',c.visual==='flowv3');$('stage').classList.toggle('curves-embedded',c.visual==='curvesv3');$('stage').classList.toggle('marginal-embedded',c.visual==='marginalplus');
  $('overline').textContent=chapters[c.ch][0]+' / '+chapters[c.ch][1];
  $('stagetitle').textContent=c.title;
  $('stageindex').textContent=String(i+1).padStart(2,'0')+' / '+cues.length;
@@ -655,6 +663,7 @@ function selectScene(i,force=false){
  else if(c.visual==='maintenancev6'){$('viz').replaceChildren();graphWorld=null;cameraTarget=null;$('legend').style.display='none';$('mini').classList.remove('visible');syncMaintenanceFrame()}
  else if(c.visual==='flowv3'){$('viz').replaceChildren();graphWorld=null;cameraTarget=null;$('legend').style.display='none';$('mini').classList.remove('visible');syncFlowFrame()}
  else if(c.visual==='curvesv3'){$('viz').replaceChildren();graphWorld=null;cameraTarget=null;$('legend').style.display='none';$('mini').classList.remove('visible');syncCurvesFrame()}
+ else if(c.visual==='marginalplus'){$('viz').replaceChildren();graphWorld=null;cameraTarget=null;$('legend').style.display='none';$('mini').classList.remove('visible');syncMarginalFrame()}
  else drawModel(c);
 }
 function captionForTime(t){const c=cues[current];if(c?.i===0&&t>=c.start+4&&t<c.end)return '';let i=0;while(i+1<CAPTION_STARTS.length&&t>=CAPTION_STARTS[i+1])i++;return CAPTION_TEXTS[i]||''}
@@ -691,7 +700,18 @@ function syncCurvesFrame(){
  const api=frame.contentWindow&&frame.contentWindow.__growthDynamicsV3;
  if(api&&typeof api.sync==='function')api.sync(Math.max(0,Math.min(c.seconds*1000,(time-c.start)*1000)));
 }
-function render(now){const actual=Math.min(total-.001,time),i=cues.findIndex(c=>actual<c.end);if(!overview)selectScene(Math.max(0,i));const c=cues[current];progress=Math.max(0,Math.min(1,(time-c.start)/c.seconds));$('seek').value=time;$('time').textContent=fmt(time)+' / '+fmt(total);if(overview){animateGraph(0,now)}else{$('caption').textContent=captionForTime(time);if(c.visual==='graph')animateGraph(progress,now);else if(c.visual==='hybrid')animateHybrid(progress,now);else if(c.visual==='maintenancev6')syncMaintenanceFrame();else if(c.visual==='flowv3')syncFlowFrame();else if(c.visual==='curvesv3')syncCurvesFrame();else animateModel(progress);}$('prev').disabled=current===0;$('next').disabled=current===cues.length-1;}
+function syncMarginalFrame(){
+ const c=cues[current];if(!c||c.visual!=='marginalplus')return;
+ const frame=$('marginalFrame');
+ if(!frame.dataset.requested){
+  frame.dataset.requested='1';
+  frame.addEventListener('load',()=>syncMarginalFrame());
+  frame.src='./independent-shots/marginal-returns-bottleneck/marginal-returns-v5-embedded.html';
+ }
+ const api=frame.contentWindow&&frame.contentWindow.__marginalReturnsV5;
+ if(api&&typeof api.sync==='function')api.sync(Math.max(0,Math.min(c.seconds*1000,(time-c.start)*1000)));
+}
+function render(now){const actual=Math.min(total-.001,time),i=cues.findIndex(c=>actual<c.end);if(!overview)selectScene(Math.max(0,i));const c=cues[current];progress=Math.max(0,Math.min(1,(time-c.start)/c.seconds));$('seek').value=time;$('time').textContent=fmt(time)+' / '+fmt(total);if(overview){animateGraph(0,now)}else{$('caption').textContent=captionForTime(time);if(c.visual==='graph')animateGraph(progress,now);else if(c.visual==='hybrid')animateHybrid(progress,now);else if(c.visual==='maintenancev6')syncMaintenanceFrame();else if(c.visual==='flowv3')syncFlowFrame();else if(c.visual==='curvesv3')syncCurvesFrame();else if(c.visual==='marginalplus')syncMarginalFrame();else animateModel(progress);}$('prev').disabled=current===0;$('next').disabled=current===cues.length-1;}
 function tick(now){if(playing){time=narrationAudio.currentTime;if(narrationAudio.ended||time>=total-.03){time=total;playing=false;narrationAudio.pause();setPlayLabel()}}render(now);requestAnimationFrame(tick)}
 function setPlayLabel(){$('play').textContent=playing?'Ⅱ 暂停':'▶ 播放';$('status').textContent=playing?'正在播放正式配音，字幕按音频识别时间点切换，动画按音频时间同步。':'已暂停 · 字幕已按音频时间校准；可使用进度条、章节或上一段 / 下一段跳转。'}
 function play(){if(!audioReady){$('status').textContent='讲解音频正在加载，请稍候。';return}if(overview){overview=false;selectScene(current,true)}if(time>=total-.05){time=0;narrationAudio.currentTime=0;selectScene(0,true)}if(playing){playing=false;narrationAudio.pause()}else{playing=true;narrationAudio.playbackRate=speed;narrationAudio.currentTime=time;narrationAudio.play().catch(()=>{playing=false;$('status').textContent='正式配音加载失败，请检查网络连接后重试。';setPlayLabel()})}setPlayLabel()}
