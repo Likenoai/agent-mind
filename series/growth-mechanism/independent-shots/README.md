@@ -13,7 +13,6 @@
 | 增长的流入与流出 | V3 | 已确认并嵌入总片 | [V3 预览](inflow-outflow/flow-inflow-outflow-v3-standalone.html) | [V3 可编辑 HTML](inflow-outflow/flow-inflow-outflow-v3-editable.html) | [V3 嵌入版](inflow-outflow/flow-inflow-outflow-v3-embedded.html)；[PNG 素材](inflow-outflow/assets/) |
 | 增长动态不是过程节点 | V3 | 已确认并嵌入总片 | [V3 预览](growth-dynamics/growth-dynamics-v3-standalone.html) | [V3 可编辑 HTML](growth-dynamics/growth-dynamics-v3-editable.html) | [V3 嵌入版](growth-dynamics/growth-dynamics-v3-embedded.html)；[PNG 素材](growth-dynamics/assets/) |
 | 边际收益递减与瓶颈 | V5 | 已嵌入总片 cue 24；标签位置待总片实际播放复核 | [V5 预览](marginal-returns-bottleneck/marginal-returns-v5-standalone.html) | [V5 可编辑 HTML](marginal-returns-bottleneck/marginal-returns-v5-editable.html) | [瓶颈连续动画 V3](marginal-returns-bottleneck/bottleneck-scene-v3-embedded.html)；[V4 历史版](marginal-returns-bottleneck/marginal-returns-v4-standalone.html) |
-
 | 行动和成果不是同一件事 | V1 | 首轮浏览器播放通过；待用户视觉验收 | [Cue 03 预览](action-results-retention/cue03-action-result-v1-standalone.html) | [Cue 03 源文件](action-results-retention/cue03-action-result-v1-editable.html) | [验证记录](action-results-retention/cue03-validation.md) |
 | 哪些结果值得留下 | V1 | 首轮浏览器播放通过；待用户视觉验收 | [Cue 04 预览](action-results-retention/cue04-screen-retain-v1-standalone.html) | [Cue 04 源文件](action-results-retention/cue04-screen-retain-v1-editable.html) | [验证记录](action-results-retention/cue04-validation.md) |
 
