@@ -248,7 +248,9 @@ svg{display:block;width:100%;height:100%}
   const STATION_X = 765;
   const OUTPUT_START_X = 930;
   const OUTPUT_TRAVEL = 3200;
-  const OUTPUT_DISTANCE = 600;
+  const OUTPUT_DISTANCE = 670;
+  const ENTRY_DISTANCE = 150;
+  const ENTRY_DURATION = 360;
   const LOSS_DELAY = 420;
   const LOSS_PERIOD = 1120;
   const SVG_NS = 'http://www.w3.org/2000/svg';
@@ -319,8 +321,9 @@ svg{display:block;width:100%;height:100%}
         target=lerp(oldX,target,smooth(p));
       }
     }
-    const enter=clamp((t-arrivals[i])/330);
-    return lerp(116,target,smooth(enter));
+    const enter=clamp((t-arrivals[i])/ENTRY_DURATION);
+    const entryStart=Math.max(116,target-ENTRY_DISTANCE);
+    return lerp(entryStart,target,smooth(enter));
   }
 
   const queueLayer=$('queueTokens');
@@ -407,7 +410,8 @@ svg{display:block;width:100%;height:100%}
         const p=clamp((t-start)/SERVICE_DURATION);
         const moveIn=clamp(p/.17);
         const x=lerp(QUEUE_FRONT_X,STATION_X,smooth(moveIn));
-        setToken(serviceNode,x,522,1,'#e6b93e');
+        const fill=mixHex('#f29a5b','#e6b93e',smooth(moveIn));
+        setToken(serviceNode,x,522,1,fill);
       } else {
         const exitP=clamp((t-end)/EGRESS_DURATION);
         const eased=smooth(exitP);
