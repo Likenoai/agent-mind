@@ -1,0 +1,9 @@
+{
+  "shot": "增长动态不是过程节点",
+  "version": "V3",
+  "status": "用户已确认",
+  "asset_source": "从 V3 standalone HTML 的内嵌 PNG data URI 提取；editable HTML 使用 assets/ 相对路径",
+  "assets": [
+    "observatory-telescope.png"
+  ]
+}
