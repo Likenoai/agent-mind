@@ -1,0 +1,77 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Cue 05｜积累是变化，存量是状态 · V1</title>
+<style>
+:root{--ink:#302342;--muted:#8a7e93;--paper:#f8f4ea;--line:#e7ded2;--teal:#39b7bd;--orange:#ef8d59;--green:#7eaf50;--violet:#8d79a9}*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;background:#e9e4db;color:var(--ink);font-family:Inter,"Noto Sans SC","Microsoft YaHei",sans-serif}body{display:grid;place-items:center}.stage{width:min(100vw,177.7778vh);aspect-ratio:16/9;position:relative;overflow:hidden;background:radial-gradient(ellipse at 78% 83%,#eaf0e7 0%,transparent 36%),linear-gradient(130deg,#fffdf7,#f7f2e8 65%,#f0f1e8);box-shadow:0 18px 70px #3023421b}.header{position:absolute;left:5.6%;right:5.6%;top:5.4%;display:flex;justify-content:space-between;align-items:flex-start;z-index:2}.kicker{font-size:clamp(9px,.85vw,14px);font-weight:800;letter-spacing:.19em;color:#93859e}.title{font-size:clamp(24px,2.55vw,42px);font-weight:850;letter-spacing:-.04em;margin-top:.35em}.subtitle{font-size:clamp(12px,1.1vw,18px);font-weight:650;color:#867993;margin-top:.45em}.cue{border:1px solid #e7ded2;background:#fffdf9d9;border-radius:999px;padding:.65em 1.1em;font-size:clamp(9px,.78vw,13px);font-weight:800;letter-spacing:.08em;color:#8c7d95}.visual{position:absolute;left:4.6%;right:4.6%;top:22%;height:65%;border-radius:28px;background:#fffdfaee;border:1.5px solid #e9dfd2;box-shadow:0 16px 34px #30234212;overflow:hidden}.visual svg{width:100%;height:100%;display:block}.key{position:absolute;left:16%;right:16%;bottom:5.3%;height:8.8%;border-radius:18px;border:1px solid #e8ded1;background:#fffdf9;display:flex;align-items:center;justify-content:center;font-size:clamp(14px,1.3vw,21px);font-weight:850;opacity:0;transform:translateY(12px);box-shadow:0 6px 16px #3023420a}.note{position:absolute;bottom:2%;left:5.6%;font-size:clamp(8px,.65vw,11px);color:#9a8fa0;letter-spacing:.04em}.controls{position:absolute;right:5.6%;bottom:2.2%;display:flex;align-items:center;gap:10px;color:#8e8197;font-size:12px}.controls button{border:1px solid #dcd1e1;background:#fffdf9;color:#5d4b69;border-radius:999px;padding:8px 14px;font-weight:750;cursor:pointer}.controls input{width:120px;accent-color:#8e79ad}
+</style></head><body><div class="stage">
+<header class="header"><div><div class="kicker">STOCK / ACCUMULATION / 05</div><div class="title">积累是变化，存量是状态</div><div class="subtitle">看见流入与流出，才能判断存量如何变化</div></div><div class="cue">CUE 05 · 19.331s</div></header>
+<main class="visual"><svg id="scene" viewBox="0 0 1600 620" role="img" aria-label="同一单位的成果流入容器，另一部分流出，容器液位逐期上升，展示存量状态和积累过程">
+<defs>
+ <linearGradient id="glass" x2="1" y2="1"><stop stop-color="#f7f5ef"/><stop offset=".5" stop-color="#eaf1ed"/><stop offset="1" stop-color="#d9e7e1"/></linearGradient>
+ <linearGradient id="water" x2="0" y2="1"><stop stop-color="#7ed2cf"/><stop offset="1" stop-color="#36a8ad"/></linearGradient>
+ <linearGradient id="pipe" x2="0" y2="1"><stop stop-color="#fff8eb"/><stop offset=".5" stop-color="#d9cfdc"/><stop offset="1" stop-color="#a79aac"/></linearGradient>
+ <filter id="shadow" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="9" stdDeviation="9" flood-color="#382744" flood-opacity=".18"/></filter>
+ <filter id="glow"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+ <clipPath id="tankClip"><rect x="184" y="150" width="420" height="390" rx="22"/></clipPath>
+ <path id="drop" d="M0 -15 C-8 -3 -13 4 -13 11 A13 13 0 0 0 13 11 C13 4 8 -3 0 -15Z"/>
+</defs>
+<rect x="20" y="18" width="1560" height="584" rx="24" fill="#fffdfa"/>
+<text x="90" y="65" fill="#8b7d96" font-size="17" font-weight="800" letter-spacing="2">FLOW / 流量</text>
+<text x="790" y="65" fill="#8b7d96" font-size="17" font-weight="800" letter-spacing="2">STOCK / 存量</text>
+<text x="1210" y="65" fill="#8b7d96" font-size="17" font-weight="800" letter-spacing="2">ACCUMULATION / 积累</text>
+<!-- tank and water -->
+<g filter="url(#shadow)"><rect x="160" y="126" width="470" height="438" rx="32" fill="url(#glass)" stroke="#55445f" stroke-width="9"/><rect x="176" y="142" width="436" height="406" rx="24" fill="#f9f7f0" stroke="#d8d0d7" stroke-width="3"/></g>
+<g clip-path="url(#tankClip)"><rect id="waterFill" x="184" y="400" width="420" height="140" fill="url(#water)"/><path id="waterWave" d="M184 400 Q236 391 288 400 T392 400 T496 400 T604 400 V540 H184Z" fill="#b2e7df" opacity=".62"/><g opacity=".3" stroke="#e9ffff" stroke-width="3"><path d="M205 430 H580"/><path d="M205 462 H580"/><path d="M205 494 H580"/></g></g>
+<!-- measurement ticks -->
+<g stroke="#9a8ca1" stroke-width="2" opacity=".65"><path d="M630 220 H650 M630 280 H650 M630 340 H650 M630 400 H650 M630 460 H650"/></g>
+<g fill="#897c93" font-size="15" text-anchor="start"><text x="660" y="297">19</text><text x="660" y="333">16</text><text x="660" y="369">13</text><text x="660" y="405">10</text></g>
+<!-- inlet pipe -->
+<path d="M390 90 V153" stroke="url(#pipe)" stroke-width="42" stroke-linecap="round"/><path d="M390 90 V153" stroke="#6c5a79" stroke-width="4" stroke-linecap="round" opacity=".45"/><path d="M390 150 V176" stroke="#36b7b9" stroke-width="9" stroke-linecap="round" opacity=".55"/>
+<rect x="296" y="82" width="188" height="44" rx="22" fill="#e7f4f0" stroke="#c6e2dc"/><text x="390" y="110" text-anchor="middle" fill="#388e8d" font-size="18" font-weight="800">流入 · 4 单位</text>
+<!-- outlet pipe -->
+<path d="M624 438 H860" stroke="url(#pipe)" stroke-width="42" stroke-linecap="round"/><path d="M624 438 H860" stroke="#6c5a79" stroke-width="4" stroke-linecap="round" opacity=".45"/><path d="M630 438 H858" stroke="#36b7b9" stroke-width="8" stroke-linecap="round" opacity=".45"/>
+<rect x="690" y="466" width="180" height="42" rx="21" fill="#fff0e5" stroke="#f1d0b8"/><text x="780" y="493" text-anchor="middle" fill="#c77a4c" font-size="18" font-weight="800">流出 · 1 单位</text>
+<!-- same-unit legend -->
+<g transform="translate(92 170)"><use href="#drop" fill="#45b9b9" transform="translate(0 0) scale(.72)"/><text x="28" y="7" fill="#8b7d96" font-size="16">同一单位的成果</text></g>
+<!-- right accumulation panel -->
+<g filter="url(#shadow)"><rect x="930" y="112" width="570" height="432" rx="25" fill="#f8f7f0" stroke="#e3dfd1" stroke-width="2"/></g>
+<text x="975" y="160" fill="#51435f" font-size="25" font-weight="850">积累 / 变化过程</text>
+<text x="975" y="191" fill="#93879b" font-size="16">每一期：流入 4 − 流出 1 = 净变化 +3</text>
+<g id="periodRows">
+ <g id="period1"><rect x="970" y="215" width="485" height="65" rx="14" fill="#fffdf8" stroke="#e5ded4"/><text x="995" y="254" fill="#5a4b65" font-size="18" font-weight="800">第 1 期</text><text x="1160" y="254" fill="#4b9c9b" font-size="18" font-weight="750">+3</text><rect x="1240" y="239" width="180" height="10" rx="5" fill="#e9e2e8"/><rect id="bar1" x="1240" y="239" width="0" height="10" rx="5" fill="#83b85a"/></g>
+ <g id="period2"><rect x="970" y="292" width="485" height="65" rx="14" fill="#fffdf8" stroke="#e5ded4"/><text x="995" y="331" fill="#5a4b65" font-size="18" font-weight="800">第 2 期</text><text x="1160" y="331" fill="#4b9c9b" font-size="18" font-weight="750">+3</text><rect x="1240" y="316" width="180" height="10" rx="5" fill="#e9e2e8"/><rect id="bar2" x="1240" y="316" width="0" height="10" rx="5" fill="#83b85a"/></g>
+ <g id="period3"><rect x="970" y="369" width="485" height="65" rx="14" fill="#fffdf8" stroke="#e5ded4"/><text x="995" y="408" fill="#5a4b65" font-size="18" font-weight="800">第 3 期</text><text x="1160" y="408" fill="#4b9c9b" font-size="18" font-weight="750">+3</text><rect x="1240" y="393" width="180" height="10" rx="5" fill="#e9e2e8"/><rect id="bar3" x="1240" y="393" width="0" height="10" rx="5" fill="#83b85a"/></g>
+</g>
+<rect x="970" y="456" width="485" height="64" rx="15" fill="#edf4e5" stroke="#d9e8cb"/><text x="995" y="482" fill="#6c9650" font-size="16" font-weight="800">此刻存量</text><text id="stockNumber" x="1405" y="503" text-anchor="end" fill="#4d8a40" font-size="35" font-weight="900">10</text><text x="1420" y="503" fill="#7b9a69" font-size="14">单位</text>
+<!-- dynamic drops -->
+<g id="inDrops"></g><g id="outDrops"></g>
+<!-- timeline -->
+<g transform="translate(85 580)"><path d="M0 0 H1420" stroke="#e6dfe8" stroke-width="2"/><g id="tick1"><circle cx="0" cy="0" r="7" fill="#cfc4d6"/><text x="0" y="26" text-anchor="middle" fill="#8f8298" font-size="14">第 1 期</text></g><g id="tick2"><circle cx="470" cy="0" r="7" fill="#cfc4d6"/><text x="470" y="26" text-anchor="middle" fill="#8f8298" font-size="14">第 2 期</text></g><g id="tick3"><circle cx="940" cy="0" r="7" fill="#cfc4d6"/><text x="940" y="26" text-anchor="middle" fill="#8f8298" font-size="14">第 3 期</text></g><text x="1420" y="26" text-anchor="end" fill="#8f8298" font-size="14">时间推进</text></g>
+</svg></main>
+<div class="key" id="key">存量：时点状态｜积累：变化过程</div><div class="note">示意量｜每期流入 4、流出 1，净变化 +3；所有流动单位大小相同</div>
+<div class="controls"><span id="clock">00:00.0 / 00:19.3</span><input id="seek" type="range" min="0" max="19.330612" step="0.01" value="0"><button id="toggle">暂停</button><button id="replay">重新播放</button></div>
+</div>
+<script>
+(()=>{
+ const D=19.330612,$=id=>document.getElementById(id),svg=$('scene'),seek=$('seek'),clock=$('clock'),toggle=$('toggle'),key=$('key');
+ const periods=[2.0,5.35,8.7],starts=[2.0,5.35,8.7],dur=2.35;
+ const fill=$('waterFill'),wave=$('waterWave'),stock=$('stockNumber'),bars=[$('bar1'),$('bar2'),$('bar3')],ticks=[$('tick1'),$('tick2'),$('tick3')];
+ const ns='http://www.w3.org/2000/svg';let t=0,playing=true,last=0,raf=0;
+ const clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v));const ease=v=>{v=clamp(v);return v<.5?4*v*v*v:1-Math.pow(-2*v+2,3)/2};const fmt=s=>'00:'+String(Math.floor(s)).padStart(2,'0')+'.'+String(Math.floor((s%1)*10));
+ const inGroups=[],outGroups=[];
+ for(let i=0;i<12;i++){let g=document.createElementNS(ns,'use');g.setAttribute('href','#drop');g.setAttribute('fill','#36b7b9');g.setAttribute('filter','url(#glow)');g.setAttribute('opacity','0');$('inDrops').appendChild(g);inGroups.push(g)}
+ for(let i=0;i<3;i++){let g=document.createElementNS(ns,'use');g.setAttribute('href','#drop');g.setAttribute('fill','#36b7b9');g.setAttribute('filter','url(#glow)');g.setAttribute('opacity','0');$('outDrops').appendChild(g);outGroups.push(g)}
+ function render(s){t=clamp(s,0,D);let completed=0,level=10;
+  periods.forEach((start,p)=>{const local=t-start;if(local>=dur)completed++;if(local>dur*.6&&local<dur)level=10+(p+ease((local-dur*.6)/(dur*.4))+1)*3;else if(local>=dur)level=10+(p+1)*3;});
+  if(t<periods[0])level=10;else if(t<periods[1])level=10+3*ease(clamp((t-periods[0]-.6)/(dur-.6)));else if(t<periods[2])level=13+3*ease(clamp((t-periods[1]-.6)/(dur-.6)));else if(t<periods[2]+dur)level=16+3*ease(clamp((t-periods[2]-.6)/(dur-.6)));else level=19;
+  const y=520-level*12;fill.setAttribute('y',y);fill.setAttribute('height',520-y);wave.setAttribute('d',`M184 ${y} Q236 ${y-8} 288 ${y} T392 ${y} T496 ${y} T604 ${y} V540 H184Z`);
+  stock.textContent=String(Math.round(level));
+  periods.forEach((start,p)=>{const q=clamp((t-start)/dur);bars[p].setAttribute('width',String(180*(t>=start?Math.max(.04,q):0)));ticks[p].querySelector('circle').setAttribute('fill',t>=start+dur?'#83b85a':t>=start?'#ef9a61':'#cfc4d6');});
+  inGroups.forEach((g,i)=>{const p=Math.floor(i/4),j=i%4,at=starts[p]+j*.22+.18,pr=clamp((t-at)/.85);if(t>=at&&t<=at+.85){g.setAttribute('opacity','1');g.setAttribute('transform',`translate(390 ${82+pr*100}) scale(.72)`)}else g.setAttribute('opacity','0')});
+  outGroups.forEach((g,p)=>{const at=starts[p]+.7,pr=clamp((t-at)/1.2);if(t>=at&&t<=at+1.2){g.setAttribute('opacity','1');g.setAttribute('transform',`translate(${650+pr*180} 438) scale(.72)`)}else g.setAttribute('opacity','0')});
+  clock.textContent=fmt(t)+' / 00:19.3';seek.value=t;const k=ease(clamp((t-17.0)/.85));key.style.opacity=String(k);key.style.transform=`translateY(${12*(1-k)}px)`;
+ }
+ function tick(now){if(!playing)return;if(!last)last=now;const dt=Math.min(.05,(now-last)/1000);last=now;t+=dt;if(t>=D){t=D;playing=false;toggle.textContent='继续'}render(t);if(playing)raf=requestAnimationFrame(tick)}
+ function play(){if(t>=D)t=0;playing=true;last=0;toggle.textContent='暂停';cancelAnimationFrame(raf);raf=requestAnimationFrame(tick)}
+ toggle.addEventListener('click',()=>{if(playing){playing=false;cancelAnimationFrame(raf);toggle.textContent='继续'}else play()});$('replay').addEventListener('click',()=>{t=0;render(0);play()});seek.addEventListener('input',()=>{t=Number(seek.value);render(t);if(playing)last=0});
+ const params=new URLSearchParams(location.search),initial=Number(params.get('at')||0);if(params.has('pause')){playing=false;t=clamp(initial,0,D);render(t);toggle.textContent='继续'}else{render(0);raf=requestAnimationFrame(tick)}window.__cue05={sync(ms){render(ms/1000)},duration:D,render};
+})();
+</script></body></html>
