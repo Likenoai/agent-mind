@@ -32,7 +32,7 @@ svg{display:block;width:100%;height:100%}
 .route.retire{stroke:#ef7965}
 .route.intake{stroke:#a997bc;opacity:.46}
 .token{pointer-events:none}
-.scene-enter{opacity:0;transform:translateY(18px)}
+.scene-enter{opacity:0;transform:translateY(18px);transition:opacity .55s ease,transform .55s ease}
 @media(prefers-reduced-motion:reduce){.scene-enter{opacity:1;transform:none}}
 </style>
 </head>
@@ -158,10 +158,10 @@ svg{display:block;width:100%;height:100%}
     <path class="route intake" d="M216 424 C330 424 390 452 520 452"/>
     <path class="route intake" d="M216 494 C340 494 405 500 520 500"/>
     <path class="route intake" d="M216 564 C340 564 405 550 520 550"/>
-    <path class="route maint" marker-end="url(#arrowMaint)" d="M748 446 C820 446 845 344 950 344"/>
-    <path class="route update" marker-end="url(#arrowUpdate)" d="M748 504 C815 504 855 514 950 514"/>
-    <path class="route retire" marker-end="url(#arrowRetire)" d="M748 562 C820 562 850 684 950 684"/>
-    <path class="route retire" marker-end="url(#arrowRetire)" d="M1260 684 C1310 684 1350 684 1415 684"/>
+    <path class="route maint" marker-end="url(#arrowMaint)" d="M748 446 C820 446 845 344 1112 344"/>
+    <path class="route update" marker-end="url(#arrowUpdate)" d="M748 504 C815 504 855 514 1112 514"/>
+    <path class="route retire" marker-end="url(#arrowRetire)" d="M748 562 C820 562 850 684 1112 684"/>
+    <path class="route retire" marker-end="url(#arrowRetire)" d="M1112 684 C1128 695 1145 710 1155 730"/>
     <text x="720" y="286" font-size="13" font-weight="900" fill="#6a9d43">恢复后回库</text>
     <text x="720" y="728" font-size="13" font-weight="900" fill="#1599a2">升级后回库</text>
     <text x="1300" y="660" font-size="13" font-weight="900" fill="#d86351">不再返回</text>
@@ -555,7 +555,7 @@ svg{display:block;width:100%;height:100%}
   $('seek').addEventListener('input',e=>{scrubbing=true;paused=true;cancelAnimationFrame(raf);update(Number(e.target.value));$('pause').textContent='继续';});
   $('seek').addEventListener('change',()=>{scrubbing=false;startAt=performance.now()-elapsed;});
   window.__maintenanceV6={seek(ms){paused=true;scrubbing=false;cancelAnimationFrame(raf);update(ms);$('pause').textContent='继续';},play,pause(){paused=true;cancelAnimationFrame(raf);},getState(){return {elapsed,maintenanceReturned:elapsed>=10000,updateReturned:elapsed>=12900,retired:elapsed>=12200,remainingStock:elapsed>=12900?2:3,duration:DURATION};}};
-  window.addEventListener('load',()=>{update(0);play();});
+  window.addEventListener('load',()=>{requestAnimationFrame(()=>{$('header').style.opacity='1';$('header').style.transform='translateY(0)';$('system').style.opacity='1';$('system').style.transform='translateY(0)';update(0);play();});});
 })();
 </script>
 </body></html>
