@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>边际收益递减与瓶颈｜分镜动画 V4</title>
+<style>
+:root{
+ --ink:#39234f;--muted:#8b7a98;--paper:#fbf8f0;--teal:#35b9c0;
+ --coral:#ef7965;--green:#82b94e;--purple:#9273b8;--gold:#e6b93e;--orange:#f29a5b;
+}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;background:#e9e4dc;font-family:system-ui,"Microsoft YaHei",sans-serif;color:var(--ink)}
+body{display:grid;place-items:center;overflow:hidden}
+.frame{width:min(100vw,177.777vh);height:min(100vh,56.25vw);aspect-ratio:16/9;position:relative;background:var(--paper);overflow:hidden;box-shadow:0 16px 50px rgba(40,25,58,.15)}
+#bottleneckFrame{position:absolute;inset:0;width:100%;height:100%;display:none;border:0;z-index:3;background:transparent;opacity:0;transform:translateX(46px)}
+.frame.bottleneck-active #bottleneckFrame{display:block}
+.frame.bottleneck-active #stage #scene3{opacity:0!important;pointer-events:none}
+.frame.bottleneck-active .grid-toggle{display:none!important}
+svg{display:block;width:100%;height:100%}
+.small{font-weight:900;fill:#8c7b9a;font-size:14px;letter-spacing:2px}
+.title{font-size:38px;font-weight:950;fill:var(--ink)}
+.subtitle{font-size:19px;font-weight:800;fill:#7d6b8d}
+.pill text{font-size:17px;font-weight:900}
+.card-label{font-size:16px;font-weight:900;fill:#8b7a98;letter-spacing:.5px}
+.axis{font-size:16px;font-weight:850;fill:#887996}
+.value{font-size:21px;font-weight:950;fill:#fffdf8}
+.scene-heading{font-size:27px;font-weight:950;fill:var(--ink)}
+.scene-sub{font-size:17px;font-weight:800;fill:#897994}
+.keyline{font-size:26px;font-weight:950;fill:var(--ink)}
+.note{font-size:16px;font-weight:800;fill:#8b7a98}
+.caption-text{font-size:22px;font-weight:850;fill:var(--ink)}
+.controls{position:absolute;right:2%;bottom:1.2%;display:flex;align-items:center;gap:10px;z-index:5;padding:6px 10px;border-radius:30px;background:rgba(251,248,240,.97);box-shadow:0 4px 14px rgba(57,35,79,.10);backdrop-filter:blur(4px)}
+.controls button{border:1.5px solid rgba(57,35,79,.25);border-radius:999px;background:#fffdf8;color:var(--ink);padding:10px 19px;font-size:14px;font-weight:900;box-shadow:0 3px 0 rgba(57,35,79,.12);cursor:pointer}
+.controls button:hover{background:#f2ebdf}
+.time{font-size:13px;font-weight:900;color:#8b7a98;font-variant-numeric:tabular-nums;margin-right:6px}
+.grid-toggle{position:absolute;right:2.5%;top:2.2%;z-index:5;border:1px solid rgba(57,35,79,.18);border-radius:999px;background:#fffdf8;color:#7a678e;padding:8px 14px;font-size:12px;font-weight:850;cursor:pointer}
+#guides{opacity:0}
+.frame.guides #guides{opacity:.45}
+.scene{opacity:0;pointer-events:none;transform:translateX(34px);transform-origin:center}
+.caption-bg{fill:#fffdf8;stroke:#e8dfd2;stroke-width:1.6}
+</style>
+</head>
+<body>
+<div class="frame" id="frame">
+<button class="grid-toggle" id="gridToggle">显示对齐辅助线</button>
+<svg viewBox="0 0 1600 900" id="stage" role="img" aria-label="边际收益递减与瓶颈：先展示等量投入的额外产出逐次变小，再展示边际收益曲线，最后展示瓶颈造成排队和资源损耗">
+<defs>
+ <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fffdf7"/><stop offset=".58" stop-color="#fbf8ef"/><stop offset="1" stop-color="#f0eee5"/></linearGradient>
+ <radialGradient id="warm"><stop stop-color="#f5d77b" stop-opacity=".18"/><stop offset="1" stop-color="#f5d77b" stop-opacity="0"/></radialGradient>
+ <radialGradient id="cool"><stop stop-color="#83d4ce" stop-opacity=".18"/><stop offset="1" stop-color="#83d4ce" stop-opacity="0"/></radialGradient>
+ <filter id="shadow" x="-20%" y="-25%" width="150%" height="160%"><feDropShadow dx="0" dy="7" stdDeviation="8" flood-color="#39234f" flood-opacity=".10"/></filter>
+ <filter id="glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="7"/></filter>
+ <marker id="arrowPurple" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10Z" fill="#9273b8"/></marker>
+</defs>
+<rect width="1600" height="900" fill="url(#bg)"/>
+<ellipse cx="340" cy="480" rx="580" ry="440" fill="url(#warm)"/>
+<ellipse cx="1280" cy="480" rx="500" ry="420" fill="url(#cool)"/>
+
+<!-- fixed title and guide grid -->
+<g transform="translate(68 56)">
+ <text class="small" x="0" y="0">LIMITS / MARGINAL RETURNS / 08</text>
+ <text class="title" x="0" y="50">边际收益递减与瓶颈</text>
+ <text class="subtitle" x="0" y="86">额外投入的效果变小，不等于总存量下降，也不等于增长率下降</text>
+</g>
+<g id="guides" fill="none" stroke="#9b8aab" stroke-width="1.2" stroke-dasharray="5 8">
+ <path d="M50 170 V850 M400 170 V850 M800 170 V850 M1200 170 V850 M1550 170 V850"/>
+ <path d="M50 190 H1550 M50 450 H1550 M50 700 H1550 M50 840 H1550"/>
+</g>
+
+<!-- SCENE 1: same input, smaller marginal output -->
+<g class="scene" id="scene1">
+ <g transform="translate(0 0)">
+  <rect x="90" y="222" width="1420" height="460" rx="34" fill="#fffdf8" stroke="#e8dfd2" stroke-width="2" filter="url(#shadow)"/>
+  <text class="card-label" x="132" y="264">SAME INPUT / 同样大小的投入，进入同一套生产装置</text>
+  <text x="1435" y="264" text-anchor="end" font-size="14" font-weight="850" fill="#9a8ca4">示意过程</text>
+  <g class="pill">
+   <rect x="132" y="292" width="180" height="48" rx="24" fill="#fffdf8" stroke="#35b9c0" stroke-width="3"/>
+   <text x="222" y="323" text-anchor="middle" fill="#249ba4">等量投入</text>
+  </g>
+  <g class="pill">
+   <rect x="1190" y="292" width="250" height="48" rx="24" fill="#fffdf8" stroke="#82b94e" stroke-width="3"/>
+   <text x="1315" y="323" text-anchor="middle" fill="#6a9d43">额外产出逐次变小</text>
+  </g>
+
+  <!-- conveyor -->
+  <g id="belt1">
+   <rect x="170" y="468" width="410" height="50" rx="25" fill="#4d3b65"/>
+   <rect x="178" y="478" width="394" height="27" rx="13" fill="#77658a"/>
+   <g fill="#fff0d5" stroke="#4d3b65" stroke-width="5">
+    <circle cx="235" cy="493" r="18"/><circle cx="330" cy="493" r="18"/><circle cx="425" cy="493" r="18"/><circle cx="520" cy="493" r="18"/>
+   </g>
+   <rect x="205" y="514" width="30" height="34" rx="7" fill="#665778"/>
+   <rect x="505" y="514" width="30" height="34" rx="7" fill="#665778"/>
+  </g>
+
+  <!-- machine -->
+  <g id="machine1" filter="url(#shadow)">
+   <rect x="650" y="380" width="220" height="210" rx="30" fill="#f4c33d" stroke="#543b64" stroke-width="8"/>
+   <rect x="680" y="414" width="160" height="128" rx="22" fill="#f7f1e1" stroke="#543b64" stroke-width="6"/>
+   <circle cx="760" cy="478" r="42" fill="#35b9c0" stroke="#543b64" stroke-width="6"/>
+   <circle cx="760" cy="478" r="19" fill="#fffdf8" stroke="#543b64" stroke-width="5"/>
+   <path d="M760 445 V511 M744 463 L760 445 L776 463" fill="none" stroke="#543b64" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+   <rect x="716" y="356" width="88" height="25" rx="12" fill="#ef7965" stroke="#543b64" stroke-width="6"/>
+   <circle cx="760" cy="345" r="22" fill="#ef7965" stroke="#543b64" stroke-width="6"/>
+   <g stroke="#ef7965" stroke-width="5" stroke-linecap="round"><path d="M760 309 V292"/><path d="M727 319 L714 308"/><path d="M793 319 L806 308"/></g>
+   <rect x="870" y="438" width="75" height="20" rx="10" fill="#543b64"/>
+   <rect x="870" y="482" width="75" height="20" rx="10" fill="#543b64"/>
+   <rect x="870" y="526" width="75" height="20" rx="10" fill="#543b64"/>
+  </g>
+  <g id="outputRail">
+   <path d="M944 490 H1030" fill="none" stroke="#77658a" stroke-width="18" stroke-linecap="round"/>
+   <path d="M1028 490 H1450" fill="none" stroke="#e8dfd2" stroke-width="4" stroke-dasharray="8 12"/>
+  </g>
+  <g id="inputTokens"></g>
+  <g id="outputTokens"></g>
+  <text x="365" y="600" text-anchor="middle" font-size="16" font-weight="850" fill="#8b7a98">每次投入的数量相同</text>
+  <text x="1195" y="600" text-anchor="middle" font-size="16" font-weight="850" fill="#6a9d43">变化的是每次新增的产出</text>
+ </g>
+</g>
+
+<!-- SCENE 2: marginal benefit curve -->
+<g class="scene" id="scene2">
+ <rect x="170" y="222" width="1260" height="460" rx="34" fill="#fffdf8" stroke="#e8dfd2" stroke-width="2" filter="url(#shadow)"/>
+ <text class="scene-heading" x="230" y="280">边际收益曲线</text>
+ <text class="scene-sub" x="230" y="314">示意关系：每增加一单位投入，额外产出逐步变小</text>
+ <g id="chartGrid" stroke="#eee7dc" stroke-width="2" stroke-dasharray="5 9">
+  <path d="M360 385 H1270 M360 450 H1270 M360 515 H1270 M360 580 H1270"/>
+  <path d="M500 355 V610 M680 355 V610 M860 355 V610 M1040 355 V610 M1220 355 V610"/>
+ </g>
+ <g stroke="#776689" stroke-width="4" fill="none" stroke-linecap="round">
+  <path d="M360 620 V355" marker-end="url(#arrowPurple)"/>
+  <path d="M360 620 H1280" marker-end="url(#arrowPurple)"/>
+ </g>
+ <text class="axis" x="325" y="500" text-anchor="middle" transform="rotate(-90 325 500)">额外产出</text>
+ <text class="axis" x="1280" y="655" text-anchor="end">投入次数</text>
+ <path id="curveGlow" d="M430 390 C570 390 615 420 700 448 S875 510 970 535 S1150 575 1240 590" fill="none" stroke="#9273b8" stroke-width="22" stroke-linecap="round" opacity=".14"/>
+ <path id="curveLine" d="M430 390 C570 390 615 420 700 448 S875 510 970 535 S1150 575 1240 590" fill="none" stroke="#9273b8" stroke-width="7" stroke-linecap="round"/>
+ <g id="chartPoints" fill="#fffdf8" stroke="#9273b8" stroke-width="5">
+  <circle cx="430" cy="390" r="11"/><circle cx="630" cy="430" r="11"/><circle cx="830" cy="485" r="11"/><circle cx="1030" cy="548" r="11"/><circle cx="1240" cy="590" r="11"/>
+ </g>
+ <g id="chartLabels" font-size="19" font-weight="950" fill="#7c5fa3">
+  <text x="430" y="360" text-anchor="middle">+10</text>
+  <text x="630" y="400" text-anchor="middle">+7</text>
+  <text x="830" y="455" text-anchor="middle">+5</text>
+  <text x="1030" y="518" text-anchor="middle">+3</text>
+  <text x="1240" y="560" text-anchor="middle">+1</text>
+ </g>
+ <g transform="translate(470 625)">
+  <rect x="0" y="0" width="660" height="36" rx="18" fill="#f1eaf7"/>
+  <text x="330" y="24" text-anchor="middle" font-size="16" font-weight="900" fill="#7c5fa3">递减的是“新增效果”，不是已经拥有的总存量</text>
+ </g>
+</g>
+
+<!-- SCENE 3: bottleneck, queue, loss -->
+<g class="scene" id="scene3">
+ <rect x="90" y="222" width="1420" height="460" rx="34" fill="#fffdf8" stroke="#e8dfd2" stroke-width="2" filter="url(#shadow)"/>
+ <text class="scene-heading" x="145" y="280">瓶颈、容量与损耗</text>
+ <text class="scene-sub" x="145" y="314">投入持续到来，但系统的处理能力有限</text>
+ <g class="pill">
+  <rect x="170" y="350" width="200" height="46" rx="23" fill="#fffdf8" stroke="#f29a5b" stroke-width="3"/>
+  <text x="270" y="380" text-anchor="middle" fill="#d47a42" font-size="17" font-weight="900">排队积压</text>
+ </g>
+ <g class="pill">
+  <rect x="1120" y="350" width="200" height="46" rx="23" fill="#fffdf8" stroke="#ef7965" stroke-width="3"/>
+  <text x="1220" y="380" text-anchor="middle" fill="#d86351" font-size="17" font-weight="900">资源损耗</text>
+ </g>
+ <!-- wide incoming lane -->
+ <rect x="150" y="455" width="500" height="116" rx="32" fill="#665778" stroke="#4d3b65" stroke-width="6"/>
+ <rect x="164" y="470" width="472" height="86" rx="23" fill="#8c7a9c"/>
+ <!-- bottleneck reducer -->
+ <path d="M640 440 H820 Q865 440 865 480 V546 Q865 586 820 586 H640Z" fill="#f3c43b" stroke="#543b64" stroke-width="8" stroke-linejoin="round"/>
+ <path d="M665 475 H810 Q828 475 828 493 V533 Q828 551 810 551 H665Z" fill="#fff8e8" stroke="#543b64" stroke-width="6"/>
+ <rect x="855" y="482" width="200" height="62" rx="30" fill="#665778" stroke="#4d3b65" stroke-width="6"/>
+ <rect x="1050" y="500" width="300" height="26" rx="13" fill="#8c7a9c"/>
+ <path d="M1055 495 H1395" stroke="#e8dfd2" stroke-width="3" stroke-dasharray="8 12"/>
+ <!-- loss leak -->
+ <g id="leakDrops" fill="#ef7965" stroke="#d86351" stroke-width="2">
+  <path d="M860 422 C865 405 882 398 886 416 C889 435 872 443 864 431Z"/>
+  <path d="M905 405 C910 389 925 383 930 400 C934 417 918 425 910 414Z"/>
+  <path d="M950 424 C955 410 969 405 973 420 C977 435 963 442 956 432Z"/>
+ </g>
+ <g id="queueTokens"></g>
+ <g id="passedTokens"></g>
+ <g transform="translate(680 610)">
+  <rect x="0" y="0" width="240" height="42" rx="21" fill="#fff1df" stroke="#f29a5b" stroke-width="2"/>
+  <text x="120" y="28" text-anchor="middle" font-size="17" font-weight="950" fill="#c87942">处理速度受窄口限制</text>
+ </g>
+ <g transform="translate(1030 610)">
+  <rect x="0" y="0" width="260" height="42" rx="21" fill="#fff0ed" stroke="#ef7965" stroke-width="2"/>
+  <text x="130" y="28" text-anchor="middle" font-size="17" font-weight="950" fill="#d86351">部分资源无法转化为产出</text>
+ </g>
+</g>
+
+<!-- SCENE 4: conclusion -->
+<g class="scene" id="scene4">
+ <rect x="120" y="230" width="1360" height="430" rx="36" fill="#fffdf8" stroke="#e8dfd2" stroke-width="2" filter="url(#shadow)"/>
+ <text class="small" x="190" y="290">THE LIMIT OF GROWTH / 增长的边界</text>
+ <text class="scene-heading" x="190" y="355">系统可以继续扩大，但增长速度未必保持不变</text>
+ <g transform="translate(230 420)">
+  <rect x="0" y="0" width="250" height="100" rx="25" fill="#f4c33d" stroke="#543b64" stroke-width="7"/>
+  <rect x="35" y="28" width="180" height="44" rx="18" fill="#fff8e8" stroke="#543b64" stroke-width="5"/>
+  <path d="M250 50 H360" stroke="#665778" stroke-width="28" stroke-linecap="round"/>
+  <path d="M360 50 H455" stroke="#665778" stroke-width="12" stroke-linecap="round"/>
+  <path d="M360 50 L392 20 M360 50 L392 80" fill="none" stroke="#ef7965" stroke-width="5" stroke-linecap="round"/>
+  <path d="M455 50 H565" stroke="#82b94e" stroke-width="8" stroke-linecap="round" stroke-dasharray="12 13"/>
+  <text x="125" y="138" text-anchor="middle" font-size="17" font-weight="900" fill="#8b7a98">已有存量</text>
+  <text x="355" y="138" text-anchor="middle" font-size="17" font-weight="900" fill="#d86351">处理瓶颈</text>
+  <text x="520" y="138" text-anchor="middle" font-size="17" font-weight="900" fill="#6a9d43">新增产出</text>
+ </g>
+ <g transform="translate(920 420)">
+  <g class="pill">
+   <g id="summaryPill1"><rect x="0" y="0" width="360" height="52" rx="26" fill="#fffdf8" stroke="#f29a5b" stroke-width="3"/><text x="180" y="34" text-anchor="middle" fill="#c87942">边际收益递减</text></g>
+   <g id="summaryPill2"><rect x="0" y="70" width="360" height="52" rx="26" fill="#fffdf8" stroke="#ef7965" stroke-width="3"/><text x="180" y="104" text-anchor="middle" fill="#d86351">容量与瓶颈</text></g>
+   <g id="summaryPill3"><rect x="0" y="140" width="360" height="52" rx="26" fill="#fffdf8" stroke="#9273b8" stroke-width="3"/><text x="180" y="174" text-anchor="middle" fill="#7c5fa3">资源损耗</text></g>
+  </g>
+ </g>
+ <text x="800" y="630" text-anchor="middle" font-size="18" font-weight="850" fill="#8b7a98">扩大存量，不保证永远能以相同速度增长</text>
+</g>
+
+<!-- shared caption band -->
+<g id="captionGroup">
+ <rect class="caption-bg" x="150" y="748" width="1300" height="66" rx="22"/>
+ <text id="caption" class="caption-text" x="800" y="790" text-anchor="middle">边际收益递减讨论的是额外一单位投入所带来的额外收益变小，它不必然意味着总存量下降，也不等于增长率下降。</text>
+</g>
+</svg>
+<iframe id="bottleneckFrame" title="瓶颈、容量与损耗｜固定节拍处理站" aria-label="持续输入、等待队列、固定节拍处理站、受限输出与资源损耗" loading="lazy"></iframe>
+<div class="controls">
+ <span class="time" id="time">00:00.0 / 00:20.1</span>
+ <button id="pause">暂停</button>
+ <button id="restart">重新播放</button>
+</div>
+</div>
+<script>
+const DURATION=20114.286;
+const $=id=>document.getElementById(id);
+const ns="http://www.w3.org/2000/svg";
+let elapsed=0,start=performance.now(),paused=false,raf=0;
+const smooth=t=>{t=Math.max(0,Math.min(1,t));return t*t*(3-2*t)};
+const lerp=(a,b,t)=>a+(b-a)*t;
+const sceneDefs=[
+ {id:"scene1",a:0,b:5600,enter:650,exit:500,fromX:-42,fromY:0,toX:-48,toY:0},
+ {id:"scene2",a:5600,b:8350,enter:450,exit:450,fromX:0,fromY:38,toX:0,toY:-34},
+ {id:"scene3",a:8350,b:13750,enter:520,exit:500,fromX:46,fromY:0,toX:44,toY:0},
+ {id:"scene4",a:13750,b:DURATION,enter:620,exit:450,fromX:0,fromY:36,toX:0,toY:-28}
+];
+const captions=[
+ {at:0,text:"边际收益递减讨论的是额外一单位投入所带来的额外收益变小，它不必然意味着总存量下降，也不等于增长率下降。"},
+ {at:8350,text:"瓶颈、容量与损耗会限制强化回路。"},
+ {at:13750,text:"扩大存量，不保证永远能以相同速度增长。"}
+];
+const inputTimes=[450,1250,2050,2850,3650];
+const outputValues=[10,7,5,3,1];
+const queueTimes=[8750,9200,9650,10100,10550,11000,11450];
+const passedTimes=[11050,12500];
+function makeRect(group,x,y,w,h,fill,stroke="#543b64",sw=4,rx=10){
+ const r=document.createElementNS(ns,"rect");
+ for(const [k,v] of Object.entries({x,y,width:w,height:h,rx,fill,stroke,"stroke-width":sw}))r.setAttribute(k,v);
+ group.appendChild(r);return r;
+}
+function makeText(group,x,y,text,size=18,fill="#fffdf8"){
+ const t=document.createElementNS(ns,"text");
+ t.setAttribute("x",x);t.setAttribute("y",y);t.setAttribute("text-anchor","middle");
+ t.setAttribute("font-size",size);t.setAttribute("font-weight","950");t.setAttribute("fill",fill);
+ t.textContent=text;group.appendChild(t);return t;
+}
+function makeInputTokens(){
+ const g=$("inputTokens");g.innerHTML="";
+ inputTimes.forEach((_,i)=>{
+  const token=document.createElementNS(ns,"g");token.id="input"+i;
+  makeRect(token,0,0,48,48,"#35b9c0","#543b64",4,11);
+  makeText(token,24,31,"1",20);
+  g.appendChild(token);
+ });
+}
+function makeOutputTokens(){
+ const g=$("outputTokens");g.innerHTML="";
+ outputValues.forEach((v,i)=>{
+  const token=document.createElementNS(ns,"g");token.id="output"+i;token.setAttribute("opacity","0");
+  makeRect(token,0,0,72,54,"#82b94e","#543b64",4,13);
+  makeText(token,36,35,"+"+v,20);
+  g.appendChild(token);
+ });
+}
+function makeQueueTokens(){
+ const g=$("queueTokens");g.innerHTML="";
+ queueTimes.forEach((_,i)=>{
+  const token=document.createElementNS(ns,"g");token.id="queue"+i;
+  makeRect(token,0,0,54,54,"#f29a5b","#543b64",4,12);
+  makeText(token,27,35,String(i+1),16);
+  g.appendChild(token);
+ });
+}
+function makePassedTokens(){
+ const g=$("passedTokens");g.innerHTML="";
+ passedTimes.forEach((_,i)=>{
+  const token=document.createElementNS(ns,"g");token.id="passed"+i;token.setAttribute("opacity","0");
+  makeRect(token,0,0,50,50,"#82b94e","#543b64",4,12);
+  g.appendChild(token);
+ });
+}
+function initCurve(){
+ const p=$("curveLine");const len=p.getTotalLength();
+ p.dataset.len=len;p.style.strokeDasharray=String(len);p.style.strokeDashoffset=String(len);
+ $("curveGlow").style.opacity=".14";
+ [...$("chartPoints").children].forEach(n=>n.setAttribute("opacity","0"));
+ [...$("chartLabels").children].forEach(n=>n.setAttribute("opacity","0"));
+}
+function sceneState(ms,s){
+ const local=ms-s.a, total=s.b-s.a;
+ const inn=smooth(local/s.enter);
+ const out=s.exit>0?smooth((s.b-ms)/s.exit):1;
+ const alpha=Math.min(inn,out);
+ const moveInX=(1-inn)*s.fromX;
+ const moveOutX=(1-out)*s.toX;
+ const moveInY=(1-inn)*s.fromY;
+ const moveOutY=(1-out)*s.toY;
+ const el=$(s.id);
+ el.style.opacity=String(alpha);
+ el.style.transform=`translate(${moveInX+moveOutX}px, ${moveInY+moveOutY}px)`;
+}
+function updateScene1(ms){
+ const machinePulse=1+0.018*Math.sin(ms/170);
+ $("machine1").setAttribute("transform",`translate(0 0) scale(1 ${machinePulse})`);
+ inputTimes.forEach((t,i)=>{
+  const token=$("input"+i);
+  const p=(ms-t)/850;
+  if(p<=0){token.setAttribute("opacity","0");token.setAttribute("transform","translate(185 448)");}
+  else if(p<1){
+   const x=185+420*p;
+   const y=452-12*Math.sin(p*Math.PI);
+   token.setAttribute("opacity","1");
+   token.setAttribute("transform",`translate(${x} ${y})`);
+  }else{token.setAttribute("opacity","0");token.setAttribute("transform","translate(605 448)");}
+  const op=(ms-(t+550))/450;
+  const out=$("output"+i);
+  if(op<=0){out.setAttribute("opacity","0");out.setAttribute("transform",`translate(1010 420)`);}
+  else{
+   const x=1005+i*82;
+   const y=420-12*Math.sin(Math.min(1,op)*Math.PI);
+   out.setAttribute("opacity",String(smooth(op)));
+   out.setAttribute("transform",`translate(${x} ${y})`);
+  }
+ });
+}
+function updateScene2(ms){
+ const local=ms-5750;
+ const draw=smooth(local/1500);
+ const p=$("curveLine"),len=Number(p.dataset.len);
+ p.style.strokeDashoffset=String(len*(1-draw));
+ const points=[...$("chartPoints").children], labels=[...$("chartLabels").children];
+ points.forEach((n,i)=>{
+  const v=smooth((local-(180+i*250))/330);
+  n.setAttribute("opacity",String(v));
+  labels[i].setAttribute("opacity",String(v));
+  n.setAttribute("r",String(8+3*v));
+ });
+}
+function updateScene3(ms){
+ const local=ms-8350;
+ $("leakDrops").style.opacity=String(.65+.35*Math.sin(ms/180));
+ queueTimes.forEach((t,i)=>{
+  const token=$("queue"+i);
+  const p=(ms-t)/900;
+  if(p<=0){token.setAttribute("opacity","0");token.setAttribute("transform","translate(160 486)");}
+  else{
+   const x=170+i*62+Math.min(1,p)*40;
+   token.setAttribute("opacity",String(smooth(p)));
+   token.setAttribute("transform",`translate(${x} 486)`);
+  }
+ });
+ passedTimes.forEach((t,i)=>{
+  const token=$("passed"+i);
+  const p=(ms-t)/1250;
+  if(p<=0){token.setAttribute("opacity","0");token.setAttribute("transform","translate(1060 488)");}
+  else{
+   const x=1060+Math.min(1,p)*190+i*68;
+   token.setAttribute("opacity",String(smooth(p)));
+   token.setAttribute("transform",`translate(${x} 488)`);
+  }
+ });
+}
+function updateScene4(ms){
+ const local=ms-13750;
+ ["summaryPill1","summaryPill2","summaryPill3"].forEach((id,i)=>{
+  const g=$(id);
+  if(!g)return;
+  const v=smooth((local-(350+i*220))/420);
+  g.setAttribute("opacity",String(v));
+  g.setAttribute("transform",`translate(${(1-v)*26} 0)`);
+ });
+}
+function syncBottleneckFrame(ms){
+ const frame=$('bottleneckFrame');
+ const def=sceneDefs[2];
+ const active=ms>=def.a&&ms<=def.b;
+ if(!active){frame.style.display='none';$('frame').classList.remove('bottleneck-active');return;}
+ $('frame').classList.add('bottleneck-active');
+ if(!frame.dataset.requested){
+  frame.dataset.requested='1';
+  frame.addEventListener('load',()=>syncBottleneckFrame(elapsed));
+  frame.src='./bottleneck-scene-v2-embedded.html';
+ }
+ const inn=smooth((ms-def.a)/def.enter);
+ const out=smooth((def.b-ms)/def.exit);
+ frame.style.display='block';
+ frame.style.opacity=String(Math.min(inn,out));
+ frame.style.transform=`translate(${(1-inn)*def.fromX+(1-out)*def.toX}px, ${(1-inn)*def.fromY+(1-out)*def.toY}px)`;
+ const api=frame.contentWindow&&frame.contentWindow.__bottleneckV1;
+ if(api&&typeof api.sync==='function')api.sync(Math.max(0,Math.min(def.b-def.a,ms-def.a)));
+}
+function update(ms){
+ sceneDefs.forEach(s=>sceneState(ms,s));
+ updateScene1(ms);updateScene2(ms);updateScene3(ms);updateScene4(ms);syncBottleneckFrame(ms);
+ const cap=captions.reduce((a,b)=>ms>=b.at?b:a,captions[0]);
+ $("caption").textContent=cap.text;
+ $("captionGroup").style.opacity=String(1-smooth((ms-(DURATION-450))/450));
+ const sec=Math.floor(ms/1000),d=Math.floor((ms%1000)/100);
+ $("time").textContent=`00:${String(sec).padStart(2,"0")}.${d} / 00:20.1`;
+}
+function tick(now){
+ if(!paused){elapsed=Math.min(DURATION,now-start);update(elapsed);}
+ if(elapsed<DURATION&&!paused)raf=requestAnimationFrame(tick);
+}
+$("pause").addEventListener("click",()=>{
+ if(!paused){paused=true;$("pause").textContent="继续";cancelAnimationFrame(raf);}
+ else{paused=false;start=performance.now()-elapsed;$("pause").textContent="暂停";raf=requestAnimationFrame(tick);}
+});
+$("restart").addEventListener("click",()=>{
+ paused=false;elapsed=0;start=performance.now();$("pause").textContent="暂停";update(0);cancelAnimationFrame(raf);raf=requestAnimationFrame(tick);
+});
+$("gridToggle").addEventListener("click",()=>{
+ $("frame").classList.toggle("guides");
+ $("gridToggle").textContent=$("frame").classList.contains("guides")?"隐藏对齐辅助线":"显示对齐辅助线";
+});
+window.addEventListener("load",()=>{
+ makeInputTokens();makeOutputTokens();makeQueueTokens();makePassedTokens();initCurve();
+ update(0);start=performance.now();raf=requestAnimationFrame(tick);
+});
+</script>
+</body>
+</html>
