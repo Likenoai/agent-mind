@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>反馈与修正｜独立镜头 V1</title>
+<title>反馈与修正｜独立镜头 V4（21.472653s）</title>
 <style>
 :root{
  --ink:#39234f;--purple:#7655a2;--green:#76b94e;--teal:#35b9c2;--coral:#ef7965;--paper:#fbf8f0;
@@ -185,7 +185,8 @@ const pauseBtn=document.getElementById('pause');
 const restartBtn=document.getElementById('restart');
 const timeLabel=document.getElementById('time');
 const gridBtn=document.getElementById('gridToggle');
-const duration=22000;
+const duration=21472.653;
+const TIME_SCALE=22000/duration;
 let elapsed=0, start=performance.now(), paused=false, raf=0;
 
 const paths={
@@ -232,7 +233,7 @@ function moveProduct(item,sec,activeStart,activeEnd){
  item.node.setAttribute('visibility','visible');
 }
 function update(ms){
- const sec=ms/1000;
+ const sec=ms*TIME_SCALE/1000;
  const alarm=sec>=3.2&&sec<14.2;
  setOpacity('alarm',alarm?(0.72+0.28*Math.sin(sec*9)):0);
  setOpacity('scan-beam',sec>=1.2&&sec<14?(.28+.32*(.5+.5*Math.sin(sec*8))):0);
@@ -277,8 +278,9 @@ function update(ms){
   main.textContent='后续输出发生改变';
   sub.textContent='反馈只有进入决策与行动，才会改变下一次运行';
  }
- const s=Math.floor(sec),t=Math.floor((ms%1000)/100);
- timeLabel.textContent=`00:${String(s).padStart(2,'0')}.${t} / 00:22.0`;
+ let displayS=Math.floor(ms/1000),displayT=Math.round((ms%1000)/100);
+ if(displayT===10){displayS++;displayT=0;}
+ timeLabel.textContent=`00:${String(displayS).padStart(2,'0')}.${displayT} / 00:21.5`;
 }
 function tick(now){
  if(!paused){elapsed=Math.min(duration,now-start);update(elapsed);}
