@@ -10,7 +10,7 @@
 |---|---:|---|---|---|---|
 | 反馈与修正 | V4 | 已确认 | [预览 HTML](feedback-correction/feedback-correction-v4-standalone.html) | [可编辑 HTML](feedback-correction/feedback-correction-v4-editable.html) | [PNG 素材](feedback-correction/assets/) |
 | 维护、更新与淘汰 | V6 | 已确认并嵌入总片 | [V6 预览](maintenance-update-retirement/maintenance-update-retirement-v6-standalone.html) | [V6 可编辑 HTML](maintenance-update-retirement/maintenance-update-retirement-v6-editable.html) | [V6 嵌入版](maintenance-update-retirement/maintenance-update-retirement-v6-embedded.html)；[V5 PNG 素材](maintenance-update-retirement/assets/) |
-| 增长的流入与流出 | V3 | 已确认 | [预览 HTML](inflow-outflow/flow-inflow-outflow-v3-standalone.html) | [可编辑 HTML](inflow-outflow/flow-inflow-outflow-v3-editable.html) | [PNG 素材](inflow-outflow/assets/) |
+| 增长的流入与流出 | V3 | 已确认并嵌入总片 | [V3 预览](inflow-outflow/flow-inflow-outflow-v3-standalone.html) | [V3 可编辑 HTML](inflow-outflow/flow-inflow-outflow-v3-editable.html) | [V3 嵌入版](inflow-outflow/flow-inflow-outflow-v3-embedded.html)；[PNG 素材](inflow-outflow/assets/) |
 | 增长动态不是过程节点 | V3 | 已确认 | [预览 HTML](growth-dynamics/growth-dynamics-v3-standalone.html) | [可编辑 HTML](growth-dynamics/growth-dynamics-v3-editable.html) | [PNG 素材](growth-dynamics/assets/) |
 | 边际收益递减与瓶颈 | V3 | **待优化 / 未确认** | [预览 HTML](marginal-returns-bottleneck/marginal-returns-v3.html) | 同一文件（原生 SVG，无外部图片素材） | 无外部图片素材 |
 
