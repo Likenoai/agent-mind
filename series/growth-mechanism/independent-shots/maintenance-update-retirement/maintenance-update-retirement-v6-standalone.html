@@ -142,12 +142,12 @@ svg{display:block;width:100%;height:100%}
 
   <!-- Return routes: green and teal return to stock; coral ends at recycling -->
   <g id="routes">
-    <path class="route maint" marker-end="url(#arrowMaint)" d="M1260 344 C1350 344 1400 310 1465 310 L1465 218 L260 218 C260 270 260 320 260 374" opacity=".56"/>
-    <path class="route update" marker-end="url(#arrowUpdate)" d="M1260 514 C1350 514 1410 600 1490 600 L1490 742 L260 742 C260 690 260 640 260 590" opacity=".56"/>
+    <path class="route maint" marker-end="url(#arrowMaint)" d="M1260 344 C1350 344 1400 310 1465 310 L1465 218 L216 218 C216 270 216 350 216 424" opacity=".56"/>
+    <path class="route update" marker-end="url(#arrowUpdate)" d="M1260 514 C1350 514 1410 600 1490 600 L1490 742 L216 742 C216 690 216 560 216 494" opacity=".56"/>
     <path class="route intake" d="M305 493 C380 493 440 493 535 493"/>
-    <path class="route maint" marker-end="url(#arrowMaint)" d="M730 446 C820 446 845 344 950 344"/>
-    <path class="route update" marker-end="url(#arrowUpdate)" d="M730 504 C815 504 855 514 950 514"/>
-    <path class="route retire" marker-end="url(#arrowRetire)" d="M730 562 C820 562 850 684 950 684"/>
+    <path class="route maint" marker-end="url(#arrowMaint)" d="M748 446 C820 446 845 344 950 344"/>
+    <path class="route update" marker-end="url(#arrowUpdate)" d="M748 504 C815 504 855 514 950 514"/>
+    <path class="route retire" marker-end="url(#arrowRetire)" d="M748 562 C820 562 850 684 950 684"/>
     <path class="route retire" marker-end="url(#arrowRetire)" d="M1260 684 C1310 684 1350 684 1415 684"/>
     <text x="720" y="286" font-size="13" font-weight="900" fill="#6a9d43">恢复后回库</text>
     <text x="720" y="728" font-size="13" font-weight="900" fill="#1599a2">升级后回库</text>
@@ -302,18 +302,21 @@ svg{display:block;width:100%;height:100%}
 
   <!-- Path anchors for deterministic JS motion -->
   <g id="motionPaths" opacity="0" fill="none" stroke="none" pointer-events="none">
-    <path id="intakeMaint" d="M260 424 C330 424 390 452 520 452"/>
-    <path id="branchMaint" d="M730 446 C820 446 845 344 1112 344"/>
+    <path id="intakeMaint" d="M216 424 C330 424 390 452 520 452"/>
+    <path id="sortMaint" d="M520 452 C590 452 670 446 748 446"/>
+    <path id="branchMaint" d="M748 446 C820 446 845 344 1112 344"/>
     <path id="maintExit" d="M1112 344 C1165 344 1210 344 1260 344"/>
     <path id="maintReturn" d="M1260 344 C1350 344 1400 310 1465 310 L1465 218 L260 218 C260 270 260 320 260 374"/>
 
-    <path id="intakeUpdate" d="M260 494 C340 494 405 500 520 500"/>
-    <path id="branchUpdate" d="M730 504 C815 504 855 514 1112 514"/>
+    <path id="intakeUpdate" d="M216 494 C340 494 405 500 520 500"/>
+    <path id="sortUpdate" d="M520 500 C590 500 670 504 748 504"/>
+    <path id="branchUpdate" d="M748 504 C815 504 855 514 1112 514"/>
     <path id="updateExit" d="M1112 514 C1165 514 1210 514 1260 514"/>
     <path id="updateReturn" d="M1260 514 C1350 514 1410 600 1490 600 L1490 742 L260 742 C260 690 260 640 260 590"/>
 
-    <path id="intakeRetire" d="M260 564 C340 564 405 550 520 550"/>
-    <path id="branchRetire" d="M730 562 C820 562 850 684 1112 684"/>
+    <path id="intakeRetire" d="M216 564 C340 564 405 550 520 550"/>
+    <path id="sortRetire" d="M520 550 C590 550 670 562 748 562"/>
+    <path id="branchRetire" d="M748 562 C820 562 850 684 1112 684"/>
     <path id="retireDrop" d="M1112 684 C1128 695 1145 710 1155 730"/>
   </g>
 
@@ -395,7 +398,7 @@ svg{display:block;width:100%;height:100%}
   const lerp = (a,b,p) => a+(b-a)*p;
   let elapsed=0,startAt=performance.now(),paused=false,raf=0,scrubbing=false;
 
-  const pathIds=['intakeMaint','branchMaint','maintExit','maintReturn','intakeUpdate','branchUpdate','updateExit','updateReturn','intakeRetire','branchRetire','retireDrop'];
+  const pathIds=['intakeMaint','sortMaint','branchMaint','maintExit','maintReturn','intakeUpdate','sortUpdate','branchUpdate','updateExit','updateReturn','intakeRetire','sortRetire','branchRetire','retireDrop'];
   const paths={};
   pathIds.forEach(id=>{const p=$(id);paths[id]={node:p,length:p.getTotalLength()};});
 
@@ -419,6 +422,7 @@ svg{display:block;width:100%;height:100%}
   function animateItem(node,t,plan){
     if(t<plan.intake[0]){place(node,0,0,0);return;}
     if(t<plan.intake[1]){moveOn(node,plan.intakePath,plan.intake[0],plan.intake[1],t);return;}
+    if(plan.sort&&t<plan.sort[1]){moveOn(node,plan.sortPath,plan.sort[0],plan.sort[1],t);return;}
     if(t<plan.branch[1]){moveOn(node,plan.branchPath,plan.branch[0],plan.branch[1],t);return;}
     if(t<plan.process[1]){place(node,plan.hold.x-50,plan.hold.y-32);return;}
     if(plan.exit && t<plan.exit[1]){moveOn(node,plan.exitPath,plan.exit[0],plan.exit[1],t);return;}
@@ -430,58 +434,61 @@ svg{display:block;width:100%;height:100%}
   const plans={
     maint:{
       intakePath:'intakeMaint',intake:[1400,2750],
-      branchPath:'branchMaint',branch:[2750,4200],
-      process:[4200,6100],hold:{x:1112,y:344},
-      exitPath:'maintExit',exit:[6100,6700],
-      returnPath:'maintReturn',return:[6700,9550]
+      sortPath:'sortMaint',sort:[2750,3450],
+      branchPath:'branchMaint',branch:[3450,4700],
+      process:[4700,6500],hold:{x:1112,y:344},
+      exitPath:'maintExit',exit:[6500,7100],
+      returnPath:'maintReturn',return:[7100,10000]
     },
     update:{
       intakePath:'intakeUpdate',intake:[3900,5250],
-      branchPath:'branchUpdate',branch:[5250,6900],
-      process:[6900,8850],hold:{x:1112,y:514},
-      exitPath:'updateExit',exit:[8850,9450],
-      returnPath:'updateReturn',return:[9450,12600]
+      sortPath:'sortUpdate',sort:[5250,5950],
+      branchPath:'branchUpdate',branch:[5950,7400],
+      process:[7400,9300],hold:{x:1112,y:514},
+      exitPath:'updateExit',exit:[9300,9900],
+      returnPath:'updateReturn',return:[9900,12900]
     },
     retire:{
       intakePath:'intakeRetire',intake:[6900,8250],
-      branchPath:'branchRetire',branch:[8250,9850],
-      process:[9850,10700],hold:{x:1112,y:684},
-      dropPath:'retireDrop',drop:[10700,11900]
+      sortPath:'sortRetire',sort:[8250,8950],
+      branchPath:'branchRetire',branch:[8950,10400],
+      process:[10400,11100],hold:{x:1112,y:684},
+      dropPath:'retireDrop',drop:[11100,12200]
     }
   };
 
   function animateMachines(t){
-    const m=clamp((t-4200)/1900),u=clamp((t-6900)/1950),r=clamp((t-9850)/850);
-    $('brushHead').setAttribute('transform','translate(111 20) rotate('+(m*540)+' 0 0)');
-    $('maintCheck').setAttribute('opacity',String(smooth((t-5750)/350)));
-    $('updateCheck').setAttribute('opacity',String(smooth((t-8500)/350)));
+    const m=clamp((t-4700)/1800),u=clamp((t-7400)/1900),r=clamp((t-10400)/700);
+    $('brushHead').setAttribute('transform','translate(52 20) rotate('+(m*540)+' 0 0)');
+    $('maintCheck').setAttribute('opacity',String(smooth((t-6150)/350)));
+    $('updateCheck').setAttribute('opacity',String(smooth((t-8950)/350)));
     $('robotLeft').setAttribute('transform','translate(62 19) rotate('+(Math.sin(u*Math.PI*2)*15)+' 0 0)');
     $('robotRight').setAttribute('transform','translate(163 19) rotate('+(-Math.sin(u*Math.PI*2)*15)+' 0 0)');
-    const chipP=smooth((t-7600)/650);
-    $('upgradeChip').setAttribute('transform','translate(0 '+(24*(1-chipP))+')');
+    const chipP=smooth((t-8200)/650);
+    $('upgradeChip').setAttribute('transform','translate(0 '+(45*chipP)+')');
     $('recycleLid').setAttribute('transform','rotate('+(r*42)+' 0 48)');
     $('recycleMark').setAttribute('transform','translate(56 70) rotate('+(r*260)+')');
-    $('retireStamp').setAttribute('opacity',String(smooth((t-11200)/400)));
+    $('retireStamp').setAttribute('opacity',String(smooth((t-11600)/400)));
     $('sortGear').setAttribute('transform','translate(636 535) rotate('+(t*.045)+')');
     $('scanRing').setAttribute('r',String(18+5*Math.sin(t*.012)));
     $('scanRing').setAttribute('opacity',String(.48+.4*Math.sin(t*.012)));
     let gateAngle=-56;
-    if(t>=2750&&t<4200)gateAngle=-56+28*smooth((t-2750)/1450);
-    else if(t>=5250&&t<6900)gateAngle=0;
-    else if(t>=8250&&t<9850)gateAngle=56;
+    if(t>=2750&&t<3450)gateAngle=-56;
+    else if(t>=5250&&t<5950)gateAngle=0;
+    else if(t>=8250&&t<8950)gateAngle=56;
     $('gateArm').setAttribute('transform','rotate('+gateAngle+')');
     $('beltDashes').setAttribute('stroke-dashoffset',String(-t*.035));
     $('intakeBelt').querySelectorAll('circle').forEach((c,i)=>c.setAttribute('transform','rotate('+(t*.08)+' '+[372,420,468,510][i]+' 548)'));
-    $('burdenBar').setAttribute('width',String(110-42*smooth((t-11200)/1500)));
-    $('rackSlot1').setAttribute('opacity',t<1400?1:t<9550?0:1);
-    $('rackSlot2').setAttribute('opacity',t<3900?1:t<12600?0:1);
+    $('burdenBar').setAttribute('width',String(110-42*smooth((t-12200)/1600)));
+    $('rackSlot1').setAttribute('opacity',t<1400?1:t<10000?0:1);
+    $('rackSlot2').setAttribute('opacity',t<3900?1:t<12900?0:1);
     $('rackSlot3').setAttribute('opacity',t<6900?1:0);
     $('rackEmpty').setAttribute('opacity',String(smooth((t-11900)/900)));
-    if(t>=9550)showRackState('rackSlot1','module-maintained');
-    if(t>=12600)showRackState('rackSlot2','module-upgraded');
+    if(t>=10000)showRackState('rackSlot1','module-maintained');
+    if(t>=12900)showRackState('rackSlot2','module-upgraded');
   }
   function showRackState(id,symbol){
-    const g=$(id);g.replaceChildren();
+    const g=$(id);if(g.dataset.state===symbol)return;g.dataset.state=symbol;g.replaceChildren();
     const use=document.createElementNS(SVG_NS,'use');
     use.setAttribute('href','#'+symbol);use.setAttribute('width','100');use.setAttribute('height','64');
     g.appendChild(use);
@@ -489,8 +496,8 @@ svg{display:block;width:100%;height:100%}
   function animateParticles(t){
     const dust=$('dustParticles').querySelectorAll('circle');
     dust.forEach((c,i)=>{
-      const phase=clamp((t-4300)/1600);
-      const active=t>=4300&&t<=6500;
+      const phase=clamp((t-4800)/1700);
+      const active=t>=4800&&t<=6500;
       const a=(i*1.37)%1;
       c.setAttribute('cx',String(1100+Math.sin(t*.009+i)*32+a*30));
       c.setAttribute('cy',String(345-((t*.035+i*21)%75)));
@@ -499,7 +506,7 @@ svg{display:block;width:100%;height:100%}
     });
     const sparks=$('upgradeSparks').querySelectorAll('path');
     sparks.forEach((p,i)=>{
-      const active=t>=7800&&t<=9000;
+      const active=t>=8200&&t<=9300;
       const angle=t*.006+i*2.1;
       p.setAttribute('transform','translate('+(1130+Math.cos(angle)*(34+i*8))+' '+(500+Math.sin(angle)*(24+i*6))+') rotate('+(angle*40)+')');
       p.setAttribute('opacity',String(active?(.45+.5*Math.sin(t*.025+i)):0));
@@ -509,22 +516,22 @@ svg{display:block;width:100%;height:100%}
     dots.forEach((c,i)=>{
       const p=(t*.00011+i*.33)%1,pt=pointOn(dotPaths[i],p);
       c.setAttribute('cx',String(pt.x));c.setAttribute('cy',String(pt.y));
-      c.setAttribute('opacity',String(i===2?(t>9850&&t<11900?.8:0):.7));
+      c.setAttribute('opacity',String(i===0?(t>7100&&t<10000?.8:0):i===1?(t>9900&&t<12900?.8:0):(t>11100&&t<12200?.8:0)));
     });
   }
   const captions=[
-    [0,3700,'存量不是无损保存的。'],
-    [3700,8800,'遗忘、退化、过时和环境变化，会削弱它的有效性。'],
-    [8800,15500,'维护恢复状态，更新改善适用性，淘汰停止维持。'],
-    [15500,DURATION,'留下真正可用的成果，减少未来的负担。']
+    [0,4000,'存量不是无损保存的。'],
+    [4000,9000,'遗忘、退化、过时和环境变化，会削弱它的有效性。'],
+    [9000,15800,'维护恢复状态，更新改善适用性，淘汰停止维持。'],
+    [15800,DURATION,'留下真正可用的成果，减少未来的负担。']
   ];
   function update(t){
     elapsed=clamp(t,0,DURATION);
     animateItem($('movingMaint'),elapsed,plans.maint);
     animateItem($('movingUpdate'),elapsed,plans.update);
     animateItem($('movingRetire'),elapsed,plans.retire);
-    showState($('movingMaint'),elapsed>=6100?'maintained':'worn');
-    showState($('movingUpdate'),elapsed>=8850?'upgraded':'worn');
+    showState($('movingMaint'),elapsed>=6500?'maintained':'worn');
+    showState($('movingUpdate'),elapsed>=9300?'upgraded':'worn');
     animateMachines(elapsed);
     animateParticles(elapsed);
     const cap=captions.find(c=>elapsed>=c[0]&&elapsed<c[1])||captions[captions.length-1];
@@ -549,7 +556,7 @@ svg{display:block;width:100%;height:100%}
   $('restart').addEventListener('click',()=>{elapsed=0;update(0);play();});
   $('seek').addEventListener('input',e=>{scrubbing=true;paused=true;cancelAnimationFrame(raf);update(Number(e.target.value));$('pause').textContent='继续';});
   $('seek').addEventListener('change',()=>{scrubbing=false;startAt=performance.now()-elapsed;});
-  window.__maintenanceV6={seek(ms){paused=true;scrubbing=false;cancelAnimationFrame(raf);update(ms);$('pause').textContent='继续';},play,pause(){paused=true;cancelAnimationFrame(raf);},getState(){return {elapsed,maintenanceReturned:elapsed>=9550,updateReturned:elapsed>=12600,retired:elapsed>=11900,remainingStock:elapsed>=12600?2:3,duration:DURATION};}};
+  window.__maintenanceV6={seek(ms){paused=true;scrubbing=false;cancelAnimationFrame(raf);update(ms);$('pause').textContent='继续';},play,pause(){paused=true;cancelAnimationFrame(raf);},getState(){return {elapsed,maintenanceReturned:elapsed>=9550,updateReturned:elapsed>=12600,retired:elapsed>=11900,remainingStock:elapsed>=12900?2:3,duration:DURATION};}};
   window.addEventListener('load',()=>{update(0);play();});
 })();
 </script>
