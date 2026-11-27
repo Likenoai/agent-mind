@@ -156,9 +156,9 @@ svg{display:block;width:100%;height:100%}
   <g id="routes">
     <path class="route maint" marker-end="url(#arrowMaint)" d="M1260 344 C1350 344 1400 310 1465 310 L1465 218 L216 218 C216 270 216 350 216 424" opacity=".56"/>
     <path class="route update" marker-end="url(#arrowUpdate)" d="M1260 514 C1350 514 1410 600 1490 600 L1490 742 L216 742 C216 690 216 560 216 494" opacity=".56"/>
-    <path class="route intake" d="M216 424 C330 424 390 452 520 452"/>
-    <path class="route intake" d="M216 494 C340 494 405 500 520 500"/>
-    <path class="route intake" d="M216 564 C340 564 405 550 520 550"/>
+    <path class="route intake" d="M216 424 C260 430 300 470 360 506 C410 506 460 506 520 506"/>
+    <path class="route intake" d="M216 494 C270 494 310 500 360 506 C410 506 460 506 520 506"/>
+    <path class="route intake" d="M216 564 C260 560 300 525 360 506 C410 506 460 506 520 506"/>
     <path class="route maint" marker-end="url(#arrowMaint)" d="M748 446 C820 446 845 344 1112 344"/>
     <path class="route update" marker-end="url(#arrowUpdate)" d="M748 504 C815 504 855 514 1112 514"/>
     <path class="route retire" marker-end="url(#arrowRetire)" d="M748 562 C820 562 850 684 1112 684"/>
@@ -316,20 +316,20 @@ svg{display:block;width:100%;height:100%}
 
   <!-- Path anchors for deterministic JS motion -->
   <g id="motionPaths" opacity="0" fill="none" stroke="none" pointer-events="none">
-    <path id="intakeMaint" d="M216 424 C330 424 390 452 520 452"/>
-    <path id="sortMaint" d="M520 452 C590 452 670 446 748 446"/>
+    <path id="intakeMaint" d="M216 424 C260 430 300 470 360 506 C410 506 460 506 520 506"/>
+    <path id="sortMaint" d="M520 506 C590 490 670 460 748 446"/>
     <path id="branchMaint" d="M748 446 C820 446 845 344 1112 344"/>
     <path id="maintExit" d="M1112 344 C1165 344 1210 344 1260 344"/>
     <path id="maintReturn" d="M1260 344 C1350 344 1400 310 1465 310 L1465 218 L216 218 C216 270 216 350 216 424"/>
 
-    <path id="intakeUpdate" d="M216 494 C340 494 405 500 520 500"/>
-    <path id="sortUpdate" d="M520 500 C590 500 670 504 748 504"/>
+    <path id="intakeUpdate" d="M216 494 C270 494 310 500 360 506 C410 506 460 506 520 506"/>
+    <path id="sortUpdate" d="M520 506 C590 506 670 504 748 504"/>
     <path id="branchUpdate" d="M748 504 C815 504 855 514 1112 514"/>
     <path id="updateExit" d="M1112 514 C1165 514 1210 514 1260 514"/>
     <path id="updateReturn" d="M1260 514 C1350 514 1410 600 1490 600 L1490 742 L216 742 C216 690 216 560 216 494"/>
 
-    <path id="intakeRetire" d="M216 564 C340 564 405 550 520 550"/>
-    <path id="sortRetire" d="M520 550 C590 550 670 562 748 562"/>
+    <path id="intakeRetire" d="M216 564 C260 560 300 525 360 506 C410 506 460 506 520 506"/>
+    <path id="sortRetire" d="M520 506 C590 522 670 548 748 562"/>
     <path id="branchRetire" d="M748 562 C820 562 850 684 1112 684"/>
     <path id="retireDrop" d="M1112 684 C1128 695 1145 710 1155 730"/>
   </g>
