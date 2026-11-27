@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>增长动态不是过程节点｜独立镜头</title>
+<style>
+:root{--ink:#39234f;--muted:#8b7a98;--paper:#fbf8f0;--teal:#35b9c0;--coral:#ef7965;--green:#82b94e;--blue:#65a9d9;--purple:#9273b8;--gold:#eabd35}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;background:#e9e4dc;font-family:system-ui,"Microsoft YaHei",sans-serif;color:var(--ink)}
+body{display:grid;place-items:center;overflow:hidden}
+.frame{width:min(100vw,177.777vh);height:min(100vh,56.25vw);aspect-ratio:16/9;position:relative;background:var(--paper);overflow:hidden;box-shadow:0 16px 50px rgba(40,25,58,.15)}
+svg{display:block;width:100%;height:100%}
+.small{font-weight:850;fill:#8c7b9a;font-size:14px;letter-spacing:2px}
+.title{font-size:38px;font-weight:950;fill:var(--ink)}
+.subtitle{font-size:19px;font-weight:800;fill:#7d6b8d}
+.curve-label{font-size:16px;font-weight:900;paint-order:stroke;stroke:#fbf8f0;stroke-width:7px;stroke-linejoin:round}
+.axis-label{font-size:16px;font-weight:850;fill:#887996}
+.card-label{font-size:21px;font-weight:950;fill:var(--ink)}
+.keyline{font-size:24px;font-weight:950;fill:var(--ink)}
+.caption-text{font-size:22px;font-weight:850;fill:var(--ink)}
+.controls{position:absolute;right:2%;bottom:1.6%;display:flex;align-items:center;gap:9px;z-index:5;padding:4px 8px;border-radius:28px;background:rgba(251,248,240,.96);box-shadow:0 3px 12px rgba(57,35,79,.08);backdrop-filter:blur(3px)}
+.controls button{border:1.5px solid rgba(57,35,79,.25);border-radius:999px;background:#fffdf8;color:var(--ink);padding:9px 17px;font-size:13px;font-weight:850;box-shadow:0 3px 0 rgba(57,35,79,.12);cursor:pointer}
+.controls button:hover{background:#f2ebdf}
+.time{font-size:12px;font-weight:850;color:#8b7a98;font-variant-numeric:tabular-nums;margin-right:5px}
+.grid-toggle{position:absolute;right:2.5%;top:2.5%;z-index:5;border:1px solid rgba(57,35,79,.18);border-radius:999px;background:#fffdf8;color:#7a678e;padding:6px 12px;font-size:11px;font-weight:800;cursor:pointer}
+#guides{opacity:0}
+.frame.guides #guides{opacity:.48}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</head>
+<body>
+<div class="frame" id="frame">
+<button class="grid-toggle" id="gridToggle">显示对齐辅助线</button>
+<svg id="scene" viewBox="0 0 1600 900" role="img" aria-label="四种增长动态曲线与存量规模、绝对增量、相对增长率三个观察指标">
+<defs>
+ <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fffdf7"/><stop offset=".58" stop-color="#fbf8ef"/><stop offset="1" stop-color="#f1eee5"/></linearGradient>
+ <radialGradient id="warm"><stop stop-color="#f5d77b" stop-opacity=".14"/><stop offset="1" stop-color="#f5d77b" stop-opacity="0"/></radialGradient>
+ <radialGradient id="cool"><stop stop-color="#83d4ce" stop-opacity=".16"/><stop offset="1" stop-color="#83d4ce" stop-opacity="0"/></radialGradient>
+ <linearGradient id="chartFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fffefa"/><stop offset="1" stop-color="#f8f4e9"/></linearGradient>
+ <filter id="softShadow" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="8" stdDeviation="9" flood-color="#39234f" flood-opacity=".10"/></filter>
+ <clipPath id="plotClip"><rect x="390" y="285" width="590" height="325" rx="4"/></clipPath>
+</defs>
+<rect width="1600" height="900" fill="url(#bg)"/>
+<ellipse cx="360" cy="490" rx="520" ry="430" fill="url(#warm)"/>
+<ellipse cx="1290" cy="430" rx="480" ry="410" fill="url(#cool)"/>
+<g id="guides" fill="none" stroke="#9b8aab" stroke-width="1.2" stroke-dasharray="5 8">
+ <path d="M30 190 V840 M320 190 V840 M1080 190 V840 M1570 190 V840"/>
+ <path d="M30 210 H1570 M30 690 H1570 M30 760 H1570 M30 840 H1570"/>
+ <path d="M390 250 V650 M980 250 V650"/>
+</g>
+
+<!-- header -->
+<g transform="translate(70 58)">
+ <text class="small" x="0" y="0">GROWTH DYNAMICS / 08</text>
+ <text class="title" x="0" y="48">增长动态不是过程节点</text>
+ <text class="subtitle" x="0" y="84">曲线描述被观察对象随时间的变化，不直接说明原因</text>
+</g>
+
+<!-- chart board -->
+<g id="chart-board" opacity="0">
+ <rect x="300" y="205" width="775" height="465" rx="28" fill="url(#chartFill)" stroke="#e2d9ca" stroke-width="2" filter="url(#softShadow)"/>
+ <rect x="322" y="225" width="731" height="423" rx="20" fill="#fffdf8" stroke="#eee6d9" stroke-width="1.2"/>
+ <text x="355" y="258" font-size="15" font-weight="900" fill="#8b7a98" letter-spacing="1.2">OBSERVATION SCREEN / 变化轨迹</text>
+ <g id="plot-grid" stroke="#ddd6ca" stroke-width="1.4" stroke-dasharray="4 8" opacity=".85">
+  <path d="M390 310 H980 M390 375 H980 M390 440 H980 M390 505 H980 M390 570 H980"/>
+  <path d="M508 285 V610 M626 285 V610 M744 285 V610 M862 285 V610"/>
+ </g>
+ <g id="axes" fill="none" stroke="#786887" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M390 610 V282"/>
+  <path d="M390 610 H990"/>
+  <path d="M382 296 L390 282 L398 296"/>
+  <path d="M976 602 L990 610 L976 618"/>
+ </g>
+ <text class="axis-label" x="985" y="645" text-anchor="end">时间</text>
+ <text class="axis-label" x="350" y="445" text-anchor="middle" transform="rotate(-90 350 445)">存量规模</text>
+ <g id="common-origin">
+  <circle cx="390" cy="570" r="10" fill="#fffdf8" stroke="#39234f" stroke-width="4"/>
+  <text x="405" y="594" font-size="13" font-weight="850" fill="#766483">共同起点</text>
+ </g>
+ <g id="curve-group" clip-path="url(#plotClip)">
+  <path id="curve-linear-glow" d="M390 570 L980 435" fill="none" stroke="#35b9c0" stroke-width="16" opacity=".12" stroke-linecap="round"/>
+  <path id="curve-linear" d="M390 570 L980 435" fill="none" stroke="#35b9c0" stroke-width="6.5" stroke-linecap="round"/>
+  <path id="curve-accelerate-glow" d="M390 570 C565 575 735 520 980 292" fill="none" stroke="#82b94e" stroke-width="16" opacity=".12" stroke-linecap="round"/>
+  <path id="curve-accelerate" d="M390 570 C565 575 735 520 980 292" fill="none" stroke="#82b94e" stroke-width="6.5" stroke-linecap="round"/>
+  <path id="curve-plateau-glow" d="M390 570 C495 430 605 415 720 414 C825 413 900 413 980 413" fill="none" stroke="#65a9d9" stroke-width="16" opacity=".12" stroke-linecap="round"/>
+  <path id="curve-plateau" d="M390 570 C495 430 605 415 720 414 C825 413 900 413 980 413" fill="none" stroke="#65a9d9" stroke-width="6.5" stroke-linecap="round"/>
+  <path id="curve-decline-glow" d="M390 570 C560 578 755 595 980 600" fill="none" stroke="#ef7965" stroke-width="16" opacity=".12" stroke-linecap="round"/>
+  <path id="curve-decline" d="M390 570 C560 578 755 595 980 600" fill="none" stroke="#ef7965" stroke-width="6.5" stroke-linecap="round"/>
+ </g>
+ <g id="curve-markers">
+  <circle id="marker-linear" r="8" fill="#fffdf8" stroke="#35b9c0" stroke-width="4" opacity="0"/>
+  <circle id="marker-accelerate" r="8" fill="#fffdf8" stroke="#82b94e" stroke-width="4" opacity="0"/>
+  <circle id="marker-plateau" r="8" fill="#fffdf8" stroke="#65a9d9" stroke-width="4" opacity="0"/>
+  <circle id="marker-decline" r="8" fill="#fffdf8" stroke="#ef7965" stroke-width="4" opacity="0"/>
+ </g>
+ <g id="curve-labels" opacity="0">
+  <rect x="900" y="275" width="145" height="34" rx="17" fill="#fffdf8" stroke="#82b94e" stroke-width="2"/>
+  <text class="curve-label" x="972" y="298" text-anchor="middle" fill="#639d3b">净增量变大</text>
+  <rect x="900" y="396" width="145" height="34" rx="17" fill="#fffdf8" stroke="#65a9d9" stroke-width="2"/>
+  <text class="curve-label" x="972" y="419" text-anchor="middle" fill="#4388bd">趋于平台</text>
+  <rect x="900" y="438" width="145" height="34" rx="17" fill="#fffdf8" stroke="#35b9c0" stroke-width="2"/>
+  <text class="curve-label" x="972" y="461" text-anchor="middle" fill="#269ca4">线性增加</text>
+  <rect x="820" y="548" width="145" height="34" rx="17" fill="#fffdf8" stroke="#ef7965" stroke-width="2"/>
+  <text class="curve-label" x="892" y="571" text-anchor="middle" fill="#d76552">衰减</text>
+ </g>
+</g>
+
+<!-- metric cards -->
+<g id="metric-cards">
+ <g id="metric-stock" opacity="0" transform="translate(0 18)">
+  <rect x="1120" y="225" width="390" height="88" rx="22" fill="#fffdf8" stroke="#82b94e" stroke-width="3"/>
+  <g transform="translate(1150 245)">
+   <rect x="0" y="31" width="38" height="17" rx="4" fill="#82b94e"/>
+   <rect x="7" y="14" width="38" height="17" rx="4" fill="#a2cc78"/>
+   <rect x="14" y="-3" width="38" height="17" rx="4" fill="#c5dfa8"/>
+  </g>
+  <text class="card-label" x="1230" y="266">存量规模</text>
+  <text x="1230" y="291" font-size="14" font-weight="750" fill="#8b7a98">现在一共有多少</text>
+ </g>
+ <g id="metric-absolute" opacity="0" transform="translate(0 18)">
+  <rect x="1120" y="340" width="390" height="88" rx="22" fill="#fffdf8" stroke="#65a9d9" stroke-width="3"/>
+  <g transform="translate(1155 360)" fill="none" stroke="#65a9d9" stroke-width="6" stroke-linecap="round">
+   <path d="M0 38 V4 M-12 16 L0 4 L12 16"/>
+   <path d="M25 38 V21 M13 33 L25 21 L37 33"/>
+  </g>
+  <text class="card-label" x="1230" y="381">绝对增量</text>
+  <text x="1230" y="406" font-size="14" font-weight="750" fill="#8b7a98">这段时间增加了多少</text>
+ </g>
+ <g id="metric-relative" opacity="0" transform="translate(0 18)">
+  <rect x="1120" y="455" width="390" height="88" rx="22" fill="#fffdf8" stroke="#9273b8" stroke-width="3"/>
+  <circle cx="1182" cy="499" r="23" fill="none" stroke="#e6deec" stroke-width="8"/>
+  <path d="M1182 476 A23 23 0 1 1 1160 505" fill="none" stroke="#9273b8" stroke-width="8" stroke-linecap="round"/>
+  <text x="1182" y="506" text-anchor="middle" font-size="20" font-weight="950" fill="#8061a8">%</text>
+  <text class="card-label" x="1230" y="496">相对增长率</text>
+  <text x="1230" y="521" font-size="14" font-weight="750" fill="#8b7a98">相对原规模增加多少</text>
+ </g>
+</g>
+
+<!-- telescope illustration -->
+<g id="telescope" opacity="0" transform="translate(-65 45) rotate(-5 180 675)">
+ <image href="assets/observatory-telescope.png" x="18" y="520" width="350" height="320" preserveAspectRatio="xMidYMid meet"/>
+</g>
+<g id="observation-beam" opacity="0">
+ <path id="beam-line" d="M340 570 L740 420" fill="none" stroke="#35b9c0" stroke-width="3.5" stroke-dasharray="8 11" opacity=".45"/>
+ <circle id="focus-ring" cx="740" cy="420" r="24" fill="none" stroke="#35b9c0" stroke-width="3.5" stroke-dasharray="5 5"/>
+ <circle id="focus-core" cx="740" cy="420" r="7" fill="#35b9c0" opacity=".55"/>
+</g>
+
+<!-- original keyline -->
+<text class="keyline" x="800" y="725" text-anchor="middle">存量规模、净增量、增长率不能混用</text>
+
+<!-- exact original narration captions -->
+<g id="caption-group">
+ <rect x="365" y="758" width="1075" height="64" rx="20" fill="#fffdf8" stroke="#e6ded1" stroke-width="1.5" opacity=".97"/>
+ <text id="caption" x="902" y="799" text-anchor="middle" class="caption-text">同一个增长过程可能表现为线性增加、净增量变大、趋于平台甚至衰减。</text>
+</g>
+
+</svg>
+<div class="controls">
+ <span class="time" id="time">00:00.0 / 00:19.4</span>
+ <button id="pause">暂停</button>
+ <button id="restart">重新播放</button>
+</div>
+</div>
+<script>
+const DURATION=19408.98;
+const captions=[
+ {at:0,text:"同一个增长过程可能表现为线性增加、净增量变大、趋于平台甚至衰减。"},
+ {at:8342.042,text:"曲线刻画的是被观察对象随时间的变化，并不说明唯一原因。"},
+ {at:14342.042,text:"还要区分存量规模、绝对增量和相对增长率。"}
+];
+const curveIds=["linear","accelerate","plateau","decline"];
+const $=id=>document.getElementById(id);
+const ns="http://www.w3.org/2000/svg";
+let elapsed=0,start=performance.now(),paused=false,raf=0;
+const paths=Object.fromEntries(curveIds.map(id=>[id,$("curve-"+id)]));
+const markers=Object.fromEntries(curveIds.map(id=>[id,$("marker-"+id)]));
+const drawWindows={linear:[1500,5600],accelerate:[2800,7600],plateau:[4100,8500],decline:[5400,9900]};
+const labelAt=10200;
+const clamp=v=>Math.max(0,Math.min(1,v));
+const ease=v=>{v=clamp(v);return v*v*(3-2*v)};
+function setOpacity(id,v){$(id).setAttribute("opacity",String(v))}
+function setTranslateFade(id,p,delay=0,duration=850){
+ const q=ease((p-delay)/duration);
+ const el=$(id);el.setAttribute("opacity",String(q));
+ el.setAttribute("transform",`translate(0 ${18*(1-q)})`);
+}
+function initPaths(){
+ for(const id of curveIds){
+  const path=paths[id],len=path.getTotalLength();
+  path.dataset.length=String(len);
+  path.style.strokeDasharray=String(len);
+  path.style.strokeDashoffset=String(len);
+  path.style.opacity="1";
+ }
+}
+function animateCurve(id,ms){
+ const path=paths[id],len=Number(path.dataset.length);
+ const [from,to]=drawWindows[id],q=ease((ms-from)/(to-from));
+ path.style.strokeDashoffset=String(len*(1-q));
+ const pt=path.getPointAtLength(Math.max(0.001,len*q));
+ const marker=markers[id];
+ marker.setAttribute("cx",pt.x);marker.setAttribute("cy",pt.y);
+ marker.setAttribute("opacity",String(q>0?1:0));
+}
+function update(ms){
+ const p=ms/1000;
+ setOpacity("chart-board",ease(ms/750));
+ const axesQ=ease((ms-500)/900);
+ $("axes").setAttribute("opacity",String(axesQ));
+ $("plot-grid").setAttribute("opacity",String(axesQ*.85));
+ $("common-origin").setAttribute("opacity",String(ease((ms-1100)/500)));
+ curveIds.forEach(id=>animateCurve(id,ms));
+ const labelQ=ease((ms-labelAt)/700);
+ $("curve-labels").setAttribute("opacity",String(labelQ));
+ setTranslateFade("metric-stock",ms,8200,700);
+ setTranslateFade("metric-absolute",ms,9300,700);
+ setTranslateFade("metric-relative",ms,10400,700);
+ const telescopeQ=ease((ms-11900)/1250);
+ $("telescope").setAttribute("opacity",String(telescopeQ));
+ $("telescope").setAttribute("transform",`translate(${-65*(1-telescopeQ)} ${45*(1-telescopeQ)}) rotate(${-5*(1-telescopeQ)} 180 675)`);
+ const beamQ=ease((ms-13700)/900);
+ $("observation-beam").setAttribute("opacity",String(beamQ));
+ const focusPulse=1+Math.sin(ms/260)*.12;
+ $("focus-ring").setAttribute("r",String(22*focusPulse));
+ const focusOn=paths.accelerate.getPointAtLength(paths.accelerate.getTotalLength()*.72);
+ $("focus-ring").setAttribute("cx",String(focusOn.x));$("focus-ring").setAttribute("cy",String(focusOn.y));
+ $("focus-core").setAttribute("cx",String(focusOn.x));$("focus-core").setAttribute("cy",String(focusOn.y));
+ const cap=captions.reduce((a,b)=>ms>=b.at?b:a,captions[0]);
+ $("caption").textContent=cap.text;
+ const sec=Math.floor(ms/1000),d=Math.floor((ms%1000)/100);
+ $("time").textContent=`00:${String(sec).padStart(2,"0")}.${d} / 00:19.4`;
+}
+function tick(now){
+ if(!paused){elapsed=Math.min(DURATION,now-start);update(elapsed);}
+ if(elapsed<DURATION&&!paused)raf=requestAnimationFrame(tick);
+}
+$("pause").addEventListener("click",()=>{
+ if(!paused){paused=true;$("pause").textContent="继续";cancelAnimationFrame(raf);}
+ else{paused=false;start=performance.now()-elapsed;$("pause").textContent="暂停";raf=requestAnimationFrame(tick);}
+});
+$("restart").addEventListener("click",()=>{
+ paused=false;elapsed=0;start=performance.now();$("pause").textContent="暂停";update(0);cancelAnimationFrame(raf);raf=requestAnimationFrame(tick);
+});
+$("gridToggle").addEventListener("click",()=>{
+ $("frame").classList.toggle("guides");
+ $("gridToggle").textContent=$("frame").classList.contains("guides")?"隐藏对齐辅助线":"显示对齐辅助线";
+});
+window.addEventListener("load",()=>{initPaths();elapsed=0;start=performance.now();update(0);raf=requestAnimationFrame(tick);});
+</script>
+</body>
+</html>
