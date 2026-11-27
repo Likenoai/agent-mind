@@ -142,7 +142,7 @@ svg{display:block;width:100%;height:100%}
 
   <!-- Waiting queue lane marker -->
   <g id="queueGuide" opacity=".75">
-    <path d="M160 493 H650" stroke="#f29a5b" stroke-width="3" stroke-dasharray="7 10" stroke-linecap="round"/>
+    <path d="M130 493 H650" stroke="#f29a5b" stroke-width="3" stroke-dasharray="7 10" stroke-linecap="round"/>
     <path d="M160 487 V499 M650 487 V499" stroke="#f29a5b" stroke-width="3" stroke-linecap="round"/>
   </g>
 
@@ -235,7 +235,7 @@ svg{display:block;width:100%;height:100%}
   const SERVICE_START = 580;
   const SERVICE_INTERVAL = 1340;
   const SERVICE_DURATION = 780;
-  const QUEUE_VISIBLE = 6;
+  const QUEUE_VISIBLE = 8;
   const QUEUE_FRONT_X = 610;
   const QUEUE_SPACING = 68;
   const OUTPUT_START_X = 930;
@@ -337,18 +337,19 @@ svg{display:block;width:100%;height:100%}
       const age=t-arrivals[i];
       const rank=i-startedCount;
       const bx=waitingRankX(i,t,startedCount);
-      const phase=(age%920)/920;
+      const phase=(age%1120)/1120;
       if(age<420)continue;
-      const px=bx+38+phase*20;
-      const py=512-phase*112;
-      const op=Math.sin(Math.PI*phase)*.82;
-      const r=3.6-phase*1.2;
+      // Waiting packages shed small resource particles toward the loss collector.
+      const sx=bx+40, sy=516;
+      const tx=594, ty=382;
+      const px=lerp(sx,tx,phase)+Math.sin(phase*Math.PI)*10;
+      const py=lerp(sy,ty,phase)-Math.sin(phase*Math.PI)*15;
+      const op=Math.sin(Math.PI*phase)*.9;
+      const r=4.1-phase*1.5;
       const c=svgEl('circle',{cx:px,cy:py,r,fill:'#ef7965',opacity:op,filter:'url(#softGlow)'});
       layer.appendChild(c);
-      if(rank===0){
-        const c2=svgEl('circle',{cx:px-10,cy:py+13,r:2.2,fill:'#f29a5b',opacity:op*.7});
-        layer.appendChild(c2);
-      }
+      const trail=svgEl('circle',{cx:px-9,cy:py+8,r:2.1,fill:'#f29a5b',opacity:op*.62});
+      layer.appendChild(trail);
     }
   }
   function updateMachine(t,active){
