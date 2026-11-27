@@ -8,7 +8,7 @@
 
 | 镜头 | 版本 | 状态 | 独立预览 | 可编辑源文件 | 素材 |
 |---|---:|---|---|---|---|
-| 反馈与修正 | V4 | 已确认 | [预览 HTML](feedback-correction/feedback-correction-v4-standalone.html) | [可编辑 HTML](feedback-correction/feedback-correction-v4-editable.html) | [PNG 素材](feedback-correction/assets/) |
+| 反馈与修正 | V4 | 已确认；待时长对齐与总片嵌入 | [预览 HTML](feedback-correction/feedback-correction-v4-standalone.html) | [可编辑 HTML](feedback-correction/feedback-correction-v4-editable.html) | [PNG 素材](feedback-correction/assets/) |
 | 维护、更新与淘汰 | V6 | 已确认并嵌入总片 | [V6 预览](maintenance-update-retirement/maintenance-update-retirement-v6-standalone.html) | [V6 可编辑 HTML](maintenance-update-retirement/maintenance-update-retirement-v6-editable.html) | [V6 嵌入版](maintenance-update-retirement/maintenance-update-retirement-v6-embedded.html)；[V5 PNG 素材](maintenance-update-retirement/assets/) |
 | 增长的流入与流出 | V3 | 已确认并嵌入总片 | [V3 预览](inflow-outflow/flow-inflow-outflow-v3-standalone.html) | [V3 可编辑 HTML](inflow-outflow/flow-inflow-outflow-v3-editable.html) | [V3 嵌入版](inflow-outflow/flow-inflow-outflow-v3-embedded.html)；[PNG 素材](inflow-outflow/assets/) |
 | 增长动态不是过程节点 | V3 | 已确认并嵌入总片 | [V3 预览](growth-dynamics/growth-dynamics-v3-standalone.html) | [V3 可编辑 HTML](growth-dynamics/growth-dynamics-v3-editable.html) | [V3 嵌入版](growth-dynamics/growth-dynamics-v3-embedded.html)；[PNG 素材](growth-dynamics/assets/) |
@@ -20,7 +20,7 @@
 - 已将四个插画镜头实际引用的 PNG 从单文件 HTML 中提取，按原素材名称存入各自的 `assets/` 目录。
 - 同时保存可编辑 HTML：图片引用改为相对路径 `assets/...`，便于单独替换素材和调整布局。
 - 每个镜头有 README、素材清单或原始脚本对应文档。
-- 边际收益 V3 是纯 SVG/CSS/JavaScript 镜头；其中“瓶颈”部分仍需按新的视觉原则返工。
+- 边际收益递减与瓶颈 V5 保留四个原分镜；瓶颈部分采用独立子镜头 V3，已完成等大物件连续交接、固定节拍处理、队列积压和资源损耗动画。
 
 ## 制作原则
 
