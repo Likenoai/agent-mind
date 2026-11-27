@@ -15,6 +15,8 @@
 | 边际收益递减与瓶颈 | V5 | 已嵌入总片 cue 24；标签位置待总片实际播放复核 | [V5 预览](marginal-returns-bottleneck/marginal-returns-v5-standalone.html) | [V5 可编辑 HTML](marginal-returns-bottleneck/marginal-returns-v5-editable.html) | [瓶颈连续动画 V3](marginal-returns-bottleneck/bottleneck-scene-v3-embedded.html)；[V4 历史版](marginal-returns-bottleneck/marginal-returns-v4-standalone.html) |
 | 行动和成果不是同一件事 | V1 | 首轮浏览器播放通过；待用户视觉验收 | [Cue 03 预览](action-results-retention/cue03-action-result-v1-standalone.html) | [Cue 03 源文件](action-results-retention/cue03-action-result-v1-editable.html) | [验证记录](action-results-retention/cue03-validation.md) |
 | 哪些结果值得留下 | V1 | 首轮浏览器播放通过；待用户视觉验收 | [Cue 04 预览](action-results-retention/cue04-screen-retain-v1-standalone.html) | [Cue 04 源文件](action-results-retention/cue04-screen-retain-v1-editable.html) | [验证记录](action-results-retention/cue04-validation.md) |
+| 积累是变化，存量是状态 | V1 | 首轮浏览器播放通过；待用户视觉验收 | [Cue 05 预览](repetition-accumulation/cue05-stock-accumulation-v1-standalone.html) | [Cue 05 源文件](repetition-accumulation/cue05-stock-accumulation-v1-editable.html) | [验证记录](repetition-accumulation/cue05-validation.md) |
+| 重复与积累：不同分类轴 | V1 | 首轮浏览器播放通过；待用户视觉验收 | [Cue 06 预览](repetition-accumulation/cue06-repetition-accumulation-v1-standalone.html) | [Cue 06 源文件](repetition-accumulation/cue06-repetition-accumulation-v1-editable.html) | [验证记录](repetition-accumulation/cue06-validation.md) |
 
 ## 归档内容
 
