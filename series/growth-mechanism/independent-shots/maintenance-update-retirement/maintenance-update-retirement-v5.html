@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>维护、更新与淘汰｜独立分区 V5</title>
+<style>
+:root{
+  --ink:#39234f; --purple:#7655a2; --green:#82b94e; --teal:#43bfc0; --coral:#ef7965; --paper:#fbf8f0;
+}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;background:#e9e4dc;font-family:system-ui,"Microsoft YaHei",sans-serif;color:var(--ink)}
+body{display:grid;place-items:center;overflow:hidden}
+.frame{width:min(100vw,177.777vh);height:min(100vh,56.25vw);aspect-ratio:16/9;position:relative;background:var(--paper);overflow:hidden;box-shadow:0 16px 50px rgba(40,25,58,.15)}
+svg{display:block;width:100%;height:100%}
+#guides{opacity:0;transition:opacity .2s}
+.frame.guides #guides{opacity:.46}
+.small{font-weight:800;fill:#8c7b9a;font-size:14px;letter-spacing:2px}
+.label{font-weight:900;fill:var(--ink);font-size:22px}
+.station-label{font-size:20px;font-weight:900}
+.station-pill{fill:#fffdf8;stroke-width:3}
+.route{fill:none;stroke-width:7;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:14 17;opacity:.68}
+.route.in{stroke:#a997bc;opacity:.42}
+.route.maint{stroke:var(--green)}
+.route.update{stroke:var(--teal)}
+.route.retire{stroke:var(--coral)}
+.asset{pointer-events:none}
+.controls{position:absolute;right:2.4%;bottom:2.2%;display:flex;align-items:center;gap:9px;z-index:5;padding:3px 8px;border-radius:28px;background:rgba(251,248,240,.94);box-shadow:0 3px 12px rgba(57,35,79,.08);backdrop-filter:blur(3px)}
+.controls button{border:1.5px solid rgba(57,35,79,.25);border-radius:999px;background:#fffdf8;color:var(--ink);padding:9px 17px;font-size:13px;font-weight:850;box-shadow:0 3px 0 rgba(57,35,79,.12);cursor:pointer}
+.controls button:hover{background:#f2ebdf}
+.time{font-size:12px;font-weight:850;color:#8b7a98;font-variant-numeric:tabular-nums;margin-right:5px}
+.grid-toggle{position:absolute;right:2.5%;top:2.5%;z-index:5;border:1px solid rgba(57,35,79,.18);border-radius:999px;background:#fffdf8;color:#7a678e;padding:6px 12px;font-size:11px;font-weight:800;cursor:pointer}
+.caption{font-size:26px;font-weight:900;fill:var(--ink)}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</head>
+<body>
+<div class="frame" id="frame">
+<button class="grid-toggle" id="gridToggle">显示对齐辅助线</button>
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" role="img" aria-label="维护、更新与淘汰流程动画">
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#fffdf7"/><stop offset=".55" stop-color="#fbf8ef"/><stop offset="1" stop-color="#f3eee4"/>
+  </linearGradient>
+  <radialGradient id="warm"><stop stop-color="#f6d77c" stop-opacity=".25"/><stop offset="1" stop-color="#f6d77c" stop-opacity="0"/></radialGradient>
+  <radialGradient id="cool"><stop stop-color="#80d4ce" stop-opacity=".20"/><stop offset="1" stop-color="#80d4ce" stop-opacity="0"/></radialGradient>
+
+  <marker id="arrow-green" markerWidth="14" markerHeight="14" refX="11" refY="7" markerUnits="userSpaceOnUse" orient="auto">
+    <path d="M0 0 L12 7 L0 14" fill="none" stroke="#82b94e" stroke-width="2.4"/>
+  </marker>
+  <marker id="arrow-teal" markerWidth="14" markerHeight="14" refX="11" refY="7" markerUnits="userSpaceOnUse" orient="auto">
+    <path d="M0 0 L12 7 L0 14" fill="none" stroke="#43bfc0" stroke-width="2.4"/>
+  </marker>
+  <marker id="arrow-coral" markerWidth="14" markerHeight="14" refX="11" refY="7" markerUnits="userSpaceOnUse" orient="auto">
+    <path d="M0 0 L12 7 L0 14" fill="none" stroke="#ef7965" stroke-width="2.4"/>
+  </marker>
+</defs>
+
+<rect width="1600" height="900" fill="url(#bg)"/>
+<ellipse cx="240" cy="380" rx="420" ry="330" fill="url(#warm)"/>
+<ellipse cx="1320" cy="470" rx="420" ry="440" fill="url(#cool)"/>
+
+<!-- alignment helpers -->
+<g id="guides" stroke="#9b8aab" stroke-width="1.5" stroke-dasharray="5 8" fill="none">
+  <path d="M70 210 V835 M350 210 V835 M650 210 V835 M950 210 V835 M1145 95 V835 M1505 95 V835"/>
+  <path d="M70 335 H1530 M70 600 H1530 M70 850 H1530"/>
+  <path d="M1145 245 H1505 M1145 497 H1505 M1145 750 H1505" stroke-dasharray="3 9"/>
+  <circle cx="910" cy="430" r="7" fill="#fff" stroke="#82b94e"/><circle cx="910" cy="490" r="7" fill="#fff" stroke="#43bfc0"/><circle cx="910" cy="550" r="7" fill="#fff" stroke="#ef7965"/>
+  <circle cx="1228" cy="245" r="7" fill="#fff" stroke="#82b94e"/><circle cx="1218" cy="497" r="7" fill="#fff" stroke="#43bfc0"/><circle cx="1236" cy="750" r="7" fill="#fff" stroke="#ef7965"/>
+</g>
+
+<!-- header -->
+<g transform="translate(72 65)">
+  <text class="small" x="0" y="0">STOCK MANAGEMENT / 03</text>
+  <text x="0" y="48" fill="#39234f" font-size="38" font-weight="950">让存量保持有效</text>
+  <text x="0" y="82" fill="#887994" font-size="19" font-weight="800">维护 · 更新 · 淘汰</text>
+</g>
+
+<!-- area labels -->
+<g>
+  <rect x="86" y="285" width="165" height="50" rx="25" fill="#fffdf8" stroke="#39234f" stroke-width="3"/>
+  <text class="label" x="168.5" y="317" text-anchor="middle" font-size="20">有效存量</text>
+
+  <rect x="694" y="285" width="180" height="50" rx="25" fill="#fffdf8" stroke="#39234f" stroke-width="3"/>
+  <text class="label" x="784" y="317" text-anchor="middle" font-size="20">识别与分流</text>
+</g>
+
+<!-- routes -->
+<g id="routes">
+  <path class="route in" d="M350 495 C460 495 560 495 650 495"/>
+  <path class="route maint" marker-end="url(#arrow-green)" d="M910 430 C1010 430 1050 245 1228 245"/>
+  <path class="route update" marker-end="url(#arrow-teal)" d="M910 490 C1000 490 1090 497 1218 497"/>
+  <path class="route retire" marker-end="url(#arrow-coral)" d="M910 550 C1010 550 1050 750 1236 750"/>
+
+  <!-- return routes travel around, not through, the three label-device groups -->
+  <path class="route maint" marker-end="url(#arrow-green)" opacity=".48"
+    d="M1421 245 C1490 245 1535 215 1535 180 L1535 158 C1320 158 1110 158 930 174 C650 200 390 300 238 395"/>
+  <path class="route update" marker-end="url(#arrow-teal)" opacity=".48"
+    d="M1432 497 C1500 497 1535 530 1535 610 L1535 840 C1300 840 1090 840 900 820 C640 790 420 670 245 575"/>
+
+  <circle r="8" fill="#82b94e"><animateMotion dur="3.2s" repeatCount="indefinite" path="M910 430 C1010 430 1050 245 1228 245"/></circle>
+  <circle r="8" fill="#43bfc0"><animateMotion dur="3.0s" repeatCount="indefinite" path="M910 490 C1000 490 1090 497 1218 497"/></circle>
+  <circle r="8" fill="#ef7965"><animateMotion dur="3.3s" repeatCount="indefinite" path="M910 550 C1010 550 1050 750 1236 750"/></circle>
+  <circle r="7" fill="#82b94e" opacity=".8"><animateMotion dur="6.2s" repeatCount="indefinite" path="M1421 245 C1490 245 1535 215 1535 180 L1535 158 C1320 158 1110 158 930 174 C650 200 390 300 238 395"/></circle>
+  <circle r="7" fill="#43bfc0" opacity=".8"><animateMotion dur="6.5s" repeatCount="indefinite" path="M1432 497 C1500 497 1535 530 1535 610 L1535 840 C1300 840 1090 840 900 820 C640 790 420 670 245 575"/></circle>
+</g>
+
+<!-- left-side process assets -->
+<image class="asset" href="assets/storage-rack.png" x="82" y="390" width="260" height="208" preserveAspectRatio="xMidYMid meet"/>
+<image class="asset" href="assets/conveyor.png" x="360" y="435" width="278" height="167" preserveAspectRatio="xMidYMid meet"/>
+<image class="asset" href="assets/sorting-machine.png" x="660" y="390" width="260" height="208" preserveAspectRatio="xMidYMid meet"/>
+
+<!-- right-side independent lanes: same label width, same image canvas, same vertical rhythm -->
+<g id="station-lanes">
+  <ellipse cx="1325" cy="245" rx="218" ry="112" fill="#82b94e" opacity=".055"/>
+  <ellipse cx="1325" cy="497" rx="218" ry="112" fill="#43bfc0" opacity=".055"/>
+  <ellipse cx="1325" cy="750" rx="218" ry="112" fill="#ef7965" opacity=".055"/>
+
+  <!-- labels: identical size, aligned above their own machine -->
+  <rect class="station-pill" x="1175" y="105" width="300" height="46" rx="23" stroke="#82b94e"/>
+  <text class="station-label" x="1325" y="135" text-anchor="middle" fill="#5d9b38">维护｜恢复状态</text>
+
+  <rect class="station-pill" x="1175" y="358" width="300" height="46" rx="23" stroke="#43bfc0"/>
+  <text class="station-label" x="1325" y="388" text-anchor="middle" fill="#1599a2">更新｜改善适用性</text>
+
+  <rect class="station-pill" x="1175" y="611" width="300" height="46" rx="23" stroke="#ef7965"/>
+  <text class="station-label" x="1325" y="641" text-anchor="middle" fill="#dc6855">淘汰｜退出系统</text>
+
+  <!-- normalized illustrations: same 360×180 canvas, same center and baseline -->
+  <image class="asset" href="assets/maintenance-machine-v5.png" x="1145" y="160" width="360" height="170" preserveAspectRatio="none"/>
+  <image class="asset" href="assets/upgrade-machine-v5.png" x="1145" y="412" width="360" height="170" preserveAspectRatio="none"/>
+  <image class="asset" href="assets/retirement-machine-v5.png" x="1145" y="665" width="360" height="170" preserveAspectRatio="none"/>
+</g>
+
+<!-- input anchors at each machine's actual visible left edge -->
+<g id="status-pips">
+  <circle cx="1228" cy="245" r="10" fill="#fffdf8" stroke="#82b94e" stroke-width="5"/>
+  <circle cx="1218" cy="497" r="10" fill="#fffdf8" stroke="#43bfc0" stroke-width="5"/>
+  <circle cx="1236" cy="750" r="10" fill="#fffdf8" stroke="#ef7965" stroke-width="5"/>
+</g>
+
+<!-- module movement paths; JS keeps each object visible for the complete journey -->
+<g id="motion-paths" opacity="0" fill="none" stroke="none" pointer-events="none">
+  <path id="path-maint-out" d="M242 495 C425 495 565 495 760 495 C910 495 1020 245 1228 245"/>
+  <path id="path-maint-return" d="M1421 245 C1490 245 1535 215 1535 180 L1535 158 C1320 158 1110 158 930 174 C650 200 390 300 238 455"/>
+  <path id="path-update-out" d="M248 535 C440 535 580 535 760 535 C930 535 1030 497 1218 497"/>
+  <path id="path-update-return" d="M1432 497 C1500 497 1535 530 1535 610 L1535 840 C1300 840 1090 840 900 820 C640 790 420 670 282 520"/>
+  <path id="path-retire-out" d="M252 560 C445 560 582 560 760 560 C930 560 1030 720 1231 720"/>
+</g>
+<g id="looping-parts">
+  <image id="part-maint-out" href="assets/module-worn.png" x="-43" y="-31" width="86" height="62" visibility="hidden"/>
+  <image id="part-maint-return" href="assets/module-maintained.png" x="-43" y="-31" width="86" height="62" visibility="hidden"/>
+  <image id="part-update-out" href="assets/module-worn.png" x="-43" y="-31" width="86" height="62" visibility="hidden"/>
+  <image id="part-update-return" href="assets/module-upgraded.png" x="-43" y="-31" width="86" height="62" visibility="hidden"/>
+  <image id="part-retire-out" href="assets/module-failed.png" x="-43" y="-31" width="86" height="62" visibility="hidden"/>
+</g>
+
+<!-- captions -->
+<g id="captions">
+  <text class="caption" x="800" y="880" text-anchor="middle" opacity="0">
+    存量不是无损保存的
+    <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.08;.82;1" dur="5s" begin="0s" fill="freeze"/>
+  </text>
+  <text class="caption" x="800" y="880" text-anchor="middle" opacity="0">
+    遗忘、退化、过时与环境变化，会削弱它的有效性
+    <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.08;.88;1" dur="6s" begin="3.8s" fill="freeze"/>
+  </text>
+  <text class="caption" x="800" y="880" text-anchor="middle" opacity="0">
+    维护恢复状态　更新改善适用性　淘汰退出有效存量
+    <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.08;.9;1" dur="6s" begin="9s" fill="freeze"/>
+  </text>
+  <text class="caption" x="800" y="880" text-anchor="middle" opacity="0">
+    留下真正可用的成果，减少未来的负担
+    <animate attributeName="opacity" values="0;1;1" keyTimes="0;.08;1" dur="4.93s" begin="15.5s" fill="freeze"/>
+  </text>
+</g>
+</svg>
+
+<div class="controls">
+  <span class="time" id="time">00:00 / 00:20.4</span>
+  <button id="pause">暂停</button>
+  <button id="restart">重新播放</button>
+</div>
+</div>
+
+<script>
+const frame=document.getElementById('frame');
+const svg=document.getElementById('scene');
+const pause=document.getElementById('pause');
+const restart=document.getElementById('restart');
+const time=document.getElementById('time');
+const gridToggle=document.getElementById('gridToggle');
+
+let paused=false, start=performance.now(), elapsed=0, raf=0;
+const duration=20430;
+
+const movingParts=[
+  {node:'part-maint-out', path:'path-maint-out', travel:5.6, gap:2.2, phase:0.4},
+  {node:'part-maint-return', path:'path-maint-return', travel:6.2, gap:2.4, phase:3.1},
+  {node:'part-update-out', path:'path-update-out', travel:5.2, gap:2.2, phase:1.8},
+  {node:'part-update-return', path:'path-update-return', travel:6.0, gap:2.4, phase:4.6},
+  {node:'part-retire-out', path:'path-retire-out', travel:5.5, gap:2.5, phase:3.0}
+].map(item=>{
+  const node=document.getElementById(item.node);
+  const path=document.getElementById(item.path);
+  return {...item,node,path,length:path.getTotalLength()};
+});
+
+function updateMovingParts(ms){
+  const seconds=ms/1000;
+  for(const item of movingParts){
+    const cycle=item.travel+item.gap;
+    const local=(seconds+item.phase)%cycle;
+    if(local>=item.travel){
+      item.node.setAttribute('visibility','hidden');
+      continue;
+    }
+    const point=item.path.getPointAtLength(item.length*(local/item.travel));
+    item.node.setAttribute('transform',`translate(${point.x} ${point.y})`);
+    item.node.setAttribute('visibility','visible');
+  }
+}
+
+function updateTime(){
+  const sec=Math.floor(elapsed/1000), tenth=Math.floor((elapsed%1000)/100);
+  time.textContent=`00:${String(sec).padStart(2,'0')}.${tenth} / 00:20.4`;
+}
+
+function tick(now){
+  if(!paused){
+    elapsed=Math.min(duration,now-start);
+    updateMovingParts(elapsed);
+    updateTime();
+  }
+  if(elapsed<duration && !paused){raf=requestAnimationFrame(tick);}
+}
+
+pause.addEventListener('click',()=>{
+  if(!paused){
+    paused=true;
+    svg.pauseAnimations();
+    pause.textContent='继续';
+    cancelAnimationFrame(raf);
+  }else{
+    paused=false;
+    svg.unpauseAnimations();
+    start=performance.now()-elapsed;
+    pause.textContent='暂停';
+    raf=requestAnimationFrame(tick);
+  }
+});
+
+restart.addEventListener('click',()=>{
+  paused=false;
+  elapsed=0;
+  start=performance.now();
+  pause.textContent='暂停';
+  svg.setCurrentTime(0);
+  updateMovingParts(0);
+  updateTime();
+  cancelAnimationFrame(raf);
+  raf=requestAnimationFrame(tick);
+});
+
+gridToggle.addEventListener('click',()=>{
+  frame.classList.toggle('guides');
+  gridToggle.textContent=frame.classList.contains('guides')?'隐藏对齐辅助线':'显示对齐辅助线';
+});
+
+window.addEventListener('load',()=>{
+  svg.setCurrentTime(0);
+  updateMovingParts(0);
+  updateTime();
+  raf=requestAnimationFrame(tick);
+});
+</script>
+</body></html>
