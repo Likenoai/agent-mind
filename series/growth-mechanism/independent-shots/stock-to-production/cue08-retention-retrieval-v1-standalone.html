@@ -1,0 +1,77 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Cue 08｜留存与提取 · V1</title><style>
+:root{--ink:#302342;--muted:#8a7e93;--paper:#f8f4ea;--line:#e7ded2;--teal:#42b8b3;--green:#83b85e;--orange:#ed965f;--violet:#9b83b5;--blue:#76a9cb;--shadow:0 18px 50px rgba(48,35,66,.10)}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;background:radial-gradient(ellipse at 80% 84%,#eaf0e7 0%,transparent 36%),linear-gradient(135deg,#fffdf7,#f5f0e7 68%,#eef1e8);color:var(--ink);font-family:Inter,"Noto Sans SC","Microsoft YaHei",system-ui,sans-serif}body{display:grid;place-items:center;overflow:hidden}.page{width:min(1600px,100vw);height:min(900px,100vh);padding:38px 74px 26px;display:flex;flex-direction:column;gap:20px}.head{height:116px;position:relative;flex:none;padding:5px 14px 0}.eyebrow{font-size:14px;font-weight:850;letter-spacing:.2em;color:#9384a0}.title{font-size:42px;line-height:1.16;letter-spacing:-.045em;font-weight:850;margin-top:13px}.subtitle{font-size:19px;font-weight:650;color:#93859c;margin-top:8px}.chip{position:absolute;right:12px;top:6px;border:1px solid #e6ddd0;background:#fffdf8;border-radius:999px;padding:10px 17px;font-size:13px;letter-spacing:.08em;font-weight:800;color:#897a94;box-shadow:0 4px 12px #30234208}.frame{flex:1;min-height:0;border:1px solid #e9dfd2;border-radius:28px;background:linear-gradient(180deg,#fffefa 0%,#fffdf8 100%);box-shadow:var(--shadow);overflow:hidden;position:relative}.frame:before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 48% 100%,rgba(224,237,222,.22),transparent 55%);pointer-events:none}.scene{width:100%;height:100%;display:block;position:relative;z-index:1}.controls{height:58px;flex:none;display:flex;align-items:center;gap:14px;padding:0 12px;color:#8d8097}.time{font-size:13px;font-variant-numeric:tabular-nums;white-space:nowrap;min-width:112px;text-align:right}.seek{flex:1;accent-color:#9b83b5;height:5px;cursor:pointer}.btn{border:1px solid #e0d5c9;background:#fffdf8;color:#65546f;border-radius:999px;padding:10px 18px;font-size:13px;font-weight:800;cursor:pointer;box-shadow:0 3px 10px #30234208}.btn.primary{background:#55435f;color:white;border-color:#55435f}.btn:focus-visible,.seek:focus-visible{outline:3px solid #9b83b577;outline-offset:2px}.footnote{font-size:11px;color:#a69aa9;letter-spacing:.025em;position:absolute;left:15px;bottom:13px}.status{position:absolute;right:16px;bottom:12px;font-size:11px;color:#a69aa9}.svgtext{font-family:Inter,"Noto Sans SC","Microsoft YaHei",sans-serif}.smallcap{font-size:13px;letter-spacing:.13em;font-weight:850;fill:#9a8ca2}.label{font-size:18px;font-weight:800;fill:#54445f}.muted{font-size:14px;font-weight:600;fill:#9a8da2}.micro{font-size:12px;font-weight:700;fill:#a69aaa}.node{filter:url(#shadow)}.flow{fill:none;stroke-linecap:round;stroke-linejoin:round}.moving{will-change:transform,opacity}.soft{filter:url(#shadow)}.appear{opacity:0}.no-select{user-select:none}
+@media(max-width:900px){.page{padding:22px 18px 12px;gap:12px}.head{height:96px}.title{font-size:30px}.subtitle{font-size:14px}.chip{font-size:10px;padding:7px 10px;right:0}.controls{height:48px;gap:8px}.time{font-size:10px;min-width:80px}.btn{padding:8px 12px;font-size:11px}.footnote,.status{display:none}}
+</style></head><body><div class="page"><header class="head"><div class="eyebrow">RETENTION / RETRIEVAL / 08</div><div class="title">留存与提取</div><div class="subtitle">成果还在，不代表需要时就能找到</div><div class="chip">CUE 08 · 20.349s</div></header><main class="frame"><svg class="scene" id="scene" viewBox="0 0 1440 560" role="img" aria-label="内部记忆与外部存储都需要留存和提取机制"><title>留存与提取</title><defs>
+ <linearGradient id="panel" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fffefa"/><stop offset="1" stop-color="#f6f1e8"/></linearGradient>
+ <linearGradient id="purple" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#756080"/><stop offset="1" stop-color="#44364f"/></linearGradient>
+ <linearGradient id="teal" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#b4e6df"/><stop offset="1" stop-color="#5dbeb6"/></linearGradient>
+ <linearGradient id="green" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#b8d99c"/><stop offset="1" stop-color="#79ae57"/></linearGradient>
+ <linearGradient id="orange" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffd3ad"/><stop offset="1" stop-color="#ee9860"/></linearGradient>
+ <filter id="shadow" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="8" stdDeviation="9" flood-color="#493953" flood-opacity=".13"/></filter>
+ <filter id="softShadow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="7"/></filter>
+ <filter id="glow" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+ <pattern id="grid" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1" fill="#d8cfdc" opacity=".32"/></pattern>
+ <marker id="arrowPurple" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 L10 5 L0 10Z" fill="#88749a"/></marker>
+ <marker id="arrowGreen" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 L10 5 L0 10Z" fill="#83b85e"/></marker>
+ <marker id="arrowOrange" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 L10 5 L0 10Z" fill="#ed965f"/></marker>
+</defs>
+<rect width="1440" height="560" fill="url(#grid)" opacity=".35"/>
+<text x="70" y="54" class="smallcap">RETENTION / 留存</text><text x="1370" y="54" text-anchor="end" class="smallcap">RETRIEVAL / 提取</text>
+<!-- internal memory panel -->
+<g id="memoryPanel" class="node"><rect x="70" y="92" width="590" height="345" rx="26" fill="url(#panel)" stroke="#d9cfe1" stroke-width="2.5"/><rect x="92" y="112" width="546" height="44" rx="13" fill="#f0eaf4"/><circle cx="117" cy="134" r="5" fill="#9b83b5"/><text x="137" y="141" class="label">内部记忆 / 联想网络</text><text x="616" y="140" text-anchor="end" class="micro">INTERNAL</text>
+ <g id="memoryNet" stroke="#cfc2d9" stroke-width="4" fill="none" stroke-linecap="round"><path d="M165 250L260 206L355 258L455 205L558 258 M165 250L252 330L355 258L462 332L558 258 M260 206L252 330 M455 205L462 332 M355 258L355 360"/><path d="M260 206L455 205 M252 330L462 332" stroke-dasharray="6 8"/></g>
+ <g id="memoryNodes"><circle cx="165" cy="250" r="17" fill="#e9e1ef" stroke="#9b83b5" stroke-width="3"/><circle cx="260" cy="206" r="17" fill="#e9e1ef" stroke="#9b83b5" stroke-width="3"/><circle cx="355" cy="258" r="22" fill="#d9edd8" stroke="#83b85e" stroke-width="4"/><circle cx="455" cy="205" r="17" fill="#e9e1ef" stroke="#9b83b5" stroke-width="3"/><circle cx="558" cy="258" r="17" fill="#e9e1ef" stroke="#9b83b5" stroke-width="3"/><circle cx="252" cy="330" r="17" fill="#e9e1ef" stroke="#9b83b5" stroke-width="3"/><circle cx="462" cy="332" r="17" fill="#e9e1ef" stroke="#9b83b5" stroke-width="3"/><circle cx="355" cy="360" r="17" fill="#e9e1ef" stroke="#9b83b5" stroke-width="3"/></g>
+ <g id="memoryTrace"><rect x="305" y="236" width="100" height="44" rx="10" fill="#fff" stroke="#83b85e" stroke-width="2"/><path d="M318 250H390 M318 260H378" stroke="#83b85e" stroke-width="3" stroke-linecap="round"/><text x="355" y="298" text-anchor="middle" class="micro">记忆痕迹</text></g>
+ <text x="365" y="404" text-anchor="middle" class="muted">记忆机制支持内部留存与提取</text></g>
+<!-- external storage panel -->
+<g id="externalPanel" class="node"><rect x="780" y="92" width="590" height="345" rx="26" fill="url(#panel)" stroke="#d9cfe1" stroke-width="2.5"/><rect x="802" y="112" width="546" height="44" rx="13" fill="#e9f2ee"/><circle cx="827" cy="134" r="5" fill="#42b8b3"/><text x="847" y="141" class="label">外部存储 / 文件库</text><text x="1326" y="140" text-anchor="end" class="micro">EXTERNAL</text>
+ <g id="folders"><g transform="translate(835 194)"><path d="M0 15Q0 6 10 6H62L77 20H175Q185 20 185 30V140Q185 150 175 150H10Q0 150 0 140Z" fill="#e9e3ee" stroke="#cfc4d9" stroke-width="2"/><path d="M0 31H185V140Q185 150 175 150H10Q0 150 0 140Z" fill="#f7f3f8" stroke="#cfc4d9" stroke-width="2"/><rect x="18" y="52" width="145" height="18" rx="8" fill="#e7deed"/><rect x="18" y="83" width="119" height="18" rx="8" fill="#e7deed"/><rect x="18" y="114" width="130" height="18" rx="8" fill="#e7deed"/></g>
+ <g transform="translate(1045 190)"><rect x="0" y="20" width="245" height="150" rx="14" fill="#fff" stroke="#e4dce8"/><path d="M22 20V12Q22 5 30 5H76L88 20" fill="#f0e8f3" stroke="#d8ccdf" stroke-width="2"/><g id="filePile"><rect x="22" y="42" width="198" height="29" rx="7" fill="#f3eff5"/><rect x="22" y="79" width="198" height="29" rx="7" fill="#f3eff5"/><rect x="22" y="116" width="198" height="29" rx="7" fill="#f3eff5"/><path d="M36 56H110 M36 93H130 M36 130H98" stroke="#b9a9c5" stroke-width="3" stroke-linecap="round"/></g><g id="indexedFile" opacity="0"><rect x="22" y="79" width="198" height="29" rx="7" fill="#dff0e0" stroke="#83b85e"/><path d="M36 93H130" stroke="#83b85e" stroke-width="3" stroke-linecap="round"/><circle cx="201" cy="93" r="7" fill="#83b85e"/></g></g></g>
+ <text x="1075" y="404" text-anchor="middle" class="muted">外部存储还需要检索与组织</text></g>
+<!-- request bar -->
+<g id="request" class="node"><rect x="460" y="462" width="520" height="67" rx="18" fill="#fff" stroke="#d9cfdf" stroke-width="2"/><circle cx="497" cy="495" r="15" fill="#f0eaf4"/><circle cx="497" cy="495" r="7" fill="none" stroke="#8d789b" stroke-width="2.5"/><path d="M507 505L518 516" stroke="#8d789b" stroke-width="3" stroke-linecap="round"/><text x="538" y="489" class="label">提取请求</text><text x="538" y="512" class="muted">需要：上次总结的剪辑方法</text><g id="requestGlow" opacity="0"><rect x="450" y="452" width="540" height="87" rx="24" fill="none" stroke="#ed965f" stroke-width="3" stroke-dasharray="9 8"/></g></g>
+<!-- failed retrieval indicators -->
+<g id="memoryFail" opacity="0"><rect x="220" y="170" width="260" height="44" rx="13" fill="#fff3e9" stroke="#f2c5a4"/><text x="350" y="198" text-anchor="middle" font-size="16" font-weight="800" fill="#c47d4f">有记忆痕迹，但想不起</text><path d="M355 214V232" stroke="#ed965f" stroke-width="3" stroke-dasharray="4 5"/></g>
+<g id="fileFail" opacity="0"><rect x="955" y="164" width="270" height="44" rx="13" fill="#fff3e9" stroke="#f2c5a4"/><text x="1090" y="192" text-anchor="middle" font-size="16" font-weight="800" fill="#c47d4f">文件存在，但找不到</text><path d="M1090 209V226" stroke="#ed965f" stroke-width="3" stroke-dasharray="4 5"/></g>
+<!-- retrieval paths -->
+<path id="memSearch" d="M720 462 C720 410 650 390 558 258" fill="none" stroke="#9b83b5" stroke-width="5" stroke-dasharray="10 10" opacity="0"/>
+<path id="fileSearch" d="M720 462 C720 415 820 398 1065 284" fill="none" stroke="#42b8b3" stroke-width="5" stroke-dasharray="10 10" opacity="0"/>
+<circle id="memDot" r="9" fill="#9b83b5" opacity="0" filter="url(#glow)"/><circle id="fileDot" r="9" fill="#42b8b3" opacity="0" filter="url(#glow)"/>
+<g id="memRetrieved" opacity="0"><rect x="230" y="353" width="250" height="52" rx="13" fill="#e9f3e4" stroke="#a8c98d"/><text x="355" y="385" text-anchor="middle" font-size="16" font-weight="800" fill="#638e4a">关联线索 → 成功提取</text></g>
+<g id="fileRetrieved" opacity="0"><rect x="950" y="353" width="250" height="52" rx="13" fill="#e3f2ef" stroke="#a4d8d1"/><text x="1075" y="385" text-anchor="middle" font-size="16" font-weight="800" fill="#318e87">索引与分类 → 找到文件</text></g>
+<text x="720" y="550" text-anchor="middle" class="label" font-size="20" id="keyline">留得住 ≠ 调得出</text>
+</svg><div class="footnote">原始关键画面：留得住 ≠ 调得出。</div><div class="status">独立镜头预览 · 示意模型</div></main><footer class="controls"><div class="time" id="clock">0.0 / 20.3s</div><input class="seek" id="seek" type="range" min="0" max="20.349388" step="0.01" value="0" aria-label="镜头时间轴"><button class="btn primary" id="play">播放</button><button class="btn" id="replay">重新播放</button></footer></div><script>
+const DURATION=20.349388;
+const $=id=>document.getElementById(id);
+const clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v));
+const lerp=(a,b,p)=>a+(b-a)*p;
+const ease=p=>{p=clamp(p);return p*p*(3-2*p)};
+const out=p=>1-Math.pow(1-clamp(p),3);
+const set=(id,attrs)=>{const el=$(id);if(!el)return;for(const [k,v] of Object.entries(attrs))el.setAttribute(k,v)};
+const show=(id,v)=>set(id,{opacity:clamp(v)});
+const move=(id,x,y,scale=1,rot=0)=>set(id,{transform:`translate(${x} ${y}) rotate(${rot}) scale(${scale})`});
+const pathPoint=(id,p)=>{const el=$(id);if(!el)return{x:0,y:0};const len=el.getTotalLength();return el.getPointAtLength(clamp(p)*len)};
+const pulse=(id,p,period=1)=>show(id,.5+.5*Math.sin(p*Math.PI*2/period));
+let now=0,playing=false,raf=0,last=0;
+function render(t){now=clamp(t,0,DURATION);const p=now/DURATION;
+show('memoryPanel',out(p/.10));show('externalPanel',out((p-.04)/.12));show('request',out((p-.12)/.12));
+// request probes both stores; the first attempt reaches a gap
+const probe=out((p-.22)/.18);show('memSearch',probe);show('fileSearch',probe);
+const a=pathPoint('memSearch',clamp((p-.26)/.28)),b=pathPoint('fileSearch',clamp((p-.26)/.28));set('memDot',{cx:a.x,cy:a.y,opacity:probe});set('fileDot',{cx:b.x,cy:b.y,opacity:probe});
+show('memoryFail',out((p-.46)/.08)*(1-out((p-.68)/.08)));show('fileFail',out((p-.46)/.08)*(1-out((p-.68)/.08)));
+// add retrieval cues and organize the external archive; then the same request succeeds
+const repair=out((p-.62)/.13);set('memoryNet',{opacity:1});set('memoryNodes',{opacity:1});set('memoryTrace',{transform:`translate(${0} ${-4*repair})`});set('indexedFile',{opacity:repair});set('filePile',{opacity:1-repair*.65});
+show('memRetrieved',out((p-.78)/.08));show('fileRetrieved',out((p-.78)/.08));show('keyline',out((p-.84)/.10));
+// highlight association links and indexed file
+set('memoryNet',{stroke:repair>.2?'#9b83b5':'#cfc2d9','stroke-width':repair>.2?5:4});
+ $('clock').textContent=`${now.toFixed(1)} / ${DURATION.toFixed(1)}s`; $('seek').value=String(now);}
+function frame(ts){if(!playing)return;if(!last)last=ts;const dt=Math.min(.05,(ts-last)/1000);last=ts;now=Math.min(DURATION,now+dt);render(now);if(now>=DURATION){playing=false;last=0;$('play').textContent='播放';return}raf=requestAnimationFrame(frame)}
+function play(){if(now>=DURATION)now=0;playing=true;$('play').textContent='暂停';last=0;cancelAnimationFrame(raf);raf=requestAnimationFrame(frame)}
+function pause(){playing=false;last=0;cancelAnimationFrame(raf);$('play').textContent='继续'}
+function replay(){pause();render(0);play()}
+function seek(t){pause();render(Number(t)||0)}
+$('play').addEventListener('click',()=>playing?pause():play());$('replay').addEventListener('click',replay);$('seek').addEventListener('input',e=>seek(e.target.value));
+render(0);
+window.__cue08={duration:DURATION,render,seek,play,pause,replay,get time(){return now},get playing(){return playing}};
+</script></body></html>
