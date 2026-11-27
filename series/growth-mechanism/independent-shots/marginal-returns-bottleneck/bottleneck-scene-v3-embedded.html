@@ -1,0 +1,653 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>瓶颈镜头 V1｜固定节拍处理站</title>
+<style>
+:root{
+  --ink:#39234f;--muted:#8b7a98;--paper:#fbf8f0;--teal:#35b9c0;
+  --coral:#ef7965;--green:#82b94e;--purple:#9273b8;--gold:#e6b93e;--orange:#f29a5b;
+  --belt:#4d3b65;--belt-hi:#79688d;--cream:#fffdf8;
+}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;background:#e9e4dc;font-family:system-ui,"Microsoft YaHei",sans-serif;color:var(--ink)}
+body{display:grid;place-items:center;overflow:hidden}
+body.embed-mode{background:transparent}
+body.embed-mode .frame{box-shadow:none}
+body.embed-mode .controls,body.embed-mode .grid-toggle{display:none!important}
+body.embed-mode .scene-enter{opacity:1;transform:none}
+#debug{opacity:0!important}
+.frame{width:min(100vw,177.777vh);height:min(100vh,56.25vw);aspect-ratio:16/9;position:relative;background:var(--paper);overflow:hidden;box-shadow:0 16px 50px rgba(40,25,58,.15)}
+svg{display:block;width:100%;height:100%}
+.small{font-size:14px;font-weight:900;letter-spacing:2px;fill:#8c7b9a}
+.title{font-size:39px;font-weight:950;fill:var(--ink)}
+.subtitle{font-size:19px;font-weight:800;fill:#7d6b8d}
+.section-label{font-size:15px;font-weight:950;letter-spacing:1px;fill:#8b7a98}
+.label{font-size:17px;font-weight:900;fill:var(--ink)}
+.micro{font-size:13px;font-weight:850;fill:#8b7a98}
+.metric{font-size:18px;font-weight:950;fill:var(--ink);font-variant-numeric:tabular-nums}
+.caption-text{font-size:22px;font-weight:850;fill:var(--ink)}
+.controls{position:absolute;left:3%;right:3%;bottom:1.2%;display:flex;align-items:center;gap:12px;z-index:5;padding:7px 12px;border-radius:18px;background:rgba(251,248,240,.97);box-shadow:0 4px 14px rgba(57,35,79,.10);backdrop-filter:blur(4px)}
+.controls button{border:1.5px solid rgba(57,35,79,.25);border-radius:999px;background:#fffdf8;color:var(--ink);padding:8px 16px;font-size:13px;font-weight:900;cursor:pointer;white-space:nowrap}
+.controls button:hover{background:#f2ebdf}
+.time{font-size:13px;font-weight:900;color:#8b7a98;font-variant-numeric:tabular-nums;white-space:nowrap}
+#seek{flex:1;min-width:80px;accent-color:#9273b8;cursor:pointer}
+.caption-bg{fill:#fffdf8;stroke:#e8dfd2;stroke-width:1.6}
+.panel{fill:#fffdf8;stroke:#e8dfd2;stroke-width:2}
+.scene-enter{opacity:0;transform:translateY(20px)}
+.token{pointer-events:none}
+#debug{display:none}
+</style>
+</head>
+<body>
+<div class="frame" id="frame">
+<svg viewBox="0 0 1600 900" id="stage" role="img" aria-label="持续输入的等大物件在固定节拍处理站前排队，处理站按有限频率放行，等待过程产生资源损耗">
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fffdf7"/><stop offset=".6" stop-color="#fbf8ef"/><stop offset="1" stop-color="#f0eee5"/></linearGradient>
+  <radialGradient id="warmGlow"><stop stop-color="#f5d77b" stop-opacity=".22"/><stop offset="1" stop-color="#f5d77b" stop-opacity="0"/></radialGradient>
+  <radialGradient id="coolGlow"><stop stop-color="#83d4ce" stop-opacity=".2"/><stop offset="1" stop-color="#83d4ce" stop-opacity="0"/></radialGradient>
+  <linearGradient id="machineFace" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f8d96e"/><stop offset="1" stop-color="#e9b936"/></linearGradient>
+  <linearGradient id="beltFace" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#81708f"/><stop offset="1" stop-color="#5b496f"/></linearGradient>
+  <filter id="shadow" x="-25%" y="-25%" width="150%" height="160%"><feDropShadow dx="0" dy="8" stdDeviation="9" flood-color="#39234f" flood-opacity=".12"/></filter>
+  <filter id="softGlow" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  <filter id="tinyShadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="3" stdDeviation="2.5" flood-color="#39234f" flood-opacity=".18"/></filter>
+  <clipPath id="beltClip"><rect x="112" y="510" width="1378" height="98" rx="30"/></clipPath>
+  <marker id="arrowTeal" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10Z" fill="#35b9c0"/></marker>
+  <marker id="arrowGreen" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10Z" fill="#82b94e"/></marker>
+</defs>
+<rect width="1600" height="900" fill="url(#bg)"/>
+<ellipse cx="420" cy="470" rx="650" ry="430" fill="url(#warmGlow)"/>
+<ellipse cx="1260" cy="470" rx="520" ry="420" fill="url(#coolGlow)"/>
+
+<!-- Header -->
+<g id="header" class="scene-enter">
+  <text class="small" x="92" y="62">CAPACITY LIMIT / BOTTLENECK / 08</text>
+  <text class="title" x="92" y="116">瓶颈、容量与损耗</text>
+  <text class="subtitle" x="94" y="153">投入持续到来，但系统的处理能力有限</text>
+  <g transform="translate(1325 72)">
+    <rect x="0" y="0" width="178" height="42" rx="21" fill="#fffdf8" stroke="#e8dfd2" stroke-width="2"/>
+    <circle cx="22" cy="21" r="6" fill="#f29a5b"/>
+    <text x="42" y="27" font-size="15" font-weight="900" fill="#8b7a98">动态示意</text>
+  </g>
+</g>
+
+<!-- Main system card -->
+<g id="system" class="scene-enter">
+  <rect x="70" y="190" width="1460" height="520" rx="34" class="panel" filter="url(#shadow)"/>
+
+  <!-- Zone labels -->
+  <g>
+    <g transform="translate(135 236)">
+      <circle cx="12" cy="0" r="7" fill="#35b9c0"/>
+      <text class="section-label" x="31" y="5">CONTINUOUS INPUT / 持续输入</text>
+    </g>
+    <g transform="translate(705 236)">
+      <circle cx="12" cy="0" r="7" fill="#e6b93e"/>
+      <text class="section-label" x="31" y="5">PROCESSING STATION / 处理站</text>
+    </g>
+    <g transform="translate(1122 236)">
+      <circle cx="12" cy="0" r="7" fill="#82b94e"/>
+      <text class="section-label" x="31" y="5">LIMITED OUTPUT / 受限输出</text>
+    </g>
+  </g>
+
+  <!-- Flow arrows -->
+  <path d="M145 300 H620" fill="none" stroke="#35b9c0" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 11" marker-end="url(#arrowTeal)" opacity=".8"/>
+  <path d="M935 300 H1440" fill="none" stroke="#82b94e" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 11" marker-end="url(#arrowGreen)" opacity=".8"/>
+
+  <!-- Waiting-time clock and loss collector -->
+  <g id="waitingClock" transform="translate(390 370)">
+    <circle cx="0" cy="0" r="35" fill="#fff8e9" stroke="#f29a5b" stroke-width="4"/>
+    <circle cx="0" cy="0" r="25" fill="none" stroke="#f4d7b4" stroke-width="2" stroke-dasharray="2 7"/>
+    <path d="M0 -21 V-15 M21 0 H15 M0 21 V15 M-21 0 H-15" stroke="#c87942" stroke-width="3" stroke-linecap="round"/>
+    <path id="clockHand" d="M0 0 L0 -17 M0 0 L13 7" stroke="#d47a42" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="0" cy="0" r="4" fill="#d47a42"/>
+    <text class="micro" x="0" y="55" text-anchor="middle">等待时间</text>
+  </g>
+  <g id="lossCollector" transform="translate(535 354)">
+    <path d="M0 14 Q0 0 14 0 H104 Q118 0 118 14 V44 Q118 56 104 56 H14 Q0 56 0 44Z" fill="#fff1ed" stroke="#ef7965" stroke-width="2.5"/>
+    <path d="M18 14 H100" stroke="#f3b1a5" stroke-width="3" stroke-linecap="round"/>
+    <g fill="#ef7965" filter="url(#softGlow)"><circle cx="34" cy="31" r="4"/><circle cx="51" cy="24" r="3"/><circle cx="67" cy="35" r="4"/></g>
+    <text x="59" y="78" text-anchor="middle" font-size="14" font-weight="900" fill="#d86351">资源损耗</text>
+  </g>
+  <g transform="translate(705 350)">
+    <rect x="0" y="0" width="188" height="48" rx="24" fill="#fff8e9" stroke="#e6b93e" stroke-width="2.5"/>
+    <circle cx="24" cy="24" r="7" fill="#e6b93e"/>
+    <text x="44" y="30" font-size="15" font-weight="900" fill="#8d6d2b">固定处理节拍</text>
+  </g>
+  <g transform="translate(1125 350)">
+    <rect x="0" y="0" width="250" height="48" rx="24" fill="#f1f7e9" stroke="#a6c77e" stroke-width="2.5"/>
+    <text x="125" y="30" text-anchor="middle" font-size="15" font-weight="900" fill="#6a9d43">输出物件保持同样大小</text>
+  </g>
+
+  <!-- Conveyor bed -->
+  <g id="conveyor">
+    <rect x="112" y="510" width="1378" height="98" rx="30" fill="#392b4c" stroke="#2e203f" stroke-width="5"/>
+    <rect x="124" y="519" width="1354" height="76" rx="23" fill="url(#beltFace)"/>
+    <g clip-path="url(#beltClip)">
+      <path id="beltDash" d="M130 556 H1470" stroke="#c5b8d0" stroke-width="4" stroke-linecap="round" stroke-dasharray="16 24" opacity=".55"/>
+      <path d="M130 529 H1470 M130 585 H1470" stroke="#a394b3" stroke-width="2" opacity=".24"/>
+    </g>
+    <g id="rollers" fill="#d6cddd" stroke="#392b4c" stroke-width="4">
+      <g transform="translate(170 608)"><circle r="13"/><path d="M-7 0 H7 M0 -7 V7" stroke="#79688d" stroke-width="3"/></g>
+      <g transform="translate(270 608)"><circle r="13"/><path d="M-7 0 H7 M0 -7 V7" stroke="#79688d" stroke-width="3"/></g>
+      <g transform="translate(370 608)"><circle r="13"/><path d="M-7 0 H7 M0 -7 V7" stroke="#79688d" stroke-width="3"/></g>
+      <g transform="translate(470 608)"><circle r="13"/><path d="M-7 0 H7 M0 -7 V7" stroke="#79688d" stroke-width="3"/></g>
+      <g transform="translate(570 608)"><circle r="13"/><path d="M-7 0 H7 M0 -7 V7" stroke="#79688d" stroke-width="3"/></g>
+      <g transform="translate(670 608)"><circle r="13"/><path d="M-7 0 H7 M0 -7 V7" stroke="#79688d" stroke-width="3"/></g>
+      <g transform="translate(930 608)"><circle r="13"/><path d="M-7 0 H7 M0 -7 V7" stroke="#79688d" stroke-width="3"/></g>
+      <g transform="translate(1030 608)"><circle r="13"/><path d="M-7 0 H7 M0 -7 V7" stroke="#79688d" stroke-width="3"/></g>
+      <g transform="translate(1130 608)"><circle r="13"/><path d="M-7 0 H7 M0 -7 V7" stroke="#79688d" stroke-width="3"/></g>
+      <g transform="translate(1230 608)"><circle r="13"/><path d="M-7 0 H7 M0 -7 V7" stroke="#79688d" stroke-width="3"/></g>
+      <g transform="translate(1330 608)"><circle r="13"/><path d="M-7 0 H7 M0 -7 V7" stroke="#79688d" stroke-width="3"/></g>
+      <g transform="translate(1430 608)"><circle r="13"/><path d="M-7 0 H7 M0 -7 V7" stroke="#79688d" stroke-width="3"/></g>
+    </g>
+  </g>
+
+  <!-- Waiting queue lane marker -->
+  <g id="queueGuide" opacity=".75">
+    <path d="M130 493 H650" stroke="#f29a5b" stroke-width="3" stroke-dasharray="7 10" stroke-linecap="round"/>
+    <path d="M160 487 V499 M650 487 V499" stroke="#f29a5b" stroke-width="3" stroke-linecap="round"/>
+  </g>
+
+  <!-- Processing machine -->
+  <g id="machine" filter="url(#shadow)">
+    <rect x="680" y="400" width="228" height="246" rx="28" fill="url(#machineFace)" stroke="#543b64" stroke-width="8"/>
+    <rect x="704" y="424" width="180" height="192" rx="22" fill="#fff8e8" stroke="#543b64" stroke-width="6"/>
+    <path d="M720 442 H868" stroke="#e4bd4c" stroke-width="5" stroke-linecap="round"/>
+    <g id="gear" transform="translate(794 520)">
+      <circle r="58" fill="#e9dfc8" stroke="#543b64" stroke-width="6"/>
+      <circle r="45" fill="#f4c33d" stroke="#543b64" stroke-width="5"/>
+      <g stroke="#543b64" stroke-width="9" stroke-linecap="round">
+        <path d="M0 -57 V-43 M0 43 V57 M-57 0 H-43 M43 0 H57 M-40 -40 L-30 -30 M30 30 L40 40 M40 -40 L30 -30 M-30 30 L-40 40"/>
+      </g>
+      <circle r="20" fill="#35b9c0" stroke="#543b64" stroke-width="5"/>
+      <circle r="7" fill="#fffdf8" stroke="#543b64" stroke-width="3"/>
+    </g>
+    <circle cx="794" cy="520" r="70" fill="none" stroke="#d8c9aa" stroke-width="5"/>
+    <circle id="cycleRing" cx="794" cy="520" r="70" fill="none" stroke="#82b94e" stroke-width="7" stroke-linecap="round" transform="rotate(-90 794 520)" stroke-dasharray="439.82" stroke-dashoffset="439.82"/>
+    <rect x="735" y="444" width="118" height="26" rx="13" fill="#543b64"/>
+    <text x="794" y="462" text-anchor="middle" font-size="12" font-weight="950" fill="#fffdf8" letter-spacing="1">PROCESS / 01</text>
+    <g id="machineLight">
+      <circle cx="855" cy="438" r="9" fill="#ef7965" stroke="#543b64" stroke-width="3"/>
+      <circle id="lightGlow" cx="855" cy="438" r="16" fill="#ef7965" opacity="0" filter="url(#softGlow)"/>
+    </g>
+    <text x="794" y="632" text-anchor="middle" font-size="14" font-weight="950" fill="#705b7f">单次处理 · 固定周期</text>
+  </g>
+
+  <!-- Entry gate -->
+  <g id="entryGate">
+    <rect x="647" y="493" width="18" height="114" rx="9" fill="#543b64"/>
+    <circle cx="656" cy="546" r="11" fill="#f29a5b" stroke="#543b64" stroke-width="4"/>
+    <path id="gateArm" d="M656 546 L656 484" stroke="#ef7965" stroke-width="13" stroke-linecap="round"/>
+    <circle cx="656" cy="546" r="6" fill="#fffdf8" stroke="#543b64" stroke-width="3"/>
+  </g>
+
+  <!-- Token layers -->
+  <g id="queueTokens"></g>
+  <g id="serviceToken"></g>
+  <g id="outputTokens"></g>
+  <g id="lossParticles"></g>
+
+  <!-- Dynamic count cards -->
+  <g transform="translate(135 650)">
+    <rect x="0" y="0" width="230" height="42" rx="21" fill="#e9f8f7" stroke="#8dd5d4" stroke-width="2"/>
+    <circle cx="22" cy="21" r="6" fill="#35b9c0"/>
+    <text x="42" y="27" font-size="14" font-weight="900" fill="#278f97">输入 <tspan id="inputCount" font-size="18">0</tspan> 件</text>
+  </g>
+  <g transform="translate(390 650)">
+    <rect x="0" y="0" width="230" height="42" rx="21" fill="#fff4e5" stroke="#f2c38f" stroke-width="2"/>
+    <circle cx="22" cy="21" r="6" fill="#f29a5b"/>
+    <text x="42" y="27" font-size="14" font-weight="900" fill="#c87942">等待 <tspan id="waitingCount" font-size="18">0</tspan> 件</text>
+  </g>
+  <g transform="translate(1145 650)">
+    <rect x="0" y="0" width="230" height="42" rx="21" fill="#f1f7e9" stroke="#b4d18f" stroke-width="2"/>
+    <circle cx="22" cy="21" r="6" fill="#82b94e"/>
+    <text x="42" y="27" font-size="14" font-weight="900" fill="#6a9d43">放行 <tspan id="outputCount" font-size="18">0</tspan> 件</text>
+  </g>
+  <g transform="translate(720 665)">
+    <text x="0" y="0" class="micro">处理节奏</text>
+    <g id="beatDots" transform="translate(0 16)">
+      <circle cx="0" cy="0" r="5" fill="#82b94e"/><circle cx="24" cy="0" r="5" fill="#d9d0e0"/><circle cx="48" cy="0" r="5" fill="#d9d0e0"/><circle cx="72" cy="0" r="5" fill="#d9d0e0"/>
+    </g>
+  </g>
+</g>
+
+<!-- Caption -->
+<g id="captionGroup">
+  <rect class="caption-bg" x="150" y="752" width="1300" height="66" rx="22"/>
+  <text class="caption-text" x="800" y="794" text-anchor="middle">瓶颈、容量与损耗会限制强化回路。</text>
+</g>
+<text id="debug" x="30" y="30">debug</text>
+</svg>
+<div class="controls">
+  <span class="time" id="time">08.35 / 13.75 s</span>
+  <button id="pause">暂停</button>
+  <button id="restart">重新播放</button>
+  <input id="seek" type="range" min="0" max="5400" step="10" value="0" aria-label="镜头时间轴" />
+  <span class="time">cue 24</span>
+</div>
+</div>
+<script>
+(() => {
+  'use strict';
+
+  const DURATION = 5400;
+  const CUE_OFFSET = 8350;
+  const TOKEN_SIZE = 54;
+  const ARRIVAL_START = 220;
+  const ARRIVAL_INTERVAL = 440;
+  const SERVICE_START = 580;
+  const SERVICE_INTERVAL = 1280;
+  const SERVICE_DURATION = 780;
+  const EGRESS_DURATION = 200;
+  const QUEUE_VISIBLE = 8;
+  const QUEUE_FRONT_X = 610;
+  const QUEUE_SPACING = 68;
+  const STATION_X = 765;
+  const OUTPUT_START_X = 930;
+  const OUTPUT_TRAVEL = 3200;
+  const OUTPUT_DISTANCE = 600;
+  const LOSS_DELAY = 420;
+  const LOSS_PERIOD = 1120;
+  const SVG_NS = 'http://www.w3.org/2000/svg';
+
+  const $ = id => document.getElementById(id);
+  const EMBEDDED = window.parent !== window;
+  if (EMBEDDED) document.body.classList.add('embed-mode');
+
+  const clamp = (v, a=0, b=1) => Math.max(a, Math.min(b, v));
+  const smooth = t => { t=clamp(t); return t*t*(3-2*t); };
+  const lerp = (a,b,t) => a+(b-a)*t;
+  const arrivals = Array.from({length:13}, (_,i)=>ARRIVAL_START+i*ARRIVAL_INTERVAL);
+  const serviceStarts = Array.from({length:13}, (_,i)=>SERVICE_START+i*SERVICE_INTERVAL);
+  const serviceEnds = serviceStarts.map(t=>t+SERVICE_DURATION);
+
+  let elapsed = 0;
+  let startAt = performance.now();
+  let paused = false;
+  let raf = 0;
+  let scrubbing = false;
+  let lastCounts = {input:-1, waiting:-1, output:-1};
+
+  function svgEl(tag, attrs={}) {
+    const el=document.createElementNS(SVG_NS,tag);
+    for (const [k,v] of Object.entries(attrs)) el.setAttribute(k,String(v));
+    return el;
+  }
+
+  function packageToken(fill, stroke='#543b64', textFill='#fffdf8') {
+    const g=svgEl('g',{'class':'token'});
+    const body=svgEl('rect',{x:0,y:0,width:TOKEN_SIZE,height:TOKEN_SIZE,rx:12,fill,stroke,'stroke-width':4});
+    const seam=svgEl('path',{d:'M27 3 V51 M7 18 H47',fill:'none',stroke:'rgba(255,255,255,.78)','stroke-width':3.2,'stroke-linecap':'round'});
+    const tape=svgEl('rect',{x:22,y:3,width:10,height:48,rx:4,fill:'rgba(255,255,255,.2)'});
+    const shine=svgEl('path',{d:'M10 9 Q16 5 22 8',fill:'none',stroke:'rgba(255,255,255,.75)','stroke-width':2.5,'stroke-linecap':'round'});
+    g.append(body,tape,seam,shine);
+    g._body=body;
+    return g;
+  }
+
+  function setToken(g,x,y,opacity=1,fill=null) {
+    g.setAttribute('transform','translate('+x.toFixed(2)+' '+y.toFixed(2)+')');
+    g.setAttribute('opacity',String(opacity));
+    if(fill && g._body) g._body.setAttribute('fill',fill);
+  }
+
+  function mixHex(a,b,t) {
+    const aa=parseInt(a.slice(1),16), bb=parseInt(b.slice(1),16);
+    const ar=(aa>>16)&255, ag=(aa>>8)&255, ab=aa&255;
+    const br=(bb>>16)&255, bg=(bb>>8)&255, bbv=bb&255;
+    const r=Math.round(lerp(ar,br,t)), g=Math.round(lerp(ag,bg,t)), bl=Math.round(lerp(ab,bbv,t));
+    return '#'+[r,g,bl].map(v=>v.toString(16).padStart(2,'0')).join('');
+  }
+
+  function countAt(arr,t) {
+    let n=0;
+    for(const v of arr){if(v<=t)n++;else break;}
+    return n;
+  }
+
+  function waitingRankX(i,t,startedCount) {
+    const rank=i-startedCount;
+    let target=QUEUE_FRONT_X-rank*QUEUE_SPACING;
+    if(startedCount>0) {
+      const shiftAt=serviceStarts[startedCount-1];
+      const p=clamp((t-shiftAt)/260);
+      if(p<1) {
+        const oldX=target-QUEUE_SPACING;
+        target=lerp(oldX,target,smooth(p));
+      }
+    }
+    const enter=clamp((t-arrivals[i])/330);
+    return lerp(116,target,smooth(enter));
+  }
+
+  const queueLayer=$('queueTokens');
+  const serviceLayer=$('serviceToken');
+  const outputLayer=$('outputTokens');
+  const lossLayer=$('lossParticles');
+
+  const queueNodes=arrivals.map((_,i)=>{
+    const g=packageToken('#f29a5b');
+    g.dataset.index=String(i);
+    queueLayer.appendChild(g);
+    return g;
+  });
+
+  const serviceNode=packageToken('#e6b93e');
+  serviceLayer.appendChild(serviceNode);
+
+  const outputNodes=arrivals.map((_,i)=>{
+    const g=packageToken('#82b94e');
+    g.dataset.index=String(i);
+    outputLayer.appendChild(g);
+    return g;
+  });
+
+  // Allocate all moving loss particles once. The animation loop only changes attributes.
+  const lossNodes=arrivals.map(()=>{
+    const particle=svgEl('circle',{cx:0,cy:0,r:3.2,fill:'#ef7965',opacity:0});
+    const trail=svgEl('circle',{cx:0,cy:0,r:1.8,fill:'#f29a5b',opacity:0});
+    lossLayer.append(particle,trail);
+    return {particle,trail};
+  });
+
+  const clockHand=$('clockHand');
+  const waitingClock=$('waitingClock');
+  const beltDash=$('beltDash');
+  const rollers=[...$('rollers').querySelectorAll('g')];
+  const cycleRing=$('cycleRing');
+  const gear=$('gear');
+  const lightGlow=$('lightGlow');
+  const machineLightCircle=$('machineLight').querySelector('circle');
+  const gateArm=$('gateArm');
+  const beatDots=[...$('beatDots').querySelectorAll('circle')];
+  const inputCount=$('inputCount');
+  const waitingCount=$('waitingCount');
+  const outputCount=$('outputCount');
+  const timeLabel=$('time');
+  const seek=$('seek');
+  const debug=$('debug');
+
+  function activeServiceAt(t) {
+    for(let i=0;i<serviceStarts.length;i++) {
+      if(t>=serviceStarts[i] && t<serviceEnds[i]+EGRESS_DURATION) return i;
+      if(serviceStarts[i]>t) break;
+    }
+    return -1;
+  }
+
+  function releasedCountAt(t) {
+    let n=0;
+    for(const end of serviceEnds) {
+      if(end+EGRESS_DURATION<=t) n++;
+      else break;
+    }
+    return n;
+  }
+
+  function updateTokens(t,arrivedCount,startedCount,active) {
+    queueNodes.forEach((g,i)=>{
+      const arrival=arrivals[i];
+      const rank=i-startedCount;
+      if(t<arrival || rank<0 || rank>=QUEUE_VISIBLE) {
+        setToken(g,0,0,0);
+        return;
+      }
+      const x=waitingRankX(i,t,startedCount);
+      setToken(g,x,522,clamp((t-arrival)/100));
+    });
+
+    // The same processing token travels out of the station before the output token takes over.
+    if(active>=0) {
+      const start=serviceStarts[active];
+      const end=serviceEnds[active];
+      if(t<end) {
+        const p=clamp((t-start)/SERVICE_DURATION);
+        const moveIn=clamp(p/.17);
+        const x=lerp(QUEUE_FRONT_X,STATION_X,smooth(moveIn));
+        setToken(serviceNode,x,522,1,'#e6b93e');
+      } else {
+        const exitP=clamp((t-end)/EGRESS_DURATION);
+        const eased=smooth(exitP);
+        const x=lerp(STATION_X,OUTPUT_START_X,eased);
+        setToken(serviceNode,x,522,1,mixHex('#e6b93e','#82b94e',eased));
+      }
+    } else {
+      setToken(serviceNode,0,0,0);
+    }
+
+    outputNodes.forEach((g,i)=>{
+      const releaseAt=serviceEnds[i]+EGRESS_DURATION;
+      const outAge=t-releaseAt;
+      if(outAge<0 || outAge>OUTPUT_TRAVEL) {
+        setToken(g,0,0,0);
+        return;
+      }
+      const p=clamp(outAge/OUTPUT_TRAVEL);
+      const x=OUTPUT_START_X+OUTPUT_DISTANCE*p;
+      setToken(g,x,522,1,'#82b94e');
+    });
+  }
+
+  function updateLoss(t,startedCount) {
+    lossNodes.forEach((node,i)=>{
+      const rank=i-startedCount;
+      const age=t-arrivals[i]-LOSS_DELAY;
+      if(rank<0 || rank>=QUEUE_VISIBLE || age<0) {
+        node.particle.setAttribute('opacity','0');
+        node.trail.setAttribute('opacity','0');
+        return;
+      }
+      const bx=waitingRankX(i,t,startedCount);
+      const phase=((age+i*137)%LOSS_PERIOD)/LOSS_PERIOD;
+      const fade=Math.min(1,phase*7,(1-phase)*7);
+      const sx=bx+40, sy=516, tx=594, ty=382;
+      const px=lerp(sx,tx,phase)+Math.sin(phase*Math.PI)*10;
+      const py=lerp(sy,ty,phase)-Math.sin(phase*Math.PI)*15;
+      const op=fade*.76;
+      node.particle.setAttribute('cx',px.toFixed(2));
+      node.particle.setAttribute('cy',py.toFixed(2));
+      node.particle.setAttribute('r',String(3.2-phase*.9));
+      node.particle.setAttribute('opacity',String(op));
+      node.trail.setAttribute('cx',(px-8).toFixed(2));
+      node.trail.setAttribute('cy',(py+7).toFixed(2));
+      node.trail.setAttribute('opacity',String(op*.55));
+    });
+  }
+
+  function gateAngleAt(t) {
+    for(const start of serviceStarts) {
+      const openAt=start-130;
+      const closeAt=start+160;
+      if(t>=openAt && t<=closeAt) {
+        if(t<start) return 72*smooth((t-openAt)/130);
+        return 72*(1-smooth((t-start)/160));
+      }
+      if(openAt>t) break;
+    }
+    return 0;
+  }
+
+  function ringProgressAt(t,active) {
+    if(active>=0) {
+      const start=serviceStarts[active];
+      const end=serviceEnds[active];
+      if(t>=end) return 1;
+      const raw=clamp((t-start)/SERVICE_DURATION);
+      if(active===0) return smooth(raw);
+      const resetWindow=.14;
+      if(raw<resetWindow) return 1-smooth(raw/resetWindow);
+      return smooth((raw-resetWindow)/(1-resetWindow));
+    }
+    return serviceEnds.some(end=>end<=t)?1:0;
+  }
+
+  function updateMachine(t,active) {
+    const processing=active>=0 && t<serviceEnds[active];
+    const progress=ringProgressAt(t,active);
+    const gateAngle=gateAngleAt(t);
+
+    // Gear rotation has one continuous phase and one constant angular velocity.
+    gear.setAttribute('transform','translate(794 520) rotate('+(t*.055).toFixed(2)+')');
+    cycleRing.setAttribute('stroke-dashoffset',String(439.82*(1-progress)));
+    gateArm.setAttribute('transform','rotate('+gateAngle.toFixed(2)+' 656 546)');
+
+    let glow=0;
+    if(processing) {
+      const p=clamp((t-serviceStarts[active])/SERVICE_DURATION);
+      glow=.34+.28*Math.sin(Math.PI*p);
+    } else if(active>=0) {
+      const p=clamp((t-serviceEnds[active])/EGRESS_DURATION);
+      glow=.34*(1-smooth(p));
+    }
+    lightGlow.setAttribute('opacity',String(glow));
+    machineLightCircle.setAttribute('fill',processing?'#82b94e':(active>=0?'#e6b93e':'#ef7965'));
+
+    beatDots.forEach((dot,i)=>{
+      const threshold=(i+1)/4;
+      const done=progress>=threshold;
+      const current=processing && progress>=(i/4) && !done;
+      dot.setAttribute('fill',done||current?'#82b94e':'#d9d0e0');
+      dot.setAttribute('r',current?'7':'5');
+    });
+  }
+
+  function updateClock(t,arrivedCount,startedCount,releasedCount) {
+    const waiting=Math.max(0,arrivedCount-startedCount);
+    // Keep the clock phase continuous; do not reset it when the oldest package changes.
+    clockHand.setAttribute('transform','rotate('+((t*.045)%360).toFixed(2)+' 0 0)');
+    waitingClock.setAttribute('opacity',String(.42+.58*smooth(Math.min(1,waiting/3))));
+    if(lastCounts.input!==arrivedCount) {
+      inputCount.textContent=String(arrivedCount);
+      lastCounts.input=arrivedCount;
+    }
+    if(lastCounts.waiting!==waiting) {
+      waitingCount.textContent=String(waiting);
+      lastCounts.waiting=waiting;
+    }
+    if(lastCounts.output!==releasedCount) {
+      outputCount.textContent=String(releasedCount);
+      lastCounts.output=releasedCount;
+    }
+  }
+
+  function update(t) {
+    elapsed=clamp(t,0,DURATION);
+    const arrived=countAt(arrivals,elapsed);
+    const started=countAt(serviceStarts,elapsed);
+    const released=releasedCountAt(elapsed);
+    const active=activeServiceAt(elapsed);
+
+    updateTokens(elapsed,arrived,started,active);
+    updateMachine(elapsed,active);
+    updateLoss(elapsed,started);
+    updateClock(elapsed,arrived,started,released);
+
+    beltDash.setAttribute('stroke-dashoffset',String(-elapsed*.045));
+    rollers.forEach((g,i)=>{
+      const x=[170,270,370,470,570,670,930,1030,1130,1230,1330,1430][i];
+      g.setAttribute('transform','translate('+x+' 608) rotate('+(elapsed*.045).toFixed(2)+')');
+    });
+
+    const absolute=CUE_OFFSET+elapsed;
+    timeLabel.textContent=(absolute/1000).toFixed(2)+' / 13.75 s';
+    seek.value=String(elapsed);
+    debug.textContent='arrived='+arrived+'; started='+started+'; released='+released+'; waiting='+(arrived-started);
+  }
+
+  function tick(now) {
+    if(!paused && !scrubbing) {
+      elapsed=Math.min(DURATION,now-startAt);
+      update(elapsed);
+      if(elapsed>=DURATION) {
+        paused=true;
+        $('pause').textContent='重播';
+      }
+    }
+    if(!paused && !scrubbing) raf=requestAnimationFrame(tick);
+  }
+
+  function play() {
+    if(elapsed>=DURATION) {
+      elapsed=0;
+      update(0);
+    }
+    paused=false;
+    startAt=performance.now()-elapsed;
+    $('pause').textContent='暂停';
+    cancelAnimationFrame(raf);
+    raf=requestAnimationFrame(tick);
+  }
+
+  $('pause').addEventListener('click',()=>{
+    if(!paused) {
+      paused=true;
+      cancelAnimationFrame(raf);
+      $('pause').textContent='继续';
+    } else play();
+  });
+
+  $('restart').addEventListener('click',()=>{
+    elapsed=0;
+    update(0);
+    play();
+  });
+
+  $('seek').addEventListener('input',e=>{
+    scrubbing=true;
+    paused=true;
+    cancelAnimationFrame(raf);
+    update(Number(e.target.value));
+    $('pause').textContent='继续';
+  });
+
+  $('seek').addEventListener('change',()=>{
+    scrubbing=false;
+    startAt=performance.now()-elapsed;
+  });
+
+  const api={
+    sync(ms) {
+      paused=true;
+      scrubbing=false;
+      cancelAnimationFrame(raf);
+      update(ms);
+    },
+    getState() {
+      const arrived=countAt(arrivals,elapsed);
+      const started=countAt(serviceStarts,elapsed);
+      return {
+        elapsed,
+        arrived,
+        started,
+        completed:releasedCountAt(elapsed),
+        waiting:Math.max(0,arrived-started),
+        tokenSize:TOKEN_SIZE,
+        active:activeServiceAt(elapsed),
+        lossNodes:lossNodes.length
+      };
+    }
+  };
+  window.__bottleneckV3=api;
+  window.__bottleneckV1=api;
+
+  window.addEventListener('load',()=>{
+    if(!EMBEDDED) {
+      $('header').style.transition='opacity .45s ease, transform .45s ease';
+      $('system').style.transition='opacity .55s ease, transform .55s ease';
+      requestAnimationFrame(()=>{
+        $('header').style.opacity='1';
+        $('header').style.transform='translateY(0)';
+        $('system').style.opacity='1';
+        $('system').style.transform='translateY(0)';
+      });
+    }
+    update(0);
+    if(!EMBEDDED) play();
+  });
+})();
+</script>
+</body>
+</html>
