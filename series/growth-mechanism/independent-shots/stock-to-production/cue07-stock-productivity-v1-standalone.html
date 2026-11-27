@@ -1,0 +1,80 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Cue 07｜存量不等于生产性存量 · V1</title><style>
+:root{--ink:#302342;--muted:#8a7e93;--paper:#f8f4ea;--line:#e7ded2;--teal:#42b8b3;--green:#83b85e;--orange:#ed965f;--violet:#9b83b5;--blue:#76a9cb;--shadow:0 18px 50px rgba(48,35,66,.10)}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;background:radial-gradient(ellipse at 80% 84%,#eaf0e7 0%,transparent 36%),linear-gradient(135deg,#fffdf7,#f5f0e7 68%,#eef1e8);color:var(--ink);font-family:Inter,"Noto Sans SC","Microsoft YaHei",system-ui,sans-serif}body{display:grid;place-items:center;overflow:hidden}.page{width:min(1600px,100vw);height:min(900px,100vh);padding:38px 74px 26px;display:flex;flex-direction:column;gap:20px}.head{height:116px;position:relative;flex:none;padding:5px 14px 0}.eyebrow{font-size:14px;font-weight:850;letter-spacing:.2em;color:#9384a0}.title{font-size:42px;line-height:1.16;letter-spacing:-.045em;font-weight:850;margin-top:13px}.subtitle{font-size:19px;font-weight:650;color:#93859c;margin-top:8px}.chip{position:absolute;right:12px;top:6px;border:1px solid #e6ddd0;background:#fffdf8;border-radius:999px;padding:10px 17px;font-size:13px;letter-spacing:.08em;font-weight:800;color:#897a94;box-shadow:0 4px 12px #30234208}.frame{flex:1;min-height:0;border:1px solid #e9dfd2;border-radius:28px;background:linear-gradient(180deg,#fffefa 0%,#fffdf8 100%);box-shadow:var(--shadow);overflow:hidden;position:relative}.frame:before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 48% 100%,rgba(224,237,222,.22),transparent 55%);pointer-events:none}.scene{width:100%;height:100%;display:block;position:relative;z-index:1}.controls{height:58px;flex:none;display:flex;align-items:center;gap:14px;padding:0 12px;color:#8d8097}.time{font-size:13px;font-variant-numeric:tabular-nums;white-space:nowrap;min-width:112px;text-align:right}.seek{flex:1;accent-color:#9b83b5;height:5px;cursor:pointer}.btn{border:1px solid #e0d5c9;background:#fffdf8;color:#65546f;border-radius:999px;padding:10px 18px;font-size:13px;font-weight:800;cursor:pointer;box-shadow:0 3px 10px #30234208}.btn.primary{background:#55435f;color:white;border-color:#55435f}.btn:focus-visible,.seek:focus-visible{outline:3px solid #9b83b577;outline-offset:2px}.footnote{font-size:11px;color:#a69aa9;letter-spacing:.025em;position:absolute;left:15px;bottom:13px}.status{position:absolute;right:16px;bottom:12px;font-size:11px;color:#a69aa9}.svgtext{font-family:Inter,"Noto Sans SC","Microsoft YaHei",sans-serif}.smallcap{font-size:13px;letter-spacing:.13em;font-weight:850;fill:#9a8ca2}.label{font-size:18px;font-weight:800;fill:#54445f}.muted{font-size:14px;font-weight:600;fill:#9a8da2}.micro{font-size:12px;font-weight:700;fill:#a69aaa}.node{filter:url(#shadow)}.flow{fill:none;stroke-linecap:round;stroke-linejoin:round}.moving{will-change:transform,opacity}.soft{filter:url(#shadow)}.appear{opacity:0}.no-select{user-select:none}
+@media(max-width:900px){.page{padding:22px 18px 12px;gap:12px}.head{height:96px}.title{font-size:30px}.subtitle{font-size:14px}.chip{font-size:10px;padding:7px 10px;right:0}.controls{height:48px;gap:8px}.time{font-size:10px;min-width:80px}.btn{padding:8px 12px;font-size:11px}.footnote,.status{display:none}}
+</style></head><body><div class="page"><header class="head"><div class="eyebrow">STOCK / PRODUCTIVE STOCK / 07</div><div class="title">存量不等于生产性存量</div><div class="subtitle">保存下来，不代表它会自动参与后续生产</div><div class="chip">CUE 07 · 18.834s</div></header><main class="frame"><svg class="scene" id="scene" viewBox="0 0 1440 560" role="img" aria-label="存量分为独立存量与被调用的成果，生产性取决于是否改善特定任务"><title>存量不等于生产性存量</title><defs>
+ <linearGradient id="panel" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fffefa"/><stop offset="1" stop-color="#f6f1e8"/></linearGradient>
+ <linearGradient id="purple" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#756080"/><stop offset="1" stop-color="#44364f"/></linearGradient>
+ <linearGradient id="teal" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#b4e6df"/><stop offset="1" stop-color="#5dbeb6"/></linearGradient>
+ <linearGradient id="green" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#b8d99c"/><stop offset="1" stop-color="#79ae57"/></linearGradient>
+ <linearGradient id="orange" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffd3ad"/><stop offset="1" stop-color="#ee9860"/></linearGradient>
+ <filter id="shadow" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="8" stdDeviation="9" flood-color="#493953" flood-opacity=".13"/></filter>
+ <filter id="softShadow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="7"/></filter>
+ <filter id="glow" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+ <pattern id="grid" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1" fill="#d8cfdc" opacity=".32"/></pattern>
+ <marker id="arrowPurple" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 L10 5 L0 10Z" fill="#88749a"/></marker>
+ <marker id="arrowGreen" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 L10 5 L0 10Z" fill="#83b85e"/></marker>
+ <marker id="arrowOrange" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 L10 5 L0 10Z" fill="#ed965f"/></marker>
+</defs>
+<rect width="1440" height="560" fill="url(#grid)" opacity=".35"/>
+<text x="70" y="54" class="smallcap">RETAINED STOCK / 已留存成果</text><text x="1370" y="54" text-anchor="end" class="smallcap">PRODUCTIVITY IS RELATIONAL / 生产性取决于关系</text>
+<!-- archive cabinet -->
+<g id="cabinet" class="node"><rect x="76" y="100" width="430" height="350" rx="25" fill="url(#panel)" stroke="#d8ccdc" stroke-width="3"/><rect x="95" y="119" width="392" height="44" rx="13" fill="#f1ebf3"/><circle cx="119" cy="141" r="5" fill="#9b83b5"/><text x="139" y="147" class="label">成果库 / 已保存</text><text x="464" y="146" text-anchor="end" class="micro">3 ITEMS</text>
+ <path d="M105 282H477 M105 390H477" stroke="#e5dce7" stroke-width="7" stroke-linecap="round"/>
+ <g id="refCard" class="soft"><rect x="116" y="184" width="155" height="83" rx="13" fill="#fff" stroke="#e5dce7"/><rect x="128" y="196" width="43" height="57" rx="7" fill="#e9e2ef"/><path d="M137 238L147 224L155 231L164 213" fill="none" stroke="#9b83b5" stroke-width="3" stroke-linecap="round"/><text x="184" y="216" class="label" font-size="16">镜头参考</text><text x="184" y="239" class="micro">视觉素材</text></g>
+ <g id="templateCard" class="soft"><rect x="292" y="184" width="173" height="83" rx="13" fill="#fff" stroke="#d9e9dd"/><rect x="304" y="196" width="43" height="57" rx="7" fill="#e1f0e4"/><path d="M313 209H338 M313 220H338 M313 231H330" stroke="#83b85e" stroke-width="3" stroke-linecap="round"/><text x="359" y="216" class="label" font-size="16">字幕模板</text><text x="359" y="239" class="micro">可复用组件</text></g>
+ <g id="notesCard" class="soft"><rect x="116" y="302" width="155" height="72" rx="13" fill="#fff" stroke="#e5dce7"/><rect x="128" y="314" width="42" height="48" rx="7" fill="#f7eadf"/><path d="M138 326H160 M138 337H160 M138 348H155" stroke="#ed965f" stroke-width="2.5" stroke-linecap="round"/><text x="183" y="332" class="label" font-size="16">经验记录</text><text x="183" y="353" class="micro">过程笔记</text></g>
+ <text x="291" y="421" text-anchor="middle" class="muted">保存下来，只说明它仍然存在</text></g>
+<!-- split spine -->
+<path id="stockLine" d="M506 278 C575 278 575 205 654 205 H710" class="flow" stroke="#b6a7bf" stroke-width="5" stroke-dasharray="9 11"/>
+<path id="callLine" d="M506 278 C575 278 575 386 654 386 H950" class="flow" stroke="#b6a7bf" stroke-width="5" stroke-dasharray="9 11"/>
+<circle cx="580" cy="278" r="12" fill="#fff" stroke="#9b83b5" stroke-width="4"/>
+<!-- independent branch -->
+<g id="independent" class="node"><rect x="710" y="102" width="270" height="196" rx="23" fill="#faf7fc" stroke="#d8cce2" stroke-width="2.5"/><rect x="730" y="121" width="230" height="38" rx="12" fill="#eee7f3"/><text x="845" y="146" text-anchor="middle" class="label">独立存量</text><g id="independentItem"><rect x="760" y="181" width="170" height="67" rx="12" fill="#fff" stroke="#d9d0e2"/><rect x="774" y="193" width="38" height="42" rx="6" fill="#e9e2ef"/><path d="M781 225L791 210L802 220" fill="none" stroke="#9b83b5" stroke-width="3"/><text x="825" y="207" class="label" font-size="15">镜头参考</text><text x="825" y="228" class="micro">本任务暂未调用</text></g><text x="845" y="278" text-anchor="middle" class="micro">仍然保存 · 不等于没有价值</text></g>
+<!-- call branch -->
+<g id="callArea" class="node"><rect x="710" y="332" width="270" height="108" rx="22" fill="#f2f8f0" stroke="#cfe0c7" stroke-width="2.5"/><rect x="730" y="349" width="110" height="29" rx="14" fill="#e1f0dc"/><text x="785" y="369" text-anchor="middle" class="label" font-size="15">调用</text><text x="730" y="411" class="muted">从存量中提取可用成果</text><g id="callGlyph" transform="translate(908 386)"><circle r="25" fill="#fff" stroke="#83b85e" stroke-width="2"/><path d="M-10 0H10 M3 -8L11 0L3 8" fill="none" stroke="#6d9e4e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></g></g>
+<!-- task workspace -->
+<g id="task" class="node"><rect x="1035" y="100" width="330" height="340" rx="25" fill="url(#panel)" stroke="#d8ccdc" stroke-width="3"/><rect x="1055" y="119" width="290" height="45" rx="13" fill="#f0edf3"/><text x="1075" y="148" class="label">当前任务 / 视频制作</text><rect x="1060" y="187" width="280" height="172" rx="18" fill="#fff" stroke="#e6dfe8"/><rect x="1080" y="207" width="240" height="33" rx="9" fill="#eee8f2"/><text x="1200" y="229" text-anchor="middle" class="muted">制作工作台</text><g id="taskTracks"><rect x="1080" y="258" width="240" height="15" rx="7" fill="#eee8f2"/><rect x="1080" y="283" width="240" height="15" rx="7" fill="#eee8f2"/><rect x="1080" y="308" width="240" height="15" rx="7" fill="#eee8f2"/></g><g id="templateApplied" opacity="0"><rect x="1080" y="258" width="170" height="15" rx="7" fill="#9dc87c"/><rect x="1080" y="283" width="214" height="15" rx="7" fill="#9dc87c"/><rect x="1080" y="308" width="192" height="15" rx="7" fill="#9dc87c"/></g><text x="1200" y="389" text-anchor="middle" class="muted">字幕模板进入当前流程</text><rect x="1080" y="405" width="240" height="22" rx="11" fill="#e6f1df"/><text x="1200" y="421" text-anchor="middle" font-size="13" font-weight="800" fill="#659349">后续行动获得可用支持</text></g>
+<!-- moving asset -->
+<g id="movingTemplate" opacity="0"><rect width="142" height="64" rx="12" fill="#fff" stroke="#83b85e" stroke-width="2" filter="url(#shadow)"/><rect x="10" y="10" width="35" height="44" rx="6" fill="#e1f0dc"/><path d="M17 22H38 M17 32H38 M17 42H33" stroke="#83b85e" stroke-width="2.5" stroke-linecap="round"/><text x="55" y="27" class="label" font-size="15">字幕模板</text><text x="55" y="46" class="micro">可调用</text></g>
+<path id="movePath" d="M380 224 C560 225 600 385 845 385 S1020 385 1080 274" fill="none" stroke="none"/>
+<path id="branchGlow" d="M506 278 C575 278 575 386 654 386 H950 C1010 386 1012 276 1080 276" class="flow" stroke="#83b85e" stroke-width="5" stroke-dasharray="12 12" opacity="0"/>
+<g id="taskPulse" opacity="0"><circle cx="1200" cy="273" r="78" fill="#83b85e" opacity=".10"/><circle cx="1200" cy="273" r="56" fill="none" stroke="#83b85e" stroke-width="3" stroke-dasharray="8 8"/></g>
+<text x="720" y="500" text-anchor="middle" class="label" font-size="19" id="keyline">生产性是存量与后续任务的关系</text>
+<text x="720" y="527" text-anchor="middle" class="muted" id="keySub">同一份存量，在不同目标与情境中，作用可能不同</text>
+</svg><div class="footnote">原始关键画面：生产性是存量与后续任务的关系。</div><div class="status">独立镜头预览 · 示意模型</div></main><footer class="controls"><div class="time" id="clock">0.0 / 18.8s</div><input class="seek" id="seek" type="range" min="0" max="18.834286" step="0.01" value="0" aria-label="镜头时间轴"><button class="btn primary" id="play">播放</button><button class="btn" id="replay">重新播放</button></footer></div><script>
+const DURATION=18.834286;
+const $=id=>document.getElementById(id);
+const clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v));
+const lerp=(a,b,p)=>a+(b-a)*p;
+const ease=p=>{p=clamp(p);return p*p*(3-2*p)};
+const out=p=>1-Math.pow(1-clamp(p),3);
+const set=(id,attrs)=>{const el=$(id);if(!el)return;for(const [k,v] of Object.entries(attrs))el.setAttribute(k,v)};
+const show=(id,v)=>set(id,{opacity:clamp(v)});
+const move=(id,x,y,scale=1,rot=0)=>set(id,{transform:`translate(${x} ${y}) rotate(${rot}) scale(${scale})`});
+const pathPoint=(id,p)=>{const el=$(id);if(!el)return{x:0,y:0};const len=el.getTotalLength();return el.getPointAtLength(clamp(p)*len)};
+const pulse=(id,p,period=1)=>show(id,.5+.5*Math.sin(p*Math.PI*2/period));
+let now=0,playing=false,raf=0,last=0;
+function render(t){now=clamp(t,0,DURATION);const p=now/DURATION;
+// cabinet and branches reveal as a continuous sorting action
+show('cabinet',out(p/.12));show('independent',out((p-.08)/.18));show('callArea',out((p-.12)/.18));show('task',out((p-.18)/.18));
+const branch=out((p-.18)/.24);set('stockLine',{opacity:.55+branch*.25});set('callLine',{opacity:.55+branch*.25});
+// retained item remains in its own branch; it is not discarded
+const independentLift=ease((p-.34)/.16);move('independentItem',0,-5*independentLift,1,0);
+// the callable template leaves the cabinet, follows the curved path and enters the current task
+const pick=out((p-.27)/.16),travel=clamp((p-.43)/.30);const pt=pathPoint('movePath',travel);
+show('movingTemplate',pick*(1-clamp((p-.76)/.06)));move('movingTemplate',pt.x-71,pt.y-32,1,0);
+show('branchGlow',clamp((p-.38)/.16)*(1-clamp((p-.82)/.06)));
+set('branchGlow',{'stroke-dashoffset':String(-p*240)});
+show('templateApplied',out((p-.76)/.08));show('taskPulse',Math.max(0,Math.sin((p-.78)*Math.PI*9))*.7);
+show('keyline',out((p-.80)/.12));show('keySub',out((p-.84)/.12));
+ $('clock').textContent=`${now.toFixed(1)} / ${DURATION.toFixed(1)}s`; $('seek').value=String(now);}
+function frame(ts){if(!playing)return;if(!last)last=ts;const dt=Math.min(.05,(ts-last)/1000);last=ts;now=Math.min(DURATION,now+dt);render(now);if(now>=DURATION){playing=false;last=0;$('play').textContent='播放';return}raf=requestAnimationFrame(frame)}
+function play(){if(now>=DURATION)now=0;playing=true;$('play').textContent='暂停';last=0;cancelAnimationFrame(raf);raf=requestAnimationFrame(frame)}
+function pause(){playing=false;last=0;cancelAnimationFrame(raf);$('play').textContent='继续'}
+function replay(){pause();render(0);play()}
+function seek(t){pause();render(Number(t)||0)}
+$('play').addEventListener('click',()=>playing?pause():play());$('replay').addEventListener('click',replay);$('seek').addEventListener('input',e=>seek(e.target.value));
+render(0);
+window.__cue07={duration:DURATION,render,seek,play,pause,replay,get time(){return now},get playing(){return playing}};
+</script></body></html>
