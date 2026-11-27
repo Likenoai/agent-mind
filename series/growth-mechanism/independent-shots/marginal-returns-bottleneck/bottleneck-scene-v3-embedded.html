@@ -445,7 +445,7 @@ svg{display:block;width:100%;height:100%}
         return;
       }
       const bx=waitingRankX(i,t,startedCount);
-      const phase=((age+i*137)%LOSS_PERIOD)/LOSS_PERIOD;
+      const phase=(age%LOSS_PERIOD)/LOSS_PERIOD;
       const fade=Math.min(1,phase*7,(1-phase)*7);
       const sx=bx+40, sy=516, tx=594, ty=382;
       const px=lerp(sx,tx,phase)+Math.sin(phase*Math.PI)*10;
