@@ -1,0 +1,18 @@
+{
+  "shot": "维护、更新与淘汰",
+  "version": "V5",
+  "status": "用户已确认",
+  "asset_source": "从 V5 standalone HTML 的内嵌 PNG data URI 提取；editable HTML 使用 assets/ 相对路径",
+  "assets": [
+    "storage-rack.png",
+    "conveyor.png",
+    "sorting-machine.png",
+    "maintenance-machine-v5.png",
+    "upgrade-machine-v5.png",
+    "retirement-machine-v5.png",
+    "module-worn.png",
+    "module-maintained.png",
+    "module-upgraded.png",
+    "module-failed.png"
+  ]
+}
