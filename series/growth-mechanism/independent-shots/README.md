@@ -21,6 +21,10 @@
 | 留存与提取 | V1 | 首轮浏览器播放通过；待用户视觉验收 | [Cue 08 预览](stock-to-production/cue08-retention-retrieval-v1-standalone.html) | [Cue 08 源文件](stock-to-production/cue08-retention-retrieval-v1-editable.html) | [验证记录](stock-to-production/cue08-validation.md) |
 | 调用不等于适用 | V1 | 首轮浏览器播放通过；待用户视觉验收 | [Cue 09 预览](stock-to-production/cue09-call-fit-apply-v1-standalone.html) | [Cue 09 源文件](stock-to-production/cue09-call-fit-apply-v1-editable.html) | [验证记录](stock-to-production/cue09-validation.md) |
 | 应用效果必须检验 | V1 | 首轮浏览器播放通过；待用户视觉验收 | [Cue 10 预览](stock-to-production/cue10-application-evaluation-v1-standalone.html) | [Cue 10 源文件](stock-to-production/cue10-application-evaluation-v1-editable.html) | [验证记录](stock-to-production/cue10-validation.md) |
+| 把新成果重新放进循环 | V1 | 浏览器实际播放通过；待用户视觉验收 | [Cue 11 预览](reinforcing-growth/cue11-reinforcing-loop-v1-standalone.html) | [Cue 11 源文件](reinforcing-growth/cue11-reinforcing-loop-v1-editable.html) | [验证记录](reinforcing-growth/cue11-actual-validation.json) |
+| 复用、线性增长与复利式增长 | V1 | 浏览器实际播放通过；待用户视觉验收 | [Cue 12 预览](reinforcing-growth/cue12-linear-vs-compound-v1-standalone.html) | [Cue 12 源文件](reinforcing-growth/cue12-linear-vs-compound-v1-editable.html) | [验证记录](reinforcing-growth/cue12-actual-validation.json) |
+| 雪球是隐喻，不是证明 | V1 | 浏览器实际播放通过；待用户视觉验收 | [Cue 13 预览](reinforcing-growth/cue13-snowball-metaphor-v1-standalone.html) | [Cue 13 源文件](reinforcing-growth/cue13-snowball-metaphor-v1-editable.html) | [验证记录](reinforcing-growth/cue13-actual-validation.json) |
+| 效率只是释放资源的可能 | V1 | 浏览器实际播放通过；待用户视觉验收 | [Cue 14 预览](reinforcing-growth/cue14-efficiency-resource-allocation-v1-standalone.html) | [Cue 14 源文件](reinforcing-growth/cue14-efficiency-resource-allocation-v1-editable.html) | [验证记录](reinforcing-growth/cue14-actual-validation.json) |
 
 ## 归档内容
 
