@@ -1,0 +1,58 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Cue 12｜复用、线性增长与复利式增长</title>
+<style>
+:root{--ink:#3e2b50;--muted:#887b98;--paper:#fbf8f0;--teal:#32b8bd;--coral:#ef8068;--gold:#efbd45;--green:#80b84b;--line:#e7dfd2}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:#e9e5de;color:var(--ink);font-family:Inter,"Noto Sans SC","Microsoft YaHei",sans-serif}body{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:22px 12px 34px;gap:12px}.stage{width:min(100%,1600px);aspect-ratio:16/9;background:var(--paper);box-shadow:0 22px 60px #30234224;border-radius:8px;overflow:hidden}svg{width:100%;height:100%;display:block}.controls{width:min(100%,1600px);display:flex;align-items:center;gap:12px;background:#fffdf8;border:1px solid #e4dbce;border-radius:18px;padding:10px 14px;box-shadow:0 8px 24px #30234212;color:var(--muted);font-size:13px}button{border:1px solid #d9d0e0;background:#fffdf8;color:var(--ink);border-radius:999px;padding:8px 15px;font-weight:700;cursor:pointer}button:hover{background:#f3eef8}input[type=range]{flex:1;accent-color:#8b72a2;min-width:80px}.time{font-variant-numeric:tabular-nums;white-space:nowrap;min-width:132px}.hint{width:min(100%,1600px);font-size:12px;color:#887e8d;padding:0 6px}@media(max-width:700px){body{padding:6px 0}.stage,.controls{border-radius:0}.controls{gap:6px;padding:8px;font-size:11px}button{padding:7px 10px}.time{min-width:100px}}
+</style></head><body>
+<div class="stage"><svg viewBox="0 0 1600 900" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="固定净新增的线性增长与固定比例理想模型的复利式增长比较">
+<defs><linearGradient id="bg12" x2="0" y2="1"><stop stop-color="#fffdf7"/><stop offset="1" stop-color="#f3f0e9"/></linearGradient><linearGradient id="barLin12" x2="0" y2="1"><stop stop-color="#b9b2c2"/><stop offset="1" stop-color="#81758e"/></linearGradient><linearGradient id="barComp12" x2="0" y2="1"><stop stop-color="#b2d987"/><stop offset="1" stop-color="#6fae42"/></linearGradient><filter id="sh12"><feDropShadow dx="0" dy="7" stdDeviation="9" flood-color="#342543" flood-opacity=".12"/></filter></defs>
+<rect width="1600" height="900" fill="url(#bg12)"/><text x="88" y="62" fill="#9385a0" font-size="16" font-weight="800" letter-spacing="3">LINEAR VS COMPOUND / 12</text><text x="88" y="119" fill="#3e2b50" font-size="42" font-weight="850">复用、线性增长与复利式增长</text><text x="90" y="157" fill="#887b98" font-size="20" font-weight="600">区别不在于有没有重复，而在于每期新增如何形成</text>
+<rect x="64" y="190" width="1472" height="570" rx="30" fill="#fffdfa" stroke="#e7dfd2" stroke-width="2" filter="url(#sh12)"/>
+<g><rect x="100" y="220" width="660" height="470" rx="24" fill="#f4f1f6" stroke="#ded7e4" stroke-width="2"/><rect x="840" y="220" width="660" height="470" rx="24" fill="#f2f7ec" stroke="#d8e5ca" stroke-width="2"/></g>
+<text x="430" y="270" text-anchor="middle" fill="#6f657d" font-size="27" font-weight="850">固定净新增</text><text x="430" y="302" text-anchor="middle" fill="#8e8398" font-size="16" font-weight="700">每期都增加相同数量</text>
+<text x="1170" y="270" text-anchor="middle" fill="#5c8e39" font-size="27" font-weight="850">固定比例 · 理想模型</text><text x="1170" y="302" text-anchor="middle" fill="#7d9b68" font-size="16" font-weight="700">新增量随已有基础扩大</text>
+<!-- left chart -->
+<path d="M160 610H720" stroke="#c9c1d0" stroke-width="2"/><g id="linearBars12">
+ <g id="lin0"><rect x="190" y="540" width="76" height="70" rx="9" fill="url(#barLin12)"/><text x="228" y="525" text-anchor="middle" font-size="19" fill="#62566f" font-weight="800">4</text></g>
+ <g id="lin1"><rect x="320" y="505" width="76" height="105" rx="9" fill="url(#barLin12)"/><rect x="320" y="575" width="76" height="35" rx="7" fill="#a49aac"/><text x="358" y="490" text-anchor="middle" font-size="19" fill="#62566f" font-weight="800">6</text></g>
+ <g id="lin2"><rect x="450" y="470" width="76" height="140" rx="9" fill="url(#barLin12)"/><rect x="450" y="540" width="76" height="70" rx="7" fill="#a49aac"/><text x="488" y="455" text-anchor="middle" font-size="19" fill="#62566f" font-weight="800">8</text></g>
+ <g id="lin3"><rect x="580" y="435" width="76" height="175" rx="9" fill="url(#barLin12)"/><rect x="580" y="505" width="76" height="105" rx="7" fill="#a49aac"/><text x="618" y="420" text-anchor="middle" font-size="19" fill="#62566f" font-weight="800">10</text></g>
+</g>
+<g fill="#8e8398" font-size="16" font-weight="700" text-anchor="middle"><text x="228" y="644">起点</text><text x="358" y="644">第 1 期</text><text x="488" y="644">第 2 期</text><text x="618" y="644">第 3 期</text></g>
+<g id="linAdds12" fill="#fff" font-size="15" font-weight="850" text-anchor="middle"><text x="358" y="565">+2</text><text x="488" y="530">+2</text><text x="618" y="495">+2</text></g>
+<!-- right chart -->
+<path d="M900 610H1460" stroke="#c8d8ba" stroke-width="2"/><g id="compoundBars12">
+ <g id="cmp0"><rect x="930" y="540" width="76" height="70" rx="9" fill="url(#barComp12)"/><text x="968" y="525" text-anchor="middle" font-size="19" fill="#4d7c2e" font-weight="800">4</text></g>
+ <g id="cmp1"><rect x="1060" y="505" width="76" height="105" rx="9" fill="url(#barComp12)"/><rect x="1060" y="575" width="76" height="35" rx="7" fill="#80b84b"/><text x="1098" y="490" text-anchor="middle" font-size="19" fill="#4d7c2e" font-weight="800">6</text></g>
+ <g id="cmp2"><rect x="1190" y="452.5" width="76" height="157.5" rx="9" fill="url(#barComp12)"/><rect x="1190" y="505" width="76" height="105" rx="7" fill="#80b84b"/><text x="1228" y="437" text-anchor="middle" font-size="19" fill="#4d7c2e" font-weight="800">9</text></g>
+ <g id="cmp3"><rect x="1320" y="373.75" width="76" height="236.25" rx="9" fill="url(#barComp12)"/><rect x="1320" y="452.5" width="76" height="157.5" rx="7" fill="#80b84b"/><text x="1358" y="358" text-anchor="middle" font-size="19" fill="#4d7c2e" font-weight="800">13.5</text></g>
+</g>
+<g fill="#73965b" font-size="16" font-weight="700" text-anchor="middle"><text x="968" y="644">起点</text><text x="1098" y="644">第 1 期</text><text x="1228" y="644">第 2 期</text><text x="1358" y="644">第 3 期</text></g>
+<g id="cmpAdds12" fill="#fff" font-size="15" font-weight="850" text-anchor="middle"><text x="1098" y="565">+2</text><text x="1228" y="520">+3</text><text x="1358" y="475">+4.5</text></g>
+<text x="430" y="680" text-anchor="middle" fill="#6f657d" font-size="16" font-weight="800">存量：4 → 6 → 8 → 10</text><text x="1170" y="680" text-anchor="middle" fill="#5c8e39" font-size="16" font-weight="800">存量：4 → 6 → 9 → 13.5</text>
+<rect x="190" y="790" width="1220" height="66" rx="20" fill="#fffdfa" stroke="#e7dfd2" stroke-width="2"/><text x="800" y="832" text-anchor="middle" fill="#3e2b50" font-size="24" font-weight="850">有复用 ≠ 有复利；强化需要新增重新进入基础</text>
+<text x="800" y="730" text-anchor="middle" fill="#8b7d96" font-size="15" font-weight="650">示意模型：左侧每期固定 +2；右侧按存量的 50% 计算新增，仅用于说明关系</text>
+</svg></div>
+<div class="controls"><button id="play">暂停</button><button id="restart">重新播放</button><span class="time" id="time">00:00.0 / 019.1s</span><input id="seek" type="range" min="0" max="19.147755" step="0.01" value="0"><span id="state">播放中</span></div>
+<div class="hint">独立镜头预制版 · 1600×900 · SVG + JavaScript + CSS · 原始 cue 时长 19.147755s · 口播将在视觉验收后重新组织</div>
+<script>
+(()=>{
+const D=19.147755, svg=document.querySelector('svg'), seek=document.getElementById('seek'), time=document.getElementById('time'), play=document.getElementById('play'), state=document.getElementById('state');
+let start=performance.now(), elapsed=0, running=true, raf=0;
+const $=id=>document.getElementById(id), clamp=(x,a=0,b=1)=>Math.max(a,Math.min(b,x)), smooth=x=>{x=clamp(x);return x*x*(3-2*x)}, lerp=(a,b,t)=>a+(b-a)*t;
+function set(id,attr,val){const e=$(id);if(e)e.setAttribute(attr,val)}
+function text(id,val){const e=$(id);if(e)e.textContent=val}
+function opacity(id,v){set(id,'opacity',clamp(v))}
+function transform(id,v){set(id,'transform',v)}
+function render(t){
+ const reveal=(t)=>smooth((t-1.2)/2.6);
+ const q=reveal(t);
+ ['lin0','lin1','lin2','lin3','cmp0','cmp1','cmp2','cmp3'].forEach((id,i)=>{const e=$(id);if(e){const isCmp=id.startsWith('cmp'),idx=+id.slice(-1),base=isCmp?[70,105,157.5,236.25][idx]:[70,105,140,175][idx],x=isCmp?[930,1060,1190,1320][idx]:[190,320,450,580][idx],y=610-base;const local=smooth((t-(1.2+idx*1.0+(isCmp?.35:0)))/.75);e.style.opacity=idx===0?1:local;e.style.transformOrigin=`${x+38}px 610px`;e.style.transform=`translateY(${(1-local)*base}px)`;}});
+ opacity('linAdds12',q);opacity('cmpAdds12',q);
+}
+function frame(now){if(running)elapsed=Math.min(D,(now-start)/1000);render(elapsed);seek.value=elapsed;time.textContent=`${String(Math.floor(elapsed/60)).padStart(2,'0')}:${(elapsed%60).toFixed(1).padStart(4,'0')} / ${D.toFixed(1)}s`;if(elapsed>=D){running=false;play.textContent='播放';state.textContent='已结束'}raf=requestAnimationFrame(frame)}
+play.addEventListener('click',()=>{if(running){running=false;play.textContent='继续';state.textContent='已暂停'}else{if(elapsed>=D)elapsed=0;start=performance.now()-elapsed*1000;running=true;play.textContent='暂停';state.textContent='播放中'}});
+document.getElementById('restart').addEventListener('click',()=>{elapsed=0;start=performance.now();running=true;play.textContent='暂停';state.textContent='播放中';render(0)});
+seek.addEventListener('input',()=>{elapsed=+seek.value;start=performance.now()-elapsed*1000;render(elapsed);time.textContent=`00:${elapsed.toFixed(1).padStart(4,'0')} / ${D.toFixed(1)}s`;if(!running)state.textContent='已暂停'});
+render(0);raf=requestAnimationFrame(frame);window.__cue12={duration:D,render,play:()=>{running=true;start=performance.now()-elapsed*1000},pause:()=>running=false,seek:t=>{elapsed=clamp(t,0,D);start=performance.now()-elapsed*1000;render(elapsed)},get time(){return elapsed}};
+})();
+</script></body></html>
