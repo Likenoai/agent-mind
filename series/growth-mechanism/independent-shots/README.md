@@ -57,6 +57,7 @@
 
 - [全片穿片预览（独立镜头、占位画布与完整口播）](../lecture-stitching-preview.html)
 - [CUE 01–26 镜头资源核验清单（含原始口播、时间、版本、验收证据）](../CUE-01-26-SHOT-INVENTORY-2026-11-28.md)
+- [全片穿片预览技术核验记录（静态检查与待浏览器验证项）](../lecture-stitching-preview-VALIDATION-2026-11-28.md)
 
 ## 原始总片与脚本
 
