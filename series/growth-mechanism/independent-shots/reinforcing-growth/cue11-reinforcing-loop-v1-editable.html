@@ -21,14 +21,14 @@
 <text x="810" y="226" text-anchor="middle" fill="#80a34f" font-size="16" font-weight="800" letter-spacing="2">REINVEST / 再投入</text>
 <!-- stock reservoir -->
 <g filter="url(#shadow11)"><rect x="170" y="338" width="310" height="270" rx="28" fill="url(#glass11)" stroke="#3e2b50" stroke-width="8"/><rect x="188" y="357" width="274" height="232" rx="18" fill="#f6fffb" stroke="#9ecfc2" stroke-width="2"/></g>
-<text x="325" y="322" text-anchor="middle" fill="#3e2b50" font-size="21" font-weight="800">生产基础 / 存量</text>
+<text x="325" y="322" text-anchor="middle" fill="#3e2b50" font-size="21" font-weight="800">生产基础 / 存量（示意）</text>
 <g id="baseBlocks11">
  <g id="baseBlockA11"><rect x="220" y="502" width="76" height="60" rx="13" fill="#6ec4b8" stroke="#328c87" stroke-width="3"/><path d="M238 532h40" stroke="#fff" stroke-width="5" stroke-linecap="round"/></g>
  <g id="baseBlockB11"><rect x="312" y="502" width="76" height="60" rx="13" fill="#6ec4b8" stroke="#328c87" stroke-width="3"/><path d="M330 532h40" stroke="#fff" stroke-width="5" stroke-linecap="round"/></g>
  <g id="baseBlockC11" opacity="0"><rect x="220" y="425" width="76" height="60" rx="13" fill="#80b84b" stroke="#578a31" stroke-width="3"/><path d="M238 455h40" stroke="#fff" stroke-width="5" stroke-linecap="round"/></g>
  <g id="baseBlockD11" opacity="0"><rect x="312" y="425" width="76" height="60" rx="13" fill="#80b84b" stroke="#578a31" stroke-width="3"/><path d="M330 455h40" stroke="#fff" stroke-width="5" stroke-linecap="round"/></g>
 </g>
-<text id="baseCount11" x="325" y="575" text-anchor="middle" fill="#438d78" font-size="16" font-weight="800">当前生产基础 · 2 份</text>
+<text id="baseCount11" x="325" y="575" text-anchor="middle" fill="#438d78" font-size="16" font-weight="800">示意存量 · 2 份</text>
 <!-- engine -->
 <g filter="url(#shadow11)"><rect x="650" y="360" width="330" height="230" rx="34" fill="#f5d15c" stroke="#4b3659" stroke-width="9"/><rect x="678" y="388" width="274" height="174" rx="24" fill="#fff8e8" stroke="#e6a83a" stroke-width="4"/></g>
 <text x="815" y="337" text-anchor="middle" fill="#3e2b50" font-size="21" font-weight="800">后续生产 / 行动</text>
@@ -74,7 +74,7 @@ function render(t){
  ['outTokenA11','outTokenB11','outTokenC11'].forEach((id,i)=>{let q=clamp((t-(2.8+i*.7))/3.2);let x=1000+q*190;transform(id,`translate(${x-1000} 0)`);opacity(id,1-q*.92)});
  const accepted=clamp((t-6.1)/2.2);opacity('acceptedToken11',accepted*(1-clamp((t-10.2)/1.4)));
  const returnQ=clamp((t-8.2)/4.7);const path=$('returnPath11');if(path&&returnQ>0&&returnQ<1){const pt=path.getPointAtLength(path.getTotalLength()*returnQ);set('returnPulse11','transform',`translate(${pt.x} ${pt.y})`)}opacity('returnPulse11',returnQ>0&&returnQ<1?1:0);set('returnPath11','stroke-dashoffset',-t*32);
- let grow=smooth((t-12.3)/3.2);opacity('baseBlockC11',grow);opacity('baseBlockD11',grow*.9);text('baseCount11',grow>.7?'当前生产基础 · 扩大':'当前生产基础 · 2 份');
+ let grow=smooth((t-12.3)/3.2);opacity('baseBlockC11',grow);opacity('baseBlockD11',grow*.9);text('baseCount11',grow>.7?'示意存量 · 扩大':'示意存量 · 2 份');
  const second=smooth((t-15.5)/3.0);set('loopGlow11','stroke-dashoffset',-t*42);set('loopGlow11','opacity',.3+second*.65);
  text('phase11',t<5?'行动产生新的成果':t<9?'成果进入筛选与留存':t<14?'有效成果重新进入生产基础':'扩大后的基础，参与下一轮行动');
 }
