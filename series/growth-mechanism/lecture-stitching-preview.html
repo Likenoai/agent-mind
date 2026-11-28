@@ -118,7 +118,7 @@ h1{font-size:25px;letter-spacing:-.035em;margin:4px 0 5px}
    <div id="status">正在加载正式讲解音频。加载完成后，播放、进度条和文稿跳转将统一控制整部视频。</div>
    <div class="cue-meta">
     <div><div class="meta-main" id="cueMetaTitle">CUE 01 · 一张图，一个核心问题</div><div class="meta-detail" id="cueMetaDetail">00:00.000 – 00:04.792 · 待独立制作</div></div>
-    <div class="meta-actions"><button class="control-btn" id="legacyToggle">查看原总片旧画面</button></div>
+    <div class="meta-actions"><button class="control-btn" id="legacyToggle" disabled>查看原总片旧画面</button></div>
    </div>
   </section>
  </section>
@@ -228,6 +228,7 @@ function setActive(index){
  index=Math.max(0,Math.min(CUES.length-1,index));
  const changed=index!==activeIndex;activeIndex=index;
  const cue=CUES[index],number=index+1,status=statusFor(number);
+ if(changed&&number!==25)legacyMode=false;
  $('statusBadge').textContent=status;
  $('cueMetaTitle').textContent='CUE '+String(number).padStart(2,'0')+' · '+cue.title;
  $('cueMetaDetail').textContent=fmt(cue.start,true)+' – '+fmt(cue.end,true)+' · '+status;
@@ -280,7 +281,7 @@ function checkMaster(){
    master.addEventListener('play',refreshFromAudio);
    master.addEventListener('pause',refreshFromAudio);
    master.addEventListener('ended',refreshFromAudio);
-   $('playBtn').disabled=false;$('prevBtn').disabled=false;$('nextBtn').disabled=false;$('speedBtn').disabled=false;$('seek').disabled=false;
+   $('playBtn').disabled=false;$('prevBtn').disabled=false;$('nextBtn').disabled=false;$('speedBtn').disabled=false;$('seek').disabled=false;$('legacyToggle').disabled=false;
    $('status').textContent='正式音频已就绪。播放时独立镜头由同一音频时间轴驱动；点击右侧任意段落可直接跳转。';
    if(pendingIndex!==null){const target=pendingIndex;pendingIndex=null;jumpTo(target)}else{refreshFromAudio()}
    return;
@@ -298,7 +299,7 @@ legacyFrame.addEventListener('load',onLegacyLoad);
 legacyFrame.src='./lecture-unified.html';
 $('legacyToggle').addEventListener('click',()=>{
  const cue=CUES[activeIndex];legacyMode=!legacyMode;
- if(legacyMode){showLegacy(cue);if(masterReady){const win=legacyFrame.contentWindow;if(typeof win.jump==='function')win.jump(activeIndex)}}
+ if(legacyMode){showLegacy(cue)}
  else showPlaceholder(cue);
 });
 $('playBtn').addEventListener('click',()=>{
