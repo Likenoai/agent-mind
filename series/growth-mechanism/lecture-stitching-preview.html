@@ -279,31 +279,16 @@ function injectLegacyStyle(){
  try{
   const doc=legacyFrame.contentDocument;if(!doc||!doc.head)return;
   const style=doc.createElement('style');
-  style.textContent='html,body{margin:0!important;padding:0!important;width:100%!important;height:100%!important;overflow:hidden!important;background:transparent!important}body>header,body>audio,.sidebar,.controls,.seek,.ticks,.status,.notes,dialog{display:none!important}main.grid{display:block!important;max-width:none!important;margin:0!important;padding:0!important}.main{width:100%!important;min-width:0!important}.stageWrap{width:100%!important;border:0!important;border-radius:0!important;box-shadow:none!important;background:transparent!important}.stage{width:100%!important;aspect-ratio:16/9!important;border-radius:0!important}#viz g[data-region]>line,#viz g[data-node]>line{opacity:0!important}';
+  style.textContent='html,body{margin:0!important;padding:0!important;width:100%!important;height:100%!important;overflow:hidden!important;background:transparent!important}body>header,body>audio,.sidebar,.controls,.seek,.ticks,.status,.notes,dialog{display:none!important}main.grid{display:block!important;max-width:none!important;margin:0!important;padding:0!important}.main{width:100%!important;min-width:0!important}.stageWrap{width:100%!important;border:0!important;border-radius:0!important;box-shadow:none!important;background:transparent!important}.stage{width:100%!important;aspect-ratio:16/9!important;border-radius:0!important}';
   doc.head.append(style);
-  const cleanFaintLongConnectors=()=>{
-   const svg=doc.getElementById('viz');if(!svg)return;
-   svg.querySelectorAll('g[style]').forEach(group=>{
-    const opacity=Number.parseFloat(group.style.opacity);
-    if(!Number.isFinite(opacity)||opacity>=.99||opacity===0)return;
-    for(const path of group.querySelectorAll('path')){
-     const d=path.getAttribute('d')||'';
-     const points=[...d.matchAll(/(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)/g)].map(m=>[Number(m[1]),Number(m[2])]);
-     for(let i=1;i<points.length;i++){
-      if(Math.abs(points[i][1]-points[i-1][1])<1&&Math.abs(points[i][0]-points[i-1][0])>450){
-       group.style.opacity='0';
-       return;
-      }
-     }
-    }
-   });
-  };
-  const svg=doc.getElementById('viz');
-  if(svg){
-   const observer=new MutationObserver(cleanFaintLongConnectors);
-   observer.observe(svg,{childList:true,subtree:true,attributes:true,attributeFilter:['style']});
-   cleanFaintLongConnectors();
-  }
+ }catch(e){}
+}
+function installLegacyViewBoxCamera(){
+ try{
+  const doc=legacyFrame.contentDocument;if(!doc||!doc.head||doc.getElementById('preview-viewbox-camera'))return;
+  const script=doc.createElement('script');script.id='preview-viewbox-camera';
+  script.textContent="(()=>{\n if(window.__previewViewBoxCameraInstalled)return;\n window.__previewViewBoxCameraInstalled=true;\n\n const originalClear=clear;\n clear=function(){\n  const svg=document.getElementById('viz');\n  svg.setAttribute('viewBox','0 0 '+w+' '+h);\n  return originalClear();\n };\n\n animateGraph=function(p,now){\n  if(!graphWorld?.isConnected||!cameraTarget)return;\n  const ease=reduced?1:Math.min(1,(now-cameraChange)/1000);\n  const q=ease*ease*(3-2*ease);\n  camera={\n   x:cameraStart.x+(cameraTarget.x-cameraStart.x)*q,\n   y:cameraStart.y+(cameraTarget.y-cameraStart.y)*q,\n   s:cameraStart.s+(cameraTarget.s-cameraStart.s)*q\n  };\n  const s=camera.s||1;\n  const vx=-camera.x/s,vy=-camera.y/s,vw=w/s,vh=h/s;\n  const svg=document.getElementById('viz');\n  svg.setAttribute('viewBox',[vx,vy,vw,vh].map(v=>Number(v.toFixed(4))).join(' '));\n  graphWorld.removeAttribute('transform');\n\n  const bg=sceneGroup?.firstElementChild;\n  if(bg&&bg.tagName.toLowerCase()==='rect'){\n   bg.setAttribute('x',vx);bg.setAttribute('y',vy);\n   bg.setAttribute('width',vw);bg.setAttribute('height',vh);\n  }\n  const pattern=document.getElementById('mapGrid');\n  if(pattern){\n   pattern.setAttribute('width',36/s);\n   pattern.setAttribute('height',36/s);\n   const dot=pattern.querySelector('circle');\n   if(dot){\n    dot.setAttribute('cx',2/s);dot.setAttribute('cy',2/s);dot.setAttribute('r',1/s);\n   }\n  }\n\n  const c=cues[current];\n  const live=!overview&&c?.visual==='graph';\n  if(live&&c.i===0){\n   Array.from(graphElements.rg.children).forEach((g,i)=>\n    g.style.opacity=String(.2+.8*Math.min(1,Math.max(0,(p-i*.11)/.2)))\n   );\n  }\n  if(live&&c.focus.length){\n   const pulse=c.i===2?Math.max(0,Math.sin(p*Math.PI*6))*.16:0;\n   c.focus.forEach((id,i)=>{\n    const g=graphElements.nodes[id];if(!g)return;\n    const begin=Math.min(.55,i*.075);\n    const a=Math.max(0,Math.min(1,(p-begin)/.12));\n    g.style.opacity=String(.55+.45*a);\n    if(c.i===2&&id==='action')g.firstElementChild?.setAttribute('stroke-width',1.6+pulse*25);\n   });\n  }\n  if(cueOverlay)cueOverlay.setAttribute('opacity',Math.max(0,Math.min(1,(p-.28)/.2)));\n  dots.forEach((d,i)=>{\n   const len=d.path.getTotalLength();\n   const pos=d.path.getPointAtLength(((p*2.6+i*.17)%1)*len);\n   d.el.setAttribute('cx',pos.x);d.el.setAttribute('cy',pos.y);\n   d.el.setAttribute('opacity',loopDot?0:Math.min(1,.35+p*3));\n  });\n  if(loopDot){\n   const seq=['new>reinvest','reinvest>base','base>call','call>fit','fit>apply','apply>new'].map(id=>graphElements.edges[id].base);\n   const lens=seq.map(path=>path.getTotalLength()),sum=lens.reduce((a,b)=>a+b,0);\n   let t=(Math.max(0,p-.12)*1.45%1)*sum,i=0;\n   while(i<seq.length-1&&t>lens[i]){t-=lens[i];i++}\n   const v=seq[i].getPointAtLength(t);\n   loopDot.setAttribute('cx',v.x);loopDot.setAttribute('cy',v.y);\n   loopDot.setAttribute('opacity',p<.12?0:1);\n  }\n };\n})();";
+  doc.head.append(script);script.remove();
  }catch(e){}
 }
 function showPlaceholder(cue){
@@ -400,7 +385,7 @@ function onShotLoad(){
  $('loading').classList.remove('active');syncShot();
 }
 function onLegacyLoad(){
- legacyReady=true;injectLegacyStyle();$('loading').classList.remove('active');checkMaster();
+ legacyReady=true;injectLegacyStyle();installLegacyViewBoxCamera();$('loading').classList.remove('active');checkMaster();
 }
 shotFrame.addEventListener('load',onShotLoad);
 legacyFrame.addEventListener('load',onLegacyLoad);
