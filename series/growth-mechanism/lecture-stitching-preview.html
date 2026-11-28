@@ -182,21 +182,35 @@ const stage=$('stage'),shotFrame=$('shotFrame'),legacyFrame=$('legacyFrame'),pla
 let master=null,masterReady=false,activeIndex=-1,loadedShot='',shotReady=false,legacyReady=false,legacyMode=false,pendingIndex=null,speed=1,lastPaint=0;
 const fmt=(seconds,ms=false)=>{const s=Math.max(0,seconds);const m=Math.floor(s/60),whole=Math.floor(s%60),tenths=Math.floor((s%1)*10);return String(m).padStart(2,'0')+':'+String(whole).padStart(2,'0')+(ms?'.'+String(Math.floor((s%1)*1000)).padStart(3,'0'):'.'+tenths)};
 function statusFor(number){
- if(legacyMode)return LEGACY_STATUS[number]||'原总片现有画面';
+ if(legacyMode){
+  if(number===19)return '原总片旧画面对照；正式预览默认使用待制作占位';
+  if(SHOTS[number]){
+   if(number>=3&&number<=6)return '当前显示原总片画面；独立 V1 可切换，尚未验收';
+   return '当前显示原总片对照画面；独立镜头版本保留在预览中';
+  }
+  return LEGACY_STATUS[number]||'原总片现有画面';
+ }
  if(SHOTS[number])return SHOTS[number].status;
  return PLACEHOLDER_STATUS;
 }
 function resourceFor(number){
- if(legacyMode)return 'lecture-unified.html（原总片画面）';
+ if(legacyMode){
+  if(SHOTS[number])return '当前：lecture-unified.html；可切换：'+SHOTS[number].src.replace(/^\.\//,'');
+  return 'lecture-unified.html（原总片画面）';
+ }
  if(SHOTS[number])return SHOTS[number].src.replace(/^\.\//,'');
  return '无独立资源文件 · 空白占位';
 }
 function badgeFor(number){
+ if(legacyMode){
+  if(number===19)return '原总片旧画面对照';
+  if(SHOTS[number])return number>=3&&number<=6?'原总片默认 / V1 备选':'原总片对照';
+ }
  if(number>=7&&number<=10)return 'V2 · 已验收';
  if(number>=11&&number<=14)return 'V1 · 已验收';
  if(number>=15&&number<=18)return 'V1 · 待知识网络审查';
  if(number>=20&&number<=24)return SHOTS[number].status.split('·')[0].trim();
- if(number>=3&&number<=6)return '原总片 / V1 备选';
+ if(number>=3&&number<=6)return 'V1 · 待视觉验收';
  if(number===19)return '待制作';
  if(number===25)return '原总片 · 错误复制工厂';
  if(number===26)return '原总片 · 网络收束';
