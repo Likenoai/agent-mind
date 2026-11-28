@@ -17,14 +17,18 @@
 | 哪些结果值得留下 | V1 | 首轮浏览器播放通过；待用户视觉验收 | [Cue 04 预览](action-results-retention/cue04-screen-retain-v1-standalone.html) | [Cue 04 源文件](action-results-retention/cue04-screen-retain-v1-editable.html) | [验证记录](action-results-retention/cue04-validation.md) |
 | 积累是变化，存量是状态 | V1 | 首轮浏览器播放通过；待用户视觉验收 | [Cue 05 预览](repetition-accumulation/cue05-stock-accumulation-v1-standalone.html) | [Cue 05 源文件](repetition-accumulation/cue05-stock-accumulation-v1-editable.html) | [验证记录](repetition-accumulation/cue05-validation.md) |
 | 重复与积累：不同分类轴 | V1 | 首轮浏览器播放通过；待用户视觉验收 | [Cue 06 预览](repetition-accumulation/cue06-repetition-accumulation-v1-standalone.html) | [Cue 06 源文件](repetition-accumulation/cue06-repetition-accumulation-v1-editable.html) | [验证记录](repetition-accumulation/cue06-validation.md) |
-| 存量不等于生产性存量 | V1 | 首轮浏览器播放通过；待用户视觉验收 | [Cue 07 预览](stock-to-production/cue07-stock-productivity-v1-standalone.html) | [Cue 07 源文件](stock-to-production/cue07-stock-productivity-v1-editable.html) | [验证记录](stock-to-production/cue07-validation.md) |
-| 留存与提取 | V1 | 首轮浏览器播放通过；待用户视觉验收 | [Cue 08 预览](stock-to-production/cue08-retention-retrieval-v1-standalone.html) | [Cue 08 源文件](stock-to-production/cue08-retention-retrieval-v1-editable.html) | [验证记录](stock-to-production/cue08-validation.md) |
-| 调用不等于适用 | V1 | 首轮浏览器播放通过；待用户视觉验收 | [Cue 09 预览](stock-to-production/cue09-call-fit-apply-v1-standalone.html) | [Cue 09 源文件](stock-to-production/cue09-call-fit-apply-v1-editable.html) | [验证记录](stock-to-production/cue09-validation.md) |
-| 应用效果必须检验 | V1 | 首轮浏览器播放通过；待用户视觉验收 | [Cue 10 预览](stock-to-production/cue10-application-evaluation-v1-standalone.html) | [Cue 10 源文件](stock-to-production/cue10-application-evaluation-v1-editable.html) | [验证记录](stock-to-production/cue10-validation.md) |
-| 把新成果重新放进循环 | V1 | 浏览器实际播放通过；待用户视觉验收 | [Cue 11 预览](reinforcing-growth/cue11-reinforcing-loop-v1-standalone.html) | [Cue 11 源文件](reinforcing-growth/cue11-reinforcing-loop-v1-editable.html) | [验证记录](reinforcing-growth/cue11-actual-validation.json) |
-| 复用、线性增长与复利式增长 | V1 | 浏览器实际播放通过；待用户视觉验收 | [Cue 12 预览](reinforcing-growth/cue12-linear-vs-compound-v1-standalone.html) | [Cue 12 源文件](reinforcing-growth/cue12-linear-vs-compound-v1-editable.html) | [验证记录](reinforcing-growth/cue12-actual-validation.json) |
-| 雪球是隐喻，不是证明 | V1 | 浏览器实际播放通过；待用户视觉验收 | [Cue 13 预览](reinforcing-growth/cue13-snowball-metaphor-v1-standalone.html) | [Cue 13 源文件](reinforcing-growth/cue13-snowball-metaphor-v1-editable.html) | [验证记录](reinforcing-growth/cue13-actual-validation.json) |
-| 效率只是释放资源的可能 | V1 | 浏览器实际播放通过；待用户视觉验收 | [Cue 14 预览](reinforcing-growth/cue14-efficiency-resource-allocation-v1-standalone.html) | [Cue 14 源文件](reinforcing-growth/cue14-efficiency-resource-allocation-v1-editable.html) | [验证记录](reinforcing-growth/cue14-actual-validation.json) |
+| 存量不等于生产性存量 | V2 | 用户已验收 V2；穿片预览使用原始 V2 文件并由父页面注入同步桥接 | [Cue 07 V2](stock-to-production/cue07-v2-standalone.html) | — | [V1 历史版](stock-to-production/cue07-stock-productivity-v1-standalone.html)；[V1 验证记录](stock-to-production/cue07-validation.md) |
+| 留存与提取 | V2 | 用户已验收 V2；穿片预览使用原始 V2 文件并由父页面注入同步桥接 | [Cue 08 V2](stock-to-production/cue08-v2-standalone.html) | — | [V1 历史版](stock-to-production/cue08-retention-retrieval-v1-standalone.html)；[V1 验证记录](stock-to-production/cue08-validation.md) |
+| 调用不等于适用 | V2 | 用户已验收 V2；穿片预览使用原始 V2 文件并由父页面注入同步桥接 | [Cue 09 V2](stock-to-production/cue09-v2-standalone.html) | — | [V1 历史版](stock-to-production/cue09-call-fit-apply-v1-standalone.html)；[V1 验证记录](stock-to-production/cue09-validation.md) |
+| 应用效果必须检验 | V2 | 用户已验收 V2；穿片预览使用原始 V2 文件并由父页面注入同步桥接 | [Cue 10 V2](stock-to-production/cue10-v2-standalone.html) | — | [V1 历史版](stock-to-production/cue10-application-evaluation-v1-standalone.html)；[V1 验证记录](stock-to-production/cue10-validation.md) |
+| 把新成果重新放进循环 | V1 | 浏览器实际播放通过；用户已验收；全片穿片待复核 | [Cue 11 预览](reinforcing-growth/cue11-reinforcing-loop-v1-standalone.html) | [Cue 11 源文件](reinforcing-growth/cue11-reinforcing-loop-v1-editable.html) | [验证记录](reinforcing-growth/cue11-actual-validation.json) |
+| 复用、线性增长与复利式增长 | V1 | 浏览器实际播放通过；用户已验收；全片穿片待复核 | [Cue 12 预览](reinforcing-growth/cue12-linear-vs-compound-v1-standalone.html) | [Cue 12 源文件](reinforcing-growth/cue12-linear-vs-compound-v1-editable.html) | [验证记录](reinforcing-growth/cue12-actual-validation.json) |
+| 雪球是隐喻，不是证明 | V1 | 浏览器实际播放通过；用户已验收；全片穿片待复核 | [Cue 13 预览](reinforcing-growth/cue13-snowball-metaphor-v1-standalone.html) | [Cue 13 源文件](reinforcing-growth/cue13-snowball-metaphor-v1-editable.html) | [验证记录](reinforcing-growth/cue13-actual-validation.json) |
+| 效率只是释放资源的可能 | V1 | 浏览器实际播放通过；用户已验收；全片穿片待复核 | [Cue 14 预览](reinforcing-growth/cue14-efficiency-resource-allocation-v1-standalone.html) | [Cue 14 源文件](reinforcing-growth/cue14-efficiency-resource-allocation-v1-editable.html) | [验证记录](reinforcing-growth/cue14-actual-validation.json) |
+| 资源重新配置 | V1 | 历史浏览器技术验证通过；待知识网络审查；未作用户视觉验收 | [Cue 15 预览](reinforcing-growth/cue15-v1-standalone.html) | — | [Cue 15–18 验证记录](reinforcing-growth/cue15-18-validation.md) |
+| 案例：一次视频完成之后 | V1 | 历史浏览器技术验证通过；待知识网络审查；未作用户视觉验收 | [Cue 16 预览](reinforcing-growth/cue16-v1-standalone.html) | — | [Cue 15–18 验证记录](reinforcing-growth/cue15-18-validation.md) |
+| 把经验变成可调用的工具 | V1 | 历史浏览器技术验证通过；待知识网络审查；未作用户视觉验收 | [Cue 17 预览](reinforcing-growth/cue17-v1-standalone.html) | — | [Cue 15–18 验证记录](reinforcing-growth/cue15-18-validation.md) |
+| 节省时间是否扩大生产基础 | V1 | 历史浏览器技术验证通过；待知识网络审查；未作用户视觉验收 | [Cue 18 预览](reinforcing-growth/cue18-v1-standalone.html) | — | [Cue 15–18 验证记录](reinforcing-growth/cue15-18-validation.md) |
 
 ## 归档内容
 
@@ -41,6 +45,13 @@
 3. 总片正式音频时间轴驱动字幕与动画；独立预览控件只用于单镜头验收。
 4. 镜头资源按版本归档；未确认镜头明确标记为 WIP。
 5. 图片素材、可编辑源文件和单文件预览分开保存，避免只留下不可拆解的成品。
+
+## 版本与验收状态更新（2026-11-28）
+
+- Cue 07–10 的用户已验收 V2 原始独立 HTML 已从项目 Library 找回并归档；此前 V1 文件保留为历史版本，不继承 V2 的验收状态。
+- Cue 11–14 的 V1 按本轮交接确认标记为用户已验收；此前 README 的“待用户视觉验收”状态为旧记录。
+- Cue 15–18 的 V1 原始 HTML 已找回并归档。历史 `validation.md` 证明当时通过了 Chromium Headless 技术检查；这不等于视觉验收，也不等于知识网络审查通过。
+- Cue 07–10 与 Cue 15–18 的独立 HTML 不提供统一父页面同步 API；全片穿片预览在 iframe 加载完成后注入轻量同步桥接，不修改这些原始镜头文件。
 
 ## 全片穿片预览
 
