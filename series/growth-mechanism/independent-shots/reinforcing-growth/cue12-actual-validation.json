@@ -1,0 +1,14 @@
+{
+  "cue": 12,
+  "duration": 19.147755,
+  "actualPlaybackEnd": {
+    "t": 19.147755,
+    "play": "播放",
+    "state": "已结束"
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "replayTime": 0.09029999999999927,
+  "seekMidpoint": 9.5738775,
+  "svgTextOutOfBounds": []
+}
