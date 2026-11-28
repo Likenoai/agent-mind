@@ -279,8 +279,31 @@ function injectLegacyStyle(){
  try{
   const doc=legacyFrame.contentDocument;if(!doc||!doc.head)return;
   const style=doc.createElement('style');
-  style.textContent='html,body{margin:0!important;padding:0!important;width:100%!important;height:100%!important;overflow:hidden!important;background:transparent!important}body>header,body>audio,.sidebar,.controls,.seek,.ticks,.status,.notes,dialog{display:none!important}main.grid{display:block!important;max-width:none!important;margin:0!important;padding:0!important}.main{width:100%!important;min-width:0!important}.stageWrap{width:100%!important;border:0!important;border-radius:0!important;box-shadow:none!important;background:transparent!important}.stage{width:100%!important;aspect-ratio:16/9!important;border-radius:0!important}';
+  style.textContent='html,body{margin:0!important;padding:0!important;width:100%!important;height:100%!important;overflow:hidden!important;background:transparent!important}body>header,body>audio,.sidebar,.controls,.seek,.ticks,.status,.notes,dialog{display:none!important}main.grid{display:block!important;max-width:none!important;margin:0!important;padding:0!important}.main{width:100%!important;min-width:0!important}.stageWrap{width:100%!important;border:0!important;border-radius:0!important;box-shadow:none!important;background:transparent!important}.stage{width:100%!important;aspect-ratio:16/9!important;border-radius:0!important}#viz g[data-region]>line,#viz g[data-node]>line{opacity:0!important}';
   doc.head.append(style);
+  const cleanFaintLongConnectors=()=>{
+   const svg=doc.getElementById('viz');if(!svg)return;
+   svg.querySelectorAll('g[style]').forEach(group=>{
+    const opacity=Number.parseFloat(group.style.opacity);
+    if(!Number.isFinite(opacity)||opacity>=.1)return;
+    for(const path of group.querySelectorAll('path')){
+     const d=path.getAttribute('d')||'';
+     const points=[...d.matchAll(/(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)/g)].map(m=>[Number(m[1]),Number(m[2])]);
+     for(let i=1;i<points.length;i++){
+      if(Math.abs(points[i][1]-points[i-1][1])<1&&Math.abs(points[i][0]-points[i-1][0])>450){
+       group.style.opacity='0';
+       return;
+      }
+     }
+    }
+   });
+  };
+  const svg=doc.getElementById('viz');
+  if(svg){
+   const observer=new MutationObserver(cleanFaintLongConnectors);
+   observer.observe(svg,{childList:true,subtree:true,attributes:true,attributeFilter:['style']});
+   cleanFaintLongConnectors();
+  }
  }catch(e){}
 }
 function showPlaceholder(cue){
