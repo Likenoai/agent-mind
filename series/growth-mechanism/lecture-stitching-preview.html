@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>人生系列｜增长机制 · 全片穿片预览</title>
+<style>
+:root{color-scheme:light;--ink:#30283a;--muted:#81788a;--paper:#f4f1eb;--panel:#fffdfa;--line:#e5dfd5;--purple:#8e79ad;--green:#6c9d51;--amber:#b98539;--blue:#6d94b8}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:var(--paper);color:var(--ink);font-family:"Noto Sans SC","Microsoft YaHei",system-ui,sans-serif}
+button,input{font:inherit}
+button{cursor:pointer}
+.topbar{padding:22px 28px 17px;background:#fffdfa;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:20px}
+.eyebrow{font-size:11px;letter-spacing:.16em;font-weight:850;color:#8d7b9e}
+h1{font-size:25px;letter-spacing:-.035em;margin:4px 0 5px}
+.lead{font-size:13px;color:var(--muted);margin:0}
+.topmeta{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.pill{border:1px solid var(--line);background:#fbf9f4;color:#746a7c;padding:7px 11px;border-radius:999px;font-size:11px;font-weight:750;white-space:nowrap}
+.layout{max-width:1900px;margin:0 auto;padding:20px 24px 28px;display:grid;grid-template-columns:minmax(0,1.45fr) minmax(390px,.85fr);gap:20px;align-items:start}
+.left{min-width:0}
+.visual-card,.reader-card{background:var(--panel);border:1px solid var(--line);border-radius:16px;box-shadow:0 10px 28px #392d3d0a;overflow:hidden}
+.visual-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px 16px;border-bottom:1px solid var(--line)}
+.visual-heading{font-size:14px;font-weight:850}
+.visual-sub{font-size:11px;color:var(--muted);margin-top:3px}
+.cue-status{font-size:11px;font-weight:800;color:#776b80;border:1px solid var(--line);background:#faf8f3;border-radius:999px;padding:6px 10px;white-space:nowrap}
+.stage-shell{padding:12px;background:#ece8e1}
+.stage{position:relative;width:100%;aspect-ratio:16/9;background:#f9f7f2;overflow:hidden;border-radius:8px;isolation:isolate}
+#shotFrame,#legacyFrame{position:absolute;inset:0;width:100%;height:100%;border:0;display:none;background:transparent}
+#shotFrame.active,#legacyFrame.active{display:block}
+#placeholder{position:absolute;inset:0;display:none;align-items:center;justify-content:center;flex-direction:column;text-align:center;background:#f8f6f0;border:1px dashed #cfc7bb;color:#534a5c;padding:24px}
+#placeholder.active{display:flex}
+.placeholder-code{font-size:clamp(15px,2vw,26px);font-weight:900;letter-spacing:.2em;color:#a093aa}
+.placeholder-title{font-size:clamp(21px,3vw,40px);font-weight:850;letter-spacing:-.035em;margin-top:14px}
+.placeholder-state{margin-top:18px;padding:7px 13px;border:1px dashed #bcae9f;border-radius:999px;font-size:12px;font-weight:850;color:#8d795f}
+.placeholder-note{font-size:12px;color:#938b91;margin-top:13px}
+#loading{position:absolute;inset:auto 14px 14px auto;z-index:5;display:none;background:#2d2833e8;color:#fff;border-radius:8px;padding:7px 10px;font-size:11px}
+#loading.active{display:block}
+.controls{display:flex;align-items:center;gap:8px;padding:12px 14px;border-top:1px solid var(--line);flex-wrap:wrap}
+.control-btn{border:1px solid #ddd5ca;background:#fffdfa;color:#4c4057;border-radius:9px;padding:8px 12px;font-size:12px;font-weight:800}
+.control-btn.primary{background:#574762;border-color:#574762;color:#fff}
+.control-btn:disabled{opacity:.45;cursor:not-allowed}
+.time{font-size:12px;font-variant-numeric:tabular-nums;color:#726a78;white-space:nowrap}
+#seek{flex:1;min-width:130px;accent-color:#8e79ad}
+#status{padding:0 15px 12px;font-size:11px;color:var(--muted);min-height:28px}
+.cue-meta{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 15px;border-top:1px solid var(--line);flex-wrap:wrap}
+.meta-main{font-size:13px;font-weight:850}
+.meta-detail{font-size:11px;color:var(--muted);margin-top:3px}
+.meta-actions{display:flex;gap:7px;align-items:center}
+#legacyToggle{display:none}
+#legacyToggle.visible{display:inline-flex}
+.reader-card{position:sticky;top:12px}
+.reader-head{padding:15px 17px 12px;border-bottom:1px solid var(--line);background:#fffdfa}
+.reader-title{font-size:15px;font-weight:900}
+.reader-note{font-size:11px;color:var(--muted);margin-top:4px;line-height:1.6}
+.reader-scroll{max-height:calc(100vh - 205px);overflow:auto;padding:8px 13px 18px;scrollbar-gutter:stable}
+.chapter{padding:8px 0 3px}
+.chapter-head{padding:10px 6px 7px;border-bottom:1px solid #eee9e1;margin-bottom:7px}
+.chapter-name{font-size:13px;font-weight:900}
+.chapter-desc{font-size:10px;color:var(--muted);margin-top:3px;line-height:1.5}
+.script-cue{padding:0 0 9px;margin:0 0 9px;border-bottom:1px solid #f0ece6;border-radius:8px}
+.script-cue.active{background:#f7f3fa;box-shadow:inset 3px 0 #8e79ad}
+.cue-select{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;padding:9px 9px 5px;border:0;background:transparent;text-align:left;color:inherit}
+.cue-select:hover .cue-name{color:#725b89}
+.cue-left{min-width:0}
+.cue-time{font-size:10px;color:#8c8291;font-variant-numeric:tabular-nums}
+.cue-name{font-size:13px;font-weight:850;margin-left:7px}
+.cue-badge{font-size:9px;font-weight:800;color:#8b7b91;background:#eee9f0;border-radius:999px;padding:4px 7px;white-space:nowrap}
+.script-cue p{font-size:13px;line-height:1.9;color:#413a46;margin:4px 11px 7px;padding-left:1px}
+.script-cue.active p{color:#30263a}
+.footer-note{max-width:1900px;margin:0 auto;padding:0 24px 24px;color:#8b8490;font-size:11px;line-height:1.7}
+@media(max-width:1120px){.layout{grid-template-columns:minmax(0,1.2fr) minmax(330px,.8fr);padding:15px;gap:12px}.reader-scroll{max-height:calc(100vh - 190px)}}
+@media(max-width:820px){.topbar{display:block;padding:16px}.topmeta{justify-content:flex-start;margin-top:10px}.layout{display:flex;flex-direction:column;padding:10px;gap:12px}.left,.reader-card{width:100%}.reader-card{position:static}.reader-scroll{max-height:none}.stage-shell{padding:7px}.script-cue p{font-size:14px}.footer-note{padding:0 12px 18px}}
+</style>
+</head>
+<body>
+<header class="topbar">
+ <div>
+  <div class="eyebrow">SHOT ASSEMBLY / FULL SCRIPT PREVIEW</div>
+  <h1>人生系列｜增长机制 · 全片穿片预览</h1>
+  <p class="lead">按独立镜头制作状态组装 · 完整文稿正常阅读 · 正式音频驱动镜头时间轴</p>
+ </div>
+ <div class="topmeta">
+  <span class="pill">26 个镜头</span>
+  <span class="pill">9 个章节</span>
+  <span class="pill">08:10.931</span>
+  <span class="pill">16:9 预览</span>
+ </div>
+</header>
+
+<main class="layout">
+ <section class="left">
+  <section class="visual-card">
+   <div class="visual-head">
+    <div><div class="visual-heading">当前镜头画布</div><div class="visual-sub">已制作镜头直接装入；未完成独立预制的镜头保留空白画布</div></div>
+    <span class="cue-status" id="statusBadge">等待音频</span>
+   </div>
+   <div class="stage-shell">
+    <div class="stage" id="stage">
+     <iframe id="shotFrame" title="当前独立动画镜头"></iframe>
+     <iframe id="legacyFrame" title="原总片参考画面"></iframe>
+     <div id="placeholder" class="active">
+      <div class="placeholder-code" id="placeholderCode">CUE 01</div>
+      <div class="placeholder-title" id="placeholderTitle">一张图，一个核心问题</div>
+      <div class="placeholder-state">独立镜头待制作</div>
+      <div class="placeholder-note">此处保留原脚本位置与时间，不提前设计画面</div>
+     </div>
+     <div id="loading">正在载入镜头…</div>
+    </div>
+   </div>
+   <div class="controls">
+    <button class="control-btn primary" id="playBtn" disabled>▶ 播放</button>
+    <button class="control-btn" id="prevBtn" disabled>← 上一镜头</button>
+    <button class="control-btn" id="nextBtn" disabled>下一镜头 →</button>
+    <button class="control-btn" id="speedBtn" disabled>1×</button>
+    <span class="time" id="timeLabel">00:00.0 / 08:10.9</span>
+    <input id="seek" type="range" min="0" max="490.931" step="0.01" value="0" disabled aria-label="全片时间轴">
+   </div>
+   <div id="status">正在加载正式讲解音频。加载完成后，播放、进度条和文稿跳转将统一控制整部视频。</div>
+   <div class="cue-meta">
+    <div><div class="meta-main" id="cueMetaTitle">CUE 01 · 一张图，一个核心问题</div><div class="meta-detail" id="cueMetaDetail">00:00.000 – 00:04.792 · 待独立制作</div></div>
+    <div class="meta-actions"><button class="control-btn" id="legacyToggle">查看原总片旧画面</button></div>
+   </div>
+  </section>
+ </section>
+
+ <aside class="reader-card">
+  <div class="reader-head">
+   <div class="reader-title">完整口播文稿</div>
+   <div class="reader-note">按原始 26 个镜头与 9 个章节排列。口播保持完整段落，不拆成逐句字幕；点击镜头标题可跳转对应时间。</div>
+  </div>
+  <div class="reader-scroll" id="reader"></div>
+ </aside>
+</main>
+
+<div class="footer-note">
+ 制作状态说明：Cue 03–14 使用现有独立 V1，当前状态为待视觉验收；Cue 20–24 使用已归档的独立动画版本；Cue 25 保留 7:30 原总片参考动画。其余镜头使用空白占位，表示独立镜头尚未预制。占位镜头的旧版总片画面可通过“查看原总片旧画面”临时对照，不会覆盖占位状态。原始口播、章节顺序、音频和 cue 时长均来自当前 main 分支。
+</div>
+
+<script>
+const CHAPTERS=[["01","定位增长机制","先看完整网络，明确它回答的问题和其他机制的关系"],["02","行动不等于存量","重复、成果、筛选、留存、积累的不同概念位置"],["03","存量如何参与生产","提取、适用、应用、生产性与非生产性的条件关系"],["04","从复用到复利","检验结果、再次留存、强化反馈与增长形态的区分"],["05","效率与资源再配置","节省资源、当前产出与生产基础并非必然递进"],["06","案例：同一个创作者","在同一任务系列中检验机制的实际含义"],["07","支撑与调节机制","学习、记忆、反馈、修正、维护的具体接口"],["08","增长动态与边界","流入流出、速度、边际收益、瓶颈与衰减"],["09","回到人生","增长与价值判断、选择空间、代价的关系"]];
+const RAW_CUES=[{"ch":0,"title":"一张图，一个核心问题","focus":[],"links":[],"voice":"我们如何让过去的行动，改变未来的行动条件？","key":"过去如何参与创造未来？","visual":"graph","motion":"全局地图出现；五区依次亮起；箭头为关系而非层级。","seconds":4.792041},{"ch":0,"title":"方向不是增长过程","focus":["value","choice","premise","action"],"links":["value>choice","choice>action","premise>choice"],"voice":"价值判断回答什么值得发展，选择机制决定把资源投向哪里。增长机制则解释，在方向与对象相对明确之后，行动成果怎样改变未来的行动条件。方向正确不是增长机制自己能够保证的。","key":"方向选择 ≠ 增长过程","visual":"graph","motion":"镜头推入蓝色上游；实线显示评价，虚线显示条件作用。","seconds":18.912653},{"ch":1,"title":"行动和成果不是同一件事","focus":["action","produce"],"links":["action>produce"],"voice":"每一次行动都可能产生结果。完成视频、解决问题、学习知识，都可以产生眼前的成果。但同类行动再次发生，叫重复；重复描述的是行动模式，不是存量或增长速度。","key":"重复：行动再次发生","visual":"graph","motion":"行动节点出现三次脉冲；本次成果从行动沿边流出。","seconds":17.005714},{"ch":1,"title":"哪些结果值得留下？","focus":["produce","screen","retain","learning"],"links":["produce>screen","screen>retain","learning>produce"],"voice":"成果并不都会进入未来。先判断使用可能性、重新获得的成本和遗失的影响，再决定保留哪些成果。内部的知识技能、外部的文档工具、流程或环境条件，都可能成为留存的形式。","key":"成果产生 → 筛选 → 留存","visual":"graph","motion":"结果沿筛选边移动，保留部分继续流入留存；不保留不是失败。","seconds":18.442449},{"ch":1,"title":"积累是变化，存量是状态","focus":["retain","stock"],"links":["retain>stock"],"voice":"留存的成果进入某一时点的存量。积累描述存量形成和变化的过程，而存量是一种状态。行动反复发生，不表示存量必然增加；只有看留下来的成果和失去的成果，才能判断净变化。","key":"存量：时点状态｜积累：变化过程","visual":"stock","motion":"容器中每期流入和流出以同一单位示意，净变化单独显示。","seconds":19.330612},{"ch":1,"title":"重复与积累：不同分类轴","focus":["action","produce","retain","stock"],"links":["action>produce","retain>stock"],"voice":"比较两种假设：每次行动都得到即时成果，却没有在所考察维度留下存量；或者每次留下同样数量的成果。两者都可以重复行动，后者才在这个维度形成积累。没有积累不等于行动没有价值。","key":"行动次数不能代表净存量","visual":"compare","motion":"并列展示三次行动的流向与存量；同一时间轴，无真实数据。","seconds":19.40898},{"ch":2,"title":"存量不等于生产性存量","focus":["stock","independent","call"],"links":["stock>independent","stock>call"],"voice":"即使成果已经留下，也不能直接断言它会参与后续生产。有些存量在当前任务里只是独立存在。是否具有生产性，要看它能不能在特定目标和情境中改善后续行动，而不是看它是不是被保存。","key":"生产性是存量与后续任务的关系","visual":"graph","motion":"存量向独立存量与调用分支；不把独立存量标为无价值。","seconds":18.834286},{"ch":2,"title":"留存与提取","focus":["retain","stock","call","memory"],"links":["retain>stock","stock>call","memory>retain","memory>call"],"voice":"留存解决成果是否还存在；提取与调用解决在需要时能不能获得它。记住但想不起来，文件保存了却找不到，都是可能的断点。记忆机制支持内部留存和提取，外部存储也需要检索与组织。","key":"留得住 ≠ 调得出","visual":"graph","motion":"聚焦留存、存量、调用；调用边亮起后停在提取节点。","seconds":20.349388},{"ch":2,"title":"调用不等于适用","focus":["call","fit","apply"],"links":["call>fit","fit>apply"],"voice":"调出一个方法后，还要判断当前任务的目标、对象、环境和限制条件。方法适用才有条件进入实际应用，必要时先调整；不适用就不该直接套用。知道一个方法和能用它解决眼前问题，是两件事。","key":"调得出 ≠ 适用 ≠ 实际应用","visual":"graph","motion":"沿三节点逐级点亮，适用条件以虚线和停顿强调。","seconds":19.722449},{"ch":2,"title":"应用效果必须检验","focus":["apply","new","feedback"],"links":["apply>new","new>feedback"],"voice":"实际应用使既有成果进入新的行动，但结果可能改善，也可能不变甚至变差。要观察投入、数量、质量、可以处理的问题范围等，再判断存量是否真的发挥了生产作用。","key":"使用过 ≠ 发挥了生产性","visual":"graph","motion":"应用到新产出；紫色反馈线由结果反向返回，强调条件。","seconds":16.770612},{"ch":3,"title":"把新成果重新放进循环","focus":["new","reinvest","base","call","fit","apply","screen","retain","stock"],"links":["new>reinvest","reinvest>base","base>call","call>fit","fit>apply","apply>new","reinvest>screen","screen>retain","retain>stock"],"voice":"如果后续行动创造了新的有效成果，并经过筛选、留存或再投入，新的生产性存量才有机会扩大。它又能参与下一轮行动。注意，生产基础扩大不是一次应用直接产生的，而是新成果持续有效进入生产基础。","key":"后续产出 → 再投入 → 生产基础 → 后续生产","visual":"graph","motion":"以绿色箭头闭合强化反馈回路；流动光点沿回路走一圈。","seconds":20.845714},{"ch":3,"title":"复用、线性增长与复利式增长","focus":["base","call","new","reinvest"],"links":["base>call","apply>new","new>reinvest","reinvest>base"],"voice":"复用本身不是复利。假设每期净新增固定，存量会线性增加。若扩大后的生产性存量能提高后续净新增成果，并把有效新增继续纳入生产基础，才具备复利式反馈的条件；它仍可能受到限制。","key":"有复用 ≠ 有复利；强化需要新增重新进入基础","visual":"compound","motion":"并列模拟固定净增与固定比例理想模型；显示各期新增和存量。","seconds":19.147755},{"ch":3,"title":"雪球是隐喻，不是证明","focus":[],"links":[],"voice":"雪球滚动可以帮助想象已有存量扩大后，影响下一轮新增的可能性。但真实的经验、技能、工具、关系有不同的获取、调用和损耗方式。雪球不能证明它们都按同一个速度增长。","key":"雪球只说明强化关系，不是普遍增长公式","visual":"snowball","motion":"雪团每次滚动后变化；右侧说明映射与失效边界。","seconds":17.475918},{"ch":4,"title":"效率只是释放资源的可能","focus":["apply","new","efficiency","allocation"],"links":["apply>new","new>efficiency","efficiency>allocation"],"voice":"当已有工具或技能让同样的任务需要更少投入时，效率提高可能释放时间和精力。但节省下来的时间既可能被用于休息，也可能用于完成更多当前任务，或投入未来能力建设。效率提升不是生产基础扩大的同义词。","key":"效率提升 → 资源释放 → 去向由配置决定","visual":"branch","motion":"从效率释放的同一批资源向三种去处分流，不画成阶梯。","seconds":20.192653},{"ch":4,"title":"再配置决定后续结果","focus":["allocation","resources","action","base"],"links":["allocation>resources","allocation>action","allocation>base"],"voice":"投入更多当前任务可能增加当期产出，却不必然扩大未来生产基础。投入学习、整理工具或建立更好的流程，也要真正形成可持续的有效成果才可能扩大基础。休息和生活本身也可以是合理的资源去向。","key":"当期产出、生产基础、生活价值是不同结果","visual":"graph","motion":"资源配置向行动和生产基础分叉，两边依条件成立。","seconds":20.349388},{"ch":5,"title":"案例：一次视频完成之后","focus":[],"links":[],"voice":"以同一个创作者连续制作同类视频为例。第一次视频完成，产生一次性作品，也产生选题资料、剪辑经验、字幕处理方式和可能复用的代码。作品被发布，不代表这些成果都被留下来了。","key":"案例是机制演示，不是对某人的实证判断","visual":"case1","motion":"以同一位创作者制作第1期为假设；作品与潜在成果分开。","seconds":17.319184},{"ch":5,"title":"把经验变成可调用的工具","focus":[],"links":[],"voice":"他筛选其中未来还有用途的成果，把字幕模板和动画组件保存起来，并记录适用条件。下次遇到类似任务，他能找到组件，却发现新画幅需要调整。调用、适用、实际应用在这个例子中分别发生。","key":"保存组件 → 调用 → 适配新任务 → 使用","visual":"case2","motion":"组件入库，检索后经适配关卡进入第二期；非适用的组件回退。","seconds":19.226122},{"ch":5,"title":"节省时间是否扩大生产基础？","focus":[],"links":[],"voice":"第二期的制作时间减少，释放资源。他可以休息、做下一条视频，或者改进组件的参数和错误处理。只有新能力或新工具有效留存，又改变后续生产条件，强化反馈才可能发生。","key":"同一案例同时区分复用、效率、再投入与复利条件","visual":"case3","motion":"第2期结果分流，改进组件回到工具库；两种其他去向同样保留。","seconds":17.240816},{"ch":6,"title":"学习与记忆在不同位置","focus":["learning","memory","produce","retain","stock","call"],"links":["learning>produce","memory>retain","retain>stock","stock>call","memory>call"],"voice":"学习帮助形成或改变知识与能力，为成果产生提供来源；记忆支持内部成果的留存和提取。它们与增长过程协作，但并不是增长过程的同层步骤。外部文档、代码、工具还依赖其他留存与调用方式。","key":"学习：成果来源｜记忆：留存与提取","visual":"graph","motion":"紫色学习连向成果，记忆一分为二连向留存和提取。","seconds":20.192653},{"ch":6,"title":"反馈不同于修正","focus":["produce","new","feedback","correct","action"],"links":["produce>feedback","new>feedback","feedback>correct","correct>action"],"voice":"反馈提供实际结果与预期之间的信息。得到反馈，不等于行动已经变好。解释反馈、判断原因、调整方法或停止错误行动，是修正机制承担的工作。反馈与修正可以阻止错误经验和无效方法继续被放大。","key":"反馈提供信息；修正改变行动","visual":"feedbackv4","motion":"警报灯、反馈控制台、偏差面板、错误传送带、修正模块与机械臂分别出现；修正后，绿色传送带接替错误输出。","seconds":21.472653},{"ch":6,"title":"维护、更新与淘汰","focus":["maintain","stock","base","limits"],"links":["maintain>stock","maintain>base","limits>stock"],"voice":"存量不是无损保存的。遗忘、技能退化、工具过时和环境变化会削弱它的有效性。维护减少损耗，更新改善适用性，淘汰停止维持不值得留下的部分。必要时，少保留反而能减轻未来负担。","key":"不是留下越多越好，而是维护有效存量","visual":"maintenancev6","motion":"存量货架连接分流装置；维护、更新、淘汰三个独立模块依次展开，合格部件进入优化后的存储架。","seconds":20.427755},{"ch":7,"title":"增长的流入与流出","focus":["stock","retain","maintain","limits"],"links":["retain>stock","maintain>stock","limits>stock"],"voice":"观察某一类可比较的存量时，可以用期末存量等于期初存量加流入减流出的关系。若流入大于损耗，净存量增加；相等则稳定；流出较大则下降。技能等复杂存量不一定能用单一数量测量，这里只是结构模型。","key":"净变化＝有效流入－流出（在同一可比较维度）","visual":"flowv3","motion":"三个透明水位舱分别呈现净流入为正、为零和为负；入口与出口管道分别出现，液面状态并排比较。","seconds":22.752653},{"ch":7,"title":"增长动态不是过程节点","focus":["dynamics","limits","base"],"links":["base>dynamics","limits>dynamics"],"voice":"同一个增长过程可能表现为线性增加、净增量变大、趋于平台甚至衰减。曲线刻画的是被观察对象随时间的变化，并不说明唯一原因。还要区分存量规模、绝对增量和相对增长率。","key":"存量规模、净增量、增长率不能混用","visual":"curvesv3","motion":"四条增长曲线在观测屏上逐一绘制；右侧出现存量规模、绝对增量和相对增长率指标卡，望远镜作为观测装置进入画面。","seconds":19.40898},{"ch":7,"title":"边际收益递减与瓶颈","focus":["limits","dynamics"],"links":["limits>dynamics"],"voice":"边际收益递减讨论的是额外一单位投入所带来的额外收益变小，它不必然意味着总存量下降，也不等于增长率下降。瓶颈、容量与损耗会限制强化回路。扩大存量，不保证永远能以相同速度增长。","key":"边际收益是额外投入的效果；增长速度是时间变化","visual":"marginalplus","motion":"等量投入传送带与产出机器并列出现；产出块从+10递减到+1，下方展示边际收益曲线、瓶颈管道、排队积压与资源损耗。","seconds":20.114286},{"ch":8,"title":"增长没有替你作价值判断","focus":["value","choice","premise","limits","correct"],"links":["value>choice","premise>choice","correct>action","limits>dynamics"],"voice":"如果错误方向上的方法越来越熟练，增长机制也可能放大不希望出现的结果。正向和负向是对后果、方向与代价的评价，不是速度分类。停止一条不值得延续的路径，有时比加速增长更合理。","key":"增长速度不能回答增长是否值得","visual":"hybrid","motion":"从价值判断与修正节点推进，展开错误复制工厂；机器不断复制缺陷，最终由停止按钮打断，再收回关系网络。","seconds":19.644082},{"ch":8,"title":"回到整张关系网络","focus":[],"links":[],"voice":"理解增长机制，不是要求每件事都产生收益或复利。它的价值在于，让值得发展的过去成果成为未来可以使用的资源，从而扩大能做什么、如何去做、怎样安排生活的可能性。人生的目标仍然由价值判断和选择来决定。","key":"让值得的过去，扩大未来的选择空间。","visual":"graph","motion":"镜头拉回完整地图；绿色强化回路亮起，其余区域保留，结尾定格。","seconds":21.55102}];
+let cursor=0;
+const CUES=RAW_CUES.map((cue,index)=>{const start=cursor;cursor+=cue.seconds;return {...cue,index,start,end:cursor}});
+const TOTAL=cursor;
+const SHOTS={
+ 3:{src:'./independent-shots/action-results-retention/cue03-action-result-v1-standalone.html?pause=1',status:'独立 V1 · 待视觉验收',api:'__cue03',kind:'ms'},
+ 4:{src:'./independent-shots/action-results-retention/cue04-screen-retain-v1-standalone.html?pause=1',status:'独立 V1 · 待视觉验收',api:'__cue04',kind:'ms'},
+ 5:{src:'./independent-shots/repetition-accumulation/cue05-stock-accumulation-v1-standalone.html?pause=1',status:'独立 V1 · 待视觉验收',api:'__cue05',kind:'ms'},
+ 6:{src:'./independent-shots/repetition-accumulation/cue06-repetition-accumulation-v1-standalone.html?pause=1',status:'独立 V1 · 待视觉验收',api:'__cue06',kind:'ms'},
+ 7:{src:'./independent-shots/stock-to-production/cue07-stock-productivity-v1-standalone.html',status:'独立 V1 · 待视觉验收',api:'__cue07',kind:'seconds'},
+ 8:{src:'./independent-shots/stock-to-production/cue08-retention-retrieval-v1-standalone.html',status:'独立 V1 · 待视觉验收',api:'__cue08',kind:'seconds'},
+ 9:{src:'./independent-shots/stock-to-production/cue09-call-fit-apply-v1-standalone.html',status:'独立 V1 · 待视觉验收',api:'__cue09',kind:'seconds'},
+ 10:{src:'./independent-shots/stock-to-production/cue10-application-evaluation-v1-standalone.html',status:'独立 V1 · 待视觉验收',api:'__cue10',kind:'seconds'},
+ 11:{src:'./independent-shots/reinforcing-growth/cue11-reinforcing-loop-v1-standalone.html',status:'独立 V1 · 待视觉验收',api:'__cue11',kind:'seconds-running'},
+ 12:{src:'./independent-shots/reinforcing-growth/cue12-linear-vs-compound-v1-standalone.html',status:'独立 V1 · 待视觉验收',api:'__cue12',kind:'seconds-running'},
+ 13:{src:'./independent-shots/reinforcing-growth/cue13-snowball-metaphor-v1-standalone.html',status:'独立 V1 · 待视觉验收',api:'__cue13',kind:'seconds-running'},
+ 14:{src:'./independent-shots/reinforcing-growth/cue14-efficiency-resource-allocation-v1-standalone.html',status:'独立 V1 · 待视觉验收',api:'__cue14',kind:'seconds-running'},
+ 20:{src:'./independent-shots/feedback-correction/feedback-correction-v4-embedded.html',status:'反馈与修正 V4 · 已确认，待整片复核',api:'__feedbackCorrectionV4',kind:'ms'},
+ 21:{src:'./independent-shots/maintenance-update-retirement/maintenance-update-retirement-v6-embedded.html',status:'维护、更新与淘汰 V6 · 已确认',api:'__maintenanceV6',kind:'ms'},
+ 22:{src:'./independent-shots/inflow-outflow/flow-inflow-outflow-v3-embedded.html',status:'流入与流出 V3 · 已确认',api:'__flowInflowV3',kind:'ms'},
+ 23:{src:'./independent-shots/growth-dynamics/growth-dynamics-v3-embedded.html',status:'增长动态 V3 · 已确认',api:'__growthDynamicsV3',kind:'ms'},
+ 24:{src:'./independent-shots/marginal-returns-bottleneck/marginal-returns-v5-embedded.html',status:'边际收益与瓶颈 V5 · 已嵌入，待标签复核',api:'__marginalReturnsV5',kind:'ms'}
+};
+const PLACEHOLDER_STATUS='独立镜头待制作 · 原总片已有旧画面';
+const $=id=>document.getElementById(id);
+const stage=$('stage'),shotFrame=$('shotFrame'),legacyFrame=$('legacyFrame'),placeholder=$('placeholder');
+let master=null,masterReady=false,activeIndex=0,loadedShot='',shotReady=false,legacyReady=false,legacyMode=false,pendingIndex=null,speed=1,lastPaint=0;
+const fmt=(seconds,ms=false)=>{const s=Math.max(0,seconds);const m=Math.floor(s/60),whole=Math.floor(s%60),tenths=Math.floor((s%1)*10);return String(m).padStart(2,'0')+':'+String(whole).padStart(2,'0')+(ms?'.'+String(Math.floor((s%1)*1000)).padStart(3,'0'):'.'+tenths)};
+function statusFor(number){if(SHOTS[number])return SHOTS[number].status;if(number===25)return '7:30 原总片参考镜头';return PLACEHOLDER_STATUS}
+function buildReader(){
+ const host=$('reader');
+ CHAPTERS.forEach((chapter,chapterIndex)=>{
+  const section=document.createElement('section');section.className='chapter';
+  const head=document.createElement('div');head.className='chapter-head';
+  const name=document.createElement('div');name.className='chapter-name';name.textContent=chapter[0]+' · '+chapter[1];
+  const desc=document.createElement('div');desc.className='chapter-desc';desc.textContent=chapter[2];
+  head.append(name,desc);section.append(head);
+  CUES.filter(c=>c.ch===chapterIndex).forEach(cue=>{
+   const article=document.createElement('article');article.className='script-cue';article.id='script-cue-'+(cue.index+1);
+   const select=document.createElement('button');select.type='button';select.className='cue-select';
+   const left=document.createElement('span');left.className='cue-left';
+   const time=document.createElement('span');time.className='cue-time';time.textContent=fmt(cue.start,true)+' – '+fmt(cue.end,true);
+   const title=document.createElement('span');title.className='cue-name';title.textContent=String(cue.index+1).padStart(2,'0')+' · '+cue.title;
+   left.append(time,title);
+   const badge=document.createElement('span');badge.className='cue-badge';badge.textContent=SHOTS[cue.index+1]?(cue.index+1<=14?'V1':'独立镜头'):cue.index+1===25?'参考镜头':'待制作';
+   select.append(left,badge);select.addEventListener('click',()=>{jumpTo(cue.index);article.scrollIntoView({behavior:'smooth',block:'nearest'})});
+   const voice=document.createElement('p');voice.textContent=cue.voice;
+   article.append(select,voice);section.append(article);
+  });
+  host.append(section);
+ });
+}
+function injectShotStyle(frame){
+ try{
+  const doc=frame.contentDocument;if(!doc||!doc.head)return;
+  const style=doc.createElement('style');
+  style.textContent='html,body{width:100%!important;height:100%!important;min-height:0!important;margin:0!important;overflow:hidden!important;background:transparent!important}body{padding:0!important;gap:0!important}.controls,footer.controls,.hint,.status,.footnote{display:none!important}.page{width:100vw!important;height:100vh!important;max-width:none!important;padding:0!important;gap:0!important}.stage{width:100vw!important;height:56.25vw!important;max-height:100vh!important;aspect-ratio:16/9!important;box-shadow:none!important;border-radius:0!important}.frame{box-shadow:none!important}';
+  doc.head.append(style);
+ }catch(e){}
+}
+function injectLegacyStyle(){
+ try{
+  const doc=legacyFrame.contentDocument;if(!doc||!doc.head)return;
+  const style=doc.createElement('style');
+  style.textContent='html,body{margin:0!important;padding:0!important;width:100%!important;height:100%!important;overflow:hidden!important;background:transparent!important}body>header,body>audio,.sidebar,.controls,.seek,.ticks,.status,.notes,dialog{display:none!important}main.grid{display:block!important;max-width:none!important;margin:0!important;padding:0!important}.main{width:100%!important;min-width:0!important}.stageWrap{width:100%!important;border:0!important;border-radius:0!important;box-shadow:none!important;background:transparent!important}.stage{width:100%!important;aspect-ratio:16/9!important;border-radius:0!important}';
+  doc.head.append(style);
+ }catch(e){}
+}
+function showPlaceholder(cue){
+ shotFrame.classList.remove('active');legacyFrame.classList.remove('active');placeholder.classList.add('active');$('loading').classList.remove('active');
+ $('placeholderCode').textContent='CUE '+String(cue.index+1).padStart(2,'0');
+ $('placeholderTitle').textContent=cue.title;
+ $('legacyToggle').classList.add('visible');$('legacyToggle').textContent='查看原总片旧画面';
+}
+function showLegacy(cue){
+ shotFrame.classList.remove('active');placeholder.classList.remove('active');legacyFrame.classList.add('active');$('loading').classList.remove('active');
+ $('legacyToggle').classList.remove('visible');
+ if(!legacyReady)$('loading').classList.add('active');
+}
+function showShot(cue){
+ legacyFrame.classList.remove('active');placeholder.classList.remove('active');shotFrame.classList.add('active');$('legacyToggle').classList.remove('visible');
+ const shot=SHOTS[cue.index+1];
+ if(loadedShot!==shot.src){
+  loadedShot=shot.src;shotReady=false;$('loading').classList.add('active');shotFrame.src=shot.src;
+ }else if(!shotReady){$('loading').classList.add('active')}
+}
+function setActive(index){
+ index=Math.max(0,Math.min(CUES.length-1,index));
+ const changed=index!==activeIndex;activeIndex=index;
+ const cue=CUES[index],number=index+1,status=statusFor(number);
+ $('statusBadge').textContent=status;
+ $('cueMetaTitle').textContent='CUE '+String(number).padStart(2,'0')+' · '+cue.title;
+ $('cueMetaDetail').textContent=fmt(cue.start,true)+' – '+fmt(cue.end,true)+' · '+status;
+ document.querySelectorAll('.script-cue').forEach((el,i)=>el.classList.toggle('active',i===index));
+ if(number===25){legacyMode=true;showLegacy(cue)}
+ else if(SHOTS[number]){legacyMode=false;showShot(cue)}
+ else if(legacyMode){showLegacy(cue)}
+ else{showPlaceholder(cue)}
+ $('prevBtn').disabled=!masterReady||index===0;$('nextBtn').disabled=!masterReady||index===CUES.length-1;
+ if(changed)syncShot();
+}
+function syncShot(){
+ const cue=CUES[activeIndex],number=activeIndex+1,shot=SHOTS[number];
+ if(!shot||!shotReady||!shotFrame.classList.contains('active'))return;
+ try{
+  const win=shotFrame.contentWindow,api=win[shot.api];
+  if(!api)return;
+  const ms=Math.max(0,Math.min(cue.seconds*1000,(master.currentTime-cue.start)*1000));
+  if(shot.kind==='ms')api.sync(ms);
+  else if(shot.kind==='seconds')api.seek(ms/1000);
+  else if(shot.kind==='seconds-running'){api.pause();api.seek(ms/1000)}
+ }catch(e){}
+}
+function refreshFromAudio(){
+ if(!masterReady||!master)return;
+ const t=Math.max(0,Math.min(TOTAL,master.currentTime||0));
+ let index=CUES.findIndex(cue=>t<cue.end);if(index<0)index=CUES.length-1;
+ if(index!==activeIndex)setActive(index);
+ $('seek').value=String(t);$('timeLabel').textContent=fmt(t)+' / '+fmt(TOTAL);
+ syncShot();
+ $('playBtn').textContent=master.paused?'▶ 播放':'Ⅱ 暂停';
+ $('prevBtn').disabled=activeIndex===0;$('nextBtn').disabled=activeIndex===CUES.length-1;
+}
+function jumpTo(index){
+ if(!masterReady||!master){pendingIndex=index;$('status').textContent='音频仍在加载；跳转请求已保留。';return}
+ const win=legacyFrame.contentWindow;
+ try{master.pause();if(typeof win.jump==='function')win.jump(index);else master.currentTime=CUES[index].start}catch(e){master.currentTime=CUES[index].start}
+ refreshFromAudio();
+}
+function checkMaster(){
+ if(masterReady)return;
+ try{
+  const win=legacyFrame.contentWindow;
+  if(!win||!win.document)return;
+  const audio=win.document.getElementById('narrationAudio');
+  if(audio&&audio.readyState>=1&&Number.isFinite(audio.duration)&&audio.duration>0){
+   master=audio;masterReady=true;
+   master.addEventListener('timeupdate',refreshFromAudio);
+   master.addEventListener('seeking',refreshFromAudio);
+   master.addEventListener('play',refreshFromAudio);
+   master.addEventListener('pause',refreshFromAudio);
+   master.addEventListener('ended',refreshFromAudio);
+   $('playBtn').disabled=false;$('prevBtn').disabled=false;$('nextBtn').disabled=false;$('speedBtn').disabled=false;$('seek').disabled=false;
+   $('status').textContent='正式音频已就绪。播放时独立镜头由同一音频时间轴驱动；点击右侧任意段落可直接跳转。';
+   if(pendingIndex!==null){const target=pendingIndex;pendingIndex=null;jumpTo(target)}else{refreshFromAudio()}
+   return;
+  }
+ }catch(e){}
+}
+function onShotLoad(){
+ shotReady=true;injectShotStyle(shotFrame);$('loading').classList.remove('active');syncShot();
+}
+function onLegacyLoad(){
+ legacyReady=true;injectLegacyStyle();$('loading').classList.remove('active');checkMaster();
+}
+shotFrame.addEventListener('load',onShotLoad);
+legacyFrame.addEventListener('load',onLegacyLoad);
+legacyFrame.src='./lecture-unified.html';
+$('legacyToggle').addEventListener('click',()=>{
+ const cue=CUES[activeIndex];legacyMode=!legacyMode;
+ if(legacyMode){showLegacy(cue);if(masterReady){const win=legacyFrame.contentWindow;if(typeof win.jump==='function')win.jump(activeIndex)}}
+ else showPlaceholder(cue);
+});
+$('playBtn').addEventListener('click',()=>{
+ if(!masterReady||!master){$('status').textContent='正式音频尚未加载完成。';return}
+ if(master.paused){if(master.ended||master.currentTime>=TOTAL-.05)jumpTo(0);master.play().catch(()=>{$('status').textContent='音频播放失败，请刷新页面后重试。'})}
+ else master.pause();
+});
+$('prevBtn').addEventListener('click',()=>jumpTo(activeIndex-1));
+$('nextBtn').addEventListener('click',()=>jumpTo(activeIndex+1));
+$('speedBtn').addEventListener('click',()=>{
+ const speeds=[1,1.25,1.5,2,.75],idx=speeds.indexOf(speed);speed=speeds[(idx+1)%speeds.length];
+ if(master)master.playbackRate=speed;$('speedBtn').textContent=speed+'×';
+});
+$('seek').addEventListener('input',e=>{if(masterReady){master.currentTime=Number(e.target.value);refreshFromAudio()}});
+buildReader();setActive(0);
+setInterval(checkMaster,250);
+(function loop(){if(masterReady){const now=performance.now();if(now-lastPaint>35){lastPaint=now;refreshFromAudio()}}requestAnimationFrame(loop)})();
+</script>
+</body>
+</html>
