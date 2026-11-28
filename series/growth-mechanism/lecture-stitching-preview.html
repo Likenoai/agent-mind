@@ -285,7 +285,7 @@ function injectLegacyStyle(){
    const svg=doc.getElementById('viz');if(!svg)return;
    svg.querySelectorAll('g[style]').forEach(group=>{
     const opacity=Number.parseFloat(group.style.opacity);
-    if(!Number.isFinite(opacity)||opacity>=.1)return;
+    if(!Number.isFinite(opacity)||opacity>=.99||opacity===0)return;
     for(const path of group.querySelectorAll('path')){
      const d=path.getAttribute('d')||'';
      const points=[...d.matchAll(/(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)/g)].map(m=>[Number(m[1]),Number(m[2])]);
