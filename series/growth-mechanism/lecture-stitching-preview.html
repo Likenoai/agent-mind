@@ -133,7 +133,7 @@ h1{font-size:25px;letter-spacing:-.035em;margin:4px 0 5px}
 </main>
 
 <div class="footer-note">
- 制作状态说明：Cue 03–14 使用现有独立 V1，当前状态为待视觉验收；Cue 20–24 使用已归档的独立动画版本；Cue 25 保留 7:30 原总片参考动画。其余镜头使用空白占位，表示独立镜头尚未预制。占位镜头的旧版总片画面可通过“查看原总片旧画面”临时对照，不会覆盖占位状态。原始口播、章节顺序、音频和 cue 时长均来自当前 main 分支。
+ 制作状态说明：Cue 01–06 默认保留原总片概念网络画面；Cue 03–06 可切换查看未验收的独立 V1。Cue 07–10 使用用户已验收 V2；Cue 11–14 使用用户已验收 V1；Cue 15–18 使用已找回的 V1，历史浏览器技术验证通过，但仍待知识网络审查。Cue 19 使用空白占位。Cue 20–24 使用已确认的独立动画；Cue 25 保留错误复制工厂；Cue 26 保留完整关系网络收束。画布中的“原总片 / 独立镜头”切换只用于对照，不改变正式总片。原始口播、章节顺序、音频和 cue 时长均不改写。
 </div>
 
 <script>
@@ -143,30 +143,71 @@ let cursor=0;
 const CUES=RAW_CUES.map((cue,index)=>{const start=cursor;cursor+=cue.seconds;return {...cue,index,start,end:cursor}});
 const TOTAL=cursor;
 const SHOTS={
- 3:{src:'./independent-shots/action-results-retention/cue03-action-result-v1-standalone.html?pause=1',status:'独立 V1 · 待视觉验收',api:'__cue03',kind:'ms'},
- 4:{src:'./independent-shots/action-results-retention/cue04-screen-retain-v1-standalone.html?pause=1',status:'独立 V1 · 待视觉验收',api:'__cue04',kind:'ms'},
- 5:{src:'./independent-shots/repetition-accumulation/cue05-stock-accumulation-v1-standalone.html?pause=1',status:'独立 V1 · 待视觉验收',api:'__cue05',kind:'ms'},
- 6:{src:'./independent-shots/repetition-accumulation/cue06-repetition-accumulation-v1-standalone.html?pause=1',status:'独立 V1 · 待视觉验收',api:'__cue06',kind:'ms'},
- 7:{src:'./independent-shots/stock-to-production/cue07-stock-productivity-v1-standalone.html',status:'独立 V1 · 待视觉验收',api:'__cue07',kind:'seconds'},
- 8:{src:'./independent-shots/stock-to-production/cue08-retention-retrieval-v1-standalone.html',status:'独立 V1 · 待视觉验收',api:'__cue08',kind:'seconds'},
- 9:{src:'./independent-shots/stock-to-production/cue09-call-fit-apply-v1-standalone.html',status:'独立 V1 · 待视觉验收',api:'__cue09',kind:'seconds'},
- 10:{src:'./independent-shots/stock-to-production/cue10-application-evaluation-v1-standalone.html',status:'独立 V1 · 待视觉验收',api:'__cue10',kind:'seconds'},
- 11:{src:'./independent-shots/reinforcing-growth/cue11-reinforcing-loop-v1-standalone.html',status:'独立 V1 · 待视觉验收',api:'__cue11',kind:'seconds-running'},
- 12:{src:'./independent-shots/reinforcing-growth/cue12-linear-vs-compound-v1-standalone.html',status:'独立 V1 · 待视觉验收',api:'__cue12',kind:'seconds-running'},
- 13:{src:'./independent-shots/reinforcing-growth/cue13-snowball-metaphor-v1-standalone.html',status:'独立 V1 · 待视觉验收',api:'__cue13',kind:'seconds-running'},
- 14:{src:'./independent-shots/reinforcing-growth/cue14-efficiency-resource-allocation-v1-standalone.html',status:'独立 V1 · 待视觉验收',api:'__cue14',kind:'seconds-running'},
+ 3:{src:'./independent-shots/action-results-retention/cue03-action-result-v1-standalone.html?pause=1',status:'独立 V1 · 待视觉验收（原总片为默认）',api:'__cue03',kind:'ms'},
+ 4:{src:'./independent-shots/action-results-retention/cue04-screen-retain-v1-standalone.html?pause=1',status:'独立 V1 · 待视觉验收（原总片为默认）',api:'__cue04',kind:'ms'},
+ 5:{src:'./independent-shots/repetition-accumulation/cue05-stock-accumulation-v1-standalone.html?pause=1',status:'独立 V1 · 待视觉验收（原总片为默认）',api:'__cue05',kind:'ms'},
+ 6:{src:'./independent-shots/repetition-accumulation/cue06-repetition-accumulation-v1-standalone.html?pause=1',status:'独立 V1 · 待视觉验收（原总片为默认）',api:'__cue06',kind:'ms'},
+ 7:{src:'./independent-shots/stock-to-production/cue07-v2-standalone.html',status:'V2 · 用户已验收',api:'__cue07',kind:'ms',bridge:true},
+ 8:{src:'./independent-shots/stock-to-production/cue08-v2-standalone.html',status:'V2 · 用户已验收',api:'__cue08',kind:'ms',bridge:true},
+ 9:{src:'./independent-shots/stock-to-production/cue09-v2-standalone.html',status:'V2 · 用户已验收',api:'__cue09',kind:'ms',bridge:true},
+ 10:{src:'./independent-shots/stock-to-production/cue10-v2-standalone.html',status:'V2 · 用户已验收',api:'__cue10',kind:'ms',bridge:true},
+ 11:{src:'./independent-shots/reinforcing-growth/cue11-reinforcing-loop-v1-standalone.html',status:'V1 · 用户已验收',api:'__cue11',kind:'seconds-running'},
+ 12:{src:'./independent-shots/reinforcing-growth/cue12-linear-vs-compound-v1-standalone.html',status:'V1 · 用户已验收',api:'__cue12',kind:'seconds-running'},
+ 13:{src:'./independent-shots/reinforcing-growth/cue13-snowball-metaphor-v1-standalone.html',status:'V1 · 用户已验收',api:'__cue13',kind:'seconds-running'},
+ 14:{src:'./independent-shots/reinforcing-growth/cue14-efficiency-resource-allocation-v1-standalone.html',status:'V1 · 用户已验收',api:'__cue14',kind:'seconds-running'},
+ 15:{src:'./independent-shots/reinforcing-growth/cue15-v1-standalone.html',status:'V1 · 历史技术验证通过 · 待知识网络审查',api:'__cue15',kind:'ms',bridge:true},
+ 16:{src:'./independent-shots/reinforcing-growth/cue16-v1-standalone.html',status:'V1 · 历史技术验证通过 · 待知识网络审查',api:'__cue16',kind:'ms',bridge:true},
+ 17:{src:'./independent-shots/reinforcing-growth/cue17-v1-standalone.html',status:'V1 · 历史技术验证通过 · 待知识网络审查',api:'__cue17',kind:'ms',bridge:true},
+ 18:{src:'./independent-shots/reinforcing-growth/cue18-v1-standalone.html',status:'V1 · 历史技术验证通过 · 待知识网络审查',api:'__cue18',kind:'ms',bridge:true},
  20:{src:'./independent-shots/feedback-correction/feedback-correction-v4-embedded.html',status:'反馈与修正 V4 · 已确认，待整片复核',api:'__feedbackCorrectionV4',kind:'ms'},
  21:{src:'./independent-shots/maintenance-update-retirement/maintenance-update-retirement-v6-embedded.html',status:'维护、更新与淘汰 V6 · 已确认',api:'__maintenanceV6',kind:'ms'},
  22:{src:'./independent-shots/inflow-outflow/flow-inflow-outflow-v3-embedded.html',status:'流入与流出 V3 · 已确认',api:'__flowInflowV3',kind:'ms'},
  23:{src:'./independent-shots/growth-dynamics/growth-dynamics-v3-embedded.html',status:'增长动态 V3 · 已确认',api:'__growthDynamicsV3',kind:'ms'},
  24:{src:'./independent-shots/marginal-returns-bottleneck/marginal-returns-v5-embedded.html',status:'边际收益与瓶颈 V5 · 已嵌入，待标签复核',api:'__marginalReturnsV5',kind:'ms'}
+};;
+const PLACEHOLDER_STATUS='待制作 · 统一空白占位';
+const LEGACY_DEFAULT=new Set([1,2,3,4,5,6,25,26]);
+const LEGACY_STATUS={
+ 1:'原总片现有画面 · 概念网络开场',
+ 2:'原总片现有画面 · 方向前提',
+ 3:'原总片现有画面 · 独立 V1 可切换',
+ 4:'原总片现有画面 · 独立 V1 可切换',
+ 5:'原总片现有画面 · 独立 V1 可切换',
+ 6:'原总片现有画面 · 独立 V1 可切换',
+ 25:'原总片现有画面 · 错误复制工厂（7:30）',
+ 26:'原总片现有画面 · 完整关系网络收束'
 };
-const PLACEHOLDER_STATUS='独立镜头待制作 · 原总片已有旧画面';
 const $=id=>document.getElementById(id);
 const stage=$('stage'),shotFrame=$('shotFrame'),legacyFrame=$('legacyFrame'),placeholder=$('placeholder');
-let master=null,masterReady=false,activeIndex=0,loadedShot='',shotReady=false,legacyReady=false,legacyMode=false,pendingIndex=null,speed=1,lastPaint=0;
+let master=null,masterReady=false,activeIndex=-1,loadedShot='',shotReady=false,legacyReady=false,legacyMode=false,pendingIndex=null,speed=1,lastPaint=0;
 const fmt=(seconds,ms=false)=>{const s=Math.max(0,seconds);const m=Math.floor(s/60),whole=Math.floor(s%60),tenths=Math.floor((s%1)*10);return String(m).padStart(2,'0')+':'+String(whole).padStart(2,'0')+(ms?'.'+String(Math.floor((s%1)*1000)).padStart(3,'0'):'.'+tenths)};
-function statusFor(number){if(SHOTS[number])return SHOTS[number].status;if(number===25)return '7:30 原总片参考镜头';return PLACEHOLDER_STATUS}
+function statusFor(number){
+ if(legacyMode)return LEGACY_STATUS[number]||'原总片现有画面';
+ if(SHOTS[number])return SHOTS[number].status;
+ return PLACEHOLDER_STATUS;
+}
+function resourceFor(number){
+ if(legacyMode)return 'lecture-unified.html（原总片画面）';
+ if(SHOTS[number])return SHOTS[number].src.replace(/^\.\//,'');
+ return '无独立资源文件 · 空白占位';
+}
+function badgeFor(number){
+ if(number>=7&&number<=10)return 'V2 · 已验收';
+ if(number>=11&&number<=14)return 'V1 · 已验收';
+ if(number>=15&&number<=18)return 'V1 · 待知识网络审查';
+ if(number>=20&&number<=24)return SHOTS[number].status.split('·')[0].trim();
+ if(number>=3&&number<=6)return '原总片 / V1 备选';
+ if(number===19)return '待制作';
+ if(number===25)return '原总片 · 错误复制工厂';
+ if(number===26)return '原总片 · 网络收束';
+ return '原总片 · 概念网络';
+}
+function updateCueMeta(){
+ const cue=CUES[activeIndex],number=activeIndex+1;
+ $('statusBadge').textContent=badgeFor(number);
+ $('cueMetaTitle').textContent='CUE '+String(number).padStart(2,'0')+' · '+cue.title;
+ $('cueMetaDetail').textContent=fmt(cue.start,true)+' – '+fmt(cue.end,true)+' · '+statusFor(number)+' · 文件：'+resourceFor(number);
+}
 function buildReader(){
  const host=$('reader');
  CHAPTERS.forEach((chapter,chapterIndex)=>{
@@ -182,7 +223,7 @@ function buildReader(){
    const time=document.createElement('span');time.className='cue-time';time.textContent=fmt(cue.start,true)+' – '+fmt(cue.end,true);
    const title=document.createElement('span');title.className='cue-name';title.textContent=String(cue.index+1).padStart(2,'0')+' · '+cue.title;
    left.append(time,title);
-   const badge=document.createElement('span');badge.className='cue-badge';badge.textContent=SHOTS[cue.index+1]?(cue.index+1<=14?'V1':'独立镜头'):cue.index+1===25?'参考镜头':'待制作';
+   const badge=document.createElement('span');badge.className='cue-badge';badge.textContent=badgeFor(cue.index+1);
    select.append(left,badge);select.addEventListener('click',()=>{jumpTo(cue.index);article.scrollIntoView({behavior:'smooth',block:'nearest'})});
    const voice=document.createElement('p');voice.textContent=cue.voice;
    article.append(select,voice);section.append(article);
@@ -190,12 +231,25 @@ function buildReader(){
   host.append(section);
  });
 }
-function injectShotStyle(frame){
+function injectShotStyle(frame,shot){
  try{
   const doc=frame.contentDocument;if(!doc||!doc.head)return;
   const style=doc.createElement('style');
-  style.textContent='html,body{width:100%!important;height:100%!important;min-height:0!important;margin:0!important;overflow:hidden!important;background:transparent!important}body{padding:0!important;gap:0!important}.controls,footer.controls,.hint,.status,.footnote{display:none!important}.page{width:100vw!important;height:100vh!important;max-width:none!important;padding:0!important;gap:0!important}.stage{width:100vw!important;height:56.25vw!important;max-height:100vh!important;aspect-ratio:16/9!important;box-shadow:none!important;border-radius:0!important}.frame{box-shadow:none!important}';
-  doc.head.append(style);
+  let css='html,body{width:100%!important;height:100%!important;min-height:0!important;margin:0!important;overflow:hidden!important;background:transparent!important}body{padding:0!important;gap:0!important}.controls,footer.controls,.hint,.status,.footnote{display:none!important}.page{width:100vw!important;height:100vh!important;max-width:none!important;padding:0!important;gap:0!important}.stage{width:100vw!important;height:56.25vw!important;max-height:100vh!important;aspect-ratio:16/9!important;box-shadow:none!important;border-radius:0!important}.frame{box-shadow:none!important}';
+  if(shot&&shot.bridge){
+   css+='body{display:block!important}body .stage{width:100%!important;height:100%!important;min-height:0!important;max-height:none!important;padding:0!important;aspect-ratio:auto!important;background:transparent!important}body .frame{width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;aspect-ratio:16/9!important;border-radius:0!important;box-shadow:none!important}';
+  }
+  style.textContent=css;doc.head.append(style);
+ }catch(e){}
+}
+function installRuntimeBridge(frame,shot){
+ if(!shot||!shot.bridge)return;
+ try{
+  const doc=frame.contentDocument;if(!doc||!doc.head)return;
+  const script=doc.createElement('script');
+  const apiName=JSON.stringify(shot.api);
+  script.textContent="(()=>{const max=Number(DURATION);const get=id=>document.getElementById(id);window["+apiName+"]={duration:max,sync(ms){const next=Math.max(0,Math.min(max,Number(ms)/1000));current=next;playing=false;last=performance.now();render(current);const seek=get('seek');if(seek)seek.value=current;const time=get('time');if(time)time.textContent=current.toFixed(1)+' / '+max.toFixed(1);const play=get('play');if(play)play.textContent='继续';},pause(){playing=false;last=performance.now();},get time(){return current},get playing(){return playing}};})();";
+  doc.head.append(script);
  }catch(e){}
 }
 function injectLegacyStyle(){
@@ -214,11 +268,18 @@ function showPlaceholder(cue){
 }
 function showLegacy(cue){
  shotFrame.classList.remove('active');placeholder.classList.remove('active');legacyFrame.classList.add('active');$('loading').classList.remove('active');
- $('legacyToggle').classList.remove('visible');
+ const number=cue.index+1;
+ if(SHOTS[number]){
+  $('legacyToggle').classList.add('visible');
+  $('legacyToggle').textContent='查看独立镜头版本';
+ }else{
+  $('legacyToggle').classList.remove('visible');
+ }
  if(!legacyReady)$('loading').classList.add('active');
 }
 function showShot(cue){
- legacyFrame.classList.remove('active');placeholder.classList.remove('active');shotFrame.classList.add('active');$('legacyToggle').classList.remove('visible');
+ legacyFrame.classList.remove('active');placeholder.classList.remove('active');shotFrame.classList.add('active');
+ $('legacyToggle').classList.add('visible');$('legacyToggle').textContent='查看原总片旧画面';
  const shot=SHOTS[cue.index+1];
  if(loadedShot!==shot.src){
   loadedShot=shot.src;shotReady=false;$('loading').classList.add('active');shotFrame.src=shot.src;
@@ -227,22 +288,19 @@ function showShot(cue){
 function setActive(index){
  index=Math.max(0,Math.min(CUES.length-1,index));
  const changed=index!==activeIndex;activeIndex=index;
- const cue=CUES[index],number=index+1,status=statusFor(number);
- if(changed&&number!==25)legacyMode=false;
- $('statusBadge').textContent=status;
- $('cueMetaTitle').textContent='CUE '+String(number).padStart(2,'0')+' · '+cue.title;
- $('cueMetaDetail').textContent=fmt(cue.start,true)+' – '+fmt(cue.end,true)+' · '+status;
+ const cue=CUES[index],number=index+1;
+ if(changed)legacyMode=LEGACY_DEFAULT.has(number);
+ updateCueMeta();
  document.querySelectorAll('.script-cue').forEach((el,i)=>el.classList.toggle('active',i===index));
- if(number===25){legacyMode=true;showLegacy(cue)}
- else if(SHOTS[number]){legacyMode=false;showShot(cue)}
- else if(legacyMode){showLegacy(cue)}
- else{showPlaceholder(cue)}
+ if(legacyMode)showLegacy(cue);
+ else if(SHOTS[number])showShot(cue);
+ else showPlaceholder(cue);
  $('prevBtn').disabled=!masterReady||index===0;$('nextBtn').disabled=!masterReady||index===CUES.length-1;
  if(changed)syncShot();
 }
 function syncShot(){
  const cue=CUES[activeIndex],number=activeIndex+1,shot=SHOTS[number];
- if(!shot||!shotReady||!shotFrame.classList.contains('active'))return;
+ if(!shot||!shotReady||loadedShot!==shot.src||!shotFrame.classList.contains('active'))return;
  try{
   const win=shotFrame.contentWindow,api=win[shot.api];
   if(!api)return;
@@ -289,7 +347,11 @@ function checkMaster(){
  }catch(e){}
 }
 function onShotLoad(){
- shotReady=true;injectShotStyle(shotFrame);$('loading').classList.remove('active');syncShot();
+ const shot=Object.values(SHOTS).find(item=>item.src===loadedShot);
+ shotReady=true;
+ injectShotStyle(shotFrame,shot);
+ if(shot&&shot.bridge)installRuntimeBridge(shotFrame,shot);
+ $('loading').classList.remove('active');syncShot();
 }
 function onLegacyLoad(){
  legacyReady=true;injectLegacyStyle();$('loading').classList.remove('active');checkMaster();
@@ -298,9 +360,11 @@ shotFrame.addEventListener('load',onShotLoad);
 legacyFrame.addEventListener('load',onLegacyLoad);
 legacyFrame.src='./lecture-unified.html';
 $('legacyToggle').addEventListener('click',()=>{
- const cue=CUES[activeIndex];legacyMode=!legacyMode;
- if(legacyMode){showLegacy(cue)}
+ const cue=CUES[activeIndex],number=activeIndex+1;legacyMode=!legacyMode;
+ if(legacyMode)showLegacy(cue);
+ else if(SHOTS[number])showShot(cue);
  else showPlaceholder(cue);
+ updateCueMeta();syncShot();
 });
 $('playBtn').addEventListener('click',()=>{
  if(!masterReady||!master){$('status').textContent='正式音频尚未加载完成。';return}
