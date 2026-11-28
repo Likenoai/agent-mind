@@ -133,7 +133,7 @@ h1{font-size:25px;letter-spacing:-.035em;margin:4px 0 5px}
 </main>
 
 <div class="footer-note">
- 制作状态说明：Cue 01–06 默认保留原总片概念网络画面；Cue 03–06 可切换查看未验收的独立 V1。Cue 07–10 使用用户已验收 V2；Cue 11–14 使用用户已验收 V1；Cue 15–18 使用已找回的 V1，历史浏览器技术验证通过，但仍待知识网络审查。Cue 19 使用空白占位。Cue 20–24 使用已确认的独立动画；Cue 25 保留错误复制工厂；Cue 26 保留完整关系网络收束。画布中的“原总片 / 独立镜头”切换只用于对照，不改变正式总片。原始口播、章节顺序、音频和 cue 时长均不改写。
+ 制作状态说明：Cue 01–06 默认保留原总片概念网络画面；Cue 03–06 可切换查看未验收的独立 V1。Cue 07–10 使用用户已验收 V2；Cue 11–14 使用用户已验收 V1；Cue 15–18 使用已找回的 V1，历史浏览器技术验证通过，但仍待知识网络审查。Cue 19 使用空白占位。Cue 20–24 使用已确认的独立动画；Cue 25 保留错误复制工厂；Cue 26 保留完整关系网络收束。画布中的“原总片 / 独立镜头”切换只用于对照，不改变正式总片。原始口播、章节顺序、音频和 cue 时长均不改写。本页仅用于全片结构、内容连续性与镜头关系审阅；技术检查通过不等于视觉验收通过，也不代表所有镜头已达到最终视觉质量。
 </div>
 
 <script>
@@ -201,8 +201,8 @@ function resourceFor(number){
  if(SHOTS[number])return SHOTS[number].src.replace(/^\.\//,'');
  return '无独立资源文件 · 空白占位';
 }
-function badgeFor(number){
- if(legacyMode){
+function badgeFor(number,legacy=LEGACY_DEFAULT.has(number)){
+ if(legacy){
   if(number===19)return '原总片旧画面对照';
   if(SHOTS[number])return number>=3&&number<=6?'原总片默认 / V1 备选':'原总片对照';
  }
@@ -216,8 +216,17 @@ function badgeFor(number){
  if(number===26)return '原总片 · 网络收束';
  return '原总片 · 概念网络';
 }
+function updateReaderBadges(){
+ document.querySelectorAll('.script-cue').forEach(article=>{
+  const number=Number(article.id.replace('script-cue-',''));
+  const mode=number===activeIndex+1?legacyMode:LEGACY_DEFAULT.has(number);
+  const badge=article.querySelector('.cue-badge');
+  if(badge)badge.textContent=badgeFor(number,mode);
+ });
+}
 function updateCueMeta(){
  const cue=CUES[activeIndex],number=activeIndex+1;
+ updateReaderBadges();
  $('statusBadge').textContent=badgeFor(number);
  $('cueMetaTitle').textContent='CUE '+String(number).padStart(2,'0')+' · '+cue.title;
  $('cueMetaDetail').textContent=fmt(cue.start,true)+' – '+fmt(cue.end,true)+' · '+statusFor(number)+' · 文件：'+resourceFor(number);
@@ -237,7 +246,7 @@ function buildReader(){
    const time=document.createElement('span');time.className='cue-time';time.textContent=fmt(cue.start,true)+' – '+fmt(cue.end,true);
    const title=document.createElement('span');title.className='cue-name';title.textContent=String(cue.index+1).padStart(2,'0')+' · '+cue.title;
    left.append(time,title);
-   const badge=document.createElement('span');badge.className='cue-badge';badge.textContent=badgeFor(cue.index+1);
+   const badge=document.createElement('span');badge.className='cue-badge';badge.textContent=badgeFor(cue.index+1,LEGACY_DEFAULT.has(cue.index+1));
    select.append(left,badge);select.addEventListener('click',()=>{jumpTo(cue.index);article.scrollIntoView({behavior:'smooth',block:'nearest'})});
    const voice=document.createElement('p');voice.textContent=cue.voice;
    article.append(select,voice);section.append(article);
