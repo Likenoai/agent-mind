@@ -1,0 +1,87 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Cue 11｜把新成果重新放进循环</title>
+<style>
+:root{--ink:#3e2b50;--muted:#887b98;--paper:#fbf8f0;--teal:#32b8bd;--coral:#ef8068;--gold:#efbd45;--green:#80b84b;--line:#e7dfd2}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:#e9e5de;color:var(--ink);font-family:Inter,"Noto Sans SC","Microsoft YaHei",sans-serif}body{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:22px 12px 34px;gap:12px}.stage{width:min(100%,1600px);aspect-ratio:16/9;background:var(--paper);box-shadow:0 22px 60px #30234224;border-radius:8px;overflow:hidden}svg{width:100%;height:100%;display:block}.controls{width:min(100%,1600px);display:flex;align-items:center;gap:12px;background:#fffdf8;border:1px solid #e4dbce;border-radius:18px;padding:10px 14px;box-shadow:0 8px 24px #30234212;color:var(--muted);font-size:13px}button{border:1px solid #d9d0e0;background:#fffdf8;color:var(--ink);border-radius:999px;padding:8px 15px;font-weight:700;cursor:pointer}button:hover{background:#f3eef8}input[type=range]{flex:1;accent-color:#8b72a2;min-width:80px}.time{font-variant-numeric:tabular-nums;white-space:nowrap;min-width:132px}.hint{width:min(100%,1600px);font-size:12px;color:#887e8d;padding:0 6px}@media(max-width:700px){body{padding:6px 0}.stage,.controls{border-radius:0}.controls{gap:6px;padding:8px;font-size:11px}button{padding:7px 10px}.time{min-width:100px}}
+</style></head><body>
+<div class="stage"><svg id="scene" viewBox="0 0 1600 900" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="新成果经过筛选留存并重新进入生产基础，形成强化回路">
+<defs>
+ <linearGradient id="bg11" x2="0" y2="1"><stop stop-color="#fffdf7"/><stop offset="1" stop-color="#f4f0e8"/></linearGradient>
+ <linearGradient id="metal11" x2="0" y2="1"><stop stop-color="#fff0ad"/><stop offset=".48" stop-color="#f4c94d"/><stop offset="1" stop-color="#d99d31"/></linearGradient>
+ <linearGradient id="glass11" x2="0" y2="1"><stop stop-color="#e9faf7"/><stop offset="1" stop-color="#bfe8df"/></linearGradient>
+ <filter id="shadow11" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#3d2b4e" flood-opacity=".16"/></filter>
+ <filter id="glow11"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+ <marker id="arrow11" markerWidth="12" markerHeight="12" refX="9" refY="6" orient="auto"><path d="M0 0L12 6L0 12Z" fill="#80b84b"/></marker>
+ <clipPath id="tankClip11"><rect x="194" y="345" width="260" height="238" rx="22"/></clipPath>
+</defs>
+<rect width="1600" height="900" fill="url(#bg11)"/><text x="88" y="62" fill="#9385a0" font-size="16" font-weight="800" letter-spacing="3">REINFORCING LOOP / 11</text><text x="88" y="119" fill="#3e2b50" font-size="42" font-weight="850">把新成果重新放进循环</text><text x="90" y="157" fill="#887b98" font-size="20" font-weight="600">有效成果经过筛选与留存，才可能扩大下一轮的生产基础</text>
+<rect x="62" y="190" width="1476" height="570" rx="30" fill="#fffdfa" stroke="#e7dfd2" stroke-width="2" filter="url(#shadow11)"/>
+<!-- upper route / loop -->
+<path d="M1230 456 C1435 390 1420 245 1210 245 H590 C430 245 340 275 322 342" fill="none" stroke="#d8d0df" stroke-width="12" stroke-linecap="round" stroke-dasharray="3 20"/>
+<path id="loopGlow11" d="M1230 456 C1435 390 1420 245 1210 245 H590 C430 245 340 275 322 342" fill="none" stroke="#80b84b" stroke-width="5" stroke-linecap="round" stroke-dasharray="12 16" opacity=".85"/>
+<text x="810" y="226" text-anchor="middle" fill="#80a34f" font-size="16" font-weight="800" letter-spacing="2">REINVEST / 再投入</text>
+<!-- stock reservoir -->
+<g filter="url(#shadow11)"><rect x="170" y="338" width="310" height="270" rx="28" fill="url(#glass11)" stroke="#3e2b50" stroke-width="8"/><rect x="188" y="357" width="274" height="232" rx="18" fill="#f6fffb" stroke="#9ecfc2" stroke-width="2"/></g>
+<text x="325" y="322" text-anchor="middle" fill="#3e2b50" font-size="21" font-weight="800">生产基础 / 存量</text>
+<g id="baseBlocks11">
+ <g id="baseBlockA11"><rect x="220" y="502" width="76" height="60" rx="13" fill="#6ec4b8" stroke="#328c87" stroke-width="3"/><path d="M238 532h40" stroke="#fff" stroke-width="5" stroke-linecap="round"/></g>
+ <g id="baseBlockB11"><rect x="312" y="502" width="76" height="60" rx="13" fill="#6ec4b8" stroke="#328c87" stroke-width="3"/><path d="M330 532h40" stroke="#fff" stroke-width="5" stroke-linecap="round"/></g>
+ <g id="baseBlockC11" opacity="0"><rect x="220" y="425" width="76" height="60" rx="13" fill="#80b84b" stroke="#578a31" stroke-width="3"/><path d="M238 455h40" stroke="#fff" stroke-width="5" stroke-linecap="round"/></g>
+ <g id="baseBlockD11" opacity="0"><rect x="312" y="425" width="76" height="60" rx="13" fill="#80b84b" stroke="#578a31" stroke-width="3"/><path d="M330 455h40" stroke="#fff" stroke-width="5" stroke-linecap="round"/></g>
+</g>
+<text id="baseCount11" x="325" y="575" text-anchor="middle" fill="#438d78" font-size="16" font-weight="800">当前生产基础 · 2 份</text>
+<!-- engine -->
+<g filter="url(#shadow11)"><rect x="650" y="360" width="330" height="230" rx="34" fill="#f5d15c" stroke="#4b3659" stroke-width="9"/><rect x="678" y="388" width="274" height="174" rx="24" fill="#fff8e8" stroke="#e6a83a" stroke-width="4"/></g>
+<text x="815" y="337" text-anchor="middle" fill="#3e2b50" font-size="21" font-weight="800">后续生产 / 行动</text>
+<g id="gear11" transform="translate(815 475)"><circle r="68" fill="#ead9a8" stroke="#654d71" stroke-width="13"/><circle r="48" fill="#fffaf0" stroke="#654d71" stroke-width="8"/><circle r="20" fill="#39b7bd" stroke="#3e2b50" stroke-width="6"/><g stroke="#654d71" stroke-width="14" stroke-linecap="round"><path d="M0 -66V-83M0 66V83M66 0H83M-66 0H-83M47 -47L60 -60M-47 47L-60 60M47 47L60 60M-47 -47L-60 -60"/></g></g>
+<path d="M480 470H642" stroke="#32b8bd" stroke-width="14" stroke-linecap="round"/><path d="M482 470H638" stroke="#e5ffff" stroke-width="3" stroke-dasharray="10 12"/>
+<text x="560" y="438" text-anchor="middle" fill="#26999d" font-size="15" font-weight="800">调用生产基础</text>
+<!-- output conveyor -->
+<path d="M980 470H1180" stroke="#574262" stroke-width="20" stroke-linecap="round"/><path d="M988 470H1174" stroke="#b2a3bd" stroke-width="3" stroke-dasharray="8 14"/>
+<g id="outputTokens11">
+ <g id="outTokenA11"><rect x="1000" y="435" width="48" height="48" rx="10" fill="#ef8068" stroke="#a94f4a" stroke-width="3"/><path d="M1011 459h26" stroke="#fff" stroke-width="4" stroke-linecap="round"/></g>
+ <g id="outTokenB11"><rect x="1065" y="435" width="48" height="48" rx="10" fill="#ef8068" stroke="#a94f4a" stroke-width="3"/><path d="M1076 459h26" stroke="#fff" stroke-width="4" stroke-linecap="round"/></g>
+ <g id="outTokenC11"><rect x="1130" y="435" width="48" height="48" rx="10" fill="#ef8068" stroke="#a94f4a" stroke-width="3"/><path d="M1141 459h26" stroke="#fff" stroke-width="4" stroke-linecap="round"/></g>
+</g>
+<!-- screening gate -->
+<g filter="url(#shadow11)"><rect x="1190" y="345" width="250" height="265" rx="28" fill="#fff8ed" stroke="#e7b84a" stroke-width="7"/><path d="M1220 405H1410" stroke="#d9c7a3" stroke-width="12" stroke-linecap="round"/><path d="M1240 405l25 55 25-55 25 55 25-55 25 55 25-55" fill="none" stroke="#d89e38" stroke-width="7" stroke-linejoin="round"/></g>
+<text x="1315" y="322" text-anchor="middle" fill="#3e2b50" font-size="21" font-weight="800">筛选与留存</text>
+<text x="1315" y="515" text-anchor="middle" fill="#b57c2c" font-size="17" font-weight="750">有效成果</text>
+<g id="acceptedToken11" opacity="0"><rect x="1289" y="536" width="52" height="46" rx="11" fill="#80b84b" stroke="#548a32" stroke-width="3"/><path d="M1301 559h28" stroke="#fff" stroke-width="4" stroke-linecap="round"/></g>
+<path id="returnPath11" d="M1315 585 C1315 690 1150 700 1040 700 H330 C260 700 240 650 240 610 V570" fill="none" stroke="#80b84b" stroke-width="8" stroke-linecap="round" stroke-dasharray="14 14" marker-end="url(#arrow11)" opacity=".35"/>
+<g id="returnPulse11"><circle r="10" fill="#80b84b" stroke="#fff" stroke-width="4" filter="url(#glow11)"/></g>
+<text x="780" y="700" text-anchor="middle" fill="#6d9e43" font-size="16" font-weight="800">留存成果重新进入生产基础</text>
+<text x="1320" y="645" text-anchor="middle" fill="#a28caa" font-size="14">未进入本轮生产基础</text>
+<!-- bottom thesis -->
+<rect x="190" y="790" width="1220" height="66" rx="20" fill="#fffdfa" stroke="#e7dfd2" stroke-width="2"/><text x="800" y="832" text-anchor="middle" fill="#3e2b50" font-size="25" font-weight="850">后续产出 → 再投入 → 生产基础 → 后续生产</text>
+<text id="phase11" x="800" y="745" text-anchor="middle" fill="#8a7b98" font-size="17" font-weight="700">新的有效成果，先经过筛选</text>
+</svg></div>
+<div class="controls"><button id="play">暂停</button><button id="restart">重新播放</button><span class="time" id="time">00:00.0 / 020.8s</span><input id="seek" type="range" min="0" max="20.845714" step="0.01" value="0"><span id="state">播放中</span></div>
+<div class="hint">独立镜头预制版 · 1600×900 · SVG + JavaScript + CSS · 原始 cue 时长 20.845714s · 口播将在视觉验收后重新组织</div>
+<script>
+(()=>{
+const D=20.845714, svg=document.querySelector('svg'), seek=document.getElementById('seek'), time=document.getElementById('time'), play=document.getElementById('play'), state=document.getElementById('state');
+let start=performance.now(), elapsed=0, running=true, raf=0;
+const $=id=>document.getElementById(id), clamp=(x,a=0,b=1)=>Math.max(a,Math.min(b,x)), smooth=x=>{x=clamp(x);return x*x*(3-2*x)}, lerp=(a,b,t)=>a+(b-a)*t;
+function set(id,attr,val){const e=$(id);if(e)e.setAttribute(attr,val)}
+function text(id,val){const e=$(id);if(e)e.textContent=val}
+function opacity(id,v){set(id,'opacity',clamp(v))}
+function transform(id,v){set(id,'transform',v)}
+function render(t){
+ const p=t/20.845714;
+ const spin=t*38;set('gear11','transform',`translate(815 475) rotate(${spin})`);
+ // Output units travel at a constant size along the belt, then one selected unit returns.
+ const cycle=clamp((t-3.2)/5.8); const x0=1000;
+ ['outTokenA11','outTokenB11','outTokenC11'].forEach((id,i)=>{let q=clamp((t-(2.8+i*.7))/3.2);let x=1000+q*190;transform(id,`translate(${x-1000} 0)`);opacity(id,1-q*.92)});
+ const accepted=clamp((t-6.1)/2.2);opacity('acceptedToken11',accepted*(1-clamp((t-10.2)/1.4)));
+ const returnQ=clamp((t-8.2)/4.7);const path=$('returnPath11');if(path&&returnQ>0&&returnQ<1){const pt=path.getPointAtLength(path.getTotalLength()*returnQ);set('returnPulse11','transform',`translate(${pt.x} ${pt.y})`)}opacity('returnPulse11',returnQ>0&&returnQ<1?1:0);set('returnPath11','stroke-dashoffset',-t*32);
+ let grow=smooth((t-12.3)/3.2);opacity('baseBlockC11',grow);opacity('baseBlockD11',grow*.9);text('baseCount11',grow>.7?'当前生产基础 · 扩大':'当前生产基础 · 2 份');
+ const second=smooth((t-15.5)/3.0);set('loopGlow11','stroke-dashoffset',-t*42);set('loopGlow11','opacity',.3+second*.65);
+ text('phase11',t<5?'行动产生新的成果':t<9?'成果进入筛选与留存':t<14?'有效成果重新进入生产基础':'扩大后的基础，参与下一轮行动');
+}
+function frame(now){if(running)elapsed=Math.min(D,(now-start)/1000);render(elapsed);seek.value=elapsed;time.textContent=`${String(Math.floor(elapsed/60)).padStart(2,'0')}:${(elapsed%60).toFixed(1).padStart(4,'0')} / ${D.toFixed(1)}s`;if(elapsed>=D){running=false;play.textContent='播放';state.textContent='已结束'}raf=requestAnimationFrame(frame)}
+play.addEventListener('click',()=>{if(running){running=false;play.textContent='继续';state.textContent='已暂停'}else{if(elapsed>=D)elapsed=0;start=performance.now()-elapsed*1000;running=true;play.textContent='暂停';state.textContent='播放中'}});
+document.getElementById('restart').addEventListener('click',()=>{elapsed=0;start=performance.now();running=true;play.textContent='暂停';state.textContent='播放中';render(0)});
+seek.addEventListener('input',()=>{elapsed=+seek.value;start=performance.now()-elapsed*1000;render(elapsed);time.textContent=`00:${elapsed.toFixed(1).padStart(4,'0')} / ${D.toFixed(1)}s`;if(!running)state.textContent='已暂停'});
+render(0);raf=requestAnimationFrame(frame);window.__cue11={duration:D,render,play:()=>{running=true;start=performance.now()-elapsed*1000},pause:()=>running=false,seek:t=>{elapsed=clamp(t,0,D);start=performance.now()-elapsed*1000;render(elapsed)},get time(){return elapsed}};
+})();
+</script></body></html>
